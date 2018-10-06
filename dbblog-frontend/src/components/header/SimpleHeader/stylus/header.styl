@@ -1,0 +1,284 @@
+/* t */
+@import "../../../../common/stylus/theme.styl";
+
+/* common */
+a
+  text-decoration: none
+  color: $color-secondary-info
+
+#nav
+  .nav-link
+    cursor: pointer
+  .nav-dropdown-container
+    .nav-link
+      &:hover:not(.current)
+        border-bottom: none
+    &:hover
+      .nav-dropdown
+        display: block
+    &.language, &.ecosystem
+      margin-left: 20px
+    .arrow
+      pointer-events: none
+  .nav-dropdown
+    display: none
+    box-sizing: border-box
+    max-height: "calc(100vh - %s)" % $header-height
+    overflow-y: auto
+    position: absolute
+    top: 100%
+    right: -40px
+    background-color: #fff
+    padding: 10px 0
+    border: 1px solid #ddd
+    border-bottom-color: #ccc
+    text-align: left
+    border-radius: 4px
+    white-space: nowrap
+    li
+      line-height: 1.8em
+      margin: 0
+      display: block
+      > ul
+        padding-left: 0
+      &:first-child
+        h4
+          margin-top: 0
+          padding-top: 0
+          border-top: 0
+    a, h4
+      padding: 0 24px 0 20px
+    h4
+      // text-transform: uppercase
+      margin: .45em 0 0
+      padding-top: .45em
+      border-top: 1px solid #eee
+    a
+      color: lighten($dark, 10%)
+      font-size: .9em
+      display: block
+      &:hover
+        color: $color-main-primary
+  .arrow
+    display: inline-block
+    vertical-align: middle
+    margin-top: -1px
+    margin-left: 6px
+    margin-right: -14px
+    width: 0
+    height: 0
+    border-left: 4px solid transparent
+    border-right: 4px solid transparent
+    border-top: 5px solid #ccc
+
+/* _animations */
+.rotating-clockwise
+  animation: 3s rotating-clockwise linear infinite
+
+i.rotating-clockwise
+  display: inline-block
+  animation-duration: 2s
+
+@keyframes rotating-clockwise
+  from
+    transform: rotate(0)
+  to
+    transform: rotate(360deg)
+
+/* header */
+$header-height = 40px
+
+body.docs
+  font-family: $body-font
+  font-size: $body-font-size
+  -webkit-font-smoothing: antialiased
+  -moz-osx-font-smoothing: grayscale
+  background-color: white
+  margin: 0
+  padding-top: $header-height
+  @media screen and (min-width: 992px)
+    padding-top: 60px
+  #header
+    background-color: #fff
+    padding: $heading-padding-vertical 60px
+    z-index: 11
+    position: fixed
+    width: 100%
+    top: 0
+    .title
+      color: $color-gradually-gray-31
+    .motto
+      color: $color-main-primary
+      font-size: 12px
+  #nav
+    position: fixed
+
+#nav
+  list-style-type: none
+  margin: 0
+  padding: 0
+  position: absolute
+  right: 30px
+  top: $heading-padding-vertical
+  height: $header-height
+  line-height: $header-height
+  .break
+    display: none
+  li
+    display: inline-block
+    position: relative
+    margin: 0 .6em
+
+  .nav-dropdown
+    .nav-link
+      &:hover, &.current
+        border-bottom: none
+        color $color-main-primary
+      &.current
+        &::after
+          content: ""
+          width: 0
+          height: 0
+          border-left: 5px solid $color-main-primary
+          border-top: 3px solid transparent
+          border-bottom: 2px solid transparent
+          position: absolute
+          top: 50%
+          margin-top: -4px
+          left: 8px
+
+.nav-link
+  padding-bottom: 3px
+  &:hover, &.current
+    border-bottom: 2px solid $color-main-primary
+    color $color-main-primary
+  &.team, &.contribute
+    margin-left: 10px
+
+.new-label
+  position: absolute
+  top: 3px
+  left: 110%
+  background-color: $color-main-primary
+  color: #fff
+  line-height: 16px
+  height: 16px
+  font-size: 9px
+  font-weight: bold
+  font-family: $code-font
+  padding: 1px 4px 0 6px
+  border-radius: 4px
+
+.search-query
+  height: 30px
+  line-height: 30px
+  box-sizing: border-box
+  padding: 0 15px 0 30px
+  border: 1px solid #e3e3e3
+  color: $dark
+  outline: none
+  border-radius: 15px
+  margin-right: 10px
+
+  background: #fff url(./../../../assets/search.png) 8px 5px no-repeat
+  background-size: 20px
+  vertical-align: middle !important
+  &:focus
+    border-color: $color-main-primary
+
+#logo
+  display: inline-block
+  font-size: 1.5em
+  line-height: $header-height
+  color: $dark
+  font-family: $logo-font
+  font-weight: 500
+  img
+    vertical-align: middle
+    margin-right: 6px
+    width: $header-height
+    height: $header-height
+
+#mobile-bar
+  position: fixed
+  top: 0
+  left: 0
+  width: 100%
+  height: $header-height
+  background-color: #fff
+  z-index: 11
+  display: none
+  box-shadow: 0 0 2px rgba(0,0,0,.25)
+  .menu-button
+    position: absolute
+    cursor pointer
+    width: 24px
+    height: 24px
+    top: 8px
+    left: 12px
+    background: url(./../../../assets/menu.png) center center no-repeat
+    background-size: 24px
+  .logo
+    position: absolute
+    width: 30px
+    height: 30px
+    background: url(./../../../assets/logo.png) center center no-repeat
+    top: 5px
+    left: 50%
+    margin-left: -15px
+    background-size: 30px
+
+/* offline menu */
+.content.menu
+  font-size: 1.2em
+  .menu-root
+    padding-left: 0
+  #search-form, .algolia-autocomplete, input
+    width: 100%
+  .aa-dropdown-menu
+    box-sizing: border-box
+  h3
+    margin: 1.5em 0 .75em
+    &:before, &:after
+      display: none
+  li
+    list-style-type: none
+    margin-top: .1em
+
+/* page */
+
+#header
+  box-shadow: 0 0 1px rgba(0,0,0,.25)
+
+
+#main.fix-sidebar
+  .sidebar
+    position: fixed
+
+@media screen and (min-width: 1590px)
+  #header
+    background-color: rgba(255,255,255,.9)
+
+@media screen and (max-width: 1300px)
+  .content.with-sidebar
+    margin-left: 290px
+
+@media screen and (max-width: 992px)
+  body
+    -webkit-text-size-adjust: none
+    font-size: 14px
+  #header
+    display: none
+  #logo
+    display: none
+  .nav-link
+    padding-bottom: 1px
+    &.current
+      border-bottom: 2px solid $color-main-primary
+      color $color-main-primary
+    &:hover
+      color $color-main-primary
+  #mobile-bar
+    display: block
+  #main
+    padding: 2em 1.4em 0
