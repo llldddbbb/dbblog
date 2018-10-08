@@ -29,11 +29,16 @@ public class OAuth2Realm extends AuthorizingRealm {
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
+        //SysUser user = (SysUser)principals.getPrimaryPrincipal();
+        //Long userId = user.getUserId();
+
+        //用户权限列表
+        //Set<String> permsSet = shiroService.getUserPermissions(userId);
 
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
+        //info.setStringPermissions(permsSet);
         return info;
     }
-
     /**
      * 认证(登录时调用)
      */

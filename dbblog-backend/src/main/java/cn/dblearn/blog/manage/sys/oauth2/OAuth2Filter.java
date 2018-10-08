@@ -2,7 +2,8 @@ package cn.dblearn.blog.manage.sys.oauth2;
 
 
 import cn.dblearn.blog.common.exception.enums.ErrorEnum;
-import cn.dblearn.blog.common.exception.enums.ExceptionEnum;
+import cn.dblearn.blog.common.util.HttpContextUtils;
+import cn.dblearn.blog.common.util.JsonUtils;
 import cn.dblearn.blog.common.util.Result;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -14,7 +15,6 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 
 /**
@@ -56,9 +56,7 @@ public class OAuth2Filter extends AuthenticatingFilter {
             HttpServletResponse httpResponse = (HttpServletResponse) response;
             httpResponse.setHeader("Access-Control-Allow-Credentials", "true");
             httpResponse.setHeader("Access-Control-Allow-Origin", HttpContextUtils.getOrigin());
-
-            String json = new Gson().toJson(R.error(HttpStatus.SC_UNAUTHORIZED, "invalid token"));
-
+            String json = JsonUtils.toJson(Result.error(ErrorEnum.INVALID_TOKEN));
             httpResponse.getWriter().print(json);
 
             return false;
@@ -75,12 +73,11 @@ public class OAuth2Filter extends AuthenticatingFilter {
         httpResponse.setHeader("Access-Control-Allow-Origin", HttpContextUtils.getOrigin());
         try {
             //处理登录失败的异常
-            Throwable throwable = e.getCause() == null ? e : e.getCause();
             Result r = Result.error(ErrorEnum.LOGIN_FAIL);
 
-            String json = new Gson().toJson(r);
+            String json = JsonUtils.toJson(r);
             httpResponse.getWriter().print(json);
-        } catch (IOException e1) {
+        } catch (Exception e1) {
 
         }
 
