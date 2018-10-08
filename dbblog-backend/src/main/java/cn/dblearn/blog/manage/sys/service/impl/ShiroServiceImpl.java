@@ -1,6 +1,6 @@
 package cn.dblearn.blog.manage.sys.service.impl;
 
-import cn.dblearn.blog.manage.sys.service.ShiroService;
+import cn.dblearn.blog.manage.sys.service.IShiroService;
 
 /**
  * ShiroServiceImpl
@@ -10,5 +10,5 @@ import cn.dblearn.blog.manage.sys.service.ShiroService;
  * @email 571002217@qq.com
  * @description Shiro Service实现类
  */
-public class ShiroServiceImpl implements ShiroService {
+public class ShiroServiceImpl implements IShiroService {
 }

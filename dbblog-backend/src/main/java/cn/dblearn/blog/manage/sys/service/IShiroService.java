@@ -8,5 +8,5 @@ package cn.dblearn.blog.manage.sys.service;
  * @email 571002217@qq.com
  * @description service接口类
  */
-public interface ShiroService {
+public interface IShiroService {
 }
