@@ -10,14 +10,14 @@ import lombok.Data;
 
 /**
  * <p>
- * 
+ * 用户管理
  * </p>
  *
  * @author bobbi
  * @since 2018-10-08
  */
 @Data
-@ApiModel(value="SysUser对象", description="")
+@ApiModel(value="SysUser对象", description="用户管理")
 public class SysUser implements Serializable {
 
     private static final long serialVersionUID = 1L;

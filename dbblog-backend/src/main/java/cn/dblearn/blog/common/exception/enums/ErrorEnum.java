@@ -17,7 +17,7 @@ public enum ErrorEnum {
     // 系统错误
     UNKNOWN(500,"系统内部错误，请联系管理员"),
     //用户权限错误
-    NO_AUTH(403,"没有权限，请联系管理员"),
+    NO_AUTH(401,"没有权限，请联系管理员"),
     INVALID_TOKEN(1001,"token不合法"),
     LOGIN_FAIL(10001,"登录失败");
 

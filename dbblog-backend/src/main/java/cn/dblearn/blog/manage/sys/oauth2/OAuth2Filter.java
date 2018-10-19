@@ -73,8 +73,8 @@ public class OAuth2Filter extends AuthenticatingFilter {
         httpResponse.setHeader("Access-Control-Allow-Origin", HttpContextUtils.getOrigin());
         try {
             //处理登录失败的异常
-            Result r = Result.error(ErrorEnum.LOGIN_FAIL);
-
+            Throwable throwable = e.getCause() == null ? e : e.getCause();
+            Result r = Result.error(ErrorEnum.NO_AUTH.getCode(),throwable.getMessage());
             String json = JsonUtils.toJson(r);
             httpResponse.getWriter().print(json);
         } catch (Exception e1) {
