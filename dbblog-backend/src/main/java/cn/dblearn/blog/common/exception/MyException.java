@@ -27,4 +27,9 @@ public class MyException extends RuntimeException{
         this.msg=eEnum.getMsg();
         this.code=eEnum.getCode();
     }
+
+    public MyException(ExceptionEnum eEnum){
+        this.msg=eEnum.getMsg();
+        this.code=eEnum.getCode();
+    }
 }

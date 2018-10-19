@@ -19,7 +19,8 @@ public enum ExceptionEnum{
     PATH_NOT_FOUND(404,"路径不存在，请检查路径"),
     NO_AUTH(403,"没有权限，请联系管理员"),
     DUPLICATE_KEY(501,"数据库中已存在该记录"),
-    TOKEN_GENERATOR_ERROR(502,"token生成失败");
+    TOKEN_GENERATOR_ERROR(502,"token生成失败"),
+    NO_UUID(503,"uuid为空");
 
     private int code;
     private String msg;
