@@ -3,8 +3,8 @@
     <div class="site-content__wrapper">
       <div class="site-content">
         <div class="brand-info">
-          <h2 class="brand-info__text">renren-fast-vue</h2>
-          <p class="brand-info__intro">renren-fast-vue基于vue、element-ui构建开发，实现renren-fast后台管理前端功能，提供一套更优的前端解决方案。</p>
+          <h2 class="brand-info__text">db's Blog</h2>
+          <p class="brand-info__intro">这是一个努力成长中的小小程序猿 and 要永远相信美好的事情即将发生！</p>
         </div>
         <div class="login-main">
           <h3 class="login-title">管理员登录</h3>
@@ -70,7 +70,7 @@ export default {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
           this.$http({
-            url: this.$http.adornUrl('/sys/login'),
+            url: this.$http.adornUrl('/admin/login'),
             method: 'post',
             data: this.$http.adornData({
               'username': this.dataForm.userName,
@@ -79,7 +79,7 @@ export default {
               'captcha': this.dataForm.captcha
             })
           }).then(({data}) => {
-            if (data && data.code === 0) {
+            if (data && data.code === 200) {
               this.$cookie.set('token', data.token)
               this.$router.replace({ name: 'home' })
             } else {
@@ -143,13 +143,12 @@ export default {
       margin:  0 0 22px 0;
       font-size: 48px;
       font-weight: 400;
-      text-transform : uppercase;
     }
     .brand-info__intro {
       margin: 10px 0;
-      font-size: 16px;
+      font-size: 18px;
       line-height: 1.58;
-      opacity: .6;
+      opacity: .7;
     }
     .login-main {
       position: absolute;

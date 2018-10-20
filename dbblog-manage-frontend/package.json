@@ -16,6 +16,7 @@
   "dependencies": {
     "axios": "0.17.1",
     "element-ui": "2.3.2",
+    "lodash": "4.17.5",
     "node-sass": "4.9.0",
     "sass-loader": "6.0.6",
     "svg-sprite-loader": "3.7.3",
