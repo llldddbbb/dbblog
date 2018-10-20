@@ -61,7 +61,7 @@ public class SysLoginController {
 
         // 用户信息
         SysUser user=sysUserService.queryByUsername(form.getUsername());
-        if(user ==null || !user.getPassword().equals(new Sha256Hash(form.getPassword(),user.getSalt()))){
+        if(user ==null || !user.getPassword().equals(new Sha256Hash(form.getPassword(),user.getSalt()).toHex())){
             // 用户名或密码错误
             return Result.error(ErrorEnum.USERNAME_OR_PASSWORD_WRONG);
         }

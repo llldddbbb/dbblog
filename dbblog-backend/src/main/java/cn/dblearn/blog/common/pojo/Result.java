@@ -16,7 +16,7 @@ import java.util.HashMap;
 public class Result extends HashMap<String, Object> {
 
     public Result() {
-        put("code", 0);
+        put("code", 200);
         put("msg", "success");
     }
 
