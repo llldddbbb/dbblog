@@ -1,4 +1,4 @@
-package cn.dblearn.blog.common.util;
+package cn.dblearn.blog.common.pojo;
 
 import cn.dblearn.blog.common.exception.enums.ErrorEnum;
 import cn.dblearn.blog.common.exception.enums.ExceptionEnum;

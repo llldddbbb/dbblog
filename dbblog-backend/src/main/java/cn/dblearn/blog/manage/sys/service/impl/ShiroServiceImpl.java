@@ -1,6 +1,6 @@
 package cn.dblearn.blog.manage.sys.service.impl;
 
-import cn.dblearn.blog.common.util.Constants;
+import cn.dblearn.blog.common.pojo.Constants;
 import cn.dblearn.blog.manage.sys.entity.SysMenu;
 import cn.dblearn.blog.manage.sys.entity.SysUser;
 import cn.dblearn.blog.manage.sys.entity.SysUserToken;

@@ -4,7 +4,7 @@ package cn.dblearn.blog.manage.sys.oauth2;
 import cn.dblearn.blog.common.exception.enums.ErrorEnum;
 import cn.dblearn.blog.common.util.HttpContextUtils;
 import cn.dblearn.blog.common.util.JsonUtils;
-import cn.dblearn.blog.common.util.Result;
+import cn.dblearn.blog.common.pojo.Result;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.web.filter.authc.AuthenticatingFilter;

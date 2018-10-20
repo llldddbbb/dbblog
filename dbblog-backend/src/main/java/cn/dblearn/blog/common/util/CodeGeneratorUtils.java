@@ -22,7 +22,7 @@ import java.util.Scanner;
  * @email 571002217@qq.com
  * @description mybatis-plus提供的代码生成器
  */
-public class CodeGenerator {
+public class CodeGeneratorUtils {
 
     /**
      * <p>
@@ -94,7 +94,7 @@ public class CodeGenerator {
         StrategyConfig strategy = new StrategyConfig();
         strategy.setNaming(NamingStrategy.underline_to_camel);
         strategy.setColumnNaming(NamingStrategy.underline_to_camel);
-        //strategy.setSuperEntityClass("cn.dblearn.blog.manage.sys.entity");
+        //strategy.setSuperEntityClass("cn.dblearn.blog.manage.sys.pojo");
         strategy.setEntityLombokModel(true);
         strategy.setRestControllerStyle(true);
         //strategy.setSuperControllerClass("com.baomidou.ant.common.BaseController");

@@ -1,4 +1,4 @@
-package cn.dblearn.blog.common.util;
+package cn.dblearn.blog.common.pojo;
 
 /**
  * Constants
