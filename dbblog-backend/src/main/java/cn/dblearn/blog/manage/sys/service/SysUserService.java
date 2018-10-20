@@ -1,6 +1,6 @@
 package cn.dblearn.blog.manage.sys.service;
 
-import cn.dblearn.blog.manage.sys.entity.SysUser;
+import cn.dblearn.blog.manage.sys.pojo.entity.SysUser;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -13,4 +13,10 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface SysUserService extends IService<SysUser> {
 
+    /**
+     * 根据用户名查询用户
+     * @param username
+     * @return
+     */
+    SysUser queryByUsername(String username);
 }

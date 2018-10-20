@@ -78,6 +78,6 @@ public class SysCaptchaServiceImpl implements SysCaptchaService {
      * @return
      */
     private String genRedisKey(String uuid){
-        return RedisBaseKeyConstants.CAPTCHA_MANAGE+uuid;
+        return RedisBaseKeyConstants.MANAGE_SYS_CAPTCHA+uuid;
     }
 }

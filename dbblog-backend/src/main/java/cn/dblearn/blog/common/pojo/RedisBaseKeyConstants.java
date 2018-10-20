@@ -10,7 +10,14 @@ package cn.dblearn.blog.common.pojo;
  */
 public class RedisBaseKeyConstants {
 
-    public static String CAPTCHA_MANAGE="CAPTCHA:MANAGE:";
+    /**
+     * 后台管理验证码key
+     */
+    public static String MANAGE_SYS_CAPTCHA="MANAGE:SYS:CAPTCHA:";
 
+    /**
+     * 后台管理用户token key
+     */
+    public static String MANAGE_SYS_USER_TOKEN="MANAGE:SYS:USER:TOKEN:";
 
 }

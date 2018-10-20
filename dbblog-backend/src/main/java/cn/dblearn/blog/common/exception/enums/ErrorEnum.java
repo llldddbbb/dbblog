@@ -19,7 +19,11 @@ public enum ErrorEnum {
     //用户权限错误
     NO_AUTH(401,"没有权限，请联系管理员"),
     INVALID_TOKEN(1001,"token不合法"),
-    LOGIN_FAIL(10001,"登录失败");
+
+    //登录模块错误
+    LOGIN_FAIL(10001,"登录失败"),
+    CAPTCHA_WRONG(10002,"验证码错误"),
+    USERNAME_OR_PASSWORD_WRONG(10003,"用户名或密码错误");
 
     private int code;
     private String msg;

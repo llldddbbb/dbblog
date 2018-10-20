@@ -1,6 +1,6 @@
 package cn.dblearn.blog.manage.sys.mapper;
 
-import cn.dblearn.blog.manage.sys.entity.SysUser;
+import cn.dblearn.blog.manage.sys.pojo.entity.SysUser;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -17,5 +17,10 @@ import java.util.List;
 @Mapper
 public interface SysUserMapper extends BaseMapper<SysUser> {
 
+    /**
+     * 查询用户所有权限
+     * @param userId
+     * @return
+     */
     List<String> queryAllPerms(Integer userId);
 }

@@ -1,19 +1,21 @@
 package cn.dblearn.blog.manage.sys.service.impl;
 
 import cn.dblearn.blog.common.pojo.Constants;
-import cn.dblearn.blog.manage.sys.entity.SysMenu;
-import cn.dblearn.blog.manage.sys.entity.SysUser;
-import cn.dblearn.blog.manage.sys.entity.SysUserToken;
 import cn.dblearn.blog.manage.sys.mapper.SysMenuMapper;
 import cn.dblearn.blog.manage.sys.mapper.SysUserMapper;
-import cn.dblearn.blog.manage.sys.mapper.SysUserTokenMapper;
+import cn.dblearn.blog.manage.sys.pojo.entity.SysMenu;
+import cn.dblearn.blog.manage.sys.pojo.entity.SysUser;
+import cn.dblearn.blog.manage.sys.pojo.entity.SysUserToken;
 import cn.dblearn.blog.manage.sys.service.ShiroService;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import cn.dblearn.blog.manage.sys.service.SysUserTokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -34,7 +36,7 @@ public class ShiroServiceImpl implements ShiroService {
     private SysMenuMapper sysMenuMapper;
 
     @Autowired
-    private SysUserTokenMapper sysUserTokenMapper;
+    private SysUserTokenService sysUserTokenService;
 
     /**
      * 获取用户的所有权限
@@ -72,10 +74,7 @@ public class ShiroServiceImpl implements ShiroService {
      */
     @Override
     public SysUserToken queryByToken(String token) {
-        return sysUserTokenMapper.selectOne(new QueryWrapper<SysUserToken>()
-                .lambda()
-                // 方法当做参数等价于： sysToken -> sysToken.getToken()
-                .eq(SysUserToken :: getToken,token));
+        return sysUserTokenService.queryByToken(token);
     }
 
     /**

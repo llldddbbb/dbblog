@@ -1,7 +1,7 @@
 package cn.dblearn.blog.manage.sys.oauth2;
 
-import cn.dblearn.blog.manage.sys.entity.SysUser;
-import cn.dblearn.blog.manage.sys.entity.SysUserToken;
+import cn.dblearn.blog.manage.sys.pojo.entity.SysUser;
+import cn.dblearn.blog.manage.sys.pojo.entity.SysUserToken;
 import cn.dblearn.blog.manage.sys.service.ShiroService;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
@@ -58,7 +58,7 @@ public class OAuth2Realm extends AuthorizingRealm {
         //根据accessToken，查询用户信息
         SysUserToken tokenEntity = shiroService.queryByToken(accessToken);
         //token失效
-        if(tokenEntity == null || tokenEntity.getExpireTime().getTime() < System.currentTimeMillis()){
+        if(tokenEntity == null){
             throw new IncorrectCredentialsException("token失效，请重新登录");
         }
 
