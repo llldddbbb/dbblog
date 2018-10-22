@@ -1,11 +1,14 @@
 package cn.dblearn.blog.manage.sys.pojo.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
-import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+
+import java.io.Serializable;
+import java.util.List;
 
 /**
  * <p>
@@ -44,6 +47,21 @@ public class SysMenu implements Serializable {
 
     @ApiModelProperty(value = "排序")
     private Integer orderNum;
+
+    /**
+     * 父菜单名称
+     */
+    @TableField(exist=false)
+    private String parentName;
+    /**
+     * z-tree属性
+     */
+    @TableField(exist=false)
+    private Boolean open;
+
+    @TableField(exist=false)
+    private List<?> list;
+
 
 
 }

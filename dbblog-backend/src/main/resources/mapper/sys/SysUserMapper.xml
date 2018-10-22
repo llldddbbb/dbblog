@@ -8,4 +8,11 @@
           left join sys_menu sm on srm.menu_id = sm.menu_id
         where sur.user_id = #{userId}
     </select>
+
+    <!-- 查询用户的所有菜单ID -->
+    <select id="queryAllMenuId" resultType="Integer">
+		select distinct rm.menu_id from sys_user_role ur
+			LEFT JOIN sys_role_menu rm on ur.role_id = rm.role_id
+		where ur.user_id = #{userId}
+	</select>
 </mapper>

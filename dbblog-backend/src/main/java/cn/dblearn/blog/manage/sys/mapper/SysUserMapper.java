@@ -23,4 +23,11 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
      * @return
      */
     List<String> queryAllPerms(Integer userId);
+
+    /**
+     * 查询用户的menuId
+     * @param userId
+     * @return
+     */
+    List<Integer> queryAllMenuId(Integer userId);
 }
