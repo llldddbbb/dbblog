@@ -9,7 +9,7 @@ package cn.dblearn.blog.common.pojo;
  * @description
  */
 public class Constants {
-    public static Integer SUPER_ADMIN=0;
+    public static Integer SUPER_ADMIN=1;
 
     /**
      * 菜单类型

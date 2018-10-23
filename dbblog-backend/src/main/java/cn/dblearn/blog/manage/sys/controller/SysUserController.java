@@ -16,7 +16,7 @@ import org.springframework.stereotype.Controller;
  * @since 2018-10-08
  */
 @Controller
-@RequestMapping("/sys/user")
+@RequestMapping("/admin/user")
 public class SysUserController extends AbstractController{
 
     /**

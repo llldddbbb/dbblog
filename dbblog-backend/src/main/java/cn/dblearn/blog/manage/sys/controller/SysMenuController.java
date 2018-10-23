@@ -22,7 +22,7 @@ import java.util.Set;
  * @since 2018-10-19
  */
 @RestController
-@RequestMapping("/sys/menu")
+@RequestMapping("/admin/menu")
 public class SysMenuController extends AbstractController{
 
     @Autowired
