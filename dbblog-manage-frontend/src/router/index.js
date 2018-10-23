@@ -52,7 +52,7 @@ router.beforeEach((to, from, next) => {
     next()
   } else {
     http({
-      url: http.adornUrl('/admin/menu/nav'),
+      url: http.adornUrl('/admin/sys/menu/nav'),
       method: 'get',
       params: http.adornParams()
     }).then(({data}) => {
@@ -97,9 +97,9 @@ function fnAddDynamicMenuRoutes (menuList = [], routes = []) {
     } else if (menuList[i].url && /\S/.test(menuList[i].url)) {
       menuList[i].url = menuList[i].url.replace(/^\//, '')
       var route = {
-        path: menuList[i].url.replace('/', '-'),
+        path: menuList[i].url.replace(new RegExp('/', 'g'), '-'),
         component: null,
-        name: menuList[i].url.replace('/', '-'),
+        name: menuList[i].url.replace(new RegExp('/', 'g'), '-'),
         meta: {
           menuId: menuList[i].menuId,
           title: menuList[i].name,
