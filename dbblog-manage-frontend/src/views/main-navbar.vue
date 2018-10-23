@@ -2,8 +2,8 @@
   <nav class="site-navbar" :class="'site-navbar--' + navbarLayoutType">
     <div class="site-navbar__header">
       <h1 class="site-navbar__brand" @click="$router.push({ name: 'home' })">
-        <a class="site-navbar__brand-lg" href="javascript:;">人人快速开发平台</a>
-        <a class="site-navbar__brand-mini" href="javascript:;">人人</a>
+        <a class="site-navbar__brand-lg" href="javascript:;">db's Blog</a>
+        <a class="site-navbar__brand-mini" href="javascript:;">DB</a>
       </h1>
     </div>
     <div class="site-navbar__body clearfix">
@@ -101,7 +101,7 @@ export default {
           method: 'post',
           data: this.$http.adornData()
         }).then(({data}) => {
-          if (data && data.code === 0) {
+          if (data && data.code === 200) {
             clearLoginInfo()
             this.$router.push({ name: 'login' })
           }

@@ -19,7 +19,7 @@
     "lodash": "4.17.5",
     "node-sass": "4.9.0",
     "sass-loader": "6.0.6",
-    "svg-sprite-loader": "3.7.3",
+    "svg-sprite-loader": "^3.7.3",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
     "vue-cookie": "1.1.4",
