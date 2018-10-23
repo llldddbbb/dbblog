@@ -51,7 +51,7 @@ public class SysLoginController {
         IOUtils.closeQuietly(out);
     }
 
-    @PostMapping("/admin/login")
+    @PostMapping("/admin/sys/login")
     public Result login(@RequestBody SysLoginForm form) {
         boolean captcha=sysCaptchaService.validate(form.getUuid(),form.getCaptcha());
         if(!captcha){

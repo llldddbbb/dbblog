@@ -58,7 +58,7 @@ public class ShiroConfig {
 
         Map<String, String> filterMap = new LinkedHashMap<>();
         // 两个url规则都可以匹配同一个url，只执行第一个
-        filterMap.put("/admin/login", "anon");
+        filterMap.put("/admin/sys/login", "anon");
         filterMap.put("/admin/**", "oauth2");
         filterMap.put("/**", "anon");
         shiroFilter.setFilterChainDefinitionMap(filterMap);

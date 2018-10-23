@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2018-10-08
  */
 @RestController
-@RequestMapping("/admin/user")
+@RequestMapping("/admin/sys/user")
 public class SysUserController extends AbstractController{
 
     /**
