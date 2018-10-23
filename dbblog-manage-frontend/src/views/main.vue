@@ -46,11 +46,11 @@ export default {
       set (val) { this.$store.commit('user/updateName', val) }
     }
   },
-  created () {
-    this.getUserInfo()
+  created: function () {
+    // this.getUserInfo()
   },
-  mounted () {
-    this.resetDocumentClientHeight()
+  mounted: function () {
+    // this.resetDocumentClientHeight()
   },
   methods: {
     // 重置窗口可视高度
@@ -63,7 +63,7 @@ export default {
     // 获取当前管理员信息
     getUserInfo () {
       this.$http({
-        url: this.$http.adornUrl('/sys/user/info'),
+        url: this.$http.adornUrl('/admin/user/info'),
         method: 'get',
         params: this.$http.adornParams()
       }).then(({data}) => {

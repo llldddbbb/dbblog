@@ -18,7 +18,7 @@ const globalRoutes = [
 // 主入口路由（需嵌套上左右整体布局）
 const mainRoutes = {
   path: '/',
-  components: _import('main'),
+  component: _import('main'),
   name: 'main',
   redirect: { name: 'home' },
   meta: { title: '主入口整体布局' },
@@ -52,7 +52,7 @@ router.beforeEach((to, from, next) => {
     next()
   } else {
     http({
-      url: http.adornUrl('/sys/menu/nav'),
+      url: http.adornUrl('/admin/menu/nav'),
       method: 'get',
       params: http.adornParams()
     }).then(({data}) => {
