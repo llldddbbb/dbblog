@@ -47,10 +47,10 @@ export default {
     }
   },
   created: function () {
-    // this.getUserInfo()
+    this.getUserInfo()
   },
   mounted: function () {
-    // this.resetDocumentClientHeight()
+    this.resetDocumentClientHeight()
   },
   methods: {
     // 重置窗口可视高度
@@ -67,7 +67,7 @@ export default {
         method: 'get',
         params: this.$http.adornParams()
       }).then(({data}) => {
-        if (data && data.code === 0) {
+        if (data && data.code === 200) {
           this.loading = false
           this.userId = data.user.userId
           this.userName = data.user.username

@@ -32,7 +32,7 @@ const mainRoutes = {
   ],
   beforeEnter (to, from, next) {
     let token = Vue.cookie.get('token')
-    if (!token || /\S/.test(token)) { // 正则：非空白就匹配
+    if (!token || !/\S/.test(token)) { // 正则：非空白就匹配
       clearLoginInfo()
       next({ name: 'login' })
     }
@@ -56,7 +56,7 @@ router.beforeEach((to, from, next) => {
       method: 'get',
       params: http.adornParams()
     }).then(({data}) => {
-      if (data && data.code === 0) {
+      if (data && data.code === 200) {
         fnAddDynamicMenuRoutes(data.menuList)
         router.options.isAddDynamicMenuRoutes = true
         sessionStorage.setItem('menuList', JSON.stringify(data.menuList || []))
