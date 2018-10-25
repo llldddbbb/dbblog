@@ -20,7 +20,8 @@ public enum ExceptionEnum{
     NO_AUTH(403,"没有权限，请联系管理员"),
     DUPLICATE_KEY(501,"数据库中已存在该记录"),
     TOKEN_GENERATOR_ERROR(502,"token生成失败"),
-    NO_UUID(503,"uuid为空");
+    NO_UUID(503,"uuid为空"),
+    SQL_ILLEGAL(504,"sql非法");
 
     private int code;
     private String msg;

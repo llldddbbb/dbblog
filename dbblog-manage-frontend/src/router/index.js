@@ -115,6 +115,7 @@ function fnAddDynamicMenuRoutes (menuList = [], routes = []) {
         route['meta']['iframeUrl'] = menuList[i].url
       } else {
         try {
+          // 会同时获取子组件
           route['component'] = _import(`modules/${menuList[i].url}`) || null
         } catch (e) {}
       }

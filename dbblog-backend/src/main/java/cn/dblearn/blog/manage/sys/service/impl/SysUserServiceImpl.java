@@ -1,13 +1,18 @@
 package cn.dblearn.blog.manage.sys.service.impl;
 
+import cn.dblearn.blog.common.util.PageUtils;
+import cn.dblearn.blog.common.util.Query;
 import cn.dblearn.blog.manage.sys.mapper.SysUserMapper;
 import cn.dblearn.blog.manage.sys.pojo.entity.SysUser;
 import cn.dblearn.blog.manage.sys.service.SysUserService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -42,5 +47,23 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     @Override
     public List<Integer> queryAllMenuId(Integer userId) {
         return baseMapper.queryAllMenuId(userId);
+    }
+
+    /**
+     * 分页查询用户信息
+     *
+     * @param params
+     * @return
+     */
+    @Override
+    public PageUtils queryPage(Map<String, Object> params) {
+        String username = (String)params.get("username");
+        Integer createUserId = (Integer)params.get("createUserId");
+        IPage<SysUser> page = baseMapper.selectPage(
+                new Query<SysUser>(params).getPage(),
+                new QueryWrapper<SysUser>().lambda()
+                        .like(StringUtils.isNotBlank(username),SysUser::getUsername, username)
+                        .eq(createUserId != null,SysUser::getCreateUserId, createUserId));
+        return new PageUtils(page);
     }
 }

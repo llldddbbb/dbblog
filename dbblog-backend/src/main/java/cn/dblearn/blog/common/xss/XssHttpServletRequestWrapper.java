@@ -1,4 +1,4 @@
-package io.renren.common.xss;
+package cn.dblearn.blog.common.xss;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
@@ -120,7 +120,7 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
     }
 
     /**
-     * 获取最原始的request
+     * 获取最原始gitrequest
      */
     public HttpServletRequest getOrgRequest() {
         return orgRequest;

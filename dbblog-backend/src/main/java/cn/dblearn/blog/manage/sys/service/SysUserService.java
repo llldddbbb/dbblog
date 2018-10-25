@@ -1,9 +1,11 @@
 package cn.dblearn.blog.manage.sys.service;
 
+import cn.dblearn.blog.common.util.PageUtils;
 import cn.dblearn.blog.manage.sys.pojo.entity.SysUser;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -28,4 +30,11 @@ public interface SysUserService extends IService<SysUser> {
      * @return
      */
     List<Integer> queryAllMenuId(Integer userId);
+
+    /**
+     * 分页查询用户信息
+     * @param params
+     * @return
+     */
+    PageUtils queryPage(Map<String, Object> params);
 }

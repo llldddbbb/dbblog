@@ -1,13 +1,12 @@
-package io.renren.common.xss;
+package cn.dblearn.blog.common.xss;
 
-import io.renren.common.exception.RRException;
-import org.apache.commons.lang.StringUtils;
+import cn.dblearn.blog.common.exception.MyException;
+import cn.dblearn.blog.common.exception.enums.ExceptionEnum;
+import org.springframework.util.StringUtils;
+
 
 /**
- * SQL过滤
- * @author chenshun
- * @email sunlightcs@gmail.com
- * @date 2017-04-01 16:16
+ * 防止SQL注入
  */
 public class SQLFilter {
 
@@ -16,7 +15,7 @@ public class SQLFilter {
      * @param str  待验证的字符串
      */
     public static String sqlInject(String str){
-        if(StringUtils.isBlank(str)){
+        if(StringUtils.isEmpty(str)){
             return null;
         }
         //去掉'|"|;|\字符
@@ -34,7 +33,7 @@ public class SQLFilter {
         //判断是否包含非法字符
         for(String keyword : keywords){
             if(str.indexOf(keyword) != -1){
-                throw new RRException("包含非法字符");
+                throw new MyException(ExceptionEnum.SQL_ILLEGAL);
             }
         }
 

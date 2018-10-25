@@ -111,11 +111,11 @@ export default {
     init (id) {
       this.dataForm.id = id || 0
       this.$http({
-        url: this.$http.adornUrl('/admin/role/select'),
+        url: this.$http.adornUrl('/admin/sys/role/select'),
         method: 'get',
         params: this.$http.adornParams()
       }).then(({data}) => {
-        this.roleList = data && data.code === 0 ? data.list : []
+        this.roleList = data && data.code === 200 ? data.list : []
       }).then(() => {
         this.visible = true
         this.$nextTick(() => {
@@ -124,11 +124,11 @@ export default {
       }).then(() => {
         if (this.dataForm.id) {
           this.$http({
-            url: this.$http.adornUrl(`/admin/user/info/${this.dataForm.id}`),
+            url: this.$http.adornUrl(`/admin/sys/user/info/${this.dataForm.id}`),
             method: 'get',
             params: this.$http.adornParams()
           }).then(({data}) => {
-            if (data && data.code === 0) {
+            if (data && data.code === 200) {
               this.dataForm.userName = data.user.username
               this.dataForm.salt = data.user.salt
               this.dataForm.email = data.user.email
@@ -145,7 +145,7 @@ export default {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
           this.$http({
-            url: this.$http.adornUrl(`/sys/user/${!this.dataForm.id ? 'save' : 'update'}`),
+            url: this.$http.adornUrl(`/admin/sys/user/${!this.dataForm.id ? 'save' : 'update'}`),
             method: 'post',
             data: this.$http.adornData({
               'userId': this.dataForm.id || undefined,

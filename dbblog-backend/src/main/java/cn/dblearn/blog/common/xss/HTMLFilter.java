@@ -1,4 +1,4 @@
-package io.renren.common.xss;
+package cn.dblearn.blog.common.xss;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;

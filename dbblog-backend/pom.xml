@@ -28,7 +28,10 @@
         <shiro.version>1.4.0</shiro.version>
         <swagger.version>2.9.2</swagger.version>
         <kaptcha.version>0.0.9</kaptcha.version>
-        <redis.pool>2.6.0</redis.pool>
+        <redis.pool.version>2.6.0</redis.pool.version>
+        <commons.lang.version>2.6</commons.lang.version>
+        <commons.fileupload.version>1.2.2</commons.fileupload.version>
+        <commons.io.version>2.5</commons.io.version>
     </properties>
 
     <dependencies>
@@ -47,6 +50,21 @@
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger-ui</artifactId>
             <version>${swagger.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>${commons.lang.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>${commons.fileupload.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>${commons.io.version}</version>
         </dependency>
         <!--web相关包-->
         <dependency>
@@ -96,7 +114,7 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-pool2</artifactId>
-            <version>${redis.pool}</version>
+            <version>${redis.pool.version}</version>
         </dependency>
 
     </dependencies>
