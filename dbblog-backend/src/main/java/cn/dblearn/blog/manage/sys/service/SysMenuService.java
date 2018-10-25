@@ -1,6 +1,7 @@
 package cn.dblearn.blog.manage.sys.service;
 
 import cn.dblearn.blog.manage.sys.pojo.entity.SysMenu;
+import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
 
@@ -12,7 +13,7 @@ import java.util.List;
  * @email 571002217@qq.com
  * @description
  */
-public interface SysMenuService {
+public interface SysMenuService extends IService<SysMenu> {
     /**
      * 获取用户的所有菜单
      * @param userId
