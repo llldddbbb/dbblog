@@ -1,14 +1,17 @@
 package cn.dblearn.blog.manage.sys.pojo.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
-import java.time.LocalDateTime;
 import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
+
+import javax.validation.constraints.NotBlank;
 
 /**
  * <p>
@@ -19,16 +22,15 @@ import lombok.experimental.Accessors;
  * @since 2018-10-19
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
 @ApiModel(value="SysRole对象", description="角色")
 public class SysRole implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "role_id", type = IdType.AUTO)
-    private Long roleId;
+    private Integer roleId;
 
+    @NotBlank(message = "角色名称不能为空")
     @ApiModelProperty(value = "角色名称")
     private String roleName;
 
@@ -36,10 +38,12 @@ public class SysRole implements Serializable {
     private String remark;
 
     @ApiModelProperty(value = "创建者ID")
-    private Long createUserId;
+    private Integer createUserId;
 
     @ApiModelProperty(value = "创建时间")
-    private LocalDateTime createTime;
+    private Date createTime;
 
+    @TableField(exist=false)
+    private List<Integer> menuIdList;
 
 }

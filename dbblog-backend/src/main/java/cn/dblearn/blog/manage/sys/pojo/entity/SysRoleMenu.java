@@ -18,21 +18,19 @@ import lombok.experimental.Accessors;
  * @since 2018-10-19
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
 @ApiModel(value="SysRoleMenu对象", description="角色与菜单对应关系")
 public class SysRoleMenu implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "id", type = IdType.AUTO)
-    private Long id;
+    private Integer id;
 
     @ApiModelProperty(value = "角色ID")
-    private Long roleId;
+    private Integer roleId;
 
     @ApiModelProperty(value = "菜单ID")
-    private Long menuId;
+    private Integer menuId;
 
 
 }

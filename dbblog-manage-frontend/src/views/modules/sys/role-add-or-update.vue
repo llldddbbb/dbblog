@@ -74,7 +74,7 @@ export default {
             method: 'get',
             params: this.$http.adornParams()
           }).then(({data}) => {
-            if (data && data.code === 0) {
+            if (data && data.code === 200) {
               this.dataForm.roleName = data.role.roleName
               this.dataForm.remark = data.role.remark
               var idx = data.role.menuIdList.indexOf(this.tempKey)
@@ -93,7 +93,7 @@ export default {
         if (valid) {
           this.$http({
             url: this.$http.adornUrl(`/admin/sys/role/${!this.dataForm.id ? 'save' : 'update'}`),
-            method: 'post',
+            method: !this.dataForm.id ? 'post' : 'put',
             data: this.$http.adornData({
               'roleId': this.dataForm.id || undefined,
               'roleName': this.dataForm.roleName,
@@ -101,7 +101,7 @@ export default {
               'menuIdList': [].concat(this.$refs.menuListTree.getCheckedKeys(), [this.tempKey], this.$refs.menuListTree.getHalfCheckedKeys())
             })
           }).then(({data}) => {
-            if (data && data.code === 0) {
+            if (data && data.code === 200) {
               this.$message({
                 message: '操作成功',
                 type: 'success',

@@ -22,4 +22,10 @@ public interface SysRoleService extends IService<SysRole> {
      * @return
      */
     PageUtils queryPage(Map<String, Object> params);
+
+    /**
+     * 批量删除
+     * @param roleIds
+     */
+    void deleteBatch(Integer[] roleIds);
 }
