@@ -32,6 +32,10 @@ public class Result extends HashMap<String, Object> {
         return new Result().put("code", eEnum.getCode()).put("msg", eEnum.getMsg());
     }
 
+    public static Result error(String msg) {
+        return new Result().put("msg",msg).put("code",ErrorEnum.UNKNOWN.getCode());
+    }
+
     public static Result error(Integer code ,String msg){
         return new Result().put("code",code).put("msg",msg);
     }

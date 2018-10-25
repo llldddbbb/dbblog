@@ -137,7 +137,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
     @Override
     public void delete(Integer menuId) {
         //删除菜单
-        this.delete(menuId);
+        baseMapper.deleteById(menuId);
         //删除菜单与角色关联
         sysRoleMenuService.removeByMap(new MapUtils().put("menu_id",menuId));
     }

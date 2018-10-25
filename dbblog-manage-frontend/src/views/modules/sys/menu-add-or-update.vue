@@ -181,7 +181,7 @@ export default {
         if (valid) {
           this.$http({
             url: this.$http.adornUrl(`/admin/sys/menu/${!this.dataForm.id ? 'save' : 'update'}`),
-            method: 'post',
+            method: !this.dataForm.id ? 'post' : 'put',
             data: this.$http.adornData({
               'menuId': this.dataForm.id || undefined,
               'type': this.dataForm.type,
@@ -193,7 +193,7 @@ export default {
               'icon': this.dataForm.icon
             })
           }).then(({data}) => {
-            if (data && data.code === 0) {
+            if (data && data.code === 200) {
               this.$message({
                 message: '操作成功',
                 type: 'success',

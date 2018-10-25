@@ -32,4 +32,9 @@ public class MyException extends RuntimeException{
         this.msg=eEnum.getMsg();
         this.code=eEnum.getCode();
     }
+
+    public MyException(String exception){
+       this.msg=exception;
+    }
+
 }
