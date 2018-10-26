@@ -27,7 +27,7 @@ import java.io.IOException;
  * @description
  */
 @RestController
-public class SysLoginController {
+public class SysLoginController extends AbstractController{
 
     @Autowired
     private SysCaptchaService sysCaptchaService;
@@ -65,8 +65,20 @@ public class SysLoginController {
             // 用户名或密码错误
             return Result.error(ErrorEnum.USERNAME_OR_PASSWORD_WRONG);
         }
+        if(user.getStatus() ==0){
+            return Result.error("账号已被锁定，请联系管理员");
+        }
 
         //生成token，并保存到redis
         return sysUserTokenService.createToken(user.getUserId());
+    }
+
+    /**
+     * 退出
+     */
+    @PostMapping("/sys/logout")
+    public Result logout() {
+        sysUserTokenService.logout(getUserId());
+        return Result.ok();
     }
 }

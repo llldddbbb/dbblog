@@ -78,14 +78,14 @@ export default {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
           this.$http({
-            url: this.$http.adornUrl('/sys/user/password'),
-            method: 'post',
+            url: this.$http.adornUrl('/admin/sys/user/password'),
+            method: 'put',
             data: this.$http.adornData({
               'password': this.dataForm.password,
               'newPassword': this.dataForm.newPassword
             })
           }).then(({data}) => {
-            if (data && data.code === 0) {
+            if (data && data.code === 200) {
               this.$message({
                 message: '操作成功',
                 type: 'success',

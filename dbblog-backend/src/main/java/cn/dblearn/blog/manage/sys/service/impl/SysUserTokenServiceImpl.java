@@ -72,5 +72,19 @@ public class SysUserTokenServiceImpl implements SysUserTokenService {
         return sysUserToken;
     }
 
+    /**
+     * 退出登录
+     *
+     * @param userId
+     */
+    @Override
+    public void logout(Integer userId) {
+        String userIdKey=RedisBaseKeyConstants.MANAGE_SYS_USER_TOKEN+userId;
+        String token=redisUtils.get(userIdKey);
+        String tokenKey=RedisBaseKeyConstants.MANAGE_SYS_USER_TOKEN+token;
+        redisUtils.delete(userIdKey);
+        redisUtils.delete(tokenKey);
+    }
+
 
 }

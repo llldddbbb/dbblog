@@ -5,7 +5,7 @@ import cn.dblearn.blog.common.pojo.Constants;
 import cn.dblearn.blog.common.util.PageUtils;
 import cn.dblearn.blog.common.util.Query;
 import cn.dblearn.blog.manage.sys.mapper.SysRoleMapper;
-import cn.dblearn.blog.manage.sys.pojo.SysUserRoleService;
+import cn.dblearn.blog.manage.sys.service.SysUserRoleService;
 import cn.dblearn.blog.manage.sys.pojo.entity.SysRole;
 import cn.dblearn.blog.manage.sys.service.SysRoleMenuService;
 import cn.dblearn.blog.manage.sys.service.SysRoleService;
@@ -61,10 +61,21 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
         this.removeByIds(Arrays.asList(roleIds));
 
         //删除角色与菜单关联
-        sysRoleMenuService.deleteBatch(roleIds);
+        sysRoleMenuService.deleteBatchByRoleId(roleIds);
 
         //删除角色与用户关联
-        sysUserRoleService.deleteBatch(roleIds);
+        sysUserRoleService.deleteBatchByRoleId(roleIds);
+    }
+
+    /**
+     * 查询roleId
+     *
+     * @param createUserId
+     * @return
+     */
+    @Override
+    public List<Integer> queryRoleIdList(Integer createUserId) {
+        return baseMapper.queryRoleIdList(createUserId) ;
     }
 
     @Override
@@ -100,7 +111,7 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
      */
     private void checkPrems(SysRole role){
         //如果不是超级管理员，则需要判断角色的权限是否超过自己的权限
-        if(role.getCreateUserId() == Constants.SUPER_ADMIN){
+        if(Constants.SUPER_ADMIN.equals(role.getCreateUserId())){
             return ;
         }
 

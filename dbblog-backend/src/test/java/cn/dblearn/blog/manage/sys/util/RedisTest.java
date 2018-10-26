@@ -1,7 +1,7 @@
 package cn.dblearn.blog.manage.sys.util;
 
 import cn.dblearn.blog.common.util.JsonUtils;
-import com.baomidou.entity.SysUser;
+import cn.dblearn.blog.manage.sys.pojo.entity.SysUser;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

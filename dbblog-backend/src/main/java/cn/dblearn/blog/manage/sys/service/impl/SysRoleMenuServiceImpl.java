@@ -48,7 +48,7 @@ public class SysRoleMenuServiceImpl extends ServiceImpl<SysRoleMenuMapper, SysRo
     }
 
     @Override
-    public void deleteBatch(Integer[] roleIds) {
+    public void deleteBatchByRoleId(Integer[] roleIds) {
         Arrays.stream(roleIds).forEach(roleId -> {
             baseMapper.delete(new UpdateWrapper<SysRoleMenu>().lambda()
                     .eq(roleId!=null,SysRoleMenu::getRoleId,roleId));

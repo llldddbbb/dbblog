@@ -4,6 +4,7 @@ import cn.dblearn.blog.common.util.PageUtils;
 import cn.dblearn.blog.manage.sys.pojo.entity.SysRole;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -28,4 +29,11 @@ public interface SysRoleService extends IService<SysRole> {
      * @param roleIds
      */
     void deleteBatch(Integer[] roleIds);
+
+    /**
+     * 查询roleId
+     * @param createUserId
+     * @return
+     */
+    List<Integer> queryRoleIdList(Integer createUserId);
 }

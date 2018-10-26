@@ -16,9 +16,6 @@
       <el-form-item label="邮箱" prop="email">
         <el-input v-model="dataForm.email" placeholder="邮箱"></el-input>
       </el-form-item>
-      <el-form-item label="手机号" prop="mobile">
-        <el-input v-model="dataForm.mobile" placeholder="手机号"></el-input>
-      </el-form-item>
       <el-form-item label="角色" size="mini" prop="roleIdList">
         <el-checkbox-group v-model="dataForm.roleIdList">
           <el-checkbox v-for="role in roleList" :key="role.roleId" :label="role.roleId">{{ role.roleName }}</el-checkbox>
@@ -132,7 +129,6 @@ export default {
               this.dataForm.userName = data.user.username
               this.dataForm.salt = data.user.salt
               this.dataForm.email = data.user.email
-              this.dataForm.mobile = data.user.mobile
               this.dataForm.roleIdList = data.user.roleIdList
               this.dataForm.status = data.user.status
             }
@@ -158,7 +154,7 @@ export default {
               'roleIdList': this.dataForm.roleIdList
             })
           }).then(({data}) => {
-            if (data && data.code === 0) {
+            if (data && data.code === 200) {
               this.$message({
                 message: '操作成功',
                 type: 'success',

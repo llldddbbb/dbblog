@@ -25,4 +25,10 @@ public interface SysUserTokenService {
      * @return
      */
     SysUserToken queryByToken(String token);
+
+    /**
+     * 退出登录
+     * @param userId
+     */
+    void logout(Integer userId);
 }
