@@ -114,7 +114,7 @@ public class SysMenuController extends AbstractController{
         verifyForm(menu);
 
         sysMenuService.updateById(menu);
-        System.out.println("测试能否合并git");
+
         return Result.ok();
     }
 
