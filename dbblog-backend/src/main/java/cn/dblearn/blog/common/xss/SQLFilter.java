@@ -1,7 +1,7 @@
 package cn.dblearn.blog.common.xss;
 
 import cn.dblearn.blog.common.exception.MyException;
-import cn.dblearn.blog.common.exception.enums.ExceptionEnum;
+import cn.dblearn.blog.common.exception.enums.ErrorEnum;
 import org.springframework.util.StringUtils;
 
 
@@ -33,7 +33,7 @@ public class SQLFilter {
         //判断是否包含非法字符
         for(String keyword : keywords){
             if(str.indexOf(keyword) != -1){
-                throw new MyException(ExceptionEnum.SQL_ILLEGAL);
+                throw new MyException(ErrorEnum.SQL_ILLEGAL);
             }
         }
 

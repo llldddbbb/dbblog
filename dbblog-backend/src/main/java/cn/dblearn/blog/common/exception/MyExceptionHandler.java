@@ -1,6 +1,6 @@
 package cn.dblearn.blog.common.exception;
 
-import cn.dblearn.blog.common.exception.enums.ExceptionEnum;
+import cn.dblearn.blog.common.exception.enums.ErrorEnum;
 import cn.dblearn.blog.common.pojo.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.AuthorizationException;
@@ -37,19 +37,19 @@ public class MyExceptionHandler {
     @ExceptionHandler(NoHandlerFoundException.class)
     public Result handlerNoFoundException(Exception e){
         log.error(e.getMessage(),e);
-        return Result.exception(ExceptionEnum.PATH_NOT_FOUND);
+        return Result.exception(ErrorEnum.PATH_NOT_FOUND);
     }
 
     @ExceptionHandler(DuplicateKeyException.class)
     public Result handleDuplicateKeyException(DuplicateKeyException e){
         log.error(e.getMessage(),e);
-        return Result.exception(ExceptionEnum.DUPLICATE_KEY);
+        return Result.exception(ErrorEnum.DUPLICATE_KEY);
     }
 
     @ExceptionHandler(AuthorizationException.class)
     public Result handleAuthorizationException(AuthorizationException e){
         log.error(e.getMessage(),e);
-        return Result.exception(ExceptionEnum.NO_AUTH);
+        return Result.exception(ErrorEnum.NO_AUTH);
     }
 
     @ExceptionHandler(Exception.class)

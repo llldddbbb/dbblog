@@ -1,7 +1,7 @@
 package cn.dblearn.blog.manage.sys.oauth2;
 
 import cn.dblearn.blog.common.exception.MyException;
-import cn.dblearn.blog.common.exception.enums.ExceptionEnum;
+import cn.dblearn.blog.common.exception.enums.ErrorEnum;
 
 import java.security.MessageDigest;
 import java.util.UUID;
@@ -41,7 +41,7 @@ public class TokenGenerator {
             byte[] messageDigest = algorithm.digest();
             return toHexString(messageDigest);
         } catch (Exception e) {
-            throw new MyException(ExceptionEnum.TOKEN_GENERATOR_ERROR, e);
+            throw new MyException(ErrorEnum.TOKEN_GENERATOR_ERROR, e);
         }
     }
 }

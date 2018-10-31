@@ -1,7 +1,6 @@
 package cn.dblearn.blog.common.pojo;
 
 import cn.dblearn.blog.common.exception.enums.ErrorEnum;
-import cn.dblearn.blog.common.exception.enums.ExceptionEnum;
 
 import java.util.HashMap;
 
@@ -41,10 +40,10 @@ public class Result extends HashMap<String, Object> {
     }
 
     public static Result exception() {
-        return exception(ExceptionEnum.UNKNOWN);
+        return exception(ErrorEnum.UNKNOWN);
     }
 
-    public static Result exception(ExceptionEnum eEnum) {
+    public static Result exception(ErrorEnum eEnum) {
         return new Result().put("code", eEnum.getCode()).put("msg", eEnum.getMsg());
     }
 

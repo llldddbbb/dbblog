@@ -1,6 +1,6 @@
 package cn.dblearn.blog.common.exception;
 
-import cn.dblearn.blog.common.exception.enums.ExceptionEnum;
+import cn.dblearn.blog.common.exception.enums.ErrorEnum;
 import lombok.Data;
 
 /**
@@ -17,18 +17,18 @@ public class MyException extends RuntimeException{
     private int code = 500;
 
     public MyException(){
-        super(ExceptionEnum.UNKNOWN.getMsg());
-        this.msg=ExceptionEnum.UNKNOWN.getMsg();
+        super(ErrorEnum.UNKNOWN.getMsg());
+        this.msg=ErrorEnum.UNKNOWN.getMsg();
     }
 
 
-    public MyException(ExceptionEnum eEnum,Throwable e){
+    public MyException(ErrorEnum eEnum,Throwable e){
         super(eEnum.getMsg(),e);
         this.msg=eEnum.getMsg();
         this.code=eEnum.getCode();
     }
 
-    public MyException(ExceptionEnum eEnum){
+    public MyException(ErrorEnum eEnum){
         this.msg=eEnum.getMsg();
         this.code=eEnum.getCode();
     }

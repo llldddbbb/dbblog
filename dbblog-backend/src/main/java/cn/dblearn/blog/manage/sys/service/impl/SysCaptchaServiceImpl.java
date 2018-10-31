@@ -1,7 +1,7 @@
 package cn.dblearn.blog.manage.sys.service.impl;
 
 import cn.dblearn.blog.common.exception.MyException;
-import cn.dblearn.blog.common.exception.enums.ExceptionEnum;
+import cn.dblearn.blog.common.exception.enums.ErrorEnum;
 import cn.dblearn.blog.common.pojo.RedisBaseKeyConstants;
 import cn.dblearn.blog.common.util.RedisUtils;
 import cn.dblearn.blog.manage.sys.service.SysCaptchaService;
@@ -40,7 +40,7 @@ public class SysCaptchaServiceImpl implements SysCaptchaService {
     @Override
     public BufferedImage getCaptcha(String uuid) {
         if(StringUtils.isEmpty(uuid)){
-            throw new MyException(ExceptionEnum.NO_UUID);
+            throw new MyException(ErrorEnum.NO_UUID);
         }
         //生成文字验证码
         String code = producer.createText();
