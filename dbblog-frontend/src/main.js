@@ -3,6 +3,7 @@ import router from '@/router'
 import 'iview/dist/styles/iview.css'
 import '@/common/stylus/index.styl'
 import App from './App.vue'
+import httpRequest from '@/utils/httpRequest'
 
 // iView UI 组件引入
 import {
@@ -53,6 +54,7 @@ Vue.component('iv-date-picker', DatePicker)
 Vue.component('iv-date-picker-cell', DatePickerCell)
 Vue.component('iv-spin', Spin)
 
+Vue.prototype.$http = httpRequest // Ajax 请求方法
 let vm = new Vue({
   router,
   el: '#app',

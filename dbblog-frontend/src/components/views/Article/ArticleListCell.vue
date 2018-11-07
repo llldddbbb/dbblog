@@ -13,14 +13,14 @@
               <iv-tag color="red">标签四</iv-tag>
               <iv-tag color="yellow">标签五</iv-tag>
             </div>
-            <p class="desc">{{article.desc}}<a href=""> View More
+            <p class="desc">{{article.description}}<a href=""> View More
               <iv-icon type="arrow-right-b"></iv-icon>
             </a></p>
             <p class="operate_info">
-              <span class="publish-time">At time / <a href="">{{article.publish_time}}</a></span>
-              <span class="readings"><a href=""><iv-icon type="eye"></iv-icon> {{article.readings}} 阅读</a></span>
-              <span class="comments"><a href=""><iv-icon type="compose"></iv-icon> {{article.comments}} 评论</a></span>
-              <span class="likes"><a href=""><iv-icon type="heart"></iv-icon> {{article.likes}} 喜欢</a></span>
+              <span class="publish-time">At time / <a href="">{{article.createTime}}</a></span>
+              <span class="readings"><a href=""><iv-icon type="eye"></iv-icon> {{article.readNum}} 阅读</a></span>
+              <span class="comments"><a href=""><iv-icon type="compose"></iv-icon> {{article.commentNum}} 评论</a></span>
+              <span class="likes"><a href=""><iv-icon type="heart"></iv-icon> {{article.likeNum}} 喜欢</a></span>
             </p>
           </div>
         </iv-col>

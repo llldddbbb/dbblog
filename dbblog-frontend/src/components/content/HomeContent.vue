@@ -112,6 +112,21 @@ export default {
     'about': About,
     'friend-links': FriendLinks,
     'side-toc': SideToc
+  },
+  created: function () {
+    this.listHomeArticle()
+  },
+  methods: {
+    listHomeArticle () {
+      this.$http({
+        url: this.$http.adornUrl('/'),
+        method: 'get'
+      }).then(({data}) => {
+        if (data && data.code === 200) {
+          this.articles = data.articles
+        }
+      })
+    }
   }
 }
 </script>
