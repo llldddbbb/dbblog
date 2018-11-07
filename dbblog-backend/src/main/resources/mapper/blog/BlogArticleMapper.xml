@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.dblearn.blog.portal.blog.mapper.BlogArticleMapper">
+
+    <resultMap id="homeArticle" type="cn.dblearn.blog.portal.blog.pojo.vo.BlogArticleVo">
+        <result column="article_id" property="articleId"/>
+        <result column="title" property="title"/>
+        <result column="description" property="description"/>
+        <result column="author" property="author" />
+        <result column="read_num" property="readNum"/>
+        <result column="comment_num" property="commentNum"/>
+        <result column="like_num" property="likeNum"/>
+        <result column="create_time" property="createTime"/>
+        <collection property="tagList" column="article_id" ofType="cn.dblearn.blog.portal.blog.pojo.entity.BlogTag"
+                    select="cn.dblearn.blog.portal.blog.mapper.BlogTagMapper.listByArticleId"/>
+    </resultMap>
+    <sql id="homeArticleColumn">
+        article_id,title,description,author,read_num,comment_num,like_num,create_time
+    </sql>
+    <select id="listHomeArticle" resultMap="homeArticle">
+      select <include refid="homeArticleColumn"/> from blog_article
+    </select>
+</mapper>
