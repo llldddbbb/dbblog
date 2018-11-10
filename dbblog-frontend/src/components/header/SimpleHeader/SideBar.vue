@@ -75,40 +75,6 @@
             </li>
           </ul>
         </li>
-
-        <li>
-          <a href="/v2/guide/team.html" class="nav-link team">菜单</a>
-        </li>
-        <li class="nav-dropdown-container support-vue">
-          <a class="nav-link">菜单</a><span class="arrow"></span>
-          <ul class="nav-dropdown">
-            <li>
-              <ul>
-                <li><a href="https://vue.threadless.com" target="_blank" class="nav-link">菜单</a></li>
-                <li><a href="https://stickeroverflow.org/blog/vue-donation/" target="_blank" class="nav-link">菜单</a>
-                </li>
-                <li><a href="https://opencollective.com/vuejs" target="_blank" class="nav-link">菜单</a></li>
-                <li><a href="https://www.patreon.com/evanyou" target="_blank" class="nav-link">菜单</a>
-                </li>
-              </ul>
-            </li>
-          </ul>
-        </li>
-
-        <li class="nav-dropdown-container language">
-          <a class="nav-link">菜单</a><span class="arrow"></span>
-          <ul class="nav-dropdown">
-            <li><a href="https://vuejs.org/v2/guide/index.html" class="nav-link" target="_blank">菜单</a></li>
-            <li><a href="https://jp.vuejs.org/v2/guide/index.html" class="nav-link" target="_blank">菜单</a></li>
-            <li><a href="https://ru.vuejs.org/v2/guide/index.html" class="nav-link" target="_blank">菜单</a></li>
-            <li><a href="https://kr.vuejs.org/v2/guide/index.html" class="nav-link" target="_blank">菜单</a></li>
-            <li><a href="https://br.vuejs.org/v2/guide/index.html" class="nav-link" target="_blank">菜单</a></li>
-            <li><a href="https://fr.vuejs.org/v2/guide/index.html" class="nav-link" target="_blank">菜单</a></li>
-          </ul>
-        </li>
-
-        <li><a href="https://github.com/vuejs/cn.vuejs.org/" target="_blank" class="nav-link contribute">菜单</a></li>
-
       </ul>
 
     </div>
@@ -117,6 +83,8 @@
 
 <script type="text/ecmascript-6">
 import TOC from '../../../common/js/MarkdownToc'
+// TOC滚动监听
+import TocScrollSpy from '@/common/js/TocScrollSpy'
 
 export default {
   data () {
@@ -127,6 +95,13 @@ export default {
   methods: {
     openSideBar () {
       this.showMobileSideBar = !this.showMobileSideBar
+    },
+    addTocScrollSpy () {
+      /* eslint-disable */
+      new TocScrollSpy('article-main-page', 'sidebar-toc', {
+        'spayLevel': 5,
+        'articleMarginTop': 60
+      });
     },
     refreshMenu () {
       /* eslint-disable */
@@ -139,7 +114,10 @@ export default {
     }
   },
   mounted: function () {
-    this.refreshMenu();
+    setTimeout(() => {
+      this.refreshMenu();
+      this.addTocScrollSpy()
+    }, 20)
   }
 };
 </script>

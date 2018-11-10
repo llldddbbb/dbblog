@@ -6,7 +6,7 @@
           <section-title :mainTitle="'文章'" :subTitle="'Articles'">
             <title-menu-filter slot="menu"></title-menu-filter>
           </section-title>
-          <article-list-cell v-for="article in articles" :article="article" :key="article.title"></article-list-cell>
+          <article-list-cell v-for="article in articleList" :article="article" :key="article.title"></article-list-cell>
           <section-title :mainTitle="'主题'" :subTitle="'Topics'"></section-title>
           <div class="topic-cards">
             <iv-row :gutter="10">
@@ -52,7 +52,7 @@ import SideToc from '@/components/views/SideToc'
 export default {
   data () {
     return {
-      articles: [
+      articleList: [
         {
           'id': 1,
           'title': '被迫向现实低头，再爱也只能到此为止',
@@ -123,7 +123,7 @@ export default {
         method: 'get'
       }).then(({data}) => {
         if (data && data.code === 200) {
-          this.articles = data.articles
+          this.articleList = data.articleList
         }
       })
     }

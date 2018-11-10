@@ -23,6 +23,7 @@ Vue.use(Router)
 
 let router = new Router({
   mode: 'history',
+  scrollBehavior: () => ({ y: 0 }),
   routes: [
     {
       path: '/',
@@ -39,7 +40,7 @@ let router = new Router({
           }
         },
         {
-          path: 'article',
+          path: 'article/:articleId',
           name: 'article',
           components: {
             header: SimpleHeader,

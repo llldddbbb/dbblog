@@ -1,35 +1,43 @@
 <template>
-  <div class="side-toc" id="side-toc">
-    <panel :title="'目录'">
-      <div class="list" slot="content" ref="list">
-        <div class="active-indicator"></div>
-        <ul class="menu-root">
-          <li><a class="tip0 toc-link">Action</a>
-            <ul>
-              <li><a class="tip1 toc-link">分发 Action</a></li>
-              <li><a class="tip2 toc-link">在组件中分发 Action</a></li>
-              <li><a class="tip3 toc-link">组合 Action</a>
-                <ul>
-                  <li><a class="tip4 toc-link">现在你可以</a>
-                    <ul>
-                      <li><a class="tip5 toc-link">另外一个</a></li>
-                    </ul>
-                  </li>
-                </ul>
-              </li>
-              <li><a class="tip6 toc-link">后记</a></li>
-            </ul>
-          </li>
-        </ul>
-      </div>
+  <div class="side-toc" ref="list">
+    <panel :title="'目录'" id="side-toc">
     </panel>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
 import Panel from '@/components/utils/Panel'
-
+import SubSideToc from './SubSideToc'
 export default {
+  data () {
+    return {
+      directoryList: [{
+        name: 'Action',
+        class: 'tip0 toc-link',
+        list: [{
+          name: '分发 Action',
+          class: 'tip1 toc-link'
+        }, {
+          name: '在组件中分发 Action',
+          class: 'tip2 toc-link'
+        }, {
+          name: '组合 Action',
+          class: 'tip3 toc-link',
+          list: [{
+            name: '现在你可以',
+            class: 'tip4 toc-link',
+            list: [{
+              name: '另外一个',
+              class: 'tip5 toc-link'
+            }]
+          }]
+        }, {
+          name: '后记',
+          class: 'tip6 toc-link'
+        }]
+      }]
+    }
+  },
   methods: {
     recalcActive () {
       // 先计算list相对于页面的顶部距离
@@ -62,12 +70,13 @@ export default {
     this.recalcActive()
   },
   components: {
-    'panel': Panel
+    'panel': Panel,
+    SubSideToc
   }
 }
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus" scoped>
+<style lang="stylus" rel="stylesheet/stylus">
   @import "../../common/stylus/theme.styl";
 
   .side-toc
@@ -81,6 +90,7 @@ export default {
     .list
       position relative
       padding 0 25px 15px
+      margin-top 10px
       .active-indicator
         position absolute
         left -1px

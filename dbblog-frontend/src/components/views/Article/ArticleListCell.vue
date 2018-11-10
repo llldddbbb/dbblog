@@ -1,6 +1,6 @@
 <template>
   <div class="article-list-cell">
-    <a href="">
+    <a :href="'article/'+article.articleId">
       <iv-row type="flex">
         <iv-col :xs="24" :sm="24" :md="textSpan" :lg="textSpan" :order="textOrderType" style="padding-left: 0;padding-right: 0;">
           <div class="text-wrapper">
@@ -8,10 +8,7 @@
               <router-link to="/article">{{article.title}}</router-link>
             </h4>
             <div class="tags">
-              <iv-tag color="blue">标签二</iv-tag>
-              <iv-tag color="green">标签三</iv-tag>
-              <iv-tag color="red">标签四</iv-tag>
-              <iv-tag color="yellow">标签五</iv-tag>
+              <iv-tag :color="getTagColor(index)" :key="tag.id" v-for ="(tag , index) in article.tagList">{{tag.tagName}}</iv-tag>
             </div>
             <p class="desc">{{article.description}}<a href=""> View More
               <iv-icon type="arrow-right-b"></iv-icon>
@@ -35,6 +32,7 @@
 </template>
 
 <script type="text/ecmascript-6">
+import { mapTagColor } from '@/utils'
 const ARTICLE_TYPE_BIG_IMAGE = 2
 const ARTICLE_TYPE_NO_IMAGE = 3
 
@@ -42,6 +40,11 @@ export default {
   props: {
     article: {
       Type: Object
+    }
+  },
+  methods: {
+    getTagColor: function (index) {
+      return mapTagColor(index)
     }
   },
   computed: {

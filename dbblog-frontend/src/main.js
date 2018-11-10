@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import router from '@/router'
+import store from '@/store'
 import 'iview/dist/styles/iview.css'
 import '@/common/stylus/index.styl'
 import App from './App.vue'
@@ -57,6 +58,7 @@ Vue.component('iv-spin', Spin)
 Vue.prototype.$http = httpRequest // Ajax 请求方法
 let vm = new Vue({
   router,
+  store,
   el: '#app',
   render: h => h(App)
 })
