@@ -17,9 +17,9 @@ spring:
     # 环境 开发dev，测试test，生产prod
     active: dev
   jackson:
-    # jackson时间格式化
-    time-zone: GMT+8
-    date-format: yyyy-MM-dd HH:mm:ss
+    serialization:
+      # jackson返回时间戳
+      write-dates-as-timestamps : true
   servlet:
     multipart:
       #文件上传大小配置
@@ -44,9 +44,6 @@ spring:
         max-wait: -1ms #连接池最大阻塞等待时间
         max-idle: 10 #连接池最大空闲连接
         min-idle: 5 #连接池最小空闲连接
-
-
-
 
 #mybatis
 mybatis-plus:

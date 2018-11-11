@@ -3,7 +3,7 @@
     <iv-menu :active-name="'1'" :class="theme" mode="horizontal">
       <iv-menu-item name="1" style="padding-left: 0;">
         <iv-icon type="heart"></iv-icon>
-        {{recommends}} 人觉得很赞
+        {{likeNum}} 人觉得很赞
       </iv-menu-item>
       <iv-menu-item name="2" style="padding-left: 0;">
         <iv-icon type="heart"></iv-icon>
@@ -14,18 +14,14 @@
           <iv-icon type="android-share-alt"></iv-icon>
           分享
         </template>
-        <iv-menu-item name="3-1">菜单</iv-menu-item>
-        <iv-menu-item name="3-2">菜单</iv-menu-item>
-        <iv-menu-item name="3-3">菜单</iv-menu-item>
+        <iv-menu-item name="3-1">QQ</iv-menu-item>
+        <iv-menu-item name="3-2">微信</iv-menu-item>
+        <iv-menu-item name="3-3">微博</iv-menu-item>
       </iv-submenu>
     </iv-menu>
     <div class="content">
       <div class="likes">
-        <a href=""><img src="../../../assets/avatar.png" alt=""></a>
-        <a href=""><img src="../../../assets/avatar.png" alt=""></a>
-        <a href=""><img src="../../../assets/avatar.png" alt=""></a>
-        <a href=""><img src="../../../assets/avatar.png" alt=""></a>
-        <a href=""><img src="../../../assets/avatar.png" alt=""></a>
+        <a href="" v-for="comment in commentList" :key="comment.commentId"><img src="../../../assets/avatar.png" alt=""></a>
       </div>
     </div>
 
@@ -36,17 +32,7 @@
     </div>
 
     <div class="comment-list">
-      <comment-cell-list :theme="theme" :commentLevel="0"></comment-cell-list>
-      <comment-cell-list :theme="theme" :commentLevel="1"></comment-cell-list>
-      <comment-cell-list :theme="theme" :commentLevel="1"></comment-cell-list>
-      <comment-cell-list :theme="theme" :commentLevel="0"></comment-cell-list>
-      <comment-cell-list :theme="theme" :commentLevel="0"></comment-cell-list>
-      <comment-cell-list :theme="theme" :commentLevel="1"></comment-cell-list>
-      <comment-cell-list :theme="theme" :commentLevel="1"></comment-cell-list>
-      <comment-cell-list :theme="theme" :commentLevel="1"></comment-cell-list>
-      <comment-cell-list :theme="theme" :commentLevel="2"></comment-cell-list>
-      <comment-cell-list :theme="theme" :commentLevel="3"></comment-cell-list>
-      <comment-cell-list :theme="theme" :commentLevel="1"></comment-cell-list>
+      <comment-cell-list :theme="theme" :comment="comment" v-for="comment in commentList" :key="comment.commentId" ></comment-cell-list>
     </div>
     <browse-more></browse-more>
   </div>
@@ -59,9 +45,8 @@ import BrowseMore from '@/components/views/BrowseMore'
 
 export default {
   props: {
-    recommends: {
-      default: 1
-    },
+    likeNum: {},
+    commentList: Array,
     theme: {
       Type: String,
       default: ''

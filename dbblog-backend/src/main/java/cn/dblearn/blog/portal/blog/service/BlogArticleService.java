@@ -13,4 +13,10 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface BlogArticleService extends IService<BlogArticle> {
 
+    /**
+     * 获取文章详情
+     * @param articleId
+     * @return
+     */
+    BlogArticle getArticle(Integer articleId);
 }

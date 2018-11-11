@@ -3,12 +3,12 @@
     <iv-row>
       <iv-col :xs="24" :sm="24" :md="24" :lg="17">
         <div class="layout-left">
-          <article-page-header></article-page-header>
+          <article-page-header :article="article"></article-page-header>
           <article-page-content>
             <article id="article-main-page" class="typo container" slot="content" ref="article" v-html="article.content">
             </article>
           </article-page-content>
-          <article-page-footer></article-page-footer>
+          <article-page-footer :likeNum="article.likeNum" :commentList="article.commentList"></article-page-footer>
         </div>
       </iv-col>
       <iv-col :xs="0" :sm="0" :md="0" :lg="7">
@@ -58,46 +58,58 @@ export default {
   created: function () {
     this.getArticle(this.$route.params.articleId)
   },
-  mounted: function () {
-    setTimeout(() => {
-      /* eslint-disable no-new */
+  methods: {
+    addCodeLineNumber () {
+      // 添加行号
+      let blocks = this.$refs.article.querySelectorAll('pre code')
+      blocks.forEach((block) => {
+        HLJS.highlightBlock(block)
+        // 去前后空格并添加行号
+        block.innerHTML = '<ul><li>' + block.innerHTML.replace(/(^\s*)|(\s*$)/g, '').replace(/\n/g, '\n</li><li>') + '\n</li></ul>'
+      })
+    },
+    getArticle (articleId) {
+      this.$http({
+        url: this.$http.adornUrl('/article/' + articleId),
+        method: 'get'
+      }).then(({data}) => {
+        if (data && data.code === 200) {
+          this.article = data.article
+          // 更新目录、高亮代码
+          this.$nextTick(function () {
+            this.addCodeLineNumber()
+            this.refreshDiectory()
+            this.refreshMobileDirectory()
+          })
+        }
+      })
+    },
+    refreshDiectory () {
+      /* eslint-disable*/
       new TOC('article-main-page', {
         'level': 5,
         'top': 200,
         'class': 'list',
         'targetId': 'side-toc'
       })
-      this.addCodeLineNumber()
-      this.addTocScrollSpy()
-    }, 20)
-  },
-  methods: {
-    addTocScrollSpy () {
       /* eslint-disable */
       new TocScrollSpy('article-main-page', 'side-toc', {
         'spayLevel': 5,
         'articleMarginTop': 60
       });
     },
-    addCodeLineNumber() {
-      // 添加行号
-      let blocks = this.$refs.article.querySelectorAll('pre code');
-      blocks.forEach((block) => {
-        HLJS.highlightBlock(block);
-        // 去前后空格并添加行号
-        block.innerHTML = '<ul><li>' + block.innerHTML.replace(/(^\s*)|(\s*$)/g, '').replace(/\n/g, '\n</li><li>') + '\n</li></ul>';
+    refreshMobileDirectory () {
+      /* eslint-disable */
+      new TOC('article-main-page', {
+        'level': 5,
+        'top': 200,
+        'class': 'list',
+        'targetId': 'sidebar-toc'
       });
-    },
-    getArticle(articleId) {
-      this.$http({
-        url: this.$http.adornUrl('/article/'+articleId),
-        method: 'get'
-      }).then(({data}) => {
-        if (data && data.code === 200) {
-          this.article=data.article
-        }
-
-      })
+      new TocScrollSpy('article-main-page', 'sidebar-toc', {
+        'spayLevel': 5,
+        'articleMarginTop': 60
+      });
     }
   }
 

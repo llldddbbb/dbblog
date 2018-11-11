@@ -7,37 +7,7 @@
 
 <script type="text/ecmascript-6">
 import Panel from '@/components/utils/Panel'
-import SubSideToc from './SubSideToc'
 export default {
-  data () {
-    return {
-      directoryList: [{
-        name: 'Action',
-        class: 'tip0 toc-link',
-        list: [{
-          name: '分发 Action',
-          class: 'tip1 toc-link'
-        }, {
-          name: '在组件中分发 Action',
-          class: 'tip2 toc-link'
-        }, {
-          name: '组合 Action',
-          class: 'tip3 toc-link',
-          list: [{
-            name: '现在你可以',
-            class: 'tip4 toc-link',
-            list: [{
-              name: '另外一个',
-              class: 'tip5 toc-link'
-            }]
-          }]
-        }, {
-          name: '后记',
-          class: 'tip6 toc-link'
-        }]
-      }]
-    }
-  },
   methods: {
     recalcActive () {
       // 先计算list相对于页面的顶部距离
@@ -70,8 +40,7 @@ export default {
     this.recalcActive()
   },
   components: {
-    'panel': Panel,
-    SubSideToc
+    'panel': Panel
   }
 }
 </script>

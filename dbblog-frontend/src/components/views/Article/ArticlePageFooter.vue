@@ -1,7 +1,7 @@
 <template>
   <div class="article-page-footer">
     <license-tag></license-tag>
-    <social-section></social-section>
+    <social-section :likeNum="likeNum" :commentList="commentList"></social-section>
   </div>
 </template>
 
@@ -18,6 +18,10 @@ export default {
   components: {
     'license-tag': LicenseTag,
     'social-section': SocialSection
+  },
+  props: {
+    likeNum: {},
+    commentList: Array
   }
 }
 </script>

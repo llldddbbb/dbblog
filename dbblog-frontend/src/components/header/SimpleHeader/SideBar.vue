@@ -82,10 +82,6 @@
 </template>
 
 <script type="text/ecmascript-6">
-import TOC from '../../../common/js/MarkdownToc'
-// TOC滚动监听
-import TocScrollSpy from '@/common/js/TocScrollSpy'
-
 export default {
   data () {
     return {
@@ -95,31 +91,9 @@ export default {
   methods: {
     openSideBar () {
       this.showMobileSideBar = !this.showMobileSideBar
-    },
-    addTocScrollSpy () {
-      /* eslint-disable */
-      new TocScrollSpy('article-main-page', 'sidebar-toc', {
-        'spayLevel': 5,
-        'articleMarginTop': 60
-      });
-    },
-    refreshMenu () {
-      /* eslint-disable */
-      new TOC('article-main-page', {
-        'level': 5,
-        'top': 200,
-        'class': 'list',
-        'targetId': 'sidebar-toc'
-      });
     }
-  },
-  mounted: function () {
-    setTimeout(() => {
-      this.refreshMenu();
-      this.addTocScrollSpy()
-    }, 20)
   }
-};
+}
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">

@@ -14,31 +14,17 @@
                     :lg="cellRightSpan('lg')" :xl="cellRightSpan('xl')">
               <div class="content">
                 <p class="title">
-                  <span class="name" :class="theme"><a href="">Tom</a></span>
-                  <span class="name-tag">Mod</span>
-                  <span class="reply-icon" :class="theme"><iv-icon type="forward"></iv-icon></span>
-                  <span class="reply-name" :class="theme"><a href="">Jerry</a></span>
-                  <span class="time">2 days age</span>
+                  <span class="name" :class="theme"><a href="">{{comment.nickName}}</a></span>
+                  <span class="reply-icon" :class="theme" v-if="comment.parentNickName">&nbsp;<iv-icon type="forward"></iv-icon></span>
+                  <span class="reply-name" :class="theme" v-if="comment.parentNickName"><a href="">{{comment.parentNickName}}</a></span>
+                  <span class="time">{{formatData}}</span>
                 </p>
                 <p class="comment-content" :class="theme">
-                  针对于这种情况只能尽可能的保证可用吧。各个MQ都有方法处理重复消费，或者是本身的消费支持幂等也能解决，而且数据库也可能挂了哦。</p>
+                  {{comment.content}}</p>
                 <div class="operate-area" :class="theme">
-                  <span class="like"><iv-icon type="thumbsup"></iv-icon></span>
-                  <span class="unlike"><iv-icon type="thumbsdown"></iv-icon></span>
+                  <span class="like"><a><iv-icon type="thumbsup"></iv-icon>&nbsp;{{comment.likeNum}}</a></span>
+                  <span class="unlike"><a><iv-icon type="thumbsdown"></iv-icon>&nbsp;{{comment.dislikeNum}}</a></span>
                   <span class="reply"><a @click="showEditor = !showEditor"><iv-icon type="forward"></iv-icon> 回复</a></span>
-                  <iv-dropdown>
-                    <span class="iv-dropdown-link">
-                      <iv-icon type="android-share-alt"></iv-icon> 分享 <iv-icon type="arrow-down-b"></iv-icon>
-                    </span>
-                    <iv-dropdown-menu slot="list">
-                      <iv-dropdown-item>菜单</iv-dropdown-item>
-                      <iv-dropdown-item>菜单</iv-dropdown-item>
-                      <iv-dropdown-item>菜单</iv-dropdown-item>
-                      <iv-dropdown-item disabled>菜单</iv-dropdown-item>
-                      <iv-dropdown-item divided>菜单</iv-dropdown-item>
-                    </iv-dropdown-menu>
-                  </iv-dropdown>
-                  <span class="reply"><a>查看评论列表</a></span>
                 </div>
                 <div class="comment-area" v-show="showEditor">
                   <div class="reply-editor" :class="{spread: spreadEditor}">
@@ -56,6 +42,7 @@
 
 <script type="text/ecmascript-6">
 import MavonEditor from '@/components/views/MavonEditor'
+import { dateStr } from '@/utils'
 
 const CELL_LEFT_SPAN = {
   'xs': 3,
@@ -72,10 +59,7 @@ const CELL_RIGHT_SPAN = {
 
 export default {
   props: {
-    commentLevel: {
-      default: 0
-    },
-    date: '',
+    comment: {},
     count: '',
     tipText: {
       default: 'View All'
@@ -91,10 +75,15 @@ export default {
       spreadEditor: false
     }
   },
+  computed: {
+    formatData () {
+      return dateStr(this.comment.publishTime)
+    }
+  },
   methods: {
     cellSpan (size) {
       var span = {}
-      span['offset'] = CELL_LEFT_SPAN[size] * this.commentLevel
+      span['offset'] = CELL_LEFT_SPAN[size] * this.comment.commentLevel
       span['span'] = 24 - span['offset']
       return span
     },

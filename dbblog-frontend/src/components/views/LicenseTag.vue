@@ -11,7 +11,7 @@
 export default {
   props: {
     link: {
-      default: 'https://creativecommons.org/licenses/by-sa/4.0/'
+      default: 'https://creativecommons.org/licenses/by-sa/4.0/deed.zh'
     },
     type: {
       default: 'CC BY-SA 4.0'

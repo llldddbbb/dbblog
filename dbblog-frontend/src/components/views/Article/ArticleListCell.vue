@@ -5,7 +5,7 @@
         <iv-col :xs="24" :sm="24" :md="textSpan" :lg="textSpan" :order="textOrderType" style="padding-left: 0;padding-right: 0;">
           <div class="text-wrapper">
             <h4 class="title">
-              <router-link to="/article">{{article.title}}</router-link>
+              <a :href="'article/'+article.articleId">{{article.title}}</a>
             </h4>
             <div class="tags">
               <iv-tag :color="getTagColor(index)" :key="tag.id" v-for ="(tag , index) in article.tagList">{{tag.tagName}}</iv-tag>
@@ -23,7 +23,7 @@
         </iv-col>
         <iv-col :xs="0" :sm="0" :md="imgSpan" :lg="imgSpan" :order="imgOrderType" style="padding-left: 0px;padding-right: 0px">
           <div class="img-wrapper" :class="themeClass">
-            <img src="../../../assets/photowall/photowall_pic_4.jpg" alt="">
+            <img :src="article.cover" alt="">
           </div>
         </iv-col>
       </iv-row>

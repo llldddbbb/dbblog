@@ -1,7 +1,9 @@
 package cn.dblearn.blog.portal.blog.pojo.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -10,6 +12,7 @@ import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -52,11 +55,20 @@ public class BlogArticle implements Serializable {
     @ApiModelProperty(value = "点赞量")
     private Long likeNum;
 
+    @ApiModelProperty(value = "封面")
+    private String cover;
+
     @ApiModelProperty(value = "创建时间")
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     @ApiModelProperty(value = "更新时间")
     private Date updateTime;
 
+    @TableField(exist = false)
+    private List<BlogTag> tagList;
+
+    @TableField(exist = false)
+    private List<BlogArticleComment> commentList;
 
 }

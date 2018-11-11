@@ -1,6 +1,7 @@
 package cn.dblearn.blog.portal.blog.pojo.vo;
 
 import cn.dblearn.blog.portal.blog.pojo.entity.BlogTag;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -41,7 +42,11 @@ public class BlogArticleVo {
     @ApiModelProperty(value = "点赞量")
     private Long likeNum;
 
+    @ApiModelProperty(value = "封面")
+    private String cover;
+
     @ApiModelProperty(value = "创建时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date createTime;
     /**
      * 所关联的Tag列表
