@@ -3,22 +3,22 @@
     <p class="level level-one">
       <span class="title">方向：</span>
       <span class="class">
-        <a @click="listOrientation()" :class="allOrientation?'active':''">全部</a>
-        <a :class="orientation.active?'active':''" @click="listArticle('orientation',orientation.orientationId);listCategoryByOrId(orientation)" class="name" v-for="orientation in orientationList" :key="orientation.orientationId">{{orientation.name}}</a>
+        <a @click="listOrientation()" :class="activeOrId===0?'active':''">全部</a>
+        <a :class="orientation.active?'active':''" @click="listArticle('orientation',orientation.orientationId);listCategoryByOrId(orientationList,orientation)" class="name" v-for="orientation in orientationList" :key="orientation.orientationId">{{orientation.name}}</a>
       </span>
     </p>
     <p class="level level-two" v-if="categoryList.length">
       <span class="title">分类：</span>
       <span class="class">
-        <a href="" :class="allCategory?'active':''" ref="allCategory">全部</a>
-        <a :class="category.active?'active':''" @click="listArticle('category',category.categoryId);listTagByCaId(category)" class="name" v-for="category in categoryList" :key="category.categoryId">{{category.name}}</a>
+        <a @click="listCategoryByOrId(null)" :class="activeCaId===0?'active':''" ref="allCategory">全部</a>
+        <a :class="category.active?'active':''" @click="listArticle('category',category.categoryId);listTagByCaId(categoryList,category)" class="name" v-for="category in categoryList" :key="category.categoryId">{{category.name}}</a>
       </span>
     </p>
     <p class="level level-three" v-if="tagList.length">
       <span class="title">标签：</span>
       <span class="class">
-        <a href="" :class="allTag?'active':''" ref="allTag">全部</a>
-        <a :class="tag.active?'active':''" @click="listArticle('tag',tag.tagId)" class="name" v-for="tag in tagList" :key="tag.tagId">{{tag.tagName}}</a>
+        <a @click="listTagByCaId(null)" :class="activeTagId===0?'active':''" ref="allTag">全部</a>
+        <a :class="tag.active?'active':''" @click="listArticle('tag',tag.tagId);replaceTagActive(tagList,tag)" class="name" v-for="tag in tagList" :key="tag.tagId">{{tag.tagName}}</a>
       </span>
     </p>
   </div>
@@ -31,9 +31,9 @@ export default {
       orientationList: [],
       categoryList: [],
       tagList: [],
-      allOrientation: true,
-      allCategory: true,
-      allTag: true
+      activeOrId: 0,
+      activeCaId: 0,
+      activeTagId: 0
     }
   },
   created () {
@@ -63,14 +63,20 @@ export default {
       }).then(({data}) => {
         if (data && data.code === 200) {
           this.orientationList = data.orientationList
-          this.allOrientation = true
+          this.activeOrId = 0
           this.categoryList = []
           this.tagList = []
         }
       })
       this.listArticle()
     },
-    listCategoryByOrId (orientation) {
+    listCategoryByOrId (orientationList, orientation) {
+      if (orientation == null) {
+        orientation = {}
+        orientation.orientationId = this.activeOrId
+        this.listCategoryByOrId(orientationList, orientation)
+        return
+      }
       this.$http({
         url: this.$http.adornUrl('/article/classify/categories'),
         params: this.$http.adornParams({
@@ -80,14 +86,20 @@ export default {
       }).then(({data}) => {
         if (data && data.code === 200) {
           this.categoryList = data.categoryList
-          this.allOrientation = false
-          this.allCategory = true
+          this.activeOrId = orientation.orientationId
+          this.activeCaId = 0
           this.tagList = []
         }
       })
-      this.replaceActive(this.orientationList, orientation)
+      this.replaceActive(orientationList, orientation)
     },
-    listTagByCaId (category) {
+    listTagByCaId (categoryList, category) {
+      if (category == null) {
+        category = {}
+        category.categoryId = this.activeCaId
+        this.listTagByCaId(categoryList, category)
+        return
+      }
       this.$http({
         url: this.$http.adornUrl('/article/classify/tags'),
         params: this.$http.adornParams({
@@ -96,11 +108,16 @@ export default {
         method: 'get'
       }).then(({data}) => {
         if (data && data.code === 200) {
-          this.allCategory = false
+          this.activeCaId = category.categoryId
+          this.activeTagId = 0
           this.tagList = data.tagList
         }
       })
-      this.replaceActive(this.categoryList, category)
+      this.replaceActive(categoryList, category)
+    },
+    replaceTagActive (tagList, tag){
+      this.replaceActive(tagList, tag)
+      this.activeTagId = tag.tagId
     },
     replaceActive (mappingList, mapObj) {
       mappingList.forEach(item => {
