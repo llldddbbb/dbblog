@@ -1,6 +1,6 @@
 <template>
   <div class="article-list-header">
-    <classify-menu></classify-menu>
+    <classify-menu @listArticle="listArticle"></classify-menu>
     <section-title :mainTitle="'文章列表'" :subTitle="'Articles'"></section-title>
   </div>
 </template>
@@ -13,6 +13,11 @@ export default {
   components: {
     'section-title': SectionTitle,
     'classify-menu': ClassifyMenu
+  },
+  methods: {
+    listArticle (params) {
+      this.$emit('listArticle', params)
+    }
   }
 }
 </script>

@@ -45,6 +45,9 @@ public class BlogArticleVo {
     @ApiModelProperty(value = "封面")
     private String cover;
 
+    @ApiModelProperty(value = "文章展示类别,1:普通，2：大图片，3：无图片")
+    private Integer type;
+
     @ApiModelProperty(value = "创建时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date createTime;

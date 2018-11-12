@@ -30,7 +30,7 @@ public class HomeServiceImpl implements HomeService {
      */
     @Override
     public Result listHomeData() {
-        List<BlogArticleVo> articleVoList=blogArticleMapper.listHomeArticle();
+        List<BlogArticleVo> articleVoList=blogArticleMapper.listHomeArticle(null);
         return Result.ok().put("articleList",articleVoList);
     }
 }

@@ -3,63 +3,116 @@
     <p class="level level-one">
       <span class="title">方向：</span>
       <span class="class">
-        <a href="" class="active">全部</a>
-        <a href="" class="name">前端开发</a>
-        <a href="" class="name">后端开发</a>
-        <a href="" class="name">移动开发</a>
-        <a href="" class="name">数据库</a>
-        <a href="" class="name">云计算&大数据</a>
-        <a href="" class="name">UI设计</a>
+        <a @click="listOrientation()" :class="allOrientation?'active':''">全部</a>
+        <a :class="orientation.active?'active':''" @click="listArticle('orientation',orientation.orientationId);listCategoryByOrId(orientation)" class="name" v-for="orientation in orientationList" :key="orientation.orientationId">{{orientation.name}}</a>
       </span>
     </p>
-    <p class="level level-two">
+    <p class="level level-two" v-if="categoryList.length">
       <span class="title">分类：</span>
       <span class="class">
-        <a href="" class="active">全部</a>
-        <a href="" class="name">HTML/CSS</a>
-        <a href="" class="name">JavaScript</a>
-        <a href="" class="name">Html5</a>
-        <a href="" class="name">CSS3</a>
-        <a href="" class="name">jQuery</a>
-        <a href="" class="name">Node.js</a>
-        <a href="" class="name">Bootstrap</a>
-        <a href="" class="name">AngularJS</a>
-        <a href="" class="name">React.JS</a>
-        <a href="" class="name">Vue.js</a>
-        <a href="" class="name">Sass/Less</a>
-        <a href="" class="name">WebApp</a>
-        <a href="" class="name">前端工具</a>
-        <a href="" class="name">PHP</a>
-        <a href="" class="name">Java</a>
-        <a href="" class="name">SpringBoot</a>
-        <a href="" class="name">Python</a>
-        <a href="" class="name">C</a>
-        <a href="" class="name">C++</a>
-        <a href="" class="name">Go</a>
-        <a href="" class="name">C#</a>
-        <a href="" class="name">Ruby</a>
-        <a href="" class="name">Android</a>
-        <a href="" class="name">iOS</a>
-        <a href="" class="name">Unity3D</a>
+        <a href="" :class="allCategory?'active':''" ref="allCategory">全部</a>
+        <a :class="category.active?'active':''" @click="listArticle('category',category.categoryId);listTagByCaId(category)" class="name" v-for="category in categoryList" :key="category.categoryId">{{category.name}}</a>
       </span>
     </p>
-    <p class="level level-three">
-      <span class="title">类型：</span>
+    <p class="level level-three" v-if="tagList.length">
+      <span class="title">标签：</span>
       <span class="class">
-        <a href="" class="active">全部</a>
-        <a href="" class="name">前端开发</a>
-        <a href="" class="name">后端开发</a>
-        <a href="" class="name">移动开发</a>
-        <a href="" class="name">数据库</a>
-        <a href="" class="name">云计算&大数据</a>
-        <a href="" class="name">UI设计</a>
+        <a href="" :class="allTag?'active':''" ref="allTag">全部</a>
+        <a :class="tag.active?'active':''" @click="listArticle('tag',tag.tagId)" class="name" v-for="tag in tagList" :key="tag.tagId">{{tag.tagName}}</a>
       </span>
     </p>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
-
+export default {
+  data () {
+    return {
+      orientationList: [],
+      categoryList: [],
+      tagList: [],
+      allOrientation: true,
+      allCategory: true,
+      allTag: true
+    }
+  },
+  created () {
+    this.listOrientation()
+  },
+  methods: {
+    listArticle (type, classifyId) {
+      let params = {}
+      switch (type) {
+        case 'orientation':
+          params.orientationId = classifyId
+          break
+        case 'category':
+          params.categoryId = classifyId
+          break
+        case 'tag':
+          params.tagId = classifyId
+          break
+      }
+      this.$emit('listArticle', params)
+    },
+    listOrientation () {
+      this.$http({
+        url: this.$http.adornUrl('/article/classify/orientations'),
+        params: this.$http.adornParams(),
+        method: 'get'
+      }).then(({data}) => {
+        if (data && data.code === 200) {
+          this.orientationList = data.orientationList
+          this.allOrientation = true
+          this.categoryList = []
+          this.tagList = []
+        }
+      })
+      this.listArticle()
+    },
+    listCategoryByOrId (orientation) {
+      this.$http({
+        url: this.$http.adornUrl('/article/classify/categories'),
+        params: this.$http.adornParams({
+          orientationId: orientation.orientationId
+        }),
+        method: 'get'
+      }).then(({data}) => {
+        if (data && data.code === 200) {
+          this.categoryList = data.categoryList
+          this.allOrientation = false
+          this.allCategory = true
+          this.tagList = []
+        }
+      })
+      this.replaceActive(this.orientationList, orientation)
+    },
+    listTagByCaId (category) {
+      this.$http({
+        url: this.$http.adornUrl('/article/classify/tags'),
+        params: this.$http.adornParams({
+          categoryId: category.categoryId
+        }),
+        method: 'get'
+      }).then(({data}) => {
+        if (data && data.code === 200) {
+          this.allCategory = false
+          this.tagList = data.tagList
+        }
+      })
+      this.replaceActive(this.categoryList, category)
+    },
+    replaceActive (mappingList, mapObj) {
+      mappingList.forEach(item => {
+        if (item === mapObj) {
+          item.active = true
+        } else {
+          item.active = false
+        }
+      })
+    }
+  }
+}
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">

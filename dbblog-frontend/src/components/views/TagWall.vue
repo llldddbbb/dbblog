@@ -2,7 +2,7 @@
   <div class="tag-wall">
     <panel :title="'相关标签'">
       <div slot="content" class="content">
-        <iv-tag v-for="tag in tags" type="dot" color="blue" :key="tag" style="margin: 0 5px 5px 0;">{{ tag }}
+        <iv-tag v-for="(tag , index) in tags" type="dot" color="blue" :key="index" style="margin: 0 5px 5px 0;">{{ tag }}
         </iv-tag>
       </div>
     </panel>

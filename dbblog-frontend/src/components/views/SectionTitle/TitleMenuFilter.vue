@@ -1,10 +1,7 @@
 <template>
   <div class="title-menu-timeline">
     <ul class="list clearfix">
-      <li><a class="active" href="">最新</a></li>
-      <li><a href="">点赞最多</a></li>
-      <li><a href="">评论最多</a></li>
-      <li><a href="">推荐</a></li>
+      <li v-for="menuFilter in menuFilterList" :key="menuFilter.name"><a :class="menuFilter.active?'active':''" @click="refreshArticle(menuFilter.url)">{{menuFilter.name}}</a></li>
     </ul>
     <div class="refresh">
       <a @click="refresh" title="刷新">
@@ -16,9 +13,25 @@
 
 <script type="text/ecmascript-6">
 export default {
+  props: {
+    menuFilterList: Array
+  },
   methods: {
     refresh () {
-      console.log('refresh')
+      this.$router.go(0)
+    },
+    refreshArticle (url) {
+      this.replaceActive(url)
+      this.$emit('refreshArticle', url)
+    },
+    replaceActive (url) {
+      this.menuFilterList.map((menuFilter) => {
+        if (menuFilter.url === url) {
+          menuFilter.active = true
+        } else {
+          menuFilter.active = false
+        }
+      })
     }
   }
 }

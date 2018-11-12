@@ -49,8 +49,8 @@ let router = new Router({
           }
         },
         {
-          path: 'articlelist',
-          name: 'articlelist',
+          path: 'articles',
+          name: 'articles',
           components: {
             header: SimpleHeader,
             content: ArticleListContent,

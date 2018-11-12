@@ -8,35 +8,29 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * <p>
- * 标签
+ * 文章分类
  * </p>
  *
  * @author bobbi
- * @since 2018-11-07
+ * @since 2018-11-11
  */
 @Data
-@ApiModel(value="BlogTag对象", description="标签")
-public class BlogTag implements Serializable {
+@ApiModel(value="BlogCategory对象", description="文章分类")
+public class BlogCategory implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId(value = "tag_id", type = IdType.AUTO)
-    private Integer tagId;
-
-    @ApiModelProperty(value = "标签名字")
-    private String tagName;
-
-    @ApiModelProperty(value = "关联父Id")
-    private Integer parentId;
-
-    @ApiModelProperty(value = "关联类别Id")
+    @ApiModelProperty(value = "主键")
+    @TableId(value = "category_id", type = IdType.AUTO)
     private Integer categoryId;
 
-    @ApiModelProperty(value = "关联分类方向Id")
+    @ApiModelProperty(value = "类别名称")
+    private String name;
+
+    @ApiModelProperty(value = "关联类别方向外键")
     private Integer orientationId;
 
     /**
@@ -44,10 +38,5 @@ public class BlogTag implements Serializable {
      */
     @TableField(exist = false)
     private Boolean active;
-
-    private Date createTime;
-
-    private Date updateTime;
-
 
 }

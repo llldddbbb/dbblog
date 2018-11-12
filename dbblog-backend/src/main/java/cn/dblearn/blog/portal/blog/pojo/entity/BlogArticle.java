@@ -58,12 +58,18 @@ public class BlogArticle implements Serializable {
     @ApiModelProperty(value = "封面")
     private String cover;
 
+    @ApiModelProperty(value = "文章展示类别,1:普通，2：大图片，3：无图片")
+    private Integer type;
+
     @ApiModelProperty(value = "创建时间")
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     @ApiModelProperty(value = "更新时间")
     private Date updateTime;
+
+    @ApiModelProperty(value = "是否推荐文章")
+    private Boolean isRecommend;
 
     @TableField(exist = false)
     private List<BlogTag> tagList;

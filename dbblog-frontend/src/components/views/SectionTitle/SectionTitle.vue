@@ -5,7 +5,7 @@
       <span class="main-title">{{mainTitle}}</span>
       <span class="vertical-line"></span>
       <span class="sub-title">{{subTitle}}</span>
-      <span class="view-more"><a href="">{{tipText}} <iv-icon type="arrow-right-b"></iv-icon></a></span>
+      <span class="view-more"><a :href="tipHref" v-if="tipText">{{tipText}} <iv-icon type="arrow-right-b"></iv-icon></a></span>
     </div>
     <div class="menu">
       <slot name="menu"></slot>
@@ -18,9 +18,8 @@ export default {
   props: {
     mainTitle: '',
     subTitle: '',
-    tipText: {
-      default: 'View More'
-    }
+    tipText: '',
+    tipHref: ''
   }
 }
 </script>
