@@ -30,7 +30,11 @@ public enum ErrorEnum {
     //登录模块错误
     LOGIN_FAIL(10001,"登录失败"),
     CAPTCHA_WRONG(10002,"验证码错误"),
-    USERNAME_OR_PASSWORD_WRONG(10003,"用户名或密码错误");
+    USERNAME_OR_PASSWORD_WRONG(10003,"用户名或密码错误"),
+
+    //七牛OSS错误
+    OSS_CONFIG_ERROR(10050,"七牛配置信息错误"),
+    OSS_UPLOAD_ERROR(10051,"OSS七牛云上传失败");
 
     private int code;
     private String msg;

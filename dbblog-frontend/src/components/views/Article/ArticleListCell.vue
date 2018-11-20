@@ -10,7 +10,7 @@
             <div class="tags">
               <iv-tag :color="getTagColor(index)" :key="tag.id" v-for ="(tag , index) in article.tagList">{{tag.tagName}}</iv-tag>
             </div>
-            <p class="desc">{{article.description}}<a href=""> View More
+            <p class="desc">{{article.description}}<a :href="'article/'+article.articleId"> View More
               <iv-icon type="arrow-right-b"></iv-icon>
             </a></p>
             <p class="operate_info">

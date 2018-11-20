@@ -115,7 +115,7 @@ export default {
       })
       this.replaceActive(categoryList, category)
     },
-    replaceTagActive (tagList, tag){
+    replaceTagActive (tagList, tag) {
       this.replaceActive(tagList, tag)
       this.activeTagId = tag.tagId
     },
