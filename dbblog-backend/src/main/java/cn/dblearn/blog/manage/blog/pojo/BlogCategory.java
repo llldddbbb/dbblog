@@ -1,4 +1,4 @@
-package cn.dblearn.blog.portal.blog.pojo.entity;
+package cn.dblearn.blog.manage.blog.pojo.blog;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;

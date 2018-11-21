@@ -31,6 +31,7 @@ import FriendLinks from '@/components/views/FriendLinks'
 import SideToc from '@/components/views/SideToc'
 import Recommend from '@/components/views/Recommend'
 import TOC from '@/common/js/MarkdownToc'
+import marked from 'marked'
 // highlight.js引入
 import hljs from 'highlight.js'
 // 样式文件
@@ -75,6 +76,8 @@ export default {
       }).then(({data}) => {
         if (data && data.code === 200) {
           this.article = data.article
+          // 将markdown语法解析成html
+          this.article.content = marked(data.article.content)
           // 更新目录、高亮代码
           this.$nextTick(function () {
             this.addCodeLineNumber()
