@@ -1,14 +1,16 @@
 <template>
   <div>
-    <el-form :inline="true" label-width="80px">
-      <el-form-item label="博文标题">
-        <el-input placeholder="博文标题" v-model="article.title" clearable></el-input>
+    <el-form :model="article" label-width="80px" :rules="rules" ref="articleForm">
+      <el-form-item label="博文标题" prop="title">
+        <el-col :span="12">
+          <el-input placeholder="博文标题" v-model="article.title"  clearable></el-input>
+        </el-col>
       </el-form-item>
       <el-form-item label="博文作者">
-        <el-input placeholder="博文作者" clearable></el-input>
+        <el-col :span="4">
+          <el-input placeholder="博文作者" v-model="article.author" clearable></el-input>
+        </el-col>
       </el-form-item>
-    </el-form>
-    <el-form label-width="80px">
       <el-form-item label="是否推荐">
         <el-radio-group v-model="article.isRecommend">
           <el-radio :label="1">是</el-radio>
@@ -26,15 +28,20 @@
         </el-select>
       </el-form-item>
       <el-form-item label="上传封面">
-        <el-upload
-          drag
-          :action="url"
-          :before-upload="beforeUploadHandle"
-          :on-success="successHandle">
-          <i class="el-icon-upload"></i>
-          <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
-          <div class="el-upload__tip" slot="tip">只支持jpg、png、gif格式的图片！</div>
-        </el-upload>
+        <el-col :span="12">
+          <el-upload
+            drag
+            :action="url"
+            list-type="picture"
+            :before-upload="beforeUploadHandle"
+            :file-list="file"
+            :on-remove="handleRemove"
+            :on-success="successHandle">
+            <i class="el-icon-upload"></i>
+            <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+            <div class="el-upload__tip" slot="tip">只支持jpg、png、gif格式的图片！</div>
+          </el-upload>
+        </el-col>
       </el-form-item>
       <el-form-item label="博文描述">
         <el-col :span="12">
@@ -42,7 +49,11 @@
         </el-col>
       </el-form-item>
       <el-form-item label="博文内容">
-        <mavon-editor></mavon-editor>
+        <mavon-editor v-model="article.content"></mavon-editor>
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" @click="saveArticle()">保存</el-button>
+        <el-button >重置</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -71,7 +82,11 @@ export default {
         label: '无图片',
         value: 2
       }],
-      url: ''
+      url: '',
+      file: [],
+      rules: {
+        title: {required: true, message: '请输入博文标题', trigger: 'change'}
+      }
     }
   },
   created () {
@@ -92,8 +107,36 @@ export default {
     successHandle (response) {
       if (response && response.code === 200) {
         this.article.cover = response.url
+        this.file = [{
+          url: response.url,
+          name: response.name
+        }]
         this.$message.success('上传成功！')
       }
+    },
+    // 移除上传文件
+    handleRemove (file, fileList) {
+      this.file = []
+      this.article.cover = ''
+    },
+    saveArticle () {
+      this.$refs['articleForm'].validate((valid) => {
+        if (valid) {
+          this.$http({
+            url: this.$http.adornUrl('/admin/blog/article/save'),
+            method: 'post',
+            data: this.$http.adornData(this.article)
+          }).then(({data}) => {
+            if (data && data.code === 200) {
+              this.$message.success('添加博文成功')
+            } else {
+              this.$message.error(data.msg)
+            }
+          })
+        } else {
+          return false
+        }
+      })
     }
   }
 }
