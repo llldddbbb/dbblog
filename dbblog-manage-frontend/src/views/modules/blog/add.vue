@@ -1,11 +1,11 @@
 <template>
   <div>
     <el-form :inline="true" label-width="80px">
-      <el-form-item label="博客标题">
-        <el-input placeholder="博客标题" v-model="article.title" clearable></el-input>
+      <el-form-item label="博文标题">
+        <el-input placeholder="博文标题" v-model="article.title" clearable></el-input>
       </el-form-item>
-      <el-form-item label="博客作者">
-        <el-input placeholder="博客作者" clearable></el-input>
+      <el-form-item label="博文作者">
+        <el-input placeholder="博文作者" clearable></el-input>
       </el-form-item>
     </el-form>
     <el-form label-width="80px">
@@ -41,7 +41,7 @@
           <el-input type="textarea" v-model="article.description" placeholder="博文描述" clearable></el-input>
         </el-col>
       </el-form-item>
-      <el-form-item>
+      <el-form-item label="博文内容">
         <mavon-editor></mavon-editor>
       </el-form-item>
     </el-form>
@@ -91,7 +91,8 @@ export default {
     // 上传成功
     successHandle (response) {
       if (response && response.code === 200) {
-        this.$message.info('上传成功！')
+        this.article.cover = response.url
+        this.$message.success('上传成功！')
       }
     }
   }
