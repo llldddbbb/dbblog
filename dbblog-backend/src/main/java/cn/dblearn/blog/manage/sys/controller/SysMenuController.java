@@ -2,7 +2,7 @@ package cn.dblearn.blog.manage.sys.controller;
 
 
 import cn.dblearn.blog.common.exception.MyException;
-import cn.dblearn.blog.common.pojo.Constants;
+import cn.dblearn.blog.common.pojo.constants.SysConstants;
 import cn.dblearn.blog.common.pojo.Result;
 import cn.dblearn.blog.manage.sys.pojo.entity.SysMenu;
 import cn.dblearn.blog.manage.sys.service.ShiroService;
@@ -152,30 +152,30 @@ public class SysMenuController extends AbstractController{
         }
 
         //菜单
-        if (menu.getType() == Constants.MenuType.MENU.getValue()) {
+        if (menu.getType() == SysConstants.MenuType.MENU.getValue()) {
             if (StringUtils.isBlank(menu.getUrl())) {
                 throw new MyException("菜单URL不能为空");
             }
         }
 
         //上级菜单类型
-        int parentType = Constants.MenuType.CATALOG.getValue();
+        int parentType = SysConstants.MenuType.CATALOG.getValue();
         if (menu.getParentId() != 0) {
             SysMenu parentMenu = sysMenuService.getById(menu.getParentId());
             parentType = parentMenu.getType();
         }
 
         //目录、菜单
-        if (menu.getType() == Constants.MenuType.CATALOG.getValue() ||
-                menu.getType() == Constants.MenuType.MENU.getValue()) {
-            if (parentType != Constants.MenuType.CATALOG.getValue()) {
+        if (menu.getType() == SysConstants.MenuType.CATALOG.getValue() ||
+                menu.getType() == SysConstants.MenuType.MENU.getValue()) {
+            if (parentType != SysConstants.MenuType.CATALOG.getValue()) {
                 throw new MyException("上级菜单只能为目录类型");
             }
         }
 
         //按钮
-        if (menu.getType() == Constants.MenuType.BUTTON.getValue()) {
-            if (parentType != Constants.MenuType.MENU.getValue()) {
+        if (menu.getType() == SysConstants.MenuType.BUTTON.getValue()) {
+            if (parentType != SysConstants.MenuType.MENU.getValue()) {
                 throw new MyException("上级菜单只能为菜单类型");
             }
         }

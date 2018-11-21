@@ -1,5 +1,8 @@
 package cn.dblearn.blog.manage.blog.service;
 
+import cn.dblearn.blog.manage.blog.pojo.BlogArticle;
+import com.baomidou.mybatisplus.extension.service.IService;
+
 /**
  * BlogArticleAdminService
  *
@@ -8,5 +11,5 @@ package cn.dblearn.blog.manage.blog.service;
  * @email 571002217@qq.com
  * @description
  */
-public class BlogArticleAdminService {
+public interface BlogArticleAdminService extends IService<BlogArticle> {
 }

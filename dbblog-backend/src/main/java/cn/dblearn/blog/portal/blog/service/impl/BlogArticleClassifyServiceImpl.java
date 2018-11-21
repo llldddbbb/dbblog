@@ -1,11 +1,11 @@
 package cn.dblearn.blog.portal.blog.service.impl;
 
-import cn.dblearn.blog.portal.blog.mapper.BlogCategoryMapper;
-import cn.dblearn.blog.portal.blog.mapper.BlogOrientationMapper;
-import cn.dblearn.blog.portal.blog.mapper.BlogTagMapper;
-import cn.dblearn.blog.portal.blog.pojo.entity.BlogCategory;
-import cn.dblearn.blog.portal.blog.pojo.entity.BlogOrientation;
-import cn.dblearn.blog.portal.blog.pojo.entity.BlogTag;
+import cn.dblearn.blog.manage.blog.mapper.BlogCategoryMapper;
+import cn.dblearn.blog.manage.blog.mapper.BlogOrientationMapper;
+import cn.dblearn.blog.manage.blog.mapper.BlogTagMapper;
+import cn.dblearn.blog.manage.blog.pojo.BlogCategory;
+import cn.dblearn.blog.manage.blog.pojo.BlogOrientation;
+import cn.dblearn.blog.manage.blog.pojo.BlogTag;
 import cn.dblearn.blog.portal.blog.service.BlogArticleClassifyService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;

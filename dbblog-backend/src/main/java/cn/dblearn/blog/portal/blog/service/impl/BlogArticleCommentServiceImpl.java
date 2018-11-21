@@ -1,7 +1,7 @@
 package cn.dblearn.blog.portal.blog.service.impl;
 
-import cn.dblearn.blog.portal.blog.mapper.BlogArticleCommentMapper;
-import cn.dblearn.blog.portal.blog.pojo.entity.BlogArticleComment;
+import cn.dblearn.blog.manage.blog.mapper.BlogArticleCommentMapper;
+import cn.dblearn.blog.manage.blog.pojo.BlogArticleComment;
 import cn.dblearn.blog.portal.blog.service.BlogArticleCommentService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;

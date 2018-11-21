@@ -1,7 +1,7 @@
 package cn.dblearn.blog.portal.blog.service.impl;
 
 import cn.dblearn.blog.common.pojo.Result;
-import cn.dblearn.blog.portal.blog.mapper.BlogArticleMapper;
+import cn.dblearn.blog.manage.blog.mapper.BlogArticleMapper;
 import cn.dblearn.blog.portal.blog.pojo.vo.BlogArticleVo;
 import cn.dblearn.blog.portal.blog.service.HomeService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,7 +1,7 @@
 package cn.dblearn.blog.manage.sys.controller;
 
 
-import cn.dblearn.blog.common.pojo.Constants;
+import cn.dblearn.blog.common.pojo.constants.SysConstants;
 import cn.dblearn.blog.common.pojo.Result;
 import cn.dblearn.blog.common.util.PageUtils;
 import cn.dblearn.blog.common.validator.ValidatorUtils;
@@ -54,7 +54,7 @@ public class SysUserController extends AbstractController{
     @RequiresPermissions("sys:user:list")
     public Result list(@RequestParam Map<String, Object> params){
         //只有超级管理员，才能查看所有管理员列表
-        if(Constants.SUPER_ADMIN.equals(getUserId())){
+        if(SysConstants.SUPER_ADMIN.equals(getUserId())){
             params.put("createUserId", getUserId());
         }
         PageUtils page = sysUserService.queryPage(params);
@@ -119,7 +119,7 @@ public class SysUserController extends AbstractController{
     @PostMapping("/delete")
     @RequiresPermissions("sys:user:delete")
     public Result delete(@RequestBody Integer[] userIds){
-        if(ArrayUtils.contains(userIds, Constants.SUPER_ADMIN)){
+        if(ArrayUtils.contains(userIds, SysConstants.SUPER_ADMIN)){
             return Result.error("系统管理员不能删除");
         }
 

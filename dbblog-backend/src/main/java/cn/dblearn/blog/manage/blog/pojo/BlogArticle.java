@@ -1,4 +1,4 @@
-package cn.dblearn.blog.manage.blog.pojo.blog;
+package cn.dblearn.blog.manage.blog.pojo;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -7,8 +7,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -23,8 +21,6 @@ import java.util.List;
  * @since 2018-11-07
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
 @ApiModel(value="BlogArticle对象", description="文章")
 public class BlogArticle implements Serializable {
 

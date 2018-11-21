@@ -1,11 +1,10 @@
 package cn.dblearn.blog.manage.sys.controller;
 
-import cn.dblearn.blog.common.pojo.Constants;
+import cn.dblearn.blog.common.pojo.constants.SysConstants;
 import cn.dblearn.blog.common.pojo.Result;
 import cn.dblearn.blog.common.util.PageUtils;
 import cn.dblearn.blog.common.validator.ValidatorUtils;
 import cn.dblearn.blog.manage.sys.pojo.entity.SysRole;
-import cn.dblearn.blog.manage.sys.pojo.entity.SysRoleMenu;
 import cn.dblearn.blog.manage.sys.service.SysRoleMenuService;
 import cn.dblearn.blog.manage.sys.service.SysRoleService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -44,7 +43,7 @@ public class SysRoleController extends AbstractController{
     @RequiresPermissions("sys:role:list")
     public Result list(@RequestParam Map<String, Object> params){
         //如果不是超级管理员，则只查询自己创建的角色列表
-        if(!Constants.SUPER_ADMIN.equals(getUserId())){
+        if(!SysConstants.SUPER_ADMIN.equals(getUserId())){
             params.put("createUserId", getUserId());
         }
 
@@ -62,7 +61,7 @@ public class SysRoleController extends AbstractController{
         Map<String, Object> map = new HashMap<>();
 
         //如果不是超级管理员，则只查询自己所拥有的角色列表
-        if(!Constants.SUPER_ADMIN.equals(getUserId())){
+        if(!SysConstants.SUPER_ADMIN.equals(getUserId())){
             map.put("createUserId", getUserId());
         }
         Collection<SysRole> list = sysRoleService.listByMap(map);

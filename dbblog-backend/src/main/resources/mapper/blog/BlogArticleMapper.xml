@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.dblearn.blog.portal.blog.mapper.BlogArticleMapper">
+<mapper namespace="cn.dblearn.blog.manage.blog.mapper.BlogArticleMapper">
 
     <resultMap id="homeArticle" type="cn.dblearn.blog.portal.blog.pojo.vo.BlogArticleVo">
         <result column="article_id" property="articleId"/>
@@ -13,8 +13,8 @@
         <result column="cover" property="cover"/>
         <result column="type" property="type" />
         <result column="create_time" property="createTime"/>
-        <collection property="tagList" column="article_id" ofType="cn.dblearn.blog.portal.blog.pojo.entity.BlogTag"
-                    select="cn.dblearn.blog.portal.blog.mapper.BlogTagMapper.listByArticleId"/>
+        <collection property="tagList" column="article_id" ofType="cn.dblearn.blog.manage.blog.pojo.BlogTag"
+                    select="cn.dblearn.blog.manage.blog.mapper.BlogTagMapper.listByArticleId"/>
     </resultMap>
     <sql id="homeArticleColumn">
         ba.article_id,ba.title,ba.description,ba.author,ba.read_num,ba.comment_num,ba.like_num,ba.cover,ba.`type`,ba.create_time

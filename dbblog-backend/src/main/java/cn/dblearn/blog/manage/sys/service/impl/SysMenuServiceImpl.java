@@ -1,6 +1,6 @@
 package cn.dblearn.blog.manage.sys.service.impl;
 
-import cn.dblearn.blog.common.pojo.Constants;
+import cn.dblearn.blog.common.pojo.constants.SysConstants;
 import cn.dblearn.blog.common.util.MapUtils;
 import cn.dblearn.blog.manage.sys.mapper.SysMenuMapper;
 import cn.dblearn.blog.manage.sys.pojo.entity.SysMenu;
@@ -39,7 +39,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
     @Override
     public List<SysMenu> listUserMenu(Integer userId) {
         //系统管理员，拥有最高权限
-        if(Constants.SUPER_ADMIN.equals(userId)){
+        if(SysConstants.SUPER_ADMIN.equals(userId)){
             return getAllMenuList(null);
         }
         //用户菜单列表
@@ -63,7 +63,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
 
         for(SysMenu entity : menuList){
             //目录
-            if(entity.getType() == Constants.MenuType.CATALOG.getValue()){
+            if(entity.getType() == SysConstants.MenuType.CATALOG.getValue()){
                 entity.setList(getMenuTreeList(queryListParentId(entity.getMenuId(), menuIdList), menuIdList));
             }
             subMenuList.add(entity);
@@ -120,7 +120,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
     @Override
     public List<SysMenu> getUserMenuList(Integer userId) {
         //系统管理员，拥有最高权限
-        if(Constants.SUPER_ADMIN.equals(userId)){
+        if(SysConstants.SUPER_ADMIN.equals(userId)){
             return getAllMenuList(null);
         }
 

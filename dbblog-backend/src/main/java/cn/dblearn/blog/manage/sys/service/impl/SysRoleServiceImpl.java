@@ -1,7 +1,7 @@
 package cn.dblearn.blog.manage.sys.service.impl;
 
 import cn.dblearn.blog.common.exception.MyException;
-import cn.dblearn.blog.common.pojo.Constants;
+import cn.dblearn.blog.common.pojo.constants.SysConstants;
 import cn.dblearn.blog.common.util.PageUtils;
 import cn.dblearn.blog.common.util.Query;
 import cn.dblearn.blog.manage.sys.mapper.SysRoleMapper;
@@ -111,7 +111,7 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
      */
     private void checkPrems(SysRole role){
         //如果不是超级管理员，则需要判断角色的权限是否超过自己的权限
-        if(Constants.SUPER_ADMIN.equals(role.getCreateUserId())){
+        if(SysConstants.SUPER_ADMIN.equals(role.getCreateUserId())){
             return ;
         }
 

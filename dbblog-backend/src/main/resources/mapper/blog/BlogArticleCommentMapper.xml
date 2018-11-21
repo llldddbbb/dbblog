@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.dblearn.blog.portal.blog.mapper.BlogArticleCommentMapper">
+<mapper namespace="cn.dblearn.blog.manage.blog.mapper.BlogArticleCommentMapper">
 
-    <select id="listByArticleId" resultType="cn.dblearn.blog.portal.blog.pojo.entity.BlogArticleComment">
+    <select id="listByArticleId" resultType="cn.dblearn.blog.manage.blog.pojo.BlogArticleComment">
       select bac.*,
       (select bac2.nick_name from blog_article_comment bac2 where bac2.comment_id=bac.parent_id) as parentNickName
       from blog_article_comment bac where bac.article_id=#{articleId}

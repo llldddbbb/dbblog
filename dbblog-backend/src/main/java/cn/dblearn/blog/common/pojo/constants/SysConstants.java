@@ -1,4 +1,4 @@
-package cn.dblearn.blog.common.pojo;
+package cn.dblearn.blog.common.pojo.constants;
 
 /**
  * Constants
@@ -8,7 +8,7 @@ package cn.dblearn.blog.common.pojo;
  * @email 571002217@qq.com
  * @description
  */
-public class Constants {
+public class SysConstants {
     public static Integer SUPER_ADMIN=1;
 
     /**

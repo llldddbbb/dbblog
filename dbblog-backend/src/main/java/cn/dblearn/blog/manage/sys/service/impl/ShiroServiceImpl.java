@@ -1,7 +1,7 @@
 package cn.dblearn.blog.manage.sys.service.impl;
 
-import cn.dblearn.blog.common.pojo.Constants;
-import cn.dblearn.blog.common.pojo.RedisBaseKeyConstants;
+import cn.dblearn.blog.common.pojo.constants.SysConstants;
+import cn.dblearn.blog.common.pojo.constants.RedisBaseKeyConstants;
 import cn.dblearn.blog.manage.sys.mapper.SysMenuMapper;
 import cn.dblearn.blog.manage.sys.mapper.SysUserMapper;
 import cn.dblearn.blog.manage.sys.pojo.entity.SysMenu;
@@ -50,7 +50,7 @@ public class ShiroServiceImpl implements ShiroService {
          List<String> permsList;
 
          //系统管理员，拥有最高权限
-        if(Constants.SUPER_ADMIN.equals(userId)){
+        if(SysConstants.SUPER_ADMIN.equals(userId)){
             List<SysMenu> menuList=sysMenuMapper.selectList(null);
             permsList=new ArrayList<>(menuList.size());
             menuList.forEach(menu ->  permsList.add(menu.getPerms()));

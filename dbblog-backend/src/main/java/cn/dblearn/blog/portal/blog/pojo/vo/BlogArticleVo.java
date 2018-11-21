@@ -1,6 +1,6 @@
 package cn.dblearn.blog.portal.blog.pojo.vo;
 
-import cn.dblearn.blog.portal.blog.pojo.entity.BlogTag;
+import cn.dblearn.blog.manage.blog.pojo.BlogTag;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

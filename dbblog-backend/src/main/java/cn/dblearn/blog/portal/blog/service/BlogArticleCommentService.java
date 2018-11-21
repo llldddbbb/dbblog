@@ -1,6 +1,6 @@
 package cn.dblearn.blog.portal.blog.service;
 
-import cn.dblearn.blog.portal.blog.pojo.entity.BlogArticleComment;
+import cn.dblearn.blog.manage.blog.pojo.BlogArticleComment;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;

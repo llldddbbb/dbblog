@@ -2,8 +2,12 @@ package cn.dblearn.blog.manage.blog.controller;
 
 import cn.dblearn.blog.common.exception.MyException;
 import cn.dblearn.blog.common.pojo.Result;
+import cn.dblearn.blog.manage.blog.pojo.BlogArticle;
+import cn.dblearn.blog.manage.blog.service.BlogArticleAdminService;
 import cn.dblearn.blog.manage.blog.service.CloudStorageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,6 +26,15 @@ public class BlogArticleAdminController {
 
     @Autowired
     private CloudStorageService cloudStorageService;
+
+    @Autowired
+    private BlogArticleAdminService blogArticleAdminService;
+
+    @PostMapping("/save")
+    public Result saveBlog(@RequestBody BlogArticle blogArticle){
+        blogArticleAdminService.save(blogArticle);
+        return Result.ok();
+    }
 
     @RequestMapping("/cover/upload")
     public Result uploadCover(MultipartFile file) throws Exception{

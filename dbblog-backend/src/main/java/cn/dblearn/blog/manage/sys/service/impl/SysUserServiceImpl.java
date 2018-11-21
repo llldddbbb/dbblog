@@ -1,7 +1,7 @@
 package cn.dblearn.blog.manage.sys.service.impl;
 
 import cn.dblearn.blog.common.exception.MyException;
-import cn.dblearn.blog.common.pojo.Constants;
+import cn.dblearn.blog.common.pojo.constants.SysConstants;
 import cn.dblearn.blog.common.util.PageUtils;
 import cn.dblearn.blog.common.util.Query;
 import cn.dblearn.blog.manage.sys.mapper.SysUserMapper;
@@ -153,7 +153,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
             return;
         }
         //如果不是超级管理员，则需要判断用户的角色是否自己创建
-        if(Constants.SUPER_ADMIN.equals(user.getCreateUserId())){
+        if(SysConstants.SUPER_ADMIN.equals(user.getCreateUserId())){
             return ;
         }
 
