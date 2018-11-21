@@ -1,5 +1,7 @@
 package cn.dblearn.blog.manage.blog.pojo;
 
+import cn.dblearn.blog.common.validator.group.AddGroup;
+import cn.dblearn.blog.common.validator.group.UpdateGroup;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -8,6 +10,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -31,6 +34,7 @@ public class BlogArticle implements Serializable {
     private Integer articleId;
 
     @ApiModelProperty(value = "文章标题")
+    @NotBlank(message="博文标题不能为空", groups = {AddGroup.class, UpdateGroup.class})
     private String title;
 
     @ApiModelProperty(value = "文章描述")
@@ -40,6 +44,7 @@ public class BlogArticle implements Serializable {
     private String author;
 
     @ApiModelProperty(value = "文章内容")
+    @NotBlank(message="博文内容不能为空", groups = {AddGroup.class, UpdateGroup.class})
     private String content;
 
     @ApiModelProperty(value = "阅读量")

@@ -2,6 +2,8 @@ package cn.dblearn.blog.manage.blog.controller;
 
 import cn.dblearn.blog.common.exception.MyException;
 import cn.dblearn.blog.common.pojo.Result;
+import cn.dblearn.blog.common.validator.ValidatorUtils;
+import cn.dblearn.blog.common.validator.group.AddGroup;
 import cn.dblearn.blog.manage.blog.pojo.BlogArticle;
 import cn.dblearn.blog.manage.blog.service.BlogArticleAdminService;
 import cn.dblearn.blog.manage.blog.service.CloudStorageService;
@@ -32,6 +34,7 @@ public class BlogArticleAdminController {
 
     @PostMapping("/save")
     public Result saveBlog(@RequestBody BlogArticle blogArticle){
+        ValidatorUtils.validateEntity(blogArticle, AddGroup.class);
         blogArticleAdminService.save(blogArticle);
         return Result.ok();
     }
@@ -44,7 +47,7 @@ public class BlogArticleAdminController {
         //上传文件
         String suffix = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
         String url =cloudStorageService.uploadSuffix(file.getBytes(), suffix);
-        return Result.ok().put("url", url);
+        return Result.ok().put("url", url).put("name",file.getOriginalFilename());
     }
 
 }
