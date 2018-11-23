@@ -213,6 +213,7 @@ export default {
           }).then(({data}) => {
             if (data && data.code === 200) {
               this.$message.success('添加博文成功')
+              this.$router.push('blog-article')
             } else {
               this.$message.error(data.msg)
             }
