@@ -11,6 +11,43 @@
           <el-input placeholder="博文作者" v-model="article.author" clearable></el-input>
         </el-col>
       </el-form-item>
+      <el-form-item label="博文分类">
+        <el-col :span="4">
+          <el-select placeholder="请选择分类方向" filterable v-model="orientationId" @change="listCategory">
+            <el-option
+              v-for="orientation in orientationList"
+              :key="orientation.orientationId"
+              :label="orientation.name"
+              :value="orientation.orientationId">
+            </el-option>
+          </el-select>
+        </el-col>
+        <el-col :span="4">
+          <el-select placeholder="请选择分类类别" v-model="categoryId" @change="listTag">
+            <el-option
+              v-for="category in categoryList"
+              :key="category.categoryId"
+              :label="category.name"
+              :value="category.categoryId">
+            </el-option>
+          </el-select>
+        </el-col>
+        <el-col :span="4">
+          <el-select
+            v-model="article.tagIds"
+            multiple
+            filterable
+            default-first-option
+            placeholder="请选择文章标签">
+            <el-option
+              v-for="item in tagList"
+              :key="item.tagId"
+              :label="item.name"
+              :value="item.tagId">
+            </el-option>
+          </el-select>
+        </el-col>
+      </el-form-item>
       <el-form-item label="是否推荐">
         <el-radio-group v-model="article.isRecommend">
           <el-radio :label="1">是</el-radio>
@@ -18,7 +55,7 @@
         </el-radio-group>
       </el-form-item>
       <el-form-item label="展示类型">
-        <el-select v-model="article.type" placeholder="请选择">
+        <el-select v-model="article.type" placeholder="请选择展示类型">
           <el-option
             v-for="item in articleTypeList"
             :key="item.value"
@@ -70,7 +107,8 @@ export default {
   data () {
     return {
       article: {
-        isRecommend: 0
+        isRecommend: 0,
+        tagList: []
       },
       articleTypeList: [{
         label: '小图片',
@@ -86,7 +124,12 @@ export default {
       file: [],
       rules: {
         title: {required: true, message: '请输入博文标题', trigger: 'change'}
-      }
+      },
+      orientationList: [],
+      categoryList: [],
+      tagList: [],
+      orientationId: '',
+      categoryId: ''
     }
   },
   created () {
@@ -95,6 +138,46 @@ export default {
   methods: {
     init () {
       this.url = this.$http.adornUrl(`/admin/blog/article/cover/upload?token=${this.$cookie.get('token')}`)
+      this.listOrientation()
+    },
+    // 获取博文分类方向
+    listOrientation () {
+      this.$http({
+        url: this.$http.adornUrl('/article/classify/orientations'),
+        method: 'get',
+        params: this.$http.adornParams()
+      }).then(({data}) => {
+        if (data && data.code === 200) {
+          this.orientationList = data.orientationList
+        }
+      })
+    },
+    // 获取博文分类
+    listCategory (orientationId) {
+      this.$http({
+        url: this.$http.adornUrl('/article/classify/categories'),
+        method: 'get',
+        params: this.$http.adornParams({
+          orientationId: orientationId
+        })
+      }).then(({data}) => {
+        if (data && data.code === 200) {
+          this.categoryList = data.categoryList
+        }
+      })
+    },
+    listTag (categoryId) {
+      this.$http({
+        url: this.$http.adornUrl('/article/classify/tags'),
+        method: 'get',
+        params: this.$http.adornParams({
+          categoryId: categoryId
+        })
+      }).then(({data}) => {
+        if (data && data.code === 200) {
+          this.tagList = data.tagList
+        }
+      })
     },
     // 上传之前
     beforeUploadHandle (file) {
@@ -119,6 +202,7 @@ export default {
       this.file = []
       this.article.cover = ''
     },
+    // 保存文章
     saveArticle () {
       this.$refs['articleForm'].validate((valid) => {
         if (valid) {
