@@ -1,4 +1,4 @@
-package cn.dblearn.blog.manage.blog.pojo;
+package cn.dblearn.blog.manage.blog.entity;
 
 import cn.dblearn.blog.common.validator.group.AddGroup;
 import cn.dblearn.blog.common.validator.group.UpdateGroup;
@@ -74,6 +74,9 @@ public class BlogArticle implements Serializable {
 
     @TableField(exist = false)
     private List<BlogTag> tagList;
+
+    @TableField(exist = false)
+    private List<Integer> tagIds;
 
     @TableField(exist = false)
     private List<BlogArticleComment> commentList;

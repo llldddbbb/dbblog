@@ -13,7 +13,7 @@
         <result column="cover" property="cover"/>
         <result column="type" property="type" />
         <result column="create_time" property="createTime"/>
-        <collection property="tagList" column="article_id" ofType="cn.dblearn.blog.manage.blog.pojo.BlogTag"
+        <collection property="tagList" column="article_id" ofType="cn.dblearn.blog.manage.blog.entity.BlogTag"
                     select="cn.dblearn.blog.manage.blog.mapper.BlogTagMapper.listByArticleId"/>
     </resultMap>
     <sql id="homeArticleColumn">

@@ -1,7 +1,7 @@
 package cn.dblearn.blog.portal.blog.service;
 
-import cn.dblearn.blog.manage.blog.pojo.BlogCategory;
-import cn.dblearn.blog.manage.blog.pojo.BlogOrientation;
+import cn.dblearn.blog.manage.blog.entity.BlogCategory;
+import cn.dblearn.blog.manage.blog.entity.BlogOrientation;
 
 import java.util.List;
 

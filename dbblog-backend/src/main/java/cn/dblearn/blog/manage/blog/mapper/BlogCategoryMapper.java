@@ -1,6 +1,6 @@
 package cn.dblearn.blog.manage.blog.mapper;
 
-import cn.dblearn.blog.manage.blog.pojo.BlogCategory;
+import cn.dblearn.blog.manage.blog.entity.BlogCategory;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 

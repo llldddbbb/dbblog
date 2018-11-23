@@ -3,7 +3,7 @@ package cn.dblearn.blog.portal.blog.service.impl;
 import cn.dblearn.blog.common.util.MapUtils;
 import cn.dblearn.blog.manage.blog.mapper.BlogArticleMapper;
 import cn.dblearn.blog.manage.blog.mapper.BlogTagMapper;
-import cn.dblearn.blog.manage.blog.pojo.BlogArticle;
+import cn.dblearn.blog.manage.blog.entity.BlogArticle;
 import cn.dblearn.blog.portal.blog.pojo.vo.BlogArticleVo;
 import cn.dblearn.blog.portal.blog.service.BlogArticleCommentService;
 import cn.dblearn.blog.portal.blog.service.BlogArticleService;

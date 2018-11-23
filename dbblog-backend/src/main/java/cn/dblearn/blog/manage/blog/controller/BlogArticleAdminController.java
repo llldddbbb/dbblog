@@ -2,17 +2,18 @@ package cn.dblearn.blog.manage.blog.controller;
 
 import cn.dblearn.blog.common.exception.MyException;
 import cn.dblearn.blog.common.pojo.Result;
+import cn.dblearn.blog.common.util.PageUtils;
 import cn.dblearn.blog.common.validator.ValidatorUtils;
 import cn.dblearn.blog.common.validator.group.AddGroup;
-import cn.dblearn.blog.manage.blog.pojo.BlogArticle;
+import cn.dblearn.blog.manage.blog.entity.BlogArticle;
 import cn.dblearn.blog.manage.blog.service.BlogArticleAdminService;
 import cn.dblearn.blog.manage.blog.service.CloudStorageService;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.Map;
 
 /**
  * BlogArticleAdminController
@@ -33,9 +34,10 @@ public class BlogArticleAdminController {
     private BlogArticleAdminService blogArticleAdminService;
 
     @PostMapping("/save")
+    @RequiresPermissions("blog:article:add")
     public Result saveBlog(@RequestBody BlogArticle blogArticle){
         ValidatorUtils.validateEntity(blogArticle, AddGroup.class);
-        blogArticleAdminService.save(blogArticle);
+        blogArticleAdminService.saveArticle(blogArticle);
         return Result.ok();
     }
 
@@ -48,6 +50,12 @@ public class BlogArticleAdminController {
         String suffix = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
         String url =cloudStorageService.uploadSuffix(file.getBytes(), suffix);
         return Result.ok().put("url", url).put("name",file.getOriginalFilename());
+    }
+
+    @RequestMapping("/list")
+    public Result listBlog(@RequestParam Map<String, Object> params) {
+        PageUtils page = blogArticleAdminService.queryPage(params);
+        return Result.ok().put("page",page);
     }
 
 }

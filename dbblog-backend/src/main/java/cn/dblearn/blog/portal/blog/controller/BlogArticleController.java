@@ -2,7 +2,7 @@ package cn.dblearn.blog.portal.blog.controller;
 
 
 import cn.dblearn.blog.common.pojo.Result;
-import cn.dblearn.blog.manage.blog.pojo.BlogArticle;
+import cn.dblearn.blog.manage.blog.entity.BlogArticle;
 import cn.dblearn.blog.portal.blog.service.BlogArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
