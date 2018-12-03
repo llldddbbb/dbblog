@@ -72,11 +72,14 @@ public class BlogArticle implements Serializable {
     @ApiModelProperty(value = "是否推荐文章")
     private Boolean isRecommend;
 
-    @TableField(exist = false)
-    private List<BlogTag> tagList;
+    @ApiModelProperty(value = "分类方向")
+    private Integer orientationId;
+
+    @ApiModelProperty(value = "分类类别")
+    private Integer categoryId;
 
     @TableField(exist = false)
-    private List<Integer> tagIds;
+    private List<BlogTag> tagList;
 
     @TableField(exist = false)
     private List<BlogArticleComment> commentList;

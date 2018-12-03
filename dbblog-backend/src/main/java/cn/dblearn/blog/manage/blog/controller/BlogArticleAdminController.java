@@ -7,7 +7,7 @@ import cn.dblearn.blog.common.validator.ValidatorUtils;
 import cn.dblearn.blog.common.validator.group.AddGroup;
 import cn.dblearn.blog.manage.blog.entity.BlogArticle;
 import cn.dblearn.blog.manage.blog.service.BlogArticleAdminService;
-import cn.dblearn.blog.manage.blog.service.CloudStorageService;
+import cn.dblearn.blog.manage.oss.service.CloudStorageService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -41,7 +41,7 @@ public class BlogArticleAdminController {
         return Result.ok();
     }
 
-    @RequestMapping("/cover/upload")
+    @PostMapping("/cover/upload")
     public Result uploadCover(MultipartFile file) throws Exception{
         if (file.isEmpty()) {
             throw new MyException("上传文件不能为空");
@@ -52,10 +52,16 @@ public class BlogArticleAdminController {
         return Result.ok().put("url", url).put("name",file.getOriginalFilename());
     }
 
-    @RequestMapping("/list")
+    @GetMapping("/list")
     public Result listBlog(@RequestParam Map<String, Object> params) {
         PageUtils page = blogArticleAdminService.queryPage(params);
         return Result.ok().put("page",page);
+    }
+
+    @DeleteMapping("/delete")
+    public Result deleteBatch(@RequestBody Integer[] articleIds){
+        blogArticleAdminService.deleteBatch(articleIds);
+        return Result.ok();
     }
 
 }

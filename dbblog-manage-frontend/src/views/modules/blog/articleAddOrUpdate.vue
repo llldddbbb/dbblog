@@ -138,6 +138,7 @@ export default {
   methods: {
     init () {
       this.url = this.$http.adornUrl(`/admin/blog/article/cover/upload?token=${this.$cookie.get('token')}`)
+      console.log(this.$route.query.id)
       this.listOrientation()
     },
     // 获取博文分类方向

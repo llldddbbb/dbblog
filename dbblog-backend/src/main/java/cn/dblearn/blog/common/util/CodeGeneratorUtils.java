@@ -53,6 +53,7 @@ public class CodeGeneratorUtils {
         gc.setOutputDir(projectPath + "/src/main/java");
         gc.setAuthor("bobbi");
         gc.setOpen(false);
+        gc.setServiceName("%sService");
         gc.setSwagger2(true);
         mpg.setGlobalConfig(gc);
 
