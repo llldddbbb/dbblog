@@ -13,7 +13,7 @@
       </el-form-item>
       <el-form-item label="博文分类">
         <el-col :span="4">
-          <el-select placeholder="请选择分类方向" filterable v-model="orientationId" @change="listCategory">
+          <el-select placeholder="请选择分类方向" filterable v-model="article.orientationId" @change="listCategory">
             <el-option
               v-for="orientation in orientationList"
               :key="orientation.orientationId"
@@ -23,7 +23,7 @@
           </el-select>
         </el-col>
         <el-col :span="4">
-          <el-select placeholder="请选择分类类别" v-model="categoryId" @change="listTag">
+          <el-select placeholder="请选择分类类别" v-model="article.categoryId" @change="listTag">
             <el-option
               v-for="category in categoryList"
               :key="category.categoryId"
@@ -34,7 +34,7 @@
         </el-col>
         <el-col :span="4">
           <el-select
-            v-model="article.tagIds"
+            v-model="article.tagList"
             multiple
             filterable
             default-first-option
@@ -42,7 +42,7 @@
             <el-option
               v-for="item in tagList"
               :key="item.tagId"
-              :label="item.name"
+              :label="item.tagName"
               :value="item.tagId">
             </el-option>
           </el-select>
@@ -50,8 +50,8 @@
       </el-form-item>
       <el-form-item label="是否推荐">
         <el-radio-group v-model="article.isRecommend">
-          <el-radio :label="1">是</el-radio>
-          <el-radio :label="0">否</el-radio>
+          <el-radio :label="true" >是</el-radio>
+          <el-radio :label="false" >否</el-radio>
         </el-radio-group>
       </el-form-item>
       <el-form-item label="展示类型">
@@ -70,6 +70,7 @@
             drag
             :action="url"
             list-type="picture"
+            :multiple="false"
             :before-upload="beforeUploadHandle"
             :file-list="file"
             :on-remove="handleRemove"
@@ -107,7 +108,7 @@ export default {
   data () {
     return {
       article: {
-        isRecommend: 0,
+        isRecommend: false,
         tagList: []
       },
       articleTypeList: [{
@@ -127,9 +128,7 @@ export default {
       },
       orientationList: [],
       categoryList: [],
-      tagList: [],
-      orientationId: '',
-      categoryId: ''
+      tagList: []
     }
   },
   created () {
@@ -138,8 +137,20 @@ export default {
   methods: {
     init () {
       this.url = this.$http.adornUrl(`/admin/blog/article/cover/upload?token=${this.$cookie.get('token')}`)
-      console.log(this.$route.query.id)
+      let articleId = this.$route.query.id
       this.listOrientation()
+      if (articleId) {
+        this.$http({
+          url: this.$http.adornUrl('/article/' + articleId),
+          method: 'get',
+          params: this.$http.adornParams()
+        }).then(({data}) => {
+          if (data && data.code === 200) {
+            this.article = data.article
+            this.file = [{url: data.article.cover}]
+          }
+        })
+      }
     },
     // 获取博文分类方向
     listOrientation () {
