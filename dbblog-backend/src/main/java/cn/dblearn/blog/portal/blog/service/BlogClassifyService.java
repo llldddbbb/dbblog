@@ -13,7 +13,7 @@ import java.util.List;
  * @author bobbi
  * @since 2018-11-11
  */
-public interface BlogArticleClassifyService {
+public interface BlogClassifyService {
 
     /**
      * 获取分类方向列表

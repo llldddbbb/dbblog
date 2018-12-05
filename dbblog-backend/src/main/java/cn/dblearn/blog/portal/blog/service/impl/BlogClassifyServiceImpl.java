@@ -6,7 +6,7 @@ import cn.dblearn.blog.manage.blog.mapper.BlogTagMapper;
 import cn.dblearn.blog.manage.blog.entity.BlogCategory;
 import cn.dblearn.blog.manage.blog.entity.BlogOrientation;
 import cn.dblearn.blog.manage.blog.entity.BlogTag;
-import cn.dblearn.blog.portal.blog.service.BlogArticleClassifyService;
+import cn.dblearn.blog.portal.blog.service.BlogClassifyService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,7 +22,7 @@ import java.util.List;
  * @since 2018-11-11
  */
 @Service
-public class BlogArticleClassifyServiceImpl implements BlogArticleClassifyService {
+public class BlogClassifyServiceImpl implements BlogClassifyService {
 
     @Autowired
     private BlogOrientationMapper blogOrientationMapper;

@@ -5,7 +5,7 @@ import cn.dblearn.blog.manage.blog.mapper.BlogArticleMapper;
 import cn.dblearn.blog.manage.blog.mapper.BlogTagMapper;
 import cn.dblearn.blog.manage.blog.entity.BlogArticle;
 import cn.dblearn.blog.portal.blog.pojo.vo.BlogArticleVo;
-import cn.dblearn.blog.portal.blog.service.BlogArticleCommentService;
+import cn.dblearn.blog.portal.blog.service.BlogCommentService;
 import cn.dblearn.blog.portal.blog.service.BlogArticleService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ public class BlogArticleServiceImpl extends ServiceImpl<BlogArticleMapper, BlogA
     private BlogTagMapper blogTagMapper;
 
     @Autowired
-    private BlogArticleCommentService blogArticleCommentService;
+    private BlogCommentService blogArticleCommentService;
 
     /**
      * 获取文章详情

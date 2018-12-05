@@ -22,7 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
  * @since 2018-11-30
  */
 @RestController
-@RequestMapping("/oss/resource")
+@RequestMapping("/admin/oss/resource")
 public class OssResourceController {
 
     @Autowired

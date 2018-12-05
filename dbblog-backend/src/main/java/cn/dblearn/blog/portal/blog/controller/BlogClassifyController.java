@@ -2,7 +2,7 @@ package cn.dblearn.blog.portal.blog.controller;
 
 
 import cn.dblearn.blog.common.pojo.Result;
-import cn.dblearn.blog.portal.blog.service.BlogArticleClassifyService;
+import cn.dblearn.blog.portal.blog.service.BlogClassifyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("article/classify")
-public class BlogArticleClassifyController {
+public class BlogClassifyController {
 
     @Autowired
-    private BlogArticleClassifyService blogArticleClassifyService;
+    private BlogClassifyService blogArticleClassifyService;
 
     @GetMapping("/orientations")
     public Result listOrientation(){

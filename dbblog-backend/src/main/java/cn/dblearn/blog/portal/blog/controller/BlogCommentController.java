@@ -15,6 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/blog/blogArticleComment")
-public class BlogArticleCommentController {
+public class BlogCommentController {
 
 }

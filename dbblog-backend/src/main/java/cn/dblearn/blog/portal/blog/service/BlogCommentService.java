@@ -13,7 +13,7 @@ import java.util.List;
  * @author bobbi
  * @since 2018-11-10
  */
-public interface BlogArticleCommentService extends IService<BlogArticleComment> {
+public interface BlogCommentService extends IService<BlogArticleComment> {
 
     /**
      * 根据文章Id获取文章评论

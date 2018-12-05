@@ -34,4 +34,10 @@ public interface BlogArticleAdminService extends IService<BlogArticle> {
      * @param articleIds
      */
     void deleteBatch(Integer[] articleIds);
+
+    /**
+     * 更新博文
+     * @param blogArticle
+     */
+    void updateArticle(BlogArticle blogArticle);
 }

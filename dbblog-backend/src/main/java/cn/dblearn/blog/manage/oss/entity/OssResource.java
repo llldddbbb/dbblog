@@ -35,7 +35,7 @@ public class OssResource implements Serializable {
 
     private String url;
 
-    public OssResource (String name,String url){
+    public OssResource (String url,String name){
         this.name=name;
         this.url=url;
     }
