@@ -34,11 +34,12 @@
         </el-col>
         <el-col :span="4">
           <el-select
-            v-model="article.tagList"
+            v-model="tagListTemp"
             multiple
+            allow-create
             filterable
             default-first-option
-            placeholder="请选择文章标签">
+            placeholder="请选择文章标签" @change="adornTagList">
             <el-option
               v-for="item in tagList"
               :key="item.tagId"
@@ -128,7 +129,8 @@ export default {
       },
       orientationList: [],
       categoryList: [],
-      tagList: []
+      tagList: [],
+      tagListTemp: []
     }
   },
   created () {
@@ -136,8 +138,8 @@ export default {
   },
   methods: {
     init () {
-      this.url = this.$http.adornUrl(`/admin/blog/article/cover/upload?token=${this.$cookie.get('token')}`)
-      let articleId = this.$route.query.id
+      this.url = this.$http.adornUrl(`/admin/oss/resource/upload?token=${this.$cookie.get('token')}`)
+      let articleId = this.$route.params.articleId
       this.listOrientation()
       if (articleId) {
         this.$http({
@@ -148,6 +150,11 @@ export default {
           if (data && data.code === 200) {
             this.article = data.article
             this.file = [{url: data.article.cover}]
+            this.listCategory(this.article.orientationId)
+            this.listTag(this.article.categoryId)
+            this.tagListTemp = this.article.tagList.map(tag => {
+              return tag.tagId
+            })
           }
         })
       }
@@ -191,6 +198,23 @@ export default {
         }
       })
     },
+    // 过滤标签
+    adornTagList (selectValueList) {
+      let tagList = []
+      selectValueList.forEach(value => {
+        let isInput = true
+        this.tagList.forEach(tag => {
+          if (tag.tagId === value || value.tagId) {
+            isInput = false
+            tagList.push({'tagId': tag.tagId, 'tagName': tag.tagName})
+          }
+        })
+        if (isInput) {
+          tagList.push({'tagName': value})
+        }
+      })
+      this.article.tagList = tagList
+    },
     // 上传之前
     beforeUploadHandle (file) {
       if (file.type !== 'image/jpg' && file.type !== 'image/jpeg' && file.type !== 'image/png' && file.type !== 'image/gif') {
@@ -201,11 +225,8 @@ export default {
     // 上传成功
     successHandle (response) {
       if (response && response.code === 200) {
-        this.article.cover = response.url
-        this.file = [{
-          url: response.url,
-          name: response.name
-        }]
+        this.article.cover = response.resource.url
+        this.file = [response.resource]
         this.$message.success('上传成功！')
       }
     },
@@ -219,13 +240,13 @@ export default {
       this.$refs['articleForm'].validate((valid) => {
         if (valid) {
           this.$http({
-            url: this.$http.adornUrl('/admin/blog/article/save'),
-            method: 'post',
+            url: this.$http.adornUrl(`/admin/blog/article/${!this.article.articleId ? 'save' : 'update'}`),
+            method: !this.article.articleId ? 'post' : 'put',
             data: this.$http.adornData(this.article)
           }).then(({data}) => {
             if (data && data.code === 200) {
               this.$message.success('添加博文成功')
-              this.$router.push('blog-article')
+              this.$router.push('/blog-article')
             } else {
               this.$message.error(data.msg)
             }

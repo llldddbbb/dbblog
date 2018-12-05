@@ -1,74 +1,75 @@
 <template>
 <div>
-  <el-form :inline="true">
-    <el-form-item>
-      <el-input placeholder="标题" v-model="dataForm.title" clearable></el-input>
-    </el-form-item>
-    <el-form-item>
-      <el-button @click="getDataList()">查询</el-button>
-      <el-button type="danger" :disabled="dataListSelections.length <= 0" @click="deleteHandle()">批量删除</el-button>
-    </el-form-item>
-  </el-form>
-  <el-table
-    :data="dataList"
-    border
-    v-loading="dataListLoading"
-    @selection-change="selectionChangeHandle"
-    style="width: 100%;">
-    <el-table-column
-      type="selection"
-      header-align="center"
-      align="center"
-      width="50">
-    </el-table-column>
-    <el-table-column
-      prop="articleId"
-      header-align="center"
-      align="center"
-      width="80"
-      label="编号">
-    </el-table-column>
-    <el-table-column
-      prop="author"
-      header-align="center"
-      align="center"
-      label="作者"
-      width="80">
-    </el-table-column>
-    <el-table-column
-      prop="cover"
-      label="封面"
-      width="150"
-      align="center">
-      <template slot-scope="scope">
-        <img style="width: 100%;" :src="scope.row.cover"/>
-      </template>
-    </el-table-column>
-    <el-table-column
-      prop="title"
-      header-align="center"
-      align="center"
-      label="博文标题">
-    </el-table-column>
-    <el-table-column
-      prop="description"
-      header-align="center"
-      align="center"
-      label="博文描述">
-    </el-table-column>
-    <el-table-column
-      fixed="right"
-      header-align="center"
-      align="center"
-      width="150"
-      label="操作">
-      <template slot-scope="scope">
-        <el-button type="text" size="small" @click="addOrUpdateHandle(scope.row.articleId)">修改</el-button>
-        <el-button type="text" size="small" @click="deleteHandle(scope.row.articleId)">删除</el-button>
-      </template>
-    </el-table-column>
-  </el-table>
-  <el-pagination
+  <div>
+    <el-form :inline="true">
+      <el-form-item>
+        <el-input placeholder="标题" v-model="dataForm.title" clearable></el-input>
+      </el-form-item>
+      <el-form-item>
+        <el-button @click="getDataList()">查询</el-button>
+        <el-button type="danger" :disabled="dataListSelections.length <= 0" @click="deleteHandle()">批量删除</el-button>
+      </el-form-item>
+    </el-form>
+    <el-table
+      :data="dataList"
+      border
+      v-loading="dataListLoading"
+      @selection-change="selectionChangeHandle"
+      style="width: 100%;">
+      <el-table-column
+        type="selection"
+        header-align="center"
+        align="center"
+        width="50">
+      </el-table-column>
+      <el-table-column
+        prop="articleId"
+        header-align="center"
+        align="center"
+        width="80"
+        label="编号">
+      </el-table-column>
+      <el-table-column
+        prop="author"
+        header-align="center"
+        align="center"
+        label="作者"
+        width="80">
+      </el-table-column>
+      <el-table-column
+        prop="cover"
+        label="封面"
+        width="150"
+        align="center">
+        <template slot-scope="scope">
+          <img style="width: 100%;" :src="scope.row.cover"/>
+        </template>
+      </el-table-column>
+      <el-table-column
+        prop="title"
+        header-align="center"
+        align="center"
+        label="博文标题">
+      </el-table-column>
+      <el-table-column
+        prop="description"
+        header-align="center"
+        align="center"
+        label="博文描述">
+      </el-table-column>
+      <el-table-column
+        fixed="right"
+        header-align="center"
+        align="center"
+        width="150"
+        label="操作">
+        <template slot-scope="scope">
+          <el-button type="text" size="small" @click="addOrUpdateHandle(scope.row.articleId)">修改</el-button>
+          <el-button type="text" size="small" @click="deleteHandle(scope.row.articleId)">删除</el-button>
+        </template>
+      </el-table-column>
+    </el-table>
+    <el-pagination
     @size-change="sizeChangeHandle"
     @current-change="currentChangeHandle"
     :current-page="pageIndex"
@@ -77,6 +78,7 @@
     :total="totalPage"
     layout="total, sizes, prev, pager, next, jumper">
   </el-pagination>
+  </div>
 </div>
 </template>
 

@@ -5,7 +5,7 @@
       <el-input placeholder="标题" v-model="dataForm.title" clearable></el-input>
     </el-form-item>
     <el-form-item>
-      <el-button>查询</el-button>
+      <el-button @click="getDataList()">查询</el-button>
       <el-button type="danger" :disabled="dataListSelections.length <= 0" @click="deleteHandle()">批量删除</el-button>
     </el-form-item>
   </el-form>
@@ -167,8 +167,8 @@ export default {
     },
     // 新增 / 修改
     addOrUpdateHandle (id) {
-      this.removeTabHandle('博文管理')
-      this.$router.push({path: 'blog-articleAddOrUpdate', query: {id: id}})
+      this.removeTabHandle('article-update')
+      this.$router.push({path: 'blog/article/update/' + id})
     },
     // 删除
     deleteHandle (id) {
@@ -182,7 +182,7 @@ export default {
       }).then(() => {
         this.$http({
           url: this.$http.adornUrl('/admin/blog/article/delete'),
-          method: 'post',
+          method: 'delete',
           data: this.$http.adornData(articleIds, false)
         }).then(({data}) => {
           if (data && data.code === 200) {
