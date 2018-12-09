@@ -1,7 +1,7 @@
-package cn.dblearn.blog.portal.blog.service;
+package cn.dblearn.blog.portal.article.service;
 
-import cn.dblearn.blog.manage.blog.entity.BlogArticle;
-import cn.dblearn.blog.portal.blog.pojo.vo.BlogArticleVo;
+import cn.dblearn.blog.manage.article.entity.Article;
+import cn.dblearn.blog.portal.article.pojo.vo.ArticleVO;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
@@ -15,43 +15,43 @@ import java.util.Map;
  * @author bobbi
  * @since 2018-11-07
  */
-public interface BlogArticleService extends IService<BlogArticle> {
+public interface ArticleService extends IService<Article> {
 
     /**
      * 获取文章详情
      * @param articleId
      * @return
      */
-    BlogArticle getArticle(Integer articleId);
+    Article getArticle(Integer articleId);
 
     /**
      * 获取最新文章
      * @return
      */
-    List<BlogArticleVo> listLatest();
+    List<ArticleVO> listLatest();
 
     /**
      * 获取点赞最多的文章
      * @return
      */
-    List<BlogArticleVo> listFavorite();
+    List<ArticleVO> listFavorite();
 
     /**
      * 获取评论最多的文章
      * @return
      */
-    List<BlogArticleVo> listCommentMost();
+    List<ArticleVO> listCommentMost();
 
     /**
      * 获取推荐文章
      * @return
      */
-    List<BlogArticleVo> listRecommend();
+    List<ArticleVO> listRecommend();
 
     /**
      * 根据分类Id筛选文章列表
      * @param params
      * @return
      */
-    List<BlogArticleVo> listByClassifyId(Map<String, Object> params);
+    List<ArticleVO> listByClassifyId(Map<String, Object> params);
 }

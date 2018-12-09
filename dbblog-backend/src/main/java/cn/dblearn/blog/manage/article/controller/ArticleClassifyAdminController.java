@@ -1,8 +1,8 @@
-package cn.dblearn.blog.manage.blog.controller;
+package cn.dblearn.blog.manage.article.controller;
 
 import cn.dblearn.blog.common.pojo.Result;
 import cn.dblearn.blog.common.util.PageUtils;
-import cn.dblearn.blog.manage.blog.service.BlogClassifyAdminService;
+import cn.dblearn.blog.manage.article.service.ArticleClassifyAdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,11 +17,11 @@ import java.util.Map;
  * @description
  */
 @RestController
-@RequestMapping("/admin/blog/classify")
-public class BlogClassifyAdminController {
+@RequestMapping("/admin/article/classify")
+public class ArticleClassifyAdminController {
 
     @Autowired
-    private BlogClassifyAdminService blogClassifyAdminService;
+    private ArticleClassifyAdminService blogClassifyAdminService;
 
     @GetMapping("/orientation/list")
     public Result listOrientation(@RequestParam Map<String,Object> params) {

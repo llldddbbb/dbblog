@@ -1,14 +1,14 @@
-package cn.dblearn.blog.manage.blog.service.impl;
+package cn.dblearn.blog.manage.article.service.impl;
 
 import cn.dblearn.blog.common.util.PageUtils;
 import cn.dblearn.blog.common.util.Query;
-import cn.dblearn.blog.manage.blog.entity.BlogCategory;
-import cn.dblearn.blog.manage.blog.entity.BlogOrientation;
-import cn.dblearn.blog.manage.blog.entity.BlogTag;
-import cn.dblearn.blog.manage.blog.mapper.BlogCategoryMapper;
-import cn.dblearn.blog.manage.blog.mapper.BlogOrientationMapper;
-import cn.dblearn.blog.manage.blog.mapper.BlogTagMapper;
-import cn.dblearn.blog.manage.blog.service.BlogClassifyAdminService;
+import cn.dblearn.blog.manage.article.entity.ArticleCategory;
+import cn.dblearn.blog.manage.article.entity.ArticleOrientation;
+import cn.dblearn.blog.manage.article.entity.ArticleTag;
+import cn.dblearn.blog.manage.article.mapper.ArticleCategoryMapper;
+import cn.dblearn.blog.manage.article.mapper.ArticleOrientationMapper;
+import cn.dblearn.blog.manage.article.mapper.ArticleTagMapper;
+import cn.dblearn.blog.manage.article.service.ArticleClassifyAdminService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,39 +26,39 @@ import java.util.Map;
  * @since 2018-11-11
  */
 @Service
-public class BlogClassifyAdminServiceImpl implements BlogClassifyAdminService {
+public class ArticleClassifyAdminServiceImpl implements ArticleClassifyAdminService {
 
     @Autowired
-    private BlogOrientationMapper blogOrientationMapper;
+    private ArticleOrientationMapper blogOrientationMapper;
 
     @Autowired
-    private BlogCategoryMapper blogCategoryMapper;
+    private ArticleCategoryMapper blogCategoryMapper;
 
     @Autowired
-    private BlogTagMapper blogTagMapper;
+    private ArticleTagMapper blogTagMapper;
 
 
     @Override
     public PageUtils queryPageOrientation(Map<String, Object> params) {
         String name = (String) params.get("name");
-        IPage<BlogOrientation> page = blogOrientationMapper.selectPage(new Query<BlogOrientation>(params).getPage(),
-                new QueryWrapper<BlogOrientation>().lambda().like(!StringUtils.isEmpty(name), BlogOrientation::getName, name));
+        IPage<ArticleOrientation> page = blogOrientationMapper.selectPage(new Query<ArticleOrientation>(params).getPage(),
+                new QueryWrapper<ArticleOrientation>().lambda().like(!StringUtils.isEmpty(name), ArticleOrientation::getName, name));
         return new PageUtils(page);
     }
 
     @Override
     public PageUtils queryPageCategory(Map<String, Object> params) {
         String name = (String) params.get("name");
-        IPage<BlogCategory> page = blogCategoryMapper.selectPage(new Query<BlogCategory>(params).getPage(),
-                new QueryWrapper<BlogCategory>().lambda().like(!StringUtils.isEmpty(name), BlogCategory::getName, name));
+        IPage<ArticleCategory> page = blogCategoryMapper.selectPage(new Query<ArticleCategory>(params).getPage(),
+                new QueryWrapper<ArticleCategory>().lambda().like(!StringUtils.isEmpty(name), ArticleCategory::getName, name));
         return new PageUtils(page);
     }
 
     @Override
     public PageUtils queryPageTag(Map<String, Object> params) {
         String name = (String) params.get("name");
-        IPage<BlogTag> page = blogTagMapper.selectPage(new Query<BlogTag>(params).getPage(),
-                new QueryWrapper<BlogTag>().lambda().like(!StringUtils.isEmpty(name), BlogTag::getTagName, name));
+        IPage<ArticleTag> page = blogTagMapper.selectPage(new Query<ArticleTag>(params).getPage(),
+                new QueryWrapper<ArticleTag>().lambda().like(!StringUtils.isEmpty(name), ArticleTag::getTagName, name));
         return new PageUtils(page);
     }
 }

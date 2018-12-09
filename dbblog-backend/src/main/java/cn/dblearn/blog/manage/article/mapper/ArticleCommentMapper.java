@@ -1,6 +1,6 @@
-package cn.dblearn.blog.manage.blog.mapper;
+package cn.dblearn.blog.manage.article.mapper;
 
-import cn.dblearn.blog.manage.blog.entity.BlogArticleComment;
+import cn.dblearn.blog.manage.article.entity.ArticleComment;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -15,12 +15,12 @@ import java.util.List;
  * @since 2018-11-10
  */
 @Mapper
-public interface BlogArticleCommentMapper extends BaseMapper<BlogArticleComment> {
+public interface ArticleCommentMapper extends BaseMapper<ArticleComment> {
 
     /**
      * 根据articleId查询评论
      * @param articleId
      * @return
      */
-    List<BlogArticleComment> listByArticleId(Integer articleId);
+    List<ArticleComment> listByArticleId(Integer articleId);
 }

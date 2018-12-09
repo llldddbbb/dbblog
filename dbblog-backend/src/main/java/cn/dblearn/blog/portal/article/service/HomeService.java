@@ -1,4 +1,4 @@
-package cn.dblearn.blog.portal.blog.service;
+package cn.dblearn.blog.portal.article.service;
 
 import cn.dblearn.blog.common.pojo.Result;
 

@@ -1,4 +1,4 @@
-package cn.dblearn.blog.manage.blog.entity;
+package cn.dblearn.blog.manage.article.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -20,7 +20,7 @@ import java.util.Date;
  */
 @Data
 @ApiModel(value="BlogTag对象", description="标签")
-public class BlogTag implements Serializable {
+public class ArticleTag implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

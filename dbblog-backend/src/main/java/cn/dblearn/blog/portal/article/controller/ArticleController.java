@@ -1,9 +1,9 @@
-package cn.dblearn.blog.portal.blog.controller;
+package cn.dblearn.blog.portal.article.controller;
 
 
 import cn.dblearn.blog.common.pojo.Result;
-import cn.dblearn.blog.manage.blog.entity.BlogArticle;
-import cn.dblearn.blog.portal.blog.service.BlogArticleService;
+import cn.dblearn.blog.manage.article.entity.Article;
+import cn.dblearn.blog.portal.article.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,14 +21,14 @@ import java.util.Map;
  * @since 2018-11-07
  */
 @RestController
-public class BlogArticleController {
+public class ArticleController {
 
     @Autowired
-    private BlogArticleService blogArticleService;
+    private ArticleService blogArticleService;
 
     @GetMapping("article/{articleId}")
     public Result getArticle(@PathVariable Integer articleId){
-        BlogArticle article = blogArticleService.getArticle(articleId);
+        Article article = blogArticleService.getArticle(articleId);
         return Result.ok().put("article",article);
     }
 

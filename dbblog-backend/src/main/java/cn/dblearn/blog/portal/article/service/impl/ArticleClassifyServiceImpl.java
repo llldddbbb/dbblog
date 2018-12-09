@@ -1,12 +1,12 @@
-package cn.dblearn.blog.portal.blog.service.impl;
+package cn.dblearn.blog.portal.article.service.impl;
 
-import cn.dblearn.blog.manage.blog.mapper.BlogCategoryMapper;
-import cn.dblearn.blog.manage.blog.mapper.BlogOrientationMapper;
-import cn.dblearn.blog.manage.blog.mapper.BlogTagMapper;
-import cn.dblearn.blog.manage.blog.entity.BlogCategory;
-import cn.dblearn.blog.manage.blog.entity.BlogOrientation;
-import cn.dblearn.blog.manage.blog.entity.BlogTag;
-import cn.dblearn.blog.portal.blog.service.BlogClassifyService;
+import cn.dblearn.blog.manage.article.mapper.ArticleCategoryMapper;
+import cn.dblearn.blog.manage.article.mapper.ArticleOrientationMapper;
+import cn.dblearn.blog.manage.article.mapper.ArticleTagMapper;
+import cn.dblearn.blog.manage.article.entity.ArticleCategory;
+import cn.dblearn.blog.manage.article.entity.ArticleOrientation;
+import cn.dblearn.blog.manage.article.entity.ArticleTag;
+import cn.dblearn.blog.portal.article.service.ArticleClassifyService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,16 +22,16 @@ import java.util.List;
  * @since 2018-11-11
  */
 @Service
-public class BlogClassifyServiceImpl implements BlogClassifyService {
+public class ArticleClassifyServiceImpl implements ArticleClassifyService {
 
     @Autowired
-    private BlogOrientationMapper blogOrientationMapper;
+    private ArticleOrientationMapper blogOrientationMapper;
 
     @Autowired
-    private BlogCategoryMapper blogCategoryMapper;
+    private ArticleCategoryMapper blogCategoryMapper;
 
     @Autowired
-    private BlogTagMapper blogTagMapper;
+    private ArticleTagMapper blogTagMapper;
 
     /**
      * 获取分类方向列表
@@ -39,7 +39,7 @@ public class BlogClassifyServiceImpl implements BlogClassifyService {
      * @return
      */
     @Override
-    public List<BlogOrientation> listOrientation() {
+    public List<ArticleOrientation> listOrientation() {
         return blogOrientationMapper.selectList(null);
     }
 
@@ -50,9 +50,9 @@ public class BlogClassifyServiceImpl implements BlogClassifyService {
      * @return
      */
     @Override
-    public List<BlogCategory> listCategoryByOrId(Integer orientationId) {
-        return blogCategoryMapper.selectList(new QueryWrapper<BlogCategory>().lambda()
-        .eq(BlogCategory::getOrientationId,orientationId));
+    public List<ArticleCategory> listCategoryByOrId(Integer orientationId) {
+        return blogCategoryMapper.selectList(new QueryWrapper<ArticleCategory>().lambda()
+        .eq(ArticleCategory::getOrientationId,orientationId));
     }
 
     /**
@@ -63,7 +63,7 @@ public class BlogClassifyServiceImpl implements BlogClassifyService {
      */
     @Override
     public Object listTagByCaId(Integer categoryId) {
-        return blogTagMapper.selectList(new QueryWrapper<BlogTag>().lambda()
-        .eq(BlogTag::getCategoryId,categoryId));
+        return blogTagMapper.selectList(new QueryWrapper<ArticleTag>().lambda()
+        .eq(ArticleTag::getCategoryId,categoryId));
     }
 }

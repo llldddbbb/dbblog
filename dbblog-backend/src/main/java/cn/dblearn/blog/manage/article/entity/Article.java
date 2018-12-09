@@ -1,4 +1,4 @@
-package cn.dblearn.blog.manage.blog.entity;
+package cn.dblearn.blog.manage.article.entity;
 
 import cn.dblearn.blog.common.validator.group.AddGroup;
 import cn.dblearn.blog.common.validator.group.UpdateGroup;
@@ -25,7 +25,7 @@ import java.util.List;
  */
 @Data
 @ApiModel(value="BlogArticle对象", description="文章")
-public class BlogArticle implements Serializable {
+public class Article implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -79,9 +79,9 @@ public class BlogArticle implements Serializable {
     private Integer categoryId;
 
     @TableField(exist = false)
-    private List<BlogTag> tagList;
+    private List<ArticleTag> tagList;
 
     @TableField(exist = false)
-    private List<BlogArticleComment> commentList;
+    private List<ArticleComment> commentList;
 
 }

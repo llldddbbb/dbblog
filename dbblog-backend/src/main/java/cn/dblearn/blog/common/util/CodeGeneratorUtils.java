@@ -68,7 +68,7 @@ public class CodeGeneratorUtils {
         // 包配置
         PackageConfig pc = new PackageConfig();
         pc.setModuleName(scanner("模块名"));
-        pc.setParent("cn.dblearn.blog.manage");
+        pc.setParent("cn.dblearn.article.manage");
         mpg.setPackageInfo(pc);
 
         // 自定义配置
@@ -95,7 +95,7 @@ public class CodeGeneratorUtils {
         StrategyConfig strategy = new StrategyConfig();
         strategy.setNaming(NamingStrategy.underline_to_camel);
         strategy.setColumnNaming(NamingStrategy.underline_to_camel);
-        //strategy.setSuperEntityClass("cn.dblearn.blog.manage.sys.pojo");
+        //strategy.setSuperEntityClass("cn.dblearn.article.manage.sys.pojo");
         strategy.setEntityLombokModel(true);
         strategy.setRestControllerStyle(true);
         //strategy.setSuperControllerClass("com.baomidou.ant.common.BaseController");

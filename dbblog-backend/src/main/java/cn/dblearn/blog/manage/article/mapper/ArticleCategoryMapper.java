@@ -1,6 +1,6 @@
-package cn.dblearn.blog.manage.blog.mapper;
+package cn.dblearn.blog.manage.article.mapper;
 
-import cn.dblearn.blog.manage.blog.entity.BlogCategory;
+import cn.dblearn.blog.manage.article.entity.ArticleCategory;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -13,6 +13,6 @@ import org.apache.ibatis.annotations.Mapper;
  * @since 2018-11-11
  */
 @Mapper
-public interface BlogCategoryMapper extends BaseMapper<BlogCategory> {
+public interface ArticleCategoryMapper extends BaseMapper<ArticleCategory> {
 
 }

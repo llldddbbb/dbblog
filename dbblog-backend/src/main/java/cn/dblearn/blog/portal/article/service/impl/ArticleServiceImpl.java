@@ -1,12 +1,12 @@
-package cn.dblearn.blog.portal.blog.service.impl;
+package cn.dblearn.blog.portal.article.service.impl;
 
 import cn.dblearn.blog.common.util.MapUtils;
-import cn.dblearn.blog.manage.blog.mapper.BlogArticleMapper;
-import cn.dblearn.blog.manage.blog.mapper.BlogTagMapper;
-import cn.dblearn.blog.manage.blog.entity.BlogArticle;
-import cn.dblearn.blog.portal.blog.pojo.vo.BlogArticleVo;
-import cn.dblearn.blog.portal.blog.service.BlogCommentService;
-import cn.dblearn.blog.portal.blog.service.BlogArticleService;
+import cn.dblearn.blog.manage.article.mapper.ArticleMapper;
+import cn.dblearn.blog.manage.article.mapper.ArticleTagMapper;
+import cn.dblearn.blog.manage.article.entity.Article;
+import cn.dblearn.blog.portal.article.pojo.vo.ArticleVO;
+import cn.dblearn.blog.portal.article.service.ArticleCommentService;
+import cn.dblearn.blog.portal.article.service.ArticleService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,13 +23,13 @@ import java.util.Map;
  * @since 2018-11-07
  */
 @Service
-public class BlogArticleServiceImpl extends ServiceImpl<BlogArticleMapper, BlogArticle> implements BlogArticleService {
+public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> implements ArticleService {
 
     @Autowired
-    private BlogTagMapper blogTagMapper;
+    private ArticleTagMapper blogTagMapper;
 
     @Autowired
-    private BlogCommentService blogArticleCommentService;
+    private ArticleCommentService blogArticleCommentService;
 
     /**
      * 获取文章详情
@@ -38,8 +38,8 @@ public class BlogArticleServiceImpl extends ServiceImpl<BlogArticleMapper, BlogA
      * @return
      */
     @Override
-    public BlogArticle getArticle(Integer articleId) {
-        BlogArticle article = baseMapper.selectById(articleId);
+    public Article getArticle(Integer articleId) {
+        Article article = baseMapper.selectById(articleId);
         //所属标签
         article.setTagList(blogTagMapper.listByArticleId(articleId));
         //所属评论
@@ -53,7 +53,7 @@ public class BlogArticleServiceImpl extends ServiceImpl<BlogArticleMapper, BlogA
      * @return
      */
     @Override
-    public List<BlogArticleVo> listLatest() {
+    public List<ArticleVO> listLatest() {
         return baseMapper.listHomeArticle(new MapUtils().put("latest",true));
     }
 
@@ -63,7 +63,7 @@ public class BlogArticleServiceImpl extends ServiceImpl<BlogArticleMapper, BlogA
      * @return
      */
     @Override
-    public List<BlogArticleVo> listFavorite() {
+    public List<ArticleVO> listFavorite() {
         return baseMapper.listHomeArticle(new MapUtils().put("favorite",true));
     }
 
@@ -73,7 +73,7 @@ public class BlogArticleServiceImpl extends ServiceImpl<BlogArticleMapper, BlogA
      * @return
      */
     @Override
-    public List<BlogArticleVo> listCommentMost() {
+    public List<ArticleVO> listCommentMost() {
         return baseMapper.listHomeArticle(new MapUtils().put("commentMost",true));
     }
 
@@ -83,7 +83,7 @@ public class BlogArticleServiceImpl extends ServiceImpl<BlogArticleMapper, BlogA
      * @return
      */
     @Override
-    public List<BlogArticleVo> listRecommend() {
+    public List<ArticleVO> listRecommend() {
         return baseMapper.listHomeArticle(new MapUtils().put("isRecommend",true));
     }
 
@@ -94,7 +94,7 @@ public class BlogArticleServiceImpl extends ServiceImpl<BlogArticleMapper, BlogA
      * @return
      */
     @Override
-    public List<BlogArticleVo> listByClassifyId(Map<String,Object> params) {
+    public List<ArticleVO> listByClassifyId(Map<String,Object> params) {
         return baseMapper.listByClassifyId(params);
     }
 

@@ -1,13 +1,13 @@
-package cn.dblearn.blog.manage.blog.service.impl;
+package cn.dblearn.blog.manage.article.service.impl;
 
 import cn.dblearn.blog.common.util.PageUtils;
 import cn.dblearn.blog.common.util.Query;
-import cn.dblearn.blog.manage.blog.entity.BlogArticleTag;
-import cn.dblearn.blog.manage.blog.mapper.BlogArticleMapper;
-import cn.dblearn.blog.manage.blog.entity.BlogArticle;
-import cn.dblearn.blog.manage.blog.mapper.BlogArticleTagMapper;
-import cn.dblearn.blog.manage.blog.mapper.BlogTagMapper;
-import cn.dblearn.blog.manage.blog.service.BlogArticleAdminService;
+import cn.dblearn.blog.manage.article.entity.ArticleTagLink;
+import cn.dblearn.blog.manage.article.mapper.ArticleMapper;
+import cn.dblearn.blog.manage.article.entity.Article;
+import cn.dblearn.blog.manage.article.mapper.ArticleTagLinkMapper;
+import cn.dblearn.blog.manage.article.mapper.ArticleTagMapper;
+import cn.dblearn.blog.manage.article.service.ArticleAdminService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -18,7 +18,6 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Map;
 
 /**
@@ -30,13 +29,13 @@ import java.util.Map;
  * @description
  */
 @Service
-public class BlogArticleAdminServiceImpl extends ServiceImpl<BlogArticleMapper, BlogArticle> implements BlogArticleAdminService {
+public class ArticleAdminServiceImpl extends ServiceImpl<ArticleMapper, Article> implements ArticleAdminService {
 
     @Autowired
-    private BlogArticleTagMapper blogArticleTagMapper;
+    private ArticleTagLinkMapper blogArticleTagMapper;
 
     @Autowired
-    private BlogTagMapper blogTagMapper;
+    private ArticleTagMapper blogTagMapper;
     /**
      * 分页查询博文列表
      *
@@ -46,8 +45,8 @@ public class BlogArticleAdminServiceImpl extends ServiceImpl<BlogArticleMapper, 
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
         String title = (String) params.get("title");
-        IPage<BlogArticle> page=baseMapper.selectPage(new Query<BlogArticle>(params).getPage(),
-                new QueryWrapper<BlogArticle>().lambda().like(!StringUtils.isEmpty(title),BlogArticle::getTitle,title));
+        IPage<Article> page=baseMapper.selectPage(new Query<Article>(params).getPage(),
+                new QueryWrapper<Article>().lambda().like(!StringUtils.isEmpty(title), Article::getTitle,title));
         return new PageUtils(page);
     }
 
@@ -58,7 +57,7 @@ public class BlogArticleAdminServiceImpl extends ServiceImpl<BlogArticleMapper, 
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void saveArticle(BlogArticle blogArticle) {
+    public void saveArticle(Article blogArticle) {
         baseMapper.insert(blogArticle);
         this.saveDiyTag(blogArticle);
     }
@@ -69,10 +68,10 @@ public class BlogArticleAdminServiceImpl extends ServiceImpl<BlogArticleMapper, 
      * @param blogArticle
      */
     @Override
-    public void updateArticle(BlogArticle blogArticle) {
+    public void updateArticle(Article blogArticle) {
         // 删除多对多所属标签
-        blogArticleTagMapper.delete(new QueryWrapper<BlogArticleTag>().lambda()
-            .eq(BlogArticleTag::getArticleId,blogArticle.getArticleId()));
+        blogArticleTagMapper.delete(new QueryWrapper<ArticleTagLink>().lambda()
+            .eq(ArticleTagLink::getArticleId,blogArticle.getArticleId()));
         // 更新所属标签
         this.saveDiyTag(blogArticle);
         // 更新博文
@@ -84,7 +83,7 @@ public class BlogArticleAdminServiceImpl extends ServiceImpl<BlogArticleMapper, 
      * 添加自定义标签
      * @param blogArticle
      */
-    private void saveDiyTag(BlogArticle blogArticle){
+    private void saveDiyTag(Article blogArticle){
         if(!CollectionUtils.isEmpty(blogArticle.getTagList())){
             blogArticle.getTagList().forEach(tag -> {
                 if(tag.getTagId() == null) {
@@ -93,7 +92,7 @@ public class BlogArticleAdminServiceImpl extends ServiceImpl<BlogArticleMapper, 
                     tag.setOrientationId(blogArticle.getOrientationId());
                     blogTagMapper.insert(tag);
                 }
-                BlogArticleTag blogArticleTag=new BlogArticleTag(blogArticle.getArticleId(),tag.getTagId());
+                ArticleTagLink blogArticleTag=new ArticleTagLink(blogArticle.getArticleId(),tag.getTagId());
                 blogArticleTagMapper.insert(blogArticleTag);
             });
         }
@@ -109,8 +108,8 @@ public class BlogArticleAdminServiceImpl extends ServiceImpl<BlogArticleMapper, 
     public void deleteBatch(Integer[] articleIds) {
         //先删除博文标签多对多关联
         Arrays.stream(articleIds).forEach(articleId -> {
-            blogArticleTagMapper.delete(new QueryWrapper<BlogArticleTag>().lambda()
-                    .eq(articleId!=null,BlogArticleTag::getArticleId,articleId));
+            blogArticleTagMapper.delete(new QueryWrapper<ArticleTagLink>().lambda()
+                    .eq(articleId!=null, ArticleTagLink::getArticleId,articleId));
         });
         this.baseMapper.deleteBatchIds(Arrays.asList(articleIds));
     }

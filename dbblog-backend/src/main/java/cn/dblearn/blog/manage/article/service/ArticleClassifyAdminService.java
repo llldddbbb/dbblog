@@ -1,4 +1,4 @@
-package cn.dblearn.blog.manage.blog.service;
+package cn.dblearn.blog.manage.article.service;
 
 import cn.dblearn.blog.common.util.PageUtils;
 
@@ -12,7 +12,7 @@ import java.util.Map;
  * @author bobbi
  * @since 2018-11-11
  */
-public interface BlogClassifyAdminService {
+public interface ArticleClassifyAdminService {
 
     PageUtils queryPageOrientation(Map<String, Object> params);
 

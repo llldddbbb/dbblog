@@ -1,8 +1,8 @@
-package cn.dblearn.blog.portal.blog.service.impl;
+package cn.dblearn.blog.portal.article.service.impl;
 
-import cn.dblearn.blog.manage.blog.mapper.BlogArticleCommentMapper;
-import cn.dblearn.blog.manage.blog.entity.BlogArticleComment;
-import cn.dblearn.blog.portal.blog.service.BlogCommentService;
+import cn.dblearn.blog.manage.article.mapper.ArticleCommentMapper;
+import cn.dblearn.blog.manage.article.entity.ArticleComment;
+import cn.dblearn.blog.portal.article.service.ArticleCommentService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
@@ -17,10 +17,10 @@ import java.util.List;
  * @since 2018-11-10
  */
 @Service
-public class BlogCommentServiceImpl extends ServiceImpl<BlogArticleCommentMapper, BlogArticleComment> implements BlogCommentService {
+public class ArticleCommentServiceImpl extends ServiceImpl<ArticleCommentMapper, ArticleComment> implements ArticleCommentService {
 
     @Override
-    public List<BlogArticleComment> listByArticleId(Integer articleId) {
+    public List<ArticleComment> listByArticleId(Integer articleId) {
         return baseMapper.listByArticleId(articleId);
     }
 }

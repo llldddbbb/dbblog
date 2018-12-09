@@ -1,11 +1,11 @@
-package cn.dblearn.blog.manage.blog.controller;
+package cn.dblearn.blog.manage.article.controller;
 
 import cn.dblearn.blog.common.pojo.Result;
 import cn.dblearn.blog.common.util.PageUtils;
 import cn.dblearn.blog.common.validator.ValidatorUtils;
 import cn.dblearn.blog.common.validator.group.AddGroup;
-import cn.dblearn.blog.manage.blog.entity.BlogArticle;
-import cn.dblearn.blog.manage.blog.service.BlogArticleAdminService;
+import cn.dblearn.blog.manage.article.entity.Article;
+import cn.dblearn.blog.manage.article.service.ArticleAdminService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -21,30 +21,30 @@ import java.util.Map;
  * @description
  */
 @RestController
-@RequestMapping("/admin/blog/article")
-public class BlogArticleAdminController {
+@RequestMapping("/admin/article")
+public class ArticleAdminController {
 
     @Autowired
-    private BlogArticleAdminService blogArticleAdminService;
+    private ArticleAdminService blogArticleAdminService;
 
     @GetMapping("/list")
-    @RequiresPermissions("blog:article:list")
+    @RequiresPermissions("article:list")
     public Result listBlog(@RequestParam Map<String, Object> params) {
         PageUtils page = blogArticleAdminService.queryPage(params);
         return Result.ok().put("page",page);
     }
 
     @PostMapping("/save")
-    @RequiresPermissions("blog:article:save")
-    public Result saveBlog(@RequestBody BlogArticle blogArticle){
+    @RequiresPermissions("article:save")
+    public Result saveBlog(@RequestBody Article blogArticle){
         ValidatorUtils.validateEntity(blogArticle, AddGroup.class);
         blogArticleAdminService.saveArticle(blogArticle);
         return Result.ok();
     }
 
     @PutMapping("/update")
-    @RequiresPermissions("blog:article:update")
-    public Result updateBlog(@RequestBody BlogArticle blogArticle){
+    @RequiresPermissions("article:update")
+    public Result updateBlog(@RequestBody Article blogArticle){
         ValidatorUtils.validateEntity(blogArticle, AddGroup.class);
         blogArticleAdminService.updateArticle(blogArticle);
         return Result.ok();
@@ -52,7 +52,7 @@ public class BlogArticleAdminController {
 
 
     @DeleteMapping("/delete")
-    @RequiresPermissions("blog:article:delete")
+    @RequiresPermissions("article:delete")
     public Result deleteBatch(@RequestBody Integer[] articleIds){
         blogArticleAdminService.deleteBatch(articleIds);
         return Result.ok();

@@ -1,6 +1,6 @@
-package cn.dblearn.blog.portal.blog.service;
+package cn.dblearn.blog.portal.article.service;
 
-import cn.dblearn.blog.manage.blog.entity.BlogArticleComment;
+import cn.dblearn.blog.manage.article.entity.ArticleComment;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
@@ -13,12 +13,12 @@ import java.util.List;
  * @author bobbi
  * @since 2018-11-10
  */
-public interface BlogCommentService extends IService<BlogArticleComment> {
+public interface ArticleCommentService extends IService<ArticleComment> {
 
     /**
      * 根据文章Id获取文章评论
      * @param articleId
      * @return
      */
-    List<BlogArticleComment> listByArticleId(Integer articleId);
+    List<ArticleComment> listByArticleId(Integer articleId);
 }

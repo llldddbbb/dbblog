@@ -1,4 +1,4 @@
-package cn.dblearn.blog.manage.blog.entity;
+package cn.dblearn.blog.manage.article.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -17,7 +17,7 @@ import java.io.Serializable;
  */
 @Data
 @ApiModel(value="BlogArticleTag对象", description="文章标签多对多维护表")
-public class BlogArticleTag implements Serializable {
+public class ArticleTagLink implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -28,7 +28,7 @@ public class BlogArticleTag implements Serializable {
 
     private Integer tagId;
 
-    public BlogArticleTag(Integer articleId,Integer tagId){
+    public ArticleTagLink(Integer articleId, Integer tagId){
         this.articleId = articleId;
         this.tagId = tagId;
     }

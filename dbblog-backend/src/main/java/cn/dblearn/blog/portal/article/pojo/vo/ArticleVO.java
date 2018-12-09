@@ -1,6 +1,6 @@
-package cn.dblearn.blog.portal.blog.pojo.vo;
+package cn.dblearn.blog.portal.article.pojo.vo;
 
-import cn.dblearn.blog.manage.blog.entity.BlogTag;
+import cn.dblearn.blog.manage.article.entity.ArticleTag;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -17,7 +17,7 @@ import java.util.List;
  * @description
  */
 @Data
-public class BlogArticleVo {
+public class ArticleVO {
 
     private static final long serialVersionUID = 1L;
 
@@ -54,5 +54,5 @@ public class BlogArticleVo {
     /**
      * 所关联的Tag列表
      */
-    private List<BlogTag> tagList;
+    private List<ArticleTag> tagList;
 }

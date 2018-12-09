@@ -1,9 +1,9 @@
-package cn.dblearn.blog.portal.blog.service.impl;
+package cn.dblearn.blog.portal.article.service.impl;
 
 import cn.dblearn.blog.common.pojo.Result;
-import cn.dblearn.blog.manage.blog.mapper.BlogArticleMapper;
-import cn.dblearn.blog.portal.blog.pojo.vo.BlogArticleVo;
-import cn.dblearn.blog.portal.blog.service.HomeService;
+import cn.dblearn.blog.manage.article.mapper.ArticleMapper;
+import cn.dblearn.blog.portal.article.pojo.vo.ArticleVO;
+import cn.dblearn.blog.portal.article.service.HomeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +21,7 @@ import java.util.List;
 public class HomeServiceImpl implements HomeService {
 
     @Autowired
-    private BlogArticleMapper blogArticleMapper;
+    private ArticleMapper blogArticleMapper;
 
     /**
      * 获取首页数据
@@ -30,7 +30,7 @@ public class HomeServiceImpl implements HomeService {
      */
     @Override
     public Result listHomeData() {
-        List<BlogArticleVo> articleVoList=blogArticleMapper.listHomeArticle(null);
+        List<ArticleVO> articleVoList=blogArticleMapper.listHomeArticle(null);
         return Result.ok().put("articleList",articleVoList);
     }
 }
