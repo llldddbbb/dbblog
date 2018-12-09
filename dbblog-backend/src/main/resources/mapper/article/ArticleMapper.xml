@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.dblearn.blog.manage.article.mapper.ArticleMapper">
+
+    <resultMap id="homeArticle" type="cn.dblearn.blog.portal.article.pojo.vo.ArticleVO">
+        <result column="article_id" property="articleId"/>
+        <result column="title" property="title"/>
+        <result column="description" property="description"/>
+        <result column="author" property="author" />
+        <result column="read_num" property="readNum"/>
+        <result column="comment_num" property="commentNum"/>
+        <result column="like_num" property="likeNum"/>
+        <result column="cover" property="cover"/>
+        <result column="type" property="type" />
+        <result column="create_time" property="createTime"/>
+        <collection property="tagList" column="article_id" ofType="cn.dblearn.blog.manage.article.entity.ArticleTag"
+                    select="cn.dblearn.blog.manage.article.mapper.ArticleTagMapper.listByArticleId"/>
+    </resultMap>
+    <sql id="homeArticleColumn">
+        ba.article_id,ba.title,ba.description,ba.author,ba.read_num,ba.comment_num,ba.like_num,ba.cover,ba.`type`,ba.create_time
+    </sql>
+    <select id="listHomeArticle" resultMap="homeArticle">
+      select <include refid="homeArticleColumn"/> from article ba
+      <where>
+          <if test="isRecommend != null">
+              is_recommend = true
+          </if>
+      </where>
+      <if test="isRecommend !=null">
+          order by create_time desc
+      </if>
+      <if test="latest !=null">
+          order by create_time desc
+      </if>
+      <if test="favorite !=null">
+          order by like_num desc
+      </if>
+      <if test="commentMost !=null">
+          order by comment_num desc
+      </if>
+    </select>
+
+    <select id="listByClassifyId" resultMap="homeArticle">
+        select distinct <include refid="homeArticleColumn"/> from article ba
+        left join article_tag_link bat on bat.article_id = ba.article_id
+        left join article_tag bt on bt.tag_id=bat.tag_id
+        <where>
+            <if test="orientationId !=null">
+                and bt.orientation_id=#{orientationId}
+            </if>
+            <if test="categoryId !=null">
+                and bt.categoryId=#{categoryId}
+            </if>
+            <if test="tagId !=null">
+                and bt.tagId=#{tagId}
+            </if>
+        </where>
+        order by create_time desc
+    </select>
+</mapper>

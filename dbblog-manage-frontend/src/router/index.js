@@ -29,8 +29,8 @@ const mainRoutes = {
     // 提示: 如需要通过iframe嵌套展示内容, 但不通过tab打开, 请自行创建组件使用iframe处理!
     { path: '/home', component: _import('common/home'), name: 'home', meta: { title: '首页' } },
     { path: '/theme', component: _import('common/theme'), name: 'theme', meta: { title: '主题' } },
-    { path: '/blog/article/update/:articleId',
-      component: _import('modules/blog/articleAddOrUpdate'),
+    { path: '/article/article/update/:articleId',
+      component: _import('modules/article/addOrUpdate'),
       name: 'article-update',
       meta: {
         menuId: 'article-update',
