@@ -88,7 +88,7 @@
         </el-col>
       </el-form-item>
       <el-form-item label="博文内容">
-        <mavon-editor v-model="article.content"></mavon-editor>
+        <mavon-editor ref=md v-model="article.content" @imgAdd="imgAdd" ></mavon-editor>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="saveArticle()">保存</el-button>
@@ -254,6 +254,20 @@ export default {
         } else {
           return false
         }
+      })
+    },
+    // 文章内容图片上传
+    imgAdd (pos, $file) {
+      // 第一步.将图片上传到服务器.
+      let formData = new FormData()
+      formData.append('file', $file)
+      this.$http({
+        url: this.url,
+        method: 'post',
+        data: formData,
+        headers: { 'Content-Type': 'multipart/form-data' }
+      }).then(({data}) => {
+        this.$refs.md.$img2Url(pos, data.resource.url)
       })
     }
   }
