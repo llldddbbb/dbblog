@@ -33,7 +33,7 @@ public class OssResourceController {
 
     @PostMapping("/upload")
     public Result uploadCover(MultipartFile file) throws Exception{
-        if (file.isEmpty()) {
+        if (file!=null && file.isEmpty()) {
             throw new MyException("上传文件不能为空");
         }
         //上传文件

@@ -1,5 +1,6 @@
 package cn.dblearn.blog.common.util;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.core.exceptions.MybatisPlusException;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
@@ -51,10 +52,13 @@ public class CodeGeneratorUtils {
         GlobalConfig gc = new GlobalConfig();
         String projectPath = System.getProperty("user.dir");
         gc.setOutputDir(projectPath + "/src/main/java");
-        gc.setAuthor("bobbi");
+        gc.setAuthor("bobbi");;
+//        gc.setBaseResultMap(true);
+//        gc.setBaseColumnList(true);
         gc.setOpen(false);
-        gc.setServiceName("%sService");
         gc.setSwagger2(true);
+        gc.setServiceName("%sService");
+        gc.setIdType(IdType.ID_WORKER_STR);
         mpg.setGlobalConfig(gc);
 
         // 数据源配置
@@ -67,8 +71,8 @@ public class CodeGeneratorUtils {
 
         // 包配置
         PackageConfig pc = new PackageConfig();
-        pc.setModuleName(scanner("模块名"));
-        pc.setParent("cn.dblearn.article.manage");
+        pc.setParent("cn.dblearn.blog.manage");
+        pc.setModuleName(scanner("请输入模块名"));
         mpg.setPackageInfo(pc);
 
         // 自定义配置
@@ -87,22 +91,28 @@ public class CodeGeneratorUtils {
                         + "/" + tableInfo.getEntityName() + "Mapper" + StringPool.DOT_XML;
             }
         });
+
+        TemplateConfig tc = new TemplateConfig();
+        tc.setEntity("/templates/mybatisPlus/entity.java");
+        tc.setXml(null);
+        tc.setMapper("/templates/mybatisPlus/mapper.java");
+        tc.setService("/templates/mybatisPlus/service.java");
+        tc.setServiceImpl("/templates/mybatisPlus/serviceImpl.java");
+        tc.setController("/templates/mybatisPlus/controller.java");
+
         cfg.setFileOutConfigList(focList);
         mpg.setCfg(cfg);
-        mpg.setTemplate(new TemplateConfig().setXml(null));
+        mpg.setTemplate(tc);
 
         // 策略配置
         StrategyConfig strategy = new StrategyConfig();
         strategy.setNaming(NamingStrategy.underline_to_camel);
         strategy.setColumnNaming(NamingStrategy.underline_to_camel);
-        //strategy.setSuperEntityClass("cn.dblearn.article.manage.sys.pojo");
         strategy.setEntityLombokModel(true);
         strategy.setRestControllerStyle(true);
-        //strategy.setSuperControllerClass("com.baomidou.ant.common.BaseController");
-        strategy.setInclude(scanner("表名"));
-        //strategy.setSuperEntityColumns("id");
-        //strategy.setControllerMappingHyphenStyle(true);
-        //strategy.setTablePrefix(pc.getModuleName() + "_");
+        strategy.setInclude(scanner("请输入表名"));
+        strategy.setSuperControllerClass("cn.dblearn.blog.manage.sys.controller.AbstractController");
+
         mpg.setStrategy(strategy);
         mpg.setTemplateEngine(new FreemarkerTemplateEngine());
         mpg.execute();
