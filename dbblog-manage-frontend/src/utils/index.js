@@ -58,6 +58,39 @@ export function clearLoginInfo () {
   router.options.isAddDynamicMenuRoutes = false
 }
 
+/**
+ * 根据Type获取参数
+ * @param type
+ * @param key
+ * @returns {*}
+ */
+export function getSysParam (url, key) {
+  let sysParamList = JSON.parse(localStorage.getItem('sysParamList'))
+  for (let i = 0; i < sysParamList.length; i++) {
+    let sysParam = sysParamList[i]
+    if (sysParam.menuUrl === url && sysParam.parKey === (key)) {
+      return sysParam.parValue
+    }
+  }
+}
+
+/**
+ * 根据type获取参数列表
+ * @param type
+ * @returns {Array}
+ */
+export function getSysParamArr (url) {
+  let sysParamList = JSON.parse(localStorage.getItem('sysParamList'))
+  let resultArr = []
+  for (let i = 0; i < sysParamList.length; i++) {
+    let sysParam = sysParamList[i]
+    if (sysParam.menuUrl === url) {
+      resultArr.push(sysParam)
+    }
+  }
+  return resultArr
+}
+
 export function debounce (func, wait, immediate) {
   let timeout, args, context, timestamp, result
 

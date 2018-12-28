@@ -31,6 +31,8 @@ public class ${table.serviceImplName} extends ${superServiceImplClass}<${table.m
 
     /**
      * 分页查询
+     * @param params
+     * @return
      */
     @Override
     public PageUtils queryPage(Map<String, Object> params) {

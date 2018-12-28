@@ -29,13 +29,7 @@ export default {
   data () {
     return {
       visible: false,
-      dataForm: {
-        id: 0,
-        name: '',
-        type: '',
-        rank: '',
-        parentId: ''
-      },
+      dataForm: {},
       dataRule: {
         name: [
           { required: true, message: '名称不能为空', trigger: 'blur' }
@@ -60,15 +54,12 @@ export default {
         this.$refs['dataForm'].resetFields()
         if (this.dataForm.id) {
           this.$http({
-            url: this.$http.adornUrl(`/admin/express/operationcategory/info/${this.dataForm.id}`),
+            url: this.$http.adornUrl(`/admin/operation/category/info/${this.dataForm.id}`),
             method: 'get',
             params: this.$http.adornParams()
           }).then(({data}) => {
             if (data && data.code === 200) {
-              this.dataForm.name = data.operationcategory.name
-              this.dataForm.type = data.operationcategory.type
-              this.dataForm.rank = data.operationcategory.rank
-              this.dataForm.parentId = data.operationcategory.parentId
+              this.dataForm = data.category
             }
           })
         }
@@ -79,7 +70,7 @@ export default {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
           this.$http({
-            url: this.$http.adornUrl(`/admin/express/operationcategory/${!this.dataForm.id ? 'save' : 'update'}`),
+            url: this.$http.adornUrl(`/admin/operation/category/${!this.dataForm.id ? 'save' : 'update'}`),
             method: 'post',
             data: this.$http.adornData({
               'id': this.dataForm.id || undefined,

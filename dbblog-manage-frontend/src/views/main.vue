@@ -73,6 +73,18 @@ export default {
           this.userName = data.user.username
         }
       })
+    },
+    // 获取参数
+    listSysParam () {
+      this.$http({
+        url: this.$http.adornUrl('/admin/sys/param/all'),
+        method: 'get',
+        params: this.$http.adornParams()
+      }).then(({data}) => {
+        if (data && data.code === 200) {
+          localStorage.setItem('sysParamList', JSON.stringify(data.sysParamList))
+        }
+      })
     }
   }
 }

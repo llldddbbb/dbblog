@@ -20,6 +20,8 @@ public interface ${table.serviceName} extends ${superServiceClass}<${entity}> {
 
     /**
      * 分页查询
+     * @param params
+     * @return
      */
      PageUtils queryPage(Map<String, Object> params);
 }

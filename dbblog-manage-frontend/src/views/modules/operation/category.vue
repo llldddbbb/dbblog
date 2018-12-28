@@ -106,7 +106,7 @@ export default {
     getDataList () {
       this.dataListLoading = true
       this.$http({
-        url: this.$http.adornUrl('/admin/express/operationcategory/list'),
+        url: this.$http.adornUrl('/admin/operation/category/list'),
         method: 'get',
         params: this.$http.adornParams({
           'page': this.pageIndex,
@@ -114,7 +114,7 @@ export default {
           'key': this.dataForm.key
         })
       }).then(({data}) => {
-        if (data && data.code === 0) {
+        if (data && data.code === 200) {
           this.dataList = data.page.list
           this.totalPage = data.page.totalCount
         } else {
@@ -157,11 +157,11 @@ export default {
         type: 'warning'
       }).then(() => {
         this.$http({
-          url: this.$http.adornUrl('/admin/express/operationcategory/delete'),
+          url: this.$http.adornUrl('/admin/operation/category/delete'),
           method: 'post',
           data: this.$http.adornData(ids, false)
         }).then(({data}) => {
-          if (data && data.code === 0) {
+          if (data && data.code === 200) {
             this.$message({
               message: '操作成功',
               type: 'success',
