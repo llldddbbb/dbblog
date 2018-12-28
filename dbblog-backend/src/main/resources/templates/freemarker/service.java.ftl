@@ -2,6 +2,8 @@ package ${package.Service};
 
 import ${package.Entity}.${entity};
 import ${superServiceClassPackage};
+import ${cfg.basePath}.common.util.PageUtils;
+import java.util.Map;
 
 /**
  * <p>
@@ -16,5 +18,9 @@ interface ${table.serviceName} : ${superServiceClass}<${entity}>
 <#else>
 public interface ${table.serviceName} extends ${superServiceClass}<${entity}> {
 
+    /**
+     * 分页查询
+     */
+     PageUtils queryPage(Map<String, Object> params);
 }
 </#if>

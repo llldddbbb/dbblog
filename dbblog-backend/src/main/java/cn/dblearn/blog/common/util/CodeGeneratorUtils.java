@@ -11,9 +11,7 @@ import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * CodeGenerator
@@ -48,13 +46,22 @@ public class CodeGeneratorUtils {
         // 代码生成器
         AutoGenerator mpg = new AutoGenerator();
 
+        String moduleName = scanner("请输入模块名");
+        String tableName = scanner("请输入表名");
+        String entityName = "";
+        if(tableName.indexOf("_")>0){
+            entityName = tableName.split("_")[1];
+        }else {
+            throw new MybatisPlusException("请输入正确的表名！");
+        }
+
         // 全局配置
         GlobalConfig gc = new GlobalConfig();
         String projectPath = System.getProperty("user.dir");
         gc.setOutputDir(projectPath + "/src/main/java");
         gc.setAuthor("bobbi");;
-//        gc.setBaseResultMap(true);
-//        gc.setBaseColumnList(true);
+        gc.setBaseResultMap(true);
+        gc.setBaseColumnList(true);
         gc.setOpen(false);
         gc.setSwagger2(true);
         gc.setServiceName("%sService");
@@ -72,17 +79,24 @@ public class CodeGeneratorUtils {
         // 包配置
         PackageConfig pc = new PackageConfig();
         pc.setParent("cn.dblearn.blog.manage");
-        pc.setModuleName(scanner("请输入模块名"));
+        pc.setModuleName(moduleName);
         mpg.setPackageInfo(pc);
 
-        // 自定义配置
+        // 注入自定义配置，可以在 VM 中使用 cfg.entityName 【可无】
+        String finalEntityName = entityName;
         InjectionConfig cfg = new InjectionConfig() {
             @Override
             public void initMap() {
-                // to do nothing
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("entityName", finalEntityName);
+                map.put("urlPrefix","/admin");
+                map.put("basePath","cn.dblearn.blog");
+                this.setMap(map);
             }
         };
+
         List<FileOutConfig> focList = new ArrayList<>();
+        //配置xml
         focList.add(new FileOutConfig("/templates/mapper.xml.ftl") {
             @Override
             public String outputFile(TableInfo tableInfo) {
@@ -91,14 +105,41 @@ public class CodeGeneratorUtils {
                         + "/" + tableInfo.getEntityName() + "Mapper" + StringPool.DOT_XML;
             }
         });
+        //配置前端addOrUpdate页面
+        focList.add(new FileOutConfig("/templates/freemarker/add-or-update.vue.ftl") {
+            @Override
+            public String outputFile(TableInfo tableInfo) {
+                // 自定义输入文件名称
+                return projectPath + "/src/main/resources/views/" + pc.getModuleName()
+                        + "/" + finalEntityName + "-add-or-update.vue";
+            }
+        });
+        //配置前端list页面
+        focList.add(new FileOutConfig("/templates/freemarker/index.vue.ftl") {
+            @Override
+            public String outputFile(TableInfo tableInfo) {
+                // 自定义输入文件名称
+                return projectPath + "/src/main/resources/views/" + pc.getModuleName()
+                        + "/" + finalEntityName + ".vue";
+            }
+        });
+        //配置菜单SQL
+        focList.add(new FileOutConfig("/templates/freemarker/menu.sql.ftl") {
+            @Override
+            public String outputFile(TableInfo tableInfo) {
+                // 自定义输入文件名称
+                return projectPath + "/src/main/resources/sql/" + pc.getModuleName()
+                        + "/" + finalEntityName + ".sql";
+            }
+        });
 
         TemplateConfig tc = new TemplateConfig();
-        tc.setEntity("/templates/mybatisPlus/entity.java");
+        tc.setEntity("/templates/freemarker/entity.java");
         tc.setXml(null);
-        tc.setMapper("/templates/mybatisPlus/mapper.java");
-        tc.setService("/templates/mybatisPlus/service.java");
-        tc.setServiceImpl("/templates/mybatisPlus/serviceImpl.java");
-        tc.setController("/templates/mybatisPlus/controller.java");
+        tc.setMapper("/templates/freemarker/mapper.java");
+        tc.setService("/templates/freemarker/service.java");
+        tc.setServiceImpl("/templates/freemarker/serviceImpl.java");
+        tc.setController("/templates/freemarker/controller.java");
 
         cfg.setFileOutConfigList(focList);
         mpg.setCfg(cfg);
@@ -110,7 +151,7 @@ public class CodeGeneratorUtils {
         strategy.setColumnNaming(NamingStrategy.underline_to_camel);
         strategy.setEntityLombokModel(true);
         strategy.setRestControllerStyle(true);
-        strategy.setInclude(scanner("请输入表名"));
+        strategy.setInclude(tableName);
         strategy.setSuperControllerClass("cn.dblearn.blog.manage.sys.controller.AbstractController");
 
         mpg.setStrategy(strategy);
