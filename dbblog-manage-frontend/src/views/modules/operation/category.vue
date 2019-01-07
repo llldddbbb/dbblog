@@ -2,6 +2,14 @@
   <div class="mod-config">
     <el-form :inline="true" :model="dataForm" @keyup.enter.native="getDataList()">
       <el-form-item>
+        <el-select v-model="dataForm.type">
+          <el-option v-for="type in typeList"
+          :key="type.parKey"
+          :value="type.parKey"
+          :label="type.parValue"></el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item>
         <el-input v-model="dataForm.name" placeholder="名称" clearable></el-input>
       </el-form-item>
       <el-form-item>
@@ -66,11 +74,13 @@ export default {
   data () {
     return {
       dataForm: {
-        name: ''
+        name: '',
+        type: ''
       },
       dataList: [],
       dataListLoading: false,
-      addOrUpdateVisible: false
+      addOrUpdateVisible: false,
+      typeList: this.getSysParamArr('CATEGORY_TYPE')
     }
   },
   components: {
@@ -88,7 +98,8 @@ export default {
         url: this.$http.adornUrl('/admin/operation/category/list'),
         method: 'get',
         params: this.$http.adornParams({
-          name: this.dataForm.name
+          name: this.dataForm.name,
+          type: this.dataForm.type
         })
       }).then(({data}) => {
         if (data && data.code === 200) {

@@ -21,6 +21,9 @@
             <if test="name != null and name != ''">
                 t.name like concat('%',#{name},'%')
             </if>
+            <if test="type !=null">
+                t.type = #{type}
+            </if>
         </where>
     </select>
 </mapper>
