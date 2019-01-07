@@ -11,7 +11,14 @@
       <el-input v-model="dataForm.type" placeholder="类型"></el-input>
     </el-form-item>
     <el-form-item label="级别" prop="rank">
-      <el-input v-model="dataForm.rank" placeholder="级别"></el-input>
+      <el-select placeholder="请选择级别" filterable v-model="dataForm.rank">
+        <el-option
+          v-for="item in rankList"
+          :key="item.parKey"
+          :label="item.parValue"
+          :value="item.parKey">
+        </el-option>
+      </el-select>
     </el-form-item>
     <el-form-item label="父主键" prop="parentId">
       <el-input v-model="dataForm.parentId" placeholder="父主键"></el-input>
@@ -29,7 +36,9 @@ export default {
   data () {
     return {
       visible: false,
-      dataForm: {},
+      dataForm: {
+        rank: ''
+      },
       dataRule: {
         name: [
           { required: true, message: '名称不能为空', trigger: 'blur' }
@@ -43,7 +52,8 @@ export default {
         parentId: [
           { required: true, message: '父主键不能为空', trigger: 'blur' }
         ]
-      }
+      },
+      rankList: this.getSysParamArr('CATEGORY_RANK')
     }
   },
   methods: {

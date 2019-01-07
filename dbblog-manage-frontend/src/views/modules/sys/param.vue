@@ -110,8 +110,7 @@ export default {
     return {
       dataForm: {
         type: '',
-        menuUrl: '',
-        menuName: ''
+        menuUrl: ''
       },
       dataList: [],
       pageIndex: 1,
@@ -124,7 +123,8 @@ export default {
       menuListTreeProps: {
         label: 'name',
         children: 'children'
-      }
+      },
+      dynamicMenuRoutes: JSON.parse(sessionStorage.getItem('dynamicMenuRoutes') || '[]')
     }
   },
   components: {
@@ -225,8 +225,10 @@ export default {
     },
     // 菜单树选中
     menuListTreeCurrentChangeHandle (data, node) {
-      this.dataForm.menuUrl = data.url
-      this.dataForm.menuName = data.name
+      let route = this.dynamicMenuRoutes.filter(item => item.meta.menuId === data.menuId)
+      if (route.length >= 1) {
+        this.dataForm.menuUrl = '/' + route[0].path
+      }
       this.getDataList()
     }
   }

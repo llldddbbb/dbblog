@@ -61,7 +61,7 @@ export default {
         } else {
           this.dataForm = {
             menuUrl: menuUrl,
-            type: menuUrl ? menuUrl.replace('/', '-') : ''
+            type: menuUrl ? (menuUrl.replace('/', '')).toUpperCase() : ''
           }
         }
       })

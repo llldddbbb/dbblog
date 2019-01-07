@@ -22,18 +22,13 @@
         align="center"
         width="50">
       </el-table-column>
-      <el-table-column
-        prop="id"
-        header-align="center"
-        align="center"
-        label="主键">
-      </el-table-column>
-      <el-table-column
+      <table-tree-column
         prop="name"
         header-align="center"
-        align="center"
+        treeKey="menuId"
+        width="150"
         label="名称">
-      </el-table-column>
+      </table-tree-column>
       <el-table-column
         prop="type"
         header-align="center"
@@ -45,6 +40,9 @@
         header-align="center"
         align="center"
         label="级别">
+        <template slot-scope="scope">
+          {{getSysParam('CATEGORY_RANK', scope.row.rank)}}
+        </template>
       </el-table-column>
       <el-table-column
         prop="parentId"
@@ -64,22 +62,15 @@
         </template>
       </el-table-column>
     </el-table>
-    <el-pagination
-      @size-change="sizeChangeHandle"
-      @current-change="currentChangeHandle"
-      :current-page="pageIndex"
-      :page-sizes="[10, 20, 50, 100]"
-      :page-size="pageSize"
-      :total="totalPage"
-      layout="total, sizes, prev, pager, next, jumper">
-    </el-pagination>
     <!-- 弹窗, 新增 / 修改 -->
     <add-or-update v-if="addOrUpdateVisible" ref="addOrUpdate" @refreshDataList="getDataList"></add-or-update>
   </div>
 </template>
 
 <script>
+import TableTreeColumn from '@/components/table-tree-column'
 import AddOrUpdate from './category-add-or-update'
+import { treeDataTranslate } from '@/utils'
 export default {
   data () {
     return {
@@ -87,16 +78,14 @@ export default {
         key: ''
       },
       dataList: [],
-      pageIndex: 1,
-      pageSize: 10,
-      totalPage: 0,
       dataListLoading: false,
       dataListSelections: [],
       addOrUpdateVisible: false
     }
   },
   components: {
-    AddOrUpdate
+    AddOrUpdate,
+    TableTreeColumn
   },
   activated () {
     this.getDataList()
@@ -115,29 +104,12 @@ export default {
         })
       }).then(({data}) => {
         if (data && data.code === 200) {
-          this.dataList = data.page.list
-          this.totalPage = data.page.totalCount
+          this.dataList = treeDataTranslate(data.categoryList)
         } else {
           this.dataList = []
-          this.totalPage = 0
         }
         this.dataListLoading = false
       })
-    },
-    // 每页数
-    sizeChangeHandle (val) {
-      this.pageSize = val
-      this.pageIndex = 1
-      this.getDataList()
-    },
-    // 当前页
-    currentChangeHandle (val) {
-      this.pageIndex = val
-      this.getDataList()
-    },
-    // 多选
-    selectionChangeHandle (val) {
-      this.dataListSelections = val
     },
     // 新增 / 修改
     addOrUpdateHandle (id) {
@@ -145,6 +117,10 @@ export default {
       this.$nextTick(() => {
         this.$refs.addOrUpdate.init(id)
       })
+    },
+    // 多选
+    selectionChangeHandle (val) {
+      this.dataListSelections = val
     },
     // 删除
     deleteHandle (id) {

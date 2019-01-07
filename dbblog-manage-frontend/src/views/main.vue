@@ -48,6 +48,7 @@ export default {
   },
   created: function () {
     this.getUserInfo()
+    this.listSysParam()
   },
   mounted: function () {
     this.resetDocumentClientHeight()
