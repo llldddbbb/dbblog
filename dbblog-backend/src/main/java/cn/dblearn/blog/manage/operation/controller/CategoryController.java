@@ -1,7 +1,6 @@
 package cn.dblearn.blog.manage.operation.controller;
 
 import cn.dblearn.blog.common.pojo.Result;
-import cn.dblearn.blog.common.util.PageUtils;
 import cn.dblearn.blog.manage.operation.entity.Category;
 import cn.dblearn.blog.manage.operation.service.CategoryService;
 import cn.dblearn.blog.manage.sys.controller.AbstractController;
@@ -11,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -36,9 +36,8 @@ public class CategoryController extends AbstractController {
     @RequestMapping("/list")
     @RequiresPermissions("operation:category:list")
     public Result list(@RequestParam Map<String, Object> params){
-        PageUtils page = categoryService.queryPage(params);
-
-        return Result.ok().put("page", page);
+        List<Category> categoryList = categoryService.list(null);
+        return Result.ok().put("categoryList",categoryList);
     }
 
 

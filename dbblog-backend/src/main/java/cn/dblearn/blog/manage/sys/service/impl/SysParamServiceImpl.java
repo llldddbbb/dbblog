@@ -1,16 +1,17 @@
 package cn.dblearn.blog.manage.sys.service.impl;
 
-import cn.dblearn.blog.manage.sys.entity.SysParam;
+import cn.dblearn.blog.common.util.PageUtils;
+import cn.dblearn.blog.common.util.Query;
 import cn.dblearn.blog.manage.sys.mapper.SysParamMapper;
+import cn.dblearn.blog.manage.sys.pojo.entity.SysParam;
 import cn.dblearn.blog.manage.sys.service.SysParamService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import cn.dblearn.blog.common.util.Query;
-import cn.dblearn.blog.common.util.PageUtils;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
-import lombok.extern.slf4j.Slf4j;
+
 import java.util.Map;
 
 /**

@@ -3,7 +3,7 @@
 <mapper namespace="cn.dblearn.blog.manage.sys.mapper.SysParamMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="cn.dblearn.blog.manage.sys.entity.SysParam">
+    <resultMap id="BaseResultMap" type="cn.dblearn.blog.manage.sys.pojo.entity.SysParam">
         <id column="id" property="id" />
         <result column="par_key" property="parKey" />
         <result column="par_value" property="parValue" />

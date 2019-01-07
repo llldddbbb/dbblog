@@ -1,13 +1,15 @@
-package cn.dblearn.blog.manage.sys.entity;
+package cn.dblearn.blog.manage.sys.pojo.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
-import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+
+import javax.validation.constraints.NotBlank;
+import java.io.Serializable;
 
 /**
  * <p>
@@ -30,15 +32,19 @@ public class SysParam implements Serializable {
     private Integer id;
 
     @ApiModelProperty(value = "参数键")
+    @NotBlank(message = "参数键不能为空")
     private Integer parKey;
 
     @ApiModelProperty(value = "参数值")
+    @NotBlank(message = "参数值不能为空")
     private String parValue;
 
     @ApiModelProperty(value = "参数url")
+    @NotBlank(message = "参数url不能为空")
     private String menuUrl;
 
     @ApiModelProperty(value = "参数类型")
+    @NotBlank(message = "参数类型不能为空")
     private String type;
 
 

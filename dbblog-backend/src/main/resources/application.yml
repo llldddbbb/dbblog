@@ -68,7 +68,7 @@ mybatis-plus:
 
 oss:
   qiniu:
-    domain: http://piht5ofif.bkt.clouddn.com
+    domain: http://oss.dblearn.cn
     prefix: dbblog
     accessKey: ENC(pVGOa/io1AnqiEKkDTVORO3W8nzn+vbOl53TeRBIGgCuWvqUEzOAdIBLmdpoYVmsDHESGVc2QzY=)
     secretKey: ENC(UXM3TEuaIuLrPdKuDASHoZExQyOrgGl7PqV/iB0EbHOFhnUSF3bMol8D2qh+QlthccS5QD0fHbM=)
