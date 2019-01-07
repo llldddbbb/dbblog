@@ -1,9 +1,9 @@
 package cn.dblearn.blog.manage.operation.service;
 
-import cn.dblearn.blog.common.util.PageUtils;
 import cn.dblearn.blog.manage.operation.entity.Category;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -17,9 +17,16 @@ import java.util.Map;
 public interface CategoryService extends IService<Category> {
 
     /**
-     * 分页查询分类
+     * 查询所有菜单
      * @param params
      * @return
      */
-    PageUtils queryPage(Map<String, Object> params);
+    List<Category> queryAll(Map<String, Object> params);
+
+    /**
+     * 根据父级别查询子级别
+     * @param id
+     * @return
+     */
+    List<Category> queryListParentId(Integer id);
 }

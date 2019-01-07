@@ -52,7 +52,7 @@ public class CodeGeneratorUtils {
         if(tableName.indexOf("_")>0){
             entityName = tableName.split("_")[1];
         }else {
-            throw new MybatisPlusException("请输入正确的表名！");
+            entityName = tableName;
         }
 
         // 全局配置

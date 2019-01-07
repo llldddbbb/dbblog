@@ -1,6 +1,9 @@
 package cn.dblearn.blog.manage.operation.controller;
 
+import cn.dblearn.blog.common.exception.MyException;
 import cn.dblearn.blog.common.pojo.Result;
+import cn.dblearn.blog.common.pojo.constants.SysConstants;
+import cn.dblearn.blog.common.validator.ValidatorUtils;
 import cn.dblearn.blog.manage.operation.entity.Category;
 import cn.dblearn.blog.manage.operation.service.CategoryService;
 import cn.dblearn.blog.manage.sys.controller.AbstractController;
@@ -9,7 +12,6 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -36,10 +38,27 @@ public class CategoryController extends AbstractController {
     @RequestMapping("/list")
     @RequiresPermissions("operation:category:list")
     public Result list(@RequestParam Map<String, Object> params){
-        List<Category> categoryList = categoryService.list(null);
+        List<Category> categoryList = categoryService.queryAll(params);
         return Result.ok().put("categoryList",categoryList);
     }
 
+    /**
+     * 树状列表
+     */
+    @RequestMapping("/select")
+    @RequiresPermissions("operation:category:list")
+    public Result select(){
+        List<Category> categoryList = categoryService.list(null);
+
+        //添加顶级分类
+        Category root = new Category();
+        root.setId(-1);
+        root.setName("根目录");
+        root.setParentId(-1);
+        categoryList.add(root);
+
+        return Result.ok().put("categoryList",categoryList);
+    }
 
     /**
      * 信息
@@ -58,9 +77,47 @@ public class CategoryController extends AbstractController {
     @RequestMapping("/save")
     @RequiresPermissions("operation:category:save")
     public Result save(@RequestBody Category category){
+        // 数据校验
+        ValidatorUtils.validateEntity(category);
+        verifyCategory(category);
         categoryService.save(category);
 
         return Result.ok();
+    }
+
+    /**
+     * 数据校验
+     * @param category
+     */
+    private void verifyCategory(Category category) {
+        //上级分类级别
+        int parentRank = SysConstants.CategoryRank.ROOT.getValue();
+        if (category.getParentId() != SysConstants.CategoryRank.FIRST.getValue()
+                && category.getParentId() != SysConstants.CategoryRank.ROOT.getValue()) {
+            Category parentCategory = categoryService.getById(category.getParentId());
+            parentRank = parentCategory.getRank();
+        }
+
+        // 一级
+        if (category.getRank() == SysConstants.CategoryRank.FIRST.getValue()) {
+            if (category.getParentId() != SysConstants.CategoryRank.ROOT.getValue()){
+                throw new MyException("上级目录只能为根目录");
+            }
+        }
+
+        //二级
+        if (category.getRank() == SysConstants.CategoryRank.SECOND.getValue()) {
+            if (parentRank != SysConstants.CategoryRank.FIRST.getValue()) {
+                throw new MyException("上级目录只能为一级类型");
+            }
+        }
+
+        //三级
+        if (category.getRank() == SysConstants.CategoryRank.THIRD.getValue()) {
+            if (parentRank != SysConstants.CategoryRank.SECOND.getValue()) {
+                throw new MyException("上级目录只能为二级类型");
+            }
+        }
     }
 
     /**
@@ -77,10 +134,17 @@ public class CategoryController extends AbstractController {
     /**
      * 删除
      */
-    @RequestMapping("/delete")
+    @DeleteMapping("/delete/{id}")
     @RequiresPermissions("operation:category:delete")
-    public Result delete(@RequestBody Integer[] ids){
-        categoryService.removeByIds(Arrays.asList(ids));
+    public Result delete(@PathVariable Integer id){
+
+        //判断是否有子菜单或按钮
+        List<Category> categoryList = categoryService.queryListParentId(id);
+        if(categoryList.size() > 0){
+            return Result.error("请先删除子级别");
+        }
+
+        categoryService.removeById(id);
 
         return Result.ok();
     }

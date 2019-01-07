@@ -1,13 +1,17 @@
 package cn.dblearn.blog.manage.operation.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
-import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 /**
  * <p>
@@ -30,16 +34,23 @@ public class Category implements Serializable {
     private Integer id;
 
     @ApiModelProperty(value = "名称")
+    @NotBlank(message = "名称不能为空")
     private String name;
 
     @ApiModelProperty(value = "类型")
+    @NotNull(message = "类型不能为空")
     private Integer type;
 
     @ApiModelProperty(value = "级别")
+    @NotNull(message = "级别不能为空")
     private Integer rank;
 
     @ApiModelProperty(value = "父主键")
+    @NotNull(message = "父主键不能为空")
     private Integer parentId;
+
+    @TableField(exist = false)
+    private String parentName;
 
 
 }

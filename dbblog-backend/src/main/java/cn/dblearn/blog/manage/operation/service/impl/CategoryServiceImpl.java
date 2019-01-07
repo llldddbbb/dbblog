@@ -1,17 +1,15 @@
 package cn.dblearn.blog.manage.operation.service.impl;
 
-import cn.dblearn.blog.common.util.PageUtils;
-import cn.dblearn.blog.common.util.Query;
 import cn.dblearn.blog.manage.operation.entity.Category;
 import cn.dblearn.blog.manage.operation.mapper.CategoryMapper;
 import cn.dblearn.blog.manage.operation.service.CategoryService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -27,16 +25,25 @@ import java.util.Map;
 public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> implements CategoryService {
 
     /**
-     * 分页查询分类
+     * 查询所有菜单
      *
      * @param params
      * @return
      */
     @Override
-    public PageUtils queryPage(Map<String, Object> params) {
-        String name = (String) params.get("name");
-        IPage<Category> page=baseMapper.selectPage(new Query<Category>(params).getPage(),
-                new QueryWrapper<Category>().lambda().like(!StringUtils.isEmpty(name), Category::getName,name));
-        return new PageUtils(page);
+    public List<Category> queryAll(Map<String, Object> params) {
+        return baseMapper.queryAll(params);
+    }
+
+    /**
+     * 根据父级别查询子级别
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public List<Category> queryListParentId(Integer id) {
+        return baseMapper.selectList(new QueryWrapper<Category>().lambda()
+                .eq(Category::getParentId,id));
     }
 }

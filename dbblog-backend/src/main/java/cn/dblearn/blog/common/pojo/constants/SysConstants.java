@@ -13,10 +13,6 @@ public class SysConstants {
 
     /**
      * 菜单类型
-     *
-     * @author chenshun
-     * @email sunlightcs@gmail.com
-     * @date 2016年11月15日 下午1:24:29
      */
     public enum MenuType {
         /**
@@ -35,6 +31,38 @@ public class SysConstants {
         private int value;
 
         MenuType(int value) {
+            this.value = value;
+        }
+
+        public int getValue() {
+            return value;
+        }
+    }
+
+    /**
+     * 分类级别
+     */
+    public enum CategoryRank {
+        /**
+         * 一级
+         */
+        ROOT(-1),
+        /**
+         * 一级
+         */
+        FIRST(0),
+        /**
+         * 二级
+         */
+        SECOND(1),
+        /**
+         * 三级
+         */
+        THIRD(2);
+
+        private int value;
+
+        CategoryRank(int value) {
             this.value = value;
         }
 
