@@ -64,8 +64,8 @@ export function clearLoginInfo () {
  * @param key
  * @returns {*}
  */
-export function getSysParam (type, key) {
-  let sysParamList = JSON.parse(localStorage.getItem('sysParamList'))
+export function getSysParam (type, key, list) {
+  let sysParamList = list || JSON.parse(localStorage.getItem('sysParamList'))
   for (let i = 0; i < sysParamList.length; i++) {
     let sysParam = sysParamList[i]
     if (sysParam.type === type && sysParam.parKey === (key)) {

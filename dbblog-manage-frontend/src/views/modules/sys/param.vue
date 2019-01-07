@@ -137,9 +137,6 @@ export default {
   methods: {
     // 获取数据列表
     getDataList () {
-      if (!this.dataForm.menuUrl) {
-        return
-      }
       this.dataListLoading = true
       this.$http({
         url: this.$http.adornUrl('/admin/sys/param/list'),
@@ -228,6 +225,8 @@ export default {
       let route = this.dynamicMenuRoutes.filter(item => item.meta.menuId === data.menuId)
       if (route.length >= 1) {
         this.dataForm.menuUrl = '/' + route[0].path
+      } else {
+        this.dataForm.menuUrl = ''
       }
       this.getDataList()
     }

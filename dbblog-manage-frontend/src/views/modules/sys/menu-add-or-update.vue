@@ -27,8 +27,8 @@
             :highlight-current="true"
             :expand-on-click-node="false">
           </el-tree>
+          <el-input v-model="dataForm.parentName" slot="reference" :readonly="true" placeholder="点击选择上级菜单" class="menu-list__input"></el-input>
         </el-popover>
-        <el-input v-model="dataForm.parentName" v-popover:menuListPopover :readonly="true" placeholder="点击选择上级菜单" class="menu-list__input"></el-input>
       </el-form-item>
       <el-form-item v-if="dataForm.type === 1" label="菜单路由" prop="url">
         <el-input v-model="dataForm.url" placeholder="菜单路由"></el-input>

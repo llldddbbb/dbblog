@@ -3,26 +3,43 @@
     :title="!dataForm.id ? '新增' : '修改'"
     :close-on-click-modal="false"
     :visible.sync="visible">
-    <el-form :model="dataForm" :rules="dataRule" ref="dataForm" @keyup.enter.native="dataFormSubmit()" label-width="80px">
-    <el-form-item label="名称" prop="name">
-      <el-input v-model="dataForm.name" placeholder="名称"></el-input>
-    </el-form-item>
-    <el-form-item label="类型" prop="type">
-      <el-input v-model="dataForm.type" placeholder="类型"></el-input>
-    </el-form-item>
-    <el-form-item label="级别" prop="rank">
-      <el-select placeholder="请选择级别" filterable v-model="dataForm.rank">
-        <el-option
-          v-for="item in rankList"
-          :key="item.parKey"
-          :label="item.parValue"
-          :value="item.parKey">
-        </el-option>
-      </el-select>
-    </el-form-item>
-    <el-form-item label="父主键" prop="parentId">
-      <el-input v-model="dataForm.parentId" placeholder="父主键"></el-input>
-    </el-form-item>
+    <el-form :model="dataForm" :rules="dataRule" ref="dataForm" @keyup.enter.native="dataFormSubmit()" label-width="120px">
+      <el-form-item label="菜单级别" prop="rank">
+        <el-radio-group v-model="dataForm.rank">
+          <el-radio v-for="rank in rankList" :label="rank.parKey" :key="rank.parKey">{{ rank.parValue }}</el-radio>
+        </el-radio-group>
+      </el-form-item>
+      <el-form-item :label="getSysParam('CATEGORY_RANK',dataForm.rank,rankList)+'名称'" prop="name">
+        <el-input v-model="dataForm.name" placeholder="名称"></el-input>
+      </el-form-item>
+      <el-form-item label="所属分类" prop="type">
+        <el-select placeholder="请选择所属分类" clearable filterable v-model="dataForm.type">
+          <el-option
+            v-for="type in typeList"
+            :key="type.parKey"
+            :label="type.parValue"
+            :value="type.parKey">
+          </el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="上级目录" prop="parentId">
+        <el-popover
+          ref="categoryListPopover"
+          placement="bottom-start"
+          trigger="click">
+          <el-tree
+            :data="categoryList"
+            :props="categoryListTreeProps"
+            node-key="id"
+            ref="categoryListTree"
+            @current-change="categoryListTreeCurrentChangeHandle"
+            :default-expand-all="true"
+            :highlight-current="true"
+            :expand-on-click-node="false">
+          </el-tree>
+          <el-input v-model="dataForm.parentName" slot="reference" :readonly="true" placeholder="点击选择上级分类" class="menu-list__input"></el-input>
+        </el-popover>
+      </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
       <el-button @click="visible = false">取消</el-button>
@@ -32,12 +49,16 @@
 </template>
 
 <script>
+import { treeDataTranslate } from '@/utils'
 export default {
   data () {
     return {
       visible: false,
       dataForm: {
-        rank: ''
+        rank: 0,
+        type: 0,
+        parentId: 0,
+        parentName: ''
       },
       dataRule: {
         name: [
@@ -53,15 +74,34 @@ export default {
           { required: true, message: '父主键不能为空', trigger: 'blur' }
         ]
       },
-      rankList: this.getSysParamArr('CATEGORY_RANK')
+      rankList: this.getSysParamArr('CATEGORY_RANK'),
+      typeList: this.getSysParamArr('CATEGORY_TYPE'),
+      categoryList: [],
+      categoryListTreeProps: {
+        label: 'name',
+        children: 'children'
+      }
     }
   },
   methods: {
     init (id) {
       this.dataForm.id = id || ''
-      this.visible = true
-      this.$nextTick(() => {
-        this.$refs['dataForm'].resetFields()
+      this.$http({
+        url: this.$http.adornUrl('/admin/operation/category/select'),
+        method: 'get',
+        params: this.$http.adornParams()
+      }).then(({data}) => {
+        if (data && data.code === 200) {
+          this.categoryList = treeDataTranslate(data.categoryList)
+        } else {
+          this.categoryList = []
+        }
+      }).then(() => {
+        this.visible = true
+        this.$nextTick(() => {
+          this.$refs['dataForm'].resetFields()
+        })
+      }).then(() => {
         if (this.dataForm.id) {
           this.$http({
             url: this.$http.adornUrl(`/admin/operation/category/info/${this.dataForm.id}`),
@@ -106,6 +146,11 @@ export default {
           })
         }
       })
+    },
+    // 分类列表树选中
+    categoryListTreeCurrentChangeHandle (data, node) {
+      this.dataForm.parentId = data.id
+      this.dataForm.parentName = data.name
     }
   }
 }
