@@ -90,3 +90,8 @@ export default {
   }
 }
 </script>
+<style>
+  .form-input {
+    width: 100px
+  }
+</style>

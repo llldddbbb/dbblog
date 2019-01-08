@@ -1,8 +1,8 @@
-package cn.dblearn.blog.manage.article.entity;
+package cn.dblearn.blog.manage.operation.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -19,8 +19,9 @@ import java.util.Date;
  * @since 2018-11-07
  */
 @Data
-@ApiModel(value="BlogTag对象", description="标签")
-public class ArticleTag implements Serializable {
+@ApiModel(value="Tag对象", description="标签")
+@TableName("operation_tag")
+public class Tag implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -30,24 +31,12 @@ public class ArticleTag implements Serializable {
     @ApiModelProperty(value = "标签名字")
     private String tagName;
 
-    @ApiModelProperty(value = "关联父Id")
-    private Integer parentId;
-
-    @ApiModelProperty(value = "关联类别Id")
-    private Integer categoryId;
-
-    @ApiModelProperty(value = "关联分类方向Id")
-    private Integer orientationId;
-
-    /**
-     * 前端高亮状态
-     */
-    @TableField(exist = false)
-    private Boolean active;
-
     private Date createTime;
 
     private Date updateTime;
+
+    @ApiModelProperty(value = "所属类型：0文章，1阅读")
+    private Integer type;
 
 
 }

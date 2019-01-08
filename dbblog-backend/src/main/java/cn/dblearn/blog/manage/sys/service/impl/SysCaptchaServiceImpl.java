@@ -2,7 +2,7 @@ package cn.dblearn.blog.manage.sys.service.impl;
 
 import cn.dblearn.blog.common.exception.MyException;
 import cn.dblearn.blog.common.exception.enums.ErrorEnum;
-import cn.dblearn.blog.common.pojo.constants.RedisBaseKeyConstants;
+import cn.dblearn.blog.common.constants.RedisKeyConstants;
 import cn.dblearn.blog.common.util.RedisUtils;
 import cn.dblearn.blog.manage.sys.service.SysCaptchaService;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
@@ -78,6 +78,6 @@ public class SysCaptchaServiceImpl implements SysCaptchaService {
      * @return
      */
     private String genRedisKey(String uuid){
-        return RedisBaseKeyConstants.MANAGE_SYS_CAPTCHA+uuid;
+        return RedisKeyConstants.MANAGE_SYS_CAPTCHA+uuid;
     }
 }

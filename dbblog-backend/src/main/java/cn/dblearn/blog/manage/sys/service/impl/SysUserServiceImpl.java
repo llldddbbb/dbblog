@@ -1,7 +1,7 @@
 package cn.dblearn.blog.manage.sys.service.impl;
 
 import cn.dblearn.blog.common.exception.MyException;
-import cn.dblearn.blog.common.pojo.constants.SysConstants;
+import cn.dblearn.blog.common.constants.SysConstants;
 import cn.dblearn.blog.common.util.PageUtils;
 import cn.dblearn.blog.common.util.Query;
 import cn.dblearn.blog.manage.sys.mapper.SysUserMapper;

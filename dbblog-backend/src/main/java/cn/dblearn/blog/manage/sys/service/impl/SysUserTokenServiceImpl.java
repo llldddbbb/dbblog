@@ -1,7 +1,7 @@
 package cn.dblearn.blog.manage.sys.service.impl;
 
-import cn.dblearn.blog.common.pojo.constants.RedisBaseKeyConstants;
-import cn.dblearn.blog.common.pojo.Result;
+import cn.dblearn.blog.common.constants.RedisKeyConstants;
+import cn.dblearn.blog.common.Result;
 import cn.dblearn.blog.common.util.RedisUtils;
 import cn.dblearn.blog.manage.sys.oauth2.TokenGenerator;
 import cn.dblearn.blog.manage.sys.pojo.entity.SysUserToken;
@@ -38,14 +38,14 @@ public class SysUserTokenServiceImpl implements SysUserTokenService {
         // 生成一个token
         String token = TokenGenerator.generateValue();
 
-        String tokenKey=RedisBaseKeyConstants.MANAGE_SYS_USER_TOKEN+token;
-        String userIdKey=RedisBaseKeyConstants.MANAGE_SYS_USER_TOKEN+userId;
+        String tokenKey= RedisKeyConstants.MANAGE_SYS_USER_TOKEN+token;
+        String userIdKey= RedisKeyConstants.MANAGE_SYS_USER_TOKEN+userId;
 
         //判断是否生成过token
         String tokenInRedis=redisUtils.get(userIdKey);
         if(!StringUtils.isEmpty(tokenInRedis)){
             // 将原来的token删除
-            redisUtils.delete(RedisBaseKeyConstants.MANAGE_SYS_USER_TOKEN+tokenInRedis);
+            redisUtils.delete(RedisKeyConstants.MANAGE_SYS_USER_TOKEN+tokenInRedis);
         }
         // 将token存进redis
         redisUtils.set(tokenKey,userId,EXPIRE);
@@ -79,9 +79,9 @@ public class SysUserTokenServiceImpl implements SysUserTokenService {
      */
     @Override
     public void logout(Integer userId) {
-        String userIdKey=RedisBaseKeyConstants.MANAGE_SYS_USER_TOKEN+userId;
+        String userIdKey= RedisKeyConstants.MANAGE_SYS_USER_TOKEN+userId;
         String token=redisUtils.get(userIdKey);
-        String tokenKey=RedisBaseKeyConstants.MANAGE_SYS_USER_TOKEN+token;
+        String tokenKey= RedisKeyConstants.MANAGE_SYS_USER_TOKEN+token;
         redisUtils.delete(userIdKey);
         redisUtils.delete(tokenKey);
     }

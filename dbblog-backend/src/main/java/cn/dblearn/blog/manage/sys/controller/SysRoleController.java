@@ -1,7 +1,7 @@
 package cn.dblearn.blog.manage.sys.controller;
 
-import cn.dblearn.blog.common.pojo.constants.SysConstants;
-import cn.dblearn.blog.common.pojo.Result;
+import cn.dblearn.blog.common.constants.SysConstants;
+import cn.dblearn.blog.common.Result;
 import cn.dblearn.blog.common.util.PageUtils;
 import cn.dblearn.blog.common.validator.ValidatorUtils;
 import cn.dblearn.blog.manage.sys.pojo.entity.SysRole;

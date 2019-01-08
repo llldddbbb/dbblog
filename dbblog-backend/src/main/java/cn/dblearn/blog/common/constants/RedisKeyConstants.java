@@ -1,4 +1,4 @@
-package cn.dblearn.blog.common.pojo.constants;
+package cn.dblearn.blog.common.constants;
 
 /**
  * RedisKeyConstants
@@ -6,9 +6,9 @@ package cn.dblearn.blog.common.pojo.constants;
  * @author bobbi
  * @date 2018/10/20 13:44
  * @email 571002217@qq.com
- * @description redis baseKey管理
+ * @description redis baseKey管理常量
  */
-public class RedisBaseKeyConstants {
+public class RedisKeyConstants {
 
     /**
      * 后台管理验证码key

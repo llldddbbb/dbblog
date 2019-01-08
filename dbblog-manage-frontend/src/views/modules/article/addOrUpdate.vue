@@ -1,4 +1,4 @@
-<template>
+  <template>
   <div>
     <el-form :model="article" label-width="80px" :rules="rules" ref="articleForm">
       <el-form-item label="博文标题" prop="title">
@@ -6,64 +6,56 @@
           <el-input placeholder="博文标题" v-model="article.title"  clearable></el-input>
         </el-col>
       </el-form-item>
+      <el-row>
+        <el-col :span="6">
+          <el-form-item label="博文分类">
+            <el-cascader
+              style="width: 100%;"
+              clearable
+              change-on-select
+              :options="categoryOptions"
+              v-model="categoryOptionsSelect"
+              :props="categoryListTreeProps">
+            </el-cascader>
+          </el-form-item>
+        </el-col>
+        <el-col :span="6">
+          <el-form-item label="博文标签">
+            <el-select
+              style="width: 100%"
+              v-model="tagListSelect"
+              multiple
+              allow-create
+              filterable
+              default-first-option
+              placeholder="请选择文章标签" @change="filterTagList">
+              <el-option
+                v-for="item in tagList"
+                  :key="item.tagId"
+                :label="item.tagName"
+                :value="item.tagId">
+              </el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
+      </el-row>
       <el-form-item label="博文作者">
-        <el-col :span="4">
-          <el-input placeholder="博文作者" v-model="article.author" clearable></el-input>
-        </el-col>
-      </el-form-item>
-      <el-form-item label="博文分类">
-        <el-col :span="4">
-          <el-select placeholder="请选择分类方向" filterable v-model="article.orientationId" @change="listCategory">
-            <el-option
-              v-for="orientation in orientationList"
-              :key="orientation.orientationId"
-              :label="orientation.name"
-              :value="orientation.orientationId">
-            </el-option>
-          </el-select>
-        </el-col>
-        <el-col :span="4">
-          <el-select placeholder="请选择分类类别" v-model="article.categoryId" @change="listTag">
-            <el-option
-              v-for="category in categoryList"
-              :key="category.categoryId"
-              :label="category.name"
-              :value="category.categoryId">
-            </el-option>
-          </el-select>
-        </el-col>
-        <el-col :span="4">
-          <el-select
-            v-model="tagListTemp"
-            multiple
-            allow-create
-            filterable
-            default-first-option
-            placeholder="请选择文章标签" @change="adornTagList">
-            <el-option
-              v-for="item in tagList"
-              :key="item.tagId"
-              :label="item.tagName"
-              :value="item.tagId">
-            </el-option>
-          </el-select>
-        </el-col>
+        <el-row>
+          <el-col :span="4">
+            <el-input placeholder="博文作者" v-model="article.author" clearable></el-input>
+          </el-col>
+        </el-row>
       </el-form-item>
       <el-form-item label="是否推荐">
-        <el-radio-group v-model="article.isRecommend">
+        <el-radio-group v-model="article.recommend">
           <el-radio :label="true" >是</el-radio>
           <el-radio :label="false" >否</el-radio>
         </el-radio-group>
       </el-form-item>
       <el-form-item label="展示类型">
-        <el-select v-model="article.type" placeholder="请选择展示类型">
-          <el-option
-            v-for="item in articleTypeList"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value">
-          </el-option>
-        </el-select>
+        <el-radio-group v-model="article.type">
+          <el-radio v-for="type in coverTypeList" :key="type.parKey" :label="type.parKey" >{{type.parValue}}</el-radio>
+        </el-radio-group>
       </el-form-item>
       <el-form-item label="上传封面">
         <el-col :span="12">
@@ -101,7 +93,7 @@
 <script>
 import MavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
-
+import { treeDataTranslate } from '@/utils'
 export default {
   components: {
     'mavon-editor': MavonEditor.mavonEditor
@@ -109,28 +101,26 @@ export default {
   data () {
     return {
       article: {
-        isRecommend: false,
-        tagList: []
+        recommend: false,
+        tagList: [],
+        type: 0
       },
-      articleTypeList: [{
-        label: '小图片',
-        value: 0
-      }, {
-        label: '大图片',
-        value: 1
-      }, {
-        label: '无图片',
-        value: 2
-      }],
+      coverTypeList: this.getSysParamArr('ARTICLE_COVER_TYPE'),
       url: '',
       file: [],
       rules: {
         title: {required: true, message: '请输入博文标题', trigger: 'change'}
       },
-      orientationList: [],
-      categoryList: [],
       tagList: [],
-      tagListTemp: []
+      tagListSelect: [],
+      tagListNew: [],
+      categoryOptions: [],
+      categoryOptionsSelect: [],
+      categoryListTreeProps: {
+        label: 'name',
+        children: 'children',
+        value: 'id'
+      }
     }
   },
   created () {
@@ -138,60 +128,45 @@ export default {
   },
   methods: {
     init () {
-      this.url = this.$http.adornUrl(`/admin/oss/resource/upload?token=${this.$cookie.get('token')}`)
-      let articleId = this.$route.params.articleId
-      this.listOrientation()
-      if (articleId) {
-        this.$http({
-          url: this.$http.adornUrl('/article/' + articleId),
-          method: 'get',
-          params: this.$http.adornParams()
-        }).then(({data}) => {
-          if (data && data.code === 200) {
-            this.article = data.article
-            this.file = [{url: data.article.cover}]
-            this.listCategory(this.article.orientationId)
-            this.listTag(this.article.categoryId)
-            this.tagListTemp = this.article.tagList.map(tag => {
-              return tag.tagId
-            })
-          }
-        })
-      }
-    },
-    // 获取博文分类方向
-    listOrientation () {
+      // 获取博文分类
       this.$http({
-        url: this.$http.adornUrl('/article/classify/orientations'),
+        url: this.$http.adornUrl('/admin/operation/category/list'),
         method: 'get',
         params: this.$http.adornParams()
       }).then(({data}) => {
         if (data && data.code === 200) {
-          this.orientationList = data.orientationList
+          this.categoryOptions = treeDataTranslate(data.categoryList)
+        }
+      }).then(() => {
+        this.url = this.$http.adornUrl(`/admin/oss/resource/upload?token=${this.$cookie.get('token')}`)
+        let articleId = this.$route.params.articleId
+        this.listTag()
+        if (articleId) {
+          this.$http({
+            url: this.$http.adornUrl('/admin/article/info/' + articleId),
+            method: 'get',
+            params: this.$http.adornParams()
+          }).then(({data}) => {
+            if (data && data.code === 200) {
+              this.article = data.article
+              this.file = [{url: data.article.cover}]
+              // 转换tagList
+              this.tagListSelect = this.article.tagList.map(tag => {
+                return tag.tagId
+              })
+              // 转换categoryId
+              this.categoryOptionsSelect = this.article.categoryId.split(',').map((data) => { return +data })
+              console.log(this.categoryOptionsSelect)
+            }
+          })
         }
       })
     },
-    // 获取博文分类
-    listCategory (orientationId) {
+    listTag () {
       this.$http({
-        url: this.$http.adornUrl('/article/classify/categories'),
+        url: this.$http.adornUrl('/admin/operation/tag/list'),
         method: 'get',
-        params: this.$http.adornParams({
-          orientationId: orientationId
-        })
-      }).then(({data}) => {
-        if (data && data.code === 200) {
-          this.categoryList = data.categoryList
-        }
-      })
-    },
-    listTag (categoryId) {
-      this.$http({
-        url: this.$http.adornUrl('/article/classify/tags'),
-        method: 'get',
-        params: this.$http.adornParams({
-          categoryId: categoryId
-        })
+        params: this.$http.adornParams()
       }).then(({data}) => {
         if (data && data.code === 200) {
           this.tagList = data.tagList
@@ -199,7 +174,7 @@ export default {
       })
     },
     // 过滤标签
-    adornTagList (selectValueList) {
+    filterTagList (selectValueList) {
       let tagList = []
       selectValueList.forEach(value => {
         let isInput = true
@@ -239,6 +214,9 @@ export default {
     saveArticle () {
       this.$refs['articleForm'].validate((valid) => {
         if (valid) {
+          // 转化categoryId
+          this.article.categoryId = this.categoryOptionsSelect.join(',')
+          console.log(!this.article.articleId ? 'post' : 'put')
           this.$http({
             url: this.$http.adornUrl(`/admin/article/${!this.article.articleId ? 'save' : 'update'}`),
             method: !this.article.articleId ? 'post' : 'put',

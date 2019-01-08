@@ -1,7 +1,7 @@
 package cn.dblearn.blog.portal.article.controller;
 
 
-import cn.dblearn.blog.common.pojo.Result;
+import cn.dblearn.blog.common.Result;
 import cn.dblearn.blog.manage.article.entity.Article;
 import cn.dblearn.blog.portal.article.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ import java.util.Map;
  * @author bobbi
  * @since 2018-11-07
  */
-@RestController
+@RestController("articlePortalController")
 public class ArticleController {
 
     @Autowired

@@ -1,9 +1,9 @@
 package cn.dblearn.blog.portal.article.service.impl;
 
 import cn.dblearn.blog.common.util.MapUtils;
-import cn.dblearn.blog.manage.article.mapper.ArticleMapper;
-import cn.dblearn.blog.manage.article.mapper.ArticleTagMapper;
 import cn.dblearn.blog.manage.article.entity.Article;
+import cn.dblearn.blog.manage.article.mapper.ArticleMapper;
+import cn.dblearn.blog.manage.operation.service.TagService;
 import cn.dblearn.blog.portal.article.pojo.vo.ArticleVO;
 import cn.dblearn.blog.portal.article.service.ArticleCommentService;
 import cn.dblearn.blog.portal.article.service.ArticleService;
@@ -22,11 +22,11 @@ import java.util.Map;
  * @author bobbi
  * @since 2018-11-07
  */
-@Service
+@Service("ArticlePortalService")
 public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> implements ArticleService {
 
     @Autowired
-    private ArticleTagMapper blogTagMapper;
+    private TagService tagService;
 
     @Autowired
     private ArticleCommentService blogArticleCommentService;
@@ -39,11 +39,12 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
      */
     @Override
     public Article getArticle(Integer articleId) {
+
         Article article = baseMapper.selectById(articleId);
         //所属标签
-        article.setTagList(blogTagMapper.listByArticleId(articleId));
-        //所属评论
-        article.setCommentList(blogArticleCommentService.listByArticleId(articleId));
+//        article.setTagList(blogTagMapper.listByArticleId(articleId));
+//        //所属评论
+//        article.setCommentList(blogArticleCommentService.listByArticleId(articleId));
         return article;
     }
 

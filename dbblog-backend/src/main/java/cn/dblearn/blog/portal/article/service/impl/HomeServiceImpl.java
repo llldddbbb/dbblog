@@ -1,6 +1,6 @@
 package cn.dblearn.blog.portal.article.service.impl;
 
-import cn.dblearn.blog.common.pojo.Result;
+import cn.dblearn.blog.common.Result;
 import cn.dblearn.blog.manage.article.mapper.ArticleMapper;
 import cn.dblearn.blog.portal.article.pojo.vo.ArticleVO;
 import cn.dblearn.blog.portal.article.service.HomeService;

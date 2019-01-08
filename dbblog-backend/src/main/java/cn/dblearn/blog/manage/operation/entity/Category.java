@@ -3,11 +3,9 @@ package cn.dblearn.blog.manage.operation.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
-import io.swagger.annotations.ApiModel;
+import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -15,16 +13,14 @@ import java.io.Serializable;
 
 /**
  * <p>
- * 
+ * 类别表
  * </p>
  *
  * @author bobbi
  * @since 2018-12-17
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
-@ApiModel(value="OperationCategory对象", description="")
+@TableName("operation_category")
 public class Category implements Serializable {
 
     private static final long serialVersionUID = 1L;

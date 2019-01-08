@@ -1,7 +1,7 @@
 package cn.dblearn.blog.manage.sys.service.impl;
 
-import cn.dblearn.blog.common.pojo.constants.SysConstants;
-import cn.dblearn.blog.common.pojo.constants.RedisBaseKeyConstants;
+import cn.dblearn.blog.common.constants.SysConstants;
+import cn.dblearn.blog.common.constants.RedisKeyConstants;
 import cn.dblearn.blog.manage.sys.mapper.SysMenuMapper;
 import cn.dblearn.blog.manage.sys.mapper.SysUserMapper;
 import cn.dblearn.blog.manage.sys.pojo.entity.SysMenu;
@@ -75,7 +75,7 @@ public class ShiroServiceImpl implements ShiroService {
      */
     @Override
     public SysUserToken queryByToken(String token) {
-        return sysUserTokenService.queryByToken(RedisBaseKeyConstants.MANAGE_SYS_USER_TOKEN+token);
+        return sysUserTokenService.queryByToken(RedisKeyConstants.MANAGE_SYS_USER_TOKEN+token);
     }
 
     /**

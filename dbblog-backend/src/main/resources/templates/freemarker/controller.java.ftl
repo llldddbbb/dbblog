@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ${package.Entity}.${entity};
 import ${package.Service}.${table.serviceName};
-import ${cfg.basePath}.common.pojo.Result;
+import ${cfg.basePath}.common.Result;
 import ${cfg.basePath}.common.util.PageUtils;
 import ${cfg.basePath}.common.validator.ValidatorUtils;
 <#if restControllerStyle>

@@ -1,6 +1,6 @@
 package cn.dblearn.blog.portal.article.controller;
 
-import cn.dblearn.blog.common.pojo.Result;
+import cn.dblearn.blog.common.Result;
 import cn.dblearn.blog.portal.article.service.HomeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;

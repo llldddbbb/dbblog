@@ -1,8 +1,8 @@
 package cn.dblearn.blog.manage.operation.controller;
 
+import cn.dblearn.blog.common.Result;
+import cn.dblearn.blog.common.enums.CategoryRankEnum;
 import cn.dblearn.blog.common.exception.MyException;
-import cn.dblearn.blog.common.pojo.Result;
-import cn.dblearn.blog.common.pojo.constants.SysConstants;
 import cn.dblearn.blog.common.validator.ValidatorUtils;
 import cn.dblearn.blog.manage.operation.entity.Category;
 import cn.dblearn.blog.manage.operation.service.CategoryService;
@@ -91,30 +91,30 @@ public class CategoryController extends AbstractController {
      */
     private void verifyCategory(Category category) {
         //上级分类级别
-        int parentRank = SysConstants.CategoryRank.ROOT.getValue();
-        if (category.getParentId() != SysConstants.CategoryRank.FIRST.getValue()
-                && category.getParentId() != SysConstants.CategoryRank.ROOT.getValue()) {
+        int parentRank = CategoryRankEnum.ROOT.getValue();
+        if (category.getParentId() != CategoryRankEnum.FIRST.getValue()
+                && category.getParentId() != CategoryRankEnum.ROOT.getValue()) {
             Category parentCategory = categoryService.getById(category.getParentId());
             parentRank = parentCategory.getRank();
         }
 
         // 一级
-        if (category.getRank() == SysConstants.CategoryRank.FIRST.getValue()) {
-            if (category.getParentId() != SysConstants.CategoryRank.ROOT.getValue()){
+        if (category.getRank() == CategoryRankEnum.FIRST.getValue()) {
+            if (category.getParentId() != CategoryRankEnum.ROOT.getValue()){
                 throw new MyException("上级目录只能为根目录");
             }
         }
 
         //二级
-        if (category.getRank() == SysConstants.CategoryRank.SECOND.getValue()) {
-            if (parentRank != SysConstants.CategoryRank.FIRST.getValue()) {
+        if (category.getRank() == CategoryRankEnum.SECOND.getValue()) {
+            if (parentRank != CategoryRankEnum.FIRST.getValue()) {
                 throw new MyException("上级目录只能为一级类型");
             }
         }
 
         //三级
-        if (category.getRank() == SysConstants.CategoryRank.THIRD.getValue()) {
-            if (parentRank != SysConstants.CategoryRank.SECOND.getValue()) {
+        if (category.getRank() == CategoryRankEnum.THIRD.getValue()) {
+            if (parentRank != CategoryRankEnum.SECOND.getValue()) {
                 throw new MyException("上级目录只能为二级类型");
             }
         }

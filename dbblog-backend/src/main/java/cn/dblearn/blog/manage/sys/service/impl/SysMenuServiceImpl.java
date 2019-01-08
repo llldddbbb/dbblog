@@ -1,6 +1,7 @@
 package cn.dblearn.blog.manage.sys.service.impl;
 
-import cn.dblearn.blog.common.pojo.constants.SysConstants;
+import cn.dblearn.blog.common.constants.SysConstants;
+import cn.dblearn.blog.common.enums.MenuTypeEnum;
 import cn.dblearn.blog.common.util.MapUtils;
 import cn.dblearn.blog.manage.sys.mapper.SysMenuMapper;
 import cn.dblearn.blog.manage.sys.pojo.entity.SysMenu;
@@ -63,7 +64,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
 
         for(SysMenu entity : menuList){
             //目录
-            if(entity.getType() == SysConstants.MenuType.CATALOG.getValue()){
+            if(entity.getType() == MenuTypeEnum.CATALOG.getValue()){
                 entity.setList(getMenuTreeList(queryListParentId(entity.getMenuId(), menuIdList), menuIdList));
             }
             subMenuList.add(entity);

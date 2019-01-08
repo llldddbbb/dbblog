@@ -3,7 +3,6 @@ package cn.dblearn.blog.manage.article.entity;
 import cn.dblearn.blog.common.validator.group.AddGroup;
 import cn.dblearn.blog.common.validator.group.UpdateGroup;
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
@@ -13,7 +12,6 @@ import lombok.Data;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 /**
  * <p>
@@ -59,7 +57,7 @@ public class Article implements Serializable {
     @ApiModelProperty(value = "封面")
     private String cover;
 
-    @ApiModelProperty(value = "文章展示类别,1:普通，2：大图片，3：无图片")
+    @ApiModelProperty(value = "文章展示类别,0:普通，1：大图片，2：无图片")
     private Integer type;
 
     @ApiModelProperty(value = "创建时间")
@@ -70,18 +68,10 @@ public class Article implements Serializable {
     private Date updateTime;
 
     @ApiModelProperty(value = "是否推荐文章")
-    private Boolean isRecommend;
-
-    @ApiModelProperty(value = "分类方向")
-    private Integer orientationId;
+    private Boolean recommend;
 
     @ApiModelProperty(value = "分类类别")
-    private Integer categoryId;
+    private String categoryId;
 
-    @TableField(exist = false)
-    private List<ArticleTag> tagList;
-
-    @TableField(exist = false)
-    private List<ArticleComment> commentList;
 
 }

@@ -13,8 +13,8 @@
         <result column="cover" property="cover"/>
         <result column="type" property="type" />
         <result column="create_time" property="createTime"/>
-        <collection property="tagList" column="article_id" ofType="cn.dblearn.blog.manage.article.entity.ArticleTag"
-                    select="cn.dblearn.blog.manage.article.mapper.ArticleTagMapper.listByArticleId"/>
+        <collection property="tagList" column="article_id" ofType="cn.dblearn.blog.manage.operation.entity.Tag"
+                    select="cn.dblearn.blog.manage.operation.mapper.TagMapper.listByArticleId"/>
     </resultMap>
     <sql id="homeArticleColumn">
         ba.article_id,ba.title,ba.description,ba.author,ba.read_num,ba.comment_num,ba.like_num,ba.cover,ba.`type`,ba.create_time
@@ -22,8 +22,8 @@
     <select id="listHomeArticle" resultMap="homeArticle">
       select <include refid="homeArticleColumn"/> from article ba
       <where>
-          <if test="isRecommend != null">
-              is_recommend = true
+          <if test="recommend != null">
+              recommend = true
           </if>
       </where>
       <if test="isRecommend !=null">
@@ -42,8 +42,8 @@
 
     <select id="listByClassifyId" resultMap="homeArticle">
         select distinct <include refid="homeArticleColumn"/> from article ba
-        left join article_tag_link bat on bat.article_id = ba.article_id
-        left join article_tag bt on bt.tag_id=bat.tag_id
+        left join operation_tag_link bat on bat.foreign_id = ba.article_id
+        left join operation_tag bt on bt.tag_id=bat.tag_id
         <where>
             <if test="orientationId !=null">
                 and bt.orientation_id=#{orientationId}

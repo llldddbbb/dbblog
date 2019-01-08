@@ -1,6 +1,6 @@
 package cn.dblearn.blog.portal.article.pojo.vo;
 
-import cn.dblearn.blog.manage.article.entity.ArticleTag;
+import cn.dblearn.blog.manage.operation.entity.Tag;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -54,5 +54,5 @@ public class ArticleVO {
     /**
      * 所关联的Tag列表
      */
-    private List<ArticleTag> tagList;
+    private List<Tag> tagList;
 }

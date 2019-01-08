@@ -2,7 +2,7 @@ package cn.dblearn.blog.manage.oss.controller;
 
 
 import cn.dblearn.blog.common.exception.MyException;
-import cn.dblearn.blog.common.pojo.Result;
+import cn.dblearn.blog.common.Result;
 import cn.dblearn.blog.manage.oss.entity.OssResource;
 import cn.dblearn.blog.manage.oss.service.CloudStorageService;
 import cn.dblearn.blog.manage.oss.service.OssResourceService;

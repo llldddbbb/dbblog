@@ -1,6 +1,6 @@
 package cn.dblearn.blog.portal.article.service;
 
-import cn.dblearn.blog.common.pojo.Result;
+import cn.dblearn.blog.common.Result;
 
 /**
  * HomeService
