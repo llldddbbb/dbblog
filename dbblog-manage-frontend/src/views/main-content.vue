@@ -21,14 +21,14 @@
         :key="item.name"
         :label="item.title"
         :name="item.name">
-        <el-card :body-style="siteContentViewHeight">
+        <el-card :body-style="siteContentViewHeight" >
           <iframe
             v-if="item.type === 'iframe'"
             :src="item.iframeUrl"
             width="100%" height="100%" frameborder="0" scrolling="yes">
           </iframe>
           <keep-alive v-else>
-            <router-view v-if="item.name === mainTabsActiveName" />
+            <router-view v-if="item.name === mainTabsActiveName" @closeCurrentTabs="tabsCloseCurrentHandle" />
           </keep-alive>
         </el-card>
       </el-tab-pane>

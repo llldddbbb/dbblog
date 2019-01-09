@@ -156,7 +156,6 @@ export default {
               })
               // 转换categoryId
               this.categoryOptionsSelect = this.article.categoryId.split(',').map((data) => { return +data })
-              console.log(this.categoryOptionsSelect)
             }
           })
         }
@@ -223,7 +222,10 @@ export default {
             data: this.$http.adornData(this.article)
           }).then(({data}) => {
             if (data && data.code === 200) {
-              this.$message.success('添加博文成功')
+              this.$message.success('保存博文成功')
+              // 关闭当前标签
+              this.$emit('closeCurrentTabs')
+              // 跳转到list
               this.$router.push('/article-list')
             } else {
               this.$message.error(data.msg)

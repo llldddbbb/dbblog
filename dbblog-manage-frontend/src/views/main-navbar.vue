@@ -2,7 +2,7 @@
   <nav class="site-navbar" :class="'site-navbar--' + navbarLayoutType">
     <div class="site-navbar__header">
       <h1 class="site-navbar__brand" @click="$router.push({ name: 'home' })">
-        <a class="site-navbar__brand-lg" href="javascript:;">db's Blog后台管理</a>
+        <a class="site-navbar__brand-lg" href="javascript:;">db's Blog</a>
         <a class="site-navbar__brand-mini" href="javascript:;">DB</a>
       </h1>
     </div>
