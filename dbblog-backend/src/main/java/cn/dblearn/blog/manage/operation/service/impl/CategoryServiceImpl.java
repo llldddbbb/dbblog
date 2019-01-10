@@ -6,7 +6,6 @@ import cn.dblearn.blog.manage.operation.service.CategoryService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,7 +30,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
      * @return
      */
     @Override
-    public List<Category> queryAll(Map<String, Object> params) {
+    public List<Category> queryWithParentName(Map<String, Object> params) {
         return baseMapper.queryAll(params);
     }
 

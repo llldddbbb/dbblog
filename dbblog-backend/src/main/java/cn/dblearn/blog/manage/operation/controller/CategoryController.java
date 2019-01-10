@@ -38,7 +38,7 @@ public class CategoryController extends AbstractController {
     @RequestMapping("/list")
     @RequiresPermissions("operation:category:list")
     public Result list(@RequestParam Map<String, Object> params){
-        List<Category> categoryList = categoryService.queryAll(params);
+        List<Category> categoryList = categoryService.queryWithParentName(params);
         return Result.ok().put("categoryList",categoryList);
     }
 

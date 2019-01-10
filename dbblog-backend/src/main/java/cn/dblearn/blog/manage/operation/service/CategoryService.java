@@ -21,7 +21,7 @@ public interface CategoryService extends IService<Category> {
      * @param params
      * @return
      */
-    List<Category> queryAll(Map<String, Object> params);
+    List<Category> queryWithParentName(Map<String, Object> params);
 
     /**
      * 根据父级别查询子级别

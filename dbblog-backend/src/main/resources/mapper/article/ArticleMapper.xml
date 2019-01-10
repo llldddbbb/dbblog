@@ -57,4 +57,13 @@
         </where>
         order by create_time desc
     </select>
+
+    <select id="listArticleVo" resultType="cn.dblearn.blog.manage.article.entity.vo.ArticleVo">
+        select * from article
+        <where>
+            <if test="title!=null and title !=''">
+                and title like concat('%',#{title},'#')
+            </if>
+        </where>
+    </select>
 </mapper>

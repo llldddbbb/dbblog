@@ -1,6 +1,7 @@
 package cn.dblearn.blog.manage.article.mapper;
 
 import cn.dblearn.blog.manage.article.entity.Article;
+import cn.dblearn.blog.manage.article.entity.vo.ArticleVo;
 import cn.dblearn.blog.portal.article.pojo.vo.ArticleVO;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
@@ -32,4 +33,11 @@ public interface ArticleMapper extends BaseMapper<Article> {
      * @return
      */
     List<ArticleVO> listByClassifyId(Map<String, Object> params);
+
+    /**
+     * 查询列表
+     * @param params
+     * @return
+     */
+    List<ArticleVo> listArticleVo(Map<String, Object> params);
 }
