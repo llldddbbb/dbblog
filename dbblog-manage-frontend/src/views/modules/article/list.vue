@@ -29,32 +29,59 @@
       label="编号">
     </el-table-column>
     <el-table-column
-      prop="author"
-      header-align="center"
-      align="center"
-      label="作者"
-      width="80">
-    </el-table-column>
-    <el-table-column
-      prop="cover"
-      label="封面"
-      width="150"
-      align="center">
-      <template slot-scope="scope">
-        <img style="width: 100%;" :src="scope.row.cover"/>
-      </template>
-    </el-table-column>
-    <el-table-column
       prop="title"
       header-align="center"
       align="center"
       label="博文标题">
     </el-table-column>
     <el-table-column
-      prop="description"
+      prop="categoryListStr"
       header-align="center"
       align="center"
-      label="博文描述">
+      label="分类">
+    </el-table-column>
+    <el-table-column
+      prop="tagList"
+      header-align="center"
+      align="center"
+      label="标签"
+      width="300">
+      <template slot-scope="scope">
+        <el-row>
+          <el-button v-for="tag in scope.row.tagList" :key="tag.id" type="primary" size="mini">{{tag.tagName}}</el-button>
+        </el-row>
+      </template>
+    </el-table-column>
+    <el-table-column
+      prop="readNum"
+      header-align="center"
+      align="center"
+      label="浏览">
+    </el-table-column>
+    <el-table-column
+      prop="commentNum"
+      header-align="center"
+      align="center"
+      label="评论">
+    </el-table-column>
+    <el-table-column
+      prop="likeNum"
+      header-align="center"
+      align="center"
+      label="喜欢">
+    </el-table-column>
+    <el-table-column
+      prop="recommend"
+      header-align="center"
+      align="center"
+      label="是否推荐">
+      <template slot-scope="scope">
+        <el-switch
+          v-model="scope.row.recommend"
+          active-color="#13ce66"
+          @change="updateRecommend(scope.row.articleId,scope.row.recommend)">
+        </el-switch>
+      </template>
     </el-table-column>
     <el-table-column
       fixed="right"
@@ -199,6 +226,23 @@ export default {
           }
         })
       }).catch(() => {})
+    },
+    // 更新文章推荐状态
+    updateRecommend (id, value) {
+      this.$http({
+        url: this.$http.adornUrl(`/admin/article/update`),
+        method: 'put',
+        data: this.$http.adornData({
+          articleId: id,
+          recommend: value
+        })
+      }).then(({data}) => {
+        if (data && data.code === 200) {
+          this.$message.success('更新博文成功')
+        } else {
+          this.$message.error(data.msg)
+        }
+      })
     }
   }
 }

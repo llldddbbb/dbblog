@@ -3,15 +3,18 @@ package cn.dblearn.blog.manage.article.service.impl;
 import cn.dblearn.blog.common.util.PageUtils;
 import cn.dblearn.blog.common.util.Query;
 import cn.dblearn.blog.manage.article.entity.dto.ArticleDto;
+import cn.dblearn.blog.manage.article.entity.vo.ArticleVo;
+import cn.dblearn.blog.manage.operation.entity.Category;
+import cn.dblearn.blog.manage.operation.entity.Tag;
 import cn.dblearn.blog.manage.operation.entity.TagLink;
 import cn.dblearn.blog.manage.article.mapper.ArticleMapper;
 import cn.dblearn.blog.manage.article.entity.Article;
 import cn.dblearn.blog.manage.operation.mapper.TagLinkMapper;
-import cn.dblearn.blog.manage.operation.mapper.TagMapper;
 import cn.dblearn.blog.manage.article.service.ArticleService;
+import cn.dblearn.blog.manage.operation.service.CategoryService;
 import cn.dblearn.blog.manage.operation.service.TagService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +23,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -40,6 +45,9 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     @Autowired
     private TagLinkMapper tagLinkMapper;
 
+    @Autowired
+    private CategoryService categoryService;
+
     /**
      * 分页查询博文列表
      *
@@ -48,10 +56,48 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
      */
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
-        String title = (String) params.get("title");
-        IPage<Article> page=baseMapper.selectPage(new Query<Article>(params).getPage(),
-                new QueryWrapper<Article>().lambda().like(!StringUtils.isEmpty(title), Article::getTitle,title));
+        Page<ArticleVo> page = new Query<ArticleVo>(params).getPage();
+        List<ArticleVo> articleList = baseMapper.listArticleVo(params);
+        // 查询所有分类
+        List<Category> categoryList = categoryService.list(null);
+        // 封装ArticleVo
+        articleList.forEach(articleVo -> {
+            // 根据类别Id数组查询类别数组
+            String categoryStr = renderCategoryArr(articleVo.getCategoryId(),categoryList);
+            // 设置类别
+            articleVo.setCategoryListStr(categoryStr);
+            // 根据文章Id查询标签列表
+            List<Tag> tagList = tagService.listByArticleId(articleVo.getArticleId());
+            // 设置标签列表
+            articleVo.setTagList(tagList);
+        });
+        page.setRecords(articleList);
         return new PageUtils(page);
+    }
+
+    /**
+     * 根据类别Id数组查询类别数组
+     * @param categoryIds
+     * @param categoryList
+     * @return
+     */
+    private String renderCategoryArr(String categoryIds, List<Category> categoryList) {
+        if (StringUtils.isEmpty(categoryIds)) {
+            return "";
+        }
+        List<String> categoryStrList = new ArrayList<>();
+        String[] categoryIdArr = categoryIds.split(",");
+        for (int i = 0; i < categoryIdArr.length; i++) {
+            Integer categoryId = Integer.parseInt(categoryIdArr[i]);
+            // 根据Id查找类别名称
+            String categoryStr = categoryList.stream()
+                    .filter(category -> category.getId().equals(categoryId))
+                    .map(Category::getName)
+                    .findAny().get();
+            categoryStrList.add(categoryStr);
+        }
+        return String.join(",",categoryStrList);
+
     }
 
     /**
