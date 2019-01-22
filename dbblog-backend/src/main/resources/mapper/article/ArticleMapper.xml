@@ -42,8 +42,8 @@
 
     <select id="listByClassifyId" resultMap="homeArticle">
         select distinct <include refid="homeArticleColumn"/> from article ba
-        left join operation_tag_link bat on bat.foreign_id = ba.article_id
-        left join operation_tag bt on bt.tag_id=bat.tag_id
+        left join tag_link bat on bat.foreign_id = ba.id
+        left join tag bt on bt.id=bat.tag_id
         <where>
             <if test="orientationId !=null">
                 and bt.orientation_id=#{orientationId}
@@ -61,8 +61,8 @@
     <select id="listArticleVo" resultType="cn.dblearn.blog.manage.article.entity.vo.ArticleVo">
         select * from article
         <where>
-            <if test="title!=null and title !=''">
-                and title like concat('%',#{title},'#')
+            <if test="article.title!=null and article.title !=''">
+                and title like concat('%',#{title},'%')
             </if>
         </where>
     </select>

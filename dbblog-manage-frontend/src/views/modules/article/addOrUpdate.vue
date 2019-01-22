@@ -31,9 +31,9 @@
               placeholder="请选择文章标签" @change="filterTagList">
               <el-option
                 v-for="item in tagList"
-                  :key="item.tagId"
+                  :key="item.id"
                 :label="item.tagName"
-                :value="item.tagId">
+                :value="item.id">
               </el-option>
             </el-select>
           </el-form-item>
@@ -152,7 +152,7 @@ export default {
               this.file = [{url: data.article.cover}]
               // 转换tagList
               this.tagListSelect = this.article.tagList.map(tag => {
-                return tag.tagId
+                return tag.id
               })
               // 转换categoryId
               this.categoryOptionsSelect = this.article.categoryId.split(',').map((data) => { return +data })
@@ -178,9 +178,9 @@ export default {
       selectValueList.forEach(value => {
         let isInput = true
         this.tagList.forEach(tag => {
-          if (tag.tagId === value || value.tagId) {
+          if (tag.id === value || value.id) {
             isInput = false
-            tagList.push({'tagId': tag.tagId, 'tagName': tag.tagName})
+            tagList.push({'id': tag.id, 'tagName': tag.tagName})
           }
         })
         if (isInput) {
@@ -215,10 +215,9 @@ export default {
         if (valid) {
           // 转化categoryId
           this.article.categoryId = this.categoryOptionsSelect.join(',')
-          console.log(!this.article.articleId ? 'post' : 'put')
           this.$http({
-            url: this.$http.adornUrl(`/admin/article/${!this.article.articleId ? 'save' : 'update'}`),
-            method: !this.article.articleId ? 'post' : 'put',
+            url: this.$http.adornUrl(`/admin/article/${!this.article.id ? 'save' : 'update'}`),
+            method: !this.article.id ? 'post' : 'put',
             data: this.$http.adornData(this.article)
           }).then(({data}) => {
             if (data && data.code === 200) {

@@ -3,7 +3,6 @@ package cn.dblearn.blog.portal.article.service.impl;
 import cn.dblearn.blog.common.util.MapUtils;
 import cn.dblearn.blog.manage.article.entity.Article;
 import cn.dblearn.blog.manage.article.mapper.ArticleMapper;
-import cn.dblearn.blog.manage.operation.service.TagService;
 import cn.dblearn.blog.portal.article.pojo.vo.ArticleVO;
 import cn.dblearn.blog.portal.article.service.ArticleCommentService;
 import cn.dblearn.blog.portal.article.service.ArticleService;
@@ -25,8 +24,8 @@ import java.util.Map;
 @Service("ArticlePortalService")
 public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> implements ArticleService {
 
-    @Autowired
-    private TagService tagService;
+//    @Autowired
+//    private TagService tagService;
 
     @Autowired
     private ArticleCommentService blogArticleCommentService;
@@ -42,9 +41,9 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
         Article article = baseMapper.selectById(articleId);
         //所属标签
-//        article.setTagList(blogTagMapper.listByArticleId(articleId));
+//        article.setTagList(blogTagMapper.listByArticleId(id));
 //        //所属评论
-//        article.setCommentList(blogArticleCommentService.listByArticleId(articleId));
+//        article.setCommentList(blogArticleCommentService.listByArticleId(id));
         return article;
     }
 

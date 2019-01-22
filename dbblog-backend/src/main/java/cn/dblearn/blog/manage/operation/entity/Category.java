@@ -20,7 +20,7 @@ import java.io.Serializable;
  * @since 2018-12-17
  */
 @Data
-@TableName("operation_category")
+@TableName("category")
 public class Category implements Serializable {
 
     private static final long serialVersionUID = 1L;

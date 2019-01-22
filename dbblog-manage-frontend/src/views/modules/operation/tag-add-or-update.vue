@@ -4,17 +4,18 @@
     :close-on-click-modal="false"
     :visible.sync="visible">
     <el-form :model="dataForm" :rules="dataRule" ref="dataForm" @keyup.enter.native="dataFormSubmit()" label-width="120px">
-      <el-form-item label="参数键" prop="parKey">
-        <el-input v-model="dataForm.parKey" placeholder="参数键"></el-input>
+      <el-form-item label="标签名称" prop="name">
+        <el-input v-model="dataForm.name" placeholder="标签名字"></el-input>
       </el-form-item>
-      <el-form-item label="参数值" prop="parValue">
-        <el-input v-model="dataForm.parValue" placeholder="参数值"></el-input>
-      </el-form-item>
-      <el-form-item label="参数url" prop="menuUrl">
-        <el-input v-model="dataForm.menuUrl" disabled placeholder="参数url"></el-input>
-      </el-form-item>
-      <el-form-item label="参数类型" prop="type">
-        <el-input v-model="dataForm.type" placeholder="参数类型"></el-input>
+      <el-form-item label="所属类别" prop="type">
+        <el-select v-model="dataForm.type">
+          <el-option
+            v-for="type in typeList"
+            :key="type.parKey"
+            :value="type.parKey"
+            :label="type.parValue"
+          ></el-option>
+        </el-select>
       </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
@@ -31,17 +32,17 @@ export default {
       visible: false,
       confirmButtonDisabled: false,
       dataForm: {
+        type: ''
       },
       dataRule: {
-        id: [{ required: true, message: '主键不能为空', trigger: 'blur' }],
-        parKey: [{ required: true, message: '参数键不能为空', trigger: 'blur' }],
-        parValue: [{ required: true, message: '参数值不能为空', trigger: 'blur' }],
-        type: [{ required: true, message: '参数类型不能为空', trigger: 'blur' }]
-      }
+        name: [{ required: true, message: '标签名称不能为空', trigger: 'blur' }],
+        type: [{ required: true, message: '所属类别不能为空', trigger: 'blur' }]
+      },
+      typeList: this.getSysParamArr('MODULE_TYPE')
     }
   },
   methods: {
-    init (id, menuUrl) {
+    init (id) {
       this.dataForm.id = id || ''
       this.visible = true
       this.confirmButtonDisabled = false
@@ -49,19 +50,16 @@ export default {
         this.$refs['dataForm'].resetFields()
         if (this.dataForm.id) {
           this.$http({
-            url: this.$http.adornUrl(`/admin/sys/param/info/${this.dataForm.id}`),
+            url: this.$http.adornUrl(`/admin/operation/tag/info/${this.dataForm.id}`),
             method: 'get',
             params: this.$http.adornParams()
           }).then(({data}) => {
             if (data && data.code === 200) {
-              this.dataForm = data.param
+              this.dataForm = data.tag
             }
           })
         } else {
-          this.dataForm = {
-            menuUrl: menuUrl,
-            type: menuUrl ? (menuUrl.replace('/', '')).toUpperCase() : ''
-          }
+          this.dataForm = {}
         }
       })
     },
@@ -70,7 +68,7 @@ export default {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
           this.$http({
-            url: this.$http.adornUrl(`/admin/sys/param/${!this.dataForm.id ? 'save' : 'update'}`),
+            url: this.$http.adornUrl(`/admin/operation/tag/${!this.dataForm.id ? 'save' : 'update'}`),
             method: !this.dataForm.id ? 'post' : 'put',
             data: this.$http.adornData(this.dataForm)
           }).then(({data}) => {

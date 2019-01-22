@@ -28,8 +28,8 @@ public class Article implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "主键")
-    @TableId(value = "article_id", type = IdType.AUTO)
-    private Integer articleId;
+    @TableId(value = "id", type = IdType.AUTO)
+    private Integer id;
 
     @ApiModelProperty(value = "文章标题")
     @NotBlank(message="博文标题不能为空", groups = {AddGroup.class, UpdateGroup.class})
@@ -72,6 +72,9 @@ public class Article implements Serializable {
 
     @ApiModelProperty(value = "分类类别")
     private String categoryId;
+
+    @ApiModelProperty(value = "发布状态")
+    private Boolean publish;
 
 
 }

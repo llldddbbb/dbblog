@@ -3,6 +3,7 @@ package cn.dblearn.blog.manage.article.controller;
 import cn.dblearn.blog.common.Result;
 import cn.dblearn.blog.common.util.PageUtils;
 import cn.dblearn.blog.common.validator.ValidatorUtils;
+import cn.dblearn.blog.manage.article.entity.Article;
 import cn.dblearn.blog.manage.article.entity.dto.ArticleDto;
 import cn.dblearn.blog.manage.article.service.ArticleService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -13,7 +14,7 @@ import java.util.Map;
 
 
 /**
- * BlogArticleAdminController
+ * ArticleArticleAdminController
  *
  * @author bobbi
  * @date 2018/11/20 20:25
@@ -29,7 +30,7 @@ public class ArticleController {
 
     @GetMapping("/list")
     @RequiresPermissions("article:list")
-    public Result listBlog(@RequestParam Map<String, Object> params) {
+    public Result listArticle(@RequestParam Map<String, Object> params) {
         PageUtils page = articleService.queryPage(params);
         return Result.ok().put("page",page);
     }
@@ -43,7 +44,7 @@ public class ArticleController {
 
     @PostMapping("/save")
     @RequiresPermissions("article:save")
-    public Result saveBlog(@RequestBody ArticleDto article){
+    public Result saveArticle(@RequestBody ArticleDto article){
         ValidatorUtils.validateEntity(article);
         articleService.saveArticle(article);
         return Result.ok();
@@ -51,9 +52,16 @@ public class ArticleController {
 
     @PutMapping("/update")
     @RequiresPermissions("article:update")
-    public Result updateBlog(@RequestBody ArticleDto article){
+    public Result updateArticle(@RequestBody ArticleDto article){
         ValidatorUtils.validateEntity(article);
         articleService.updateArticle(article);
+        return Result.ok();
+    }
+    
+    @PutMapping("/update/status")
+    @RequiresPermissions("article:update")
+    public Result updateStatus(@RequestBody Article article) {
+        articleService.updateById(article);
         return Result.ok();
     }
 

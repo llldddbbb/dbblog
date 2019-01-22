@@ -1,6 +1,6 @@
 <template>
   <el-dialog
-    :title="!dataForm.id ? '新增' : '修改'"
+    :title="!dataForm.categoryId ? '新增' : '修改'"
     :close-on-click-modal="false"
     :visible.sync="visible">
     <el-form :model="dataForm" :rules="dataRule" ref="dataForm" @keyup.enter.native="dataFormSubmit()" label-width="120px">
@@ -30,7 +30,7 @@
           <el-tree
             :data="categoryList"
             :props="categoryListTreeProps"
-            node-key="id"
+            node-key="categoryId"
             ref="categoryListTree"
             @current-change="categoryListTreeCurrentChangeHandle"
             :default-expand-all="true"
@@ -75,7 +75,7 @@ export default {
         ]
       },
       rankList: this.getSysParamArr('CATEGORY_RANK'),
-      typeList: this.getSysParamArr('CATEGORY_TYPE'),
+      typeList: this.getSysParamArr('MODULE_TYPE'),
       categoryList: [],
       categoryListTreeProps: {
         label: 'name',
@@ -85,7 +85,7 @@ export default {
   },
   methods: {
     init (id) {
-      this.dataForm.id = id || ''
+      this.dataForm.categoryId = id || ''
       this.$http({
         url: this.$http.adornUrl('/admin/operation/category/select'),
         method: 'get',
@@ -102,9 +102,9 @@ export default {
           this.$refs['dataForm'].resetFields()
         })
       }).then(() => {
-        if (this.dataForm.id) {
+        if (this.dataForm.categoryId) {
           this.$http({
-            url: this.$http.adornUrl(`/admin/operation/category/info/${this.dataForm.id}`),
+            url: this.$http.adornUrl(`/admin/operation/category/info/${this.dataForm.categoryId}`),
             method: 'get',
             params: this.$http.adornParams()
           }).then(({data}) => {
@@ -120,10 +120,10 @@ export default {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
           this.$http({
-            url: this.$http.adornUrl(`/admin/operation/category/${!this.dataForm.id ? 'save' : 'update'}`),
+            url: this.$http.adornUrl(`/admin/operation/category/${!this.dataForm.categoryId ? 'save' : 'update'}`),
             method: 'post',
             data: this.$http.adornData({
-              'id': this.dataForm.id || undefined,
+              'id': this.dataForm.categoryId || undefined,
               'name': this.dataForm.name,
               'type': this.dataForm.type,
               'rank': this.dataForm.rank,
@@ -149,7 +149,7 @@ export default {
     },
     // 分类列表树选中
     categoryListTreeCurrentChangeHandle (data, node) {
-      this.dataForm.parentId = data.id
+      this.dataForm.parentId = data.categoryId
       this.dataForm.parentName = data.name
     }
   }

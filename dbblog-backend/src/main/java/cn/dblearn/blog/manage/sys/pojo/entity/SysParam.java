@@ -41,7 +41,6 @@ public class SysParam implements Serializable {
     private String parValue;
 
     @ApiModelProperty(value = "参数url")
-    @NotBlank(message = "参数url不能为空")
     private String menuUrl;
 
     @ApiModelProperty(value = "参数类型")

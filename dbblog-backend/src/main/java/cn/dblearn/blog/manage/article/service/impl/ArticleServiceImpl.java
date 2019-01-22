@@ -2,15 +2,15 @@ package cn.dblearn.blog.manage.article.service.impl;
 
 import cn.dblearn.blog.common.util.PageUtils;
 import cn.dblearn.blog.common.util.Query;
+import cn.dblearn.blog.manage.article.entity.Article;
 import cn.dblearn.blog.manage.article.entity.dto.ArticleDto;
 import cn.dblearn.blog.manage.article.entity.vo.ArticleVo;
+import cn.dblearn.blog.manage.article.mapper.ArticleMapper;
+import cn.dblearn.blog.manage.article.service.ArticleService;
 import cn.dblearn.blog.manage.operation.entity.Category;
 import cn.dblearn.blog.manage.operation.entity.Tag;
 import cn.dblearn.blog.manage.operation.entity.TagLink;
-import cn.dblearn.blog.manage.article.mapper.ArticleMapper;
-import cn.dblearn.blog.manage.article.entity.Article;
 import cn.dblearn.blog.manage.operation.mapper.TagLinkMapper;
-import cn.dblearn.blog.manage.article.service.ArticleService;
 import cn.dblearn.blog.manage.operation.service.CategoryService;
 import cn.dblearn.blog.manage.operation.service.TagService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -57,7 +57,8 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
         Page<ArticleVo> page = new Query<ArticleVo>(params).getPage();
-        List<ArticleVo> articleList = baseMapper.listArticleVo(params);
+        List<ArticleVo> articleList = baseMapper.listArticleVo(page, params);
+        page.setRecords(articleList);
         // 查询所有分类
         List<Category> categoryList = categoryService.list(null);
         // 封装ArticleVo
@@ -67,11 +68,10 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
             // 设置类别
             articleVo.setCategoryListStr(categoryStr);
             // 根据文章Id查询标签列表
-            List<Tag> tagList = tagService.listByArticleId(articleVo.getArticleId());
+            List<Tag> tagList = tagService.listByArticleId(articleVo.getId());
             // 设置标签列表
             articleVo.setTagList(tagList);
         });
-        page.setRecords(articleList);
         return new PageUtils(page);
     }
 
@@ -121,12 +121,11 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     public void updateArticle(ArticleDto article) {
         // 删除多对多所属标签
         tagLinkMapper.delete(new QueryWrapper<TagLink>().lambda()
-                .eq(TagLink::getForeignId,article.getArticleId()));
+                .eq(TagLink::getForeignId,article.getId()));
         // 更新所属标签
         this.saveTagAndNew(article);
         // 更新博文
         baseMapper.updateById(article);
-
     }
 
     /**
@@ -168,10 +167,10 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     private void saveTagAndNew(ArticleDto article){
         if(!CollectionUtils.isEmpty(article.getTagList())){
             article.getTagList().forEach(tag -> {
-                if(tag.getTagId() == null) {
+                if(tag.getId() == null) {
                     tagService.save(tag);
                 }
-                TagLink articleTagLink=new TagLink(article.getArticleId(),tag.getTagId());
+                TagLink articleTagLink=new TagLink(article.getId(),tag.getId());
                 tagLinkMapper.insert(articleTagLink);
             });
         }

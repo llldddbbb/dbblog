@@ -16,7 +16,7 @@
     </sql>
 
     <select id="queryAll" parameterType="Map" resultType="cn.dblearn.blog.manage.operation.entity.Category">
-        select t.*,s.name as parentName from operation_category t left join operation_category s on t.parent_id = s.id
+        select t.*,s.name as parentName from category t left join category s on t.parent_id = s.id
         <where>
             <if test="name != null and name != ''">
                 t.name like concat('%',#{name},'%')

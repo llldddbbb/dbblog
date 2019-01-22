@@ -4,7 +4,9 @@ import cn.dblearn.blog.manage.article.entity.Article;
 import cn.dblearn.blog.manage.article.entity.vo.ArticleVo;
 import cn.dblearn.blog.portal.article.pojo.vo.ArticleVO;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -36,8 +38,10 @@ public interface ArticleMapper extends BaseMapper<Article> {
 
     /**
      * 查询列表
+     *
+     * @param page
      * @param params
      * @return
      */
-    List<ArticleVo> listArticleVo(Map<String, Object> params);
+    List<ArticleVo> listArticleVo(Page<ArticleVo> page, @Param("article") Map<String, Object> params);
 }

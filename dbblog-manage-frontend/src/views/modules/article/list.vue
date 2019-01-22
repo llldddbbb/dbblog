@@ -22,23 +22,25 @@
       width="50">
     </el-table-column>
     <el-table-column
-      prop="articleId"
+      prop="id"
       header-align="center"
       align="center"
-      width="80"
+      width="50"
       label="编号">
     </el-table-column>
     <el-table-column
       prop="title"
       header-align="center"
       align="center"
-      label="博文标题">
+      label="博文标题"
+      width="300">
     </el-table-column>
     <el-table-column
       prop="categoryListStr"
       header-align="center"
       align="center"
-      label="分类">
+      label="分类"
+       width="250">
     </el-table-column>
     <el-table-column
       prop="tagList"
@@ -48,7 +50,7 @@
       width="300">
       <template slot-scope="scope">
         <el-row>
-          <el-button v-for="tag in scope.row.tagList" :key="tag.id" type="primary" size="mini">{{tag.tagName}}</el-button>
+          <el-button v-for="tag in scope.row.tagList" :key="tag.id" size="mini">{{tag.name}}</el-button>
         </el-row>
       </template>
     </el-table-column>
@@ -74,13 +76,25 @@
       prop="recommend"
       header-align="center"
       align="center"
-      label="是否推荐">
+      label="推荐">
       <template slot-scope="scope">
         <el-switch
           v-model="scope.row.recommend"
           active-color="#13ce66"
-          @change="updateRecommend(scope.row.articleId,scope.row.recommend)">
+          @change="updateRecommend(scope.row.id,scope.row.recommend)">
         </el-switch>
+      </template>
+    </el-table-column>
+    <el-table-column
+      prop="recommend"
+      header-align="center"
+      align="center"
+      label="状态">
+      <template slot-scope="scope">
+        <el-tooltip class="item" effect="dark" content="点击发布" v-if="!scope.row.publish" placement="top">
+          <el-button type="info" size="mini" @click="updatePublish(scope.row.id, true)">未发布</el-button>
+        </el-tooltip>
+        <el-button type="success" size="mini" v-if="scope.row.publish === true">已发布</el-button>
       </template>
     </el-table-column>
     <el-table-column
@@ -90,8 +104,8 @@
       width="150"
       label="操作">
       <template slot-scope="scope">
-        <el-button type="text" size="small" @click="addOrUpdateHandle(scope.row.articleId)">修改</el-button>
-        <el-button type="text" size="small" @click="deleteHandle(scope.row.articleId)">删除</el-button>
+        <el-button type="text" size="small" @click="addOrUpdateHandle(scope.row.id)">修改</el-button>
+        <el-button type="text" size="small" @click="deleteHandle(scope.row.id)">删除</el-button>
       </template>
     </el-table-column>
   </el-table>
@@ -200,7 +214,7 @@ export default {
     // 删除
     deleteHandle (id) {
       let articleIds = id ? [id] : this.dataListSelections.map(item => {
-        return item.articleId
+        return item.id
       })
       this.$confirm(`确定对[id=${articleIds.join(',')}]进行[${id ? '删除' : '批量删除'}]操作?`, '提示', {
         confirmButtonText: '确定',
@@ -229,16 +243,30 @@ export default {
     },
     // 更新文章推荐状态
     updateRecommend (id, value) {
+      let data = {
+        id: id,
+        recommend: value
+      }
+      this.updateStatus(data)
+    },
+    // 更新文章发布状态
+    updatePublish (id, value) {
+      let data = {
+        id: id,
+        publish: value
+      }
+      this.updateStatus(data)
+    },
+    // 更新文章
+    updateStatus (data) {
       this.$http({
-        url: this.$http.adornUrl(`/admin/article/update`),
+        url: this.$http.adornUrl(`/admin/article/update/status`),
         method: 'put',
-        data: this.$http.adornData({
-          articleId: id,
-          recommend: value
-        })
+        data: this.$http.adornData(data)
       }).then(({data}) => {
         if (data && data.code === 200) {
-          this.$message.success('更新博文成功')
+          this.$message.success('更新成功')
+          this.getDataList()
         } else {
           this.$message.error(data.msg)
         }

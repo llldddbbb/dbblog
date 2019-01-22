@@ -5,24 +5,42 @@ import cn.dblearn.blog.manage.operation.entity.Tag;
 import cn.dblearn.blog.manage.operation.mapper.TagMapper;
 import cn.dblearn.blog.manage.operation.service.TagService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import lombok.extern.slf4j.Slf4j;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import cn.dblearn.blog.common.util.Query;
+import cn.dblearn.blog.common.util.PageUtils;
 import org.springframework.stereotype.Service;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
+import java.util.Map;
 
 /**
- * TagServiceImpl
+ * <p>
+ * 标签 服务实现类
+ * </p>
  *
  * @author bobbi
- * @date 2019/01/08 16:21
- * @email 571002217@qq.com
- * @description
+ * @since 2019-01-21
  */
 @Service
 @Slf4j
-public class TagServiceImpl extends ServiceImpl<TagMapper,Tag> implements TagService {
+public class TagServiceImpl extends ServiceImpl<TagMapper, Tag> implements TagService {
+
     /**
-     * 根据articleId获取Tag列表
+     * 分页查询
+     * @param params
+     * @return
+     */
+    @Override
+    public PageUtils queryPage(Map<String, Object> params) {
+        IPage<Tag> page=baseMapper.selectPage(new Query<Tag>(params).getPage(),
+                new QueryWrapper<Tag>().lambda());
+        return new PageUtils(page);
+    }
+
+    /**
+     * 根据文章Id获取列表
      *
      * @param articleId
      * @return
@@ -31,4 +49,6 @@ public class TagServiceImpl extends ServiceImpl<TagMapper,Tag> implements TagSer
     public List<Tag> listByArticleId(Integer articleId) {
         return this.baseMapper.listByForeignId(articleId, ModuleEnum.ARTICLE.getValue());
     }
+
+
 }

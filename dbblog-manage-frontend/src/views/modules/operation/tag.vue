@@ -2,53 +2,48 @@
   <div class="mod-config">
     <el-form :inline="true" :model="dataForm" @keyup.enter.native="getDataList()">
       <el-form-item>
-        <el-select v-model="dataForm.type">
-          <el-option v-for="type in typeList"
-          :key="type.parKey"
-          :value="type.parKey"
-          :label="type.parValue"></el-option>
-        </el-select>
-      </el-form-item>
-      <el-form-item>
-        <el-input v-model="dataForm.name" placeholder="名称" clearable></el-input>
+        <el-input v-model="dataForm.key" placeholder="参数名" clearable></el-input>
       </el-form-item>
       <el-form-item>
         <el-button @click="getDataList()">查询</el-button>
-        <el-button v-if="isAuth('operation:category:save')" type="primary" @click="addOrUpdateHandle()">新增</el-button>
+        <el-button v-if="isAuth('operation:tag:save')" type="primary" @click="addOrUpdateHandle()">新增</el-button>
+        <el-button v-if="isAuth('operation:tag:delete')" type="danger" @click="deleteHandle()" :disabled="dataListSelections.length <= 0">批量删除</el-button>
       </el-form-item>
     </el-form>
     <el-table
       :data="dataList"
       border
       v-loading="dataListLoading"
+      @selection-change="selectionChangeHandle"
       style="width: 100%;">
-      <table-tree-column
+      <el-table-column
+        type="selection"
+        header-align="center"
+        align="center"
+        width="50">
+      </el-table-column>
+      <el-table-column
+        prop="id"
+        header-align="center"
+        align="center"
+        label="编号"
+        width="80">
+      </el-table-column>
+    <el-table-column
         prop="name"
         header-align="center"
-        width="150"
-        label="名称">
-      </table-tree-column>
-      <el-table-column
+        align="center"
+        label="标签名称">
+    </el-table-column>
+    <el-table-column
         prop="type"
         header-align="center"
         align="center"
-        label="类型">
-      </el-table-column>
-      <el-table-column
-        prop="rank"
-        header-align="center"
-        align="center"
-        label="级别">
-        <template slot-scope="scope">
-          {{getSysParam('CATEGORY_RANK', scope.row.rank)}}
-        </template>
-      </el-table-column>
-      <el-table-column
-        prop="parentName"
-        header-align="center"
-        align="center"
-        label="上级级别">
-      </el-table-column>
+        label="所属类别">
+      <template slot-scope="scope">
+        {{getSysParam('MODULE_TYPE',scope.row.type)}}
+      </template>
+    </el-table-column>
       <el-table-column
         fixed="right"
         header-align="center"
@@ -61,31 +56,39 @@
         </template>
       </el-table-column>
     </el-table>
+    <el-pagination
+      @size-change="sizeChangeHandle"
+      @current-change="currentChangeHandle"
+      :current-page="pageIndex"
+      :page-sizes="[10, 20, 50, 100]"
+      :page-size="pageSize"
+      :total="totalPage"
+      layout="total, sizes, prev, pager, next, jumper">
+    </el-pagination>
     <!-- 弹窗, 新增 / 修改 -->
     <add-or-update v-if="addOrUpdateVisible" ref="addOrUpdate" @refreshDataList="getDataList"></add-or-update>
   </div>
 </template>
 
 <script>
-import TableTreeColumn from '@/components/table-tree-column'
-import AddOrUpdate from './category-add-or-update'
-import { treeDataTranslate } from '@/utils'
+import AddOrUpdate from './tag-add-or-update'
 export default {
   data () {
     return {
       dataForm: {
-        name: '',
-        type: ''
+        key: ''
       },
       dataList: [],
+      pageIndex: 1,
+      pageSize: 10,
+      totalPage: 0,
       dataListLoading: false,
-      addOrUpdateVisible: false,
-      typeList: this.getSysParamArr('MODULE_TYPE')
+      dataListSelections: [],
+      addOrUpdateVisible: false
     }
   },
   components: {
-    AddOrUpdate,
-    TableTreeColumn
+    AddOrUpdate
   },
   activated () {
     this.getDataList()
@@ -95,21 +98,38 @@ export default {
     getDataList () {
       this.dataListLoading = true
       this.$http({
-        url: this.$http.adornUrl('/admin/operation/category/list'),
+        url: this.$http.adornUrl('/admin/operation/tag/list'),
         method: 'get',
         params: this.$http.adornParams({
-          name: this.dataForm.name,
-          type: this.dataForm.type
+          'page': this.pageIndex,
+          'limit': this.pageSize,
+          'key': this.dataForm.key
         })
       }).then(({data}) => {
         if (data && data.code === 200) {
-          this.dataList = treeDataTranslate(data.categoryList)
-          console.log(this.dataList)
+          this.dataList = data.page.list
+          this.totalPage = data.page.totalCount
         } else {
           this.dataList = []
+          this.totalPage = 0
         }
         this.dataListLoading = false
       })
+    },
+    // 每页数
+    sizeChangeHandle (val) {
+      this.pageSize = val
+      this.pageIndex = 1
+      this.getDataList()
+    },
+    // 当前页
+    currentChangeHandle (val) {
+      this.pageIndex = val
+      this.getDataList()
+    },
+    // 多选
+    selectionChangeHandle (val) {
+      this.dataListSelections = val
     },
     // 新增 / 修改
     addOrUpdateHandle (id) {
@@ -120,21 +140,24 @@ export default {
     },
     // 删除
     deleteHandle (id) {
-      this.$confirm(`确定对[id=${id}]进行删除操作?`, '提示', {
+      var ids = id ? [id] : this.dataListSelections.map(item => {
+        return item.id
+      })
+      this.$confirm(`确定对这${ids.length}条数据进行[${id ? '删除' : '批量删除'}]操作?`, '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
         this.$http({
-          url: this.$http.adornUrl('/admin/operation/category/delete/' + id),
+          url: this.$http.adornUrl('/admin/operation/tag/delete'),
           method: 'delete',
-          data: this.$http.adornData()
+          data: this.$http.adornData(ids, false)
         }).then(({data}) => {
           if (data && data.code === 200) {
             this.$message({
               message: '操作成功',
               type: 'success',
-              duration: 1500,
+              duration: 1000,
               onClose: () => {
                 this.getDataList()
               }
