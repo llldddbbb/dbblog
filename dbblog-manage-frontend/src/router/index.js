@@ -30,7 +30,7 @@ const mainRoutes = {
     { path: '/home', component: _import('common/home'), name: 'home', meta: { title: '首页' } },
     { path: '/theme', component: _import('common/theme'), name: 'theme', meta: { title: '主题' } },
     { path: '/article/article/update/:articleId',
-      component: _import('modules/article/addOrUpdate'),
+      component: _import('modules/article/article-add-or-update'),
       name: 'article-update',
       meta: {
         menuId: 'article-update',

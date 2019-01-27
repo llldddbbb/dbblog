@@ -225,7 +225,7 @@ export default {
               // 关闭当前标签
               this.$emit('closeCurrentTabs')
               // 跳转到list
-              this.$router.push('/article-list')
+              this.$router.push('/article-article')
             } else {
               this.$message.error(data.msg)
             }
