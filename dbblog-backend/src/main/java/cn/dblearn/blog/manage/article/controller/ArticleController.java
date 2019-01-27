@@ -10,11 +10,12 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.Map;
 
 
 /**
- * ArticleArticleAdminController
+ * ArticleAdminController
  *
  * @author bobbi
  * @date 2018/11/20 20:25
@@ -54,6 +55,7 @@ public class ArticleController {
     @RequiresPermissions("article:update")
     public Result updateArticle(@RequestBody ArticleDto article){
         ValidatorUtils.validateEntity(article);
+        article.setUpdateTime(new Date());
         articleService.updateArticle(article);
         return Result.ok();
     }

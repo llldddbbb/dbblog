@@ -19,7 +19,7 @@ import java.io.Serializable;
  */
 @Data
 @ApiModel(value="TagLink对象", description="标签多对多维护表")
-@TableName("operation_tag_link")
+@TableName("tag_link")
 public class TagLink implements Serializable {
 
     private static final long serialVersionUID = 1L;

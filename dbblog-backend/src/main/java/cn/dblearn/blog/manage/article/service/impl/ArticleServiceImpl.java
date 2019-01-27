@@ -118,6 +118,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
      * @param article
      */
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void updateArticle(ArticleDto article) {
         // 删除多对多所属标签
         tagLinkMapper.delete(new QueryWrapper<TagLink>().lambda()
