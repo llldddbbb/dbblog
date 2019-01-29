@@ -5,7 +5,7 @@ import cn.dblearn.blog.common.constants.SysConstants;
 import cn.dblearn.blog.common.util.PageUtils;
 import cn.dblearn.blog.common.util.Query;
 import cn.dblearn.blog.manage.sys.mapper.SysUserMapper;
-import cn.dblearn.blog.manage.sys.pojo.entity.SysUser;
+import cn.dblearn.blog.manage.sys.entity.SysUser;
 import cn.dblearn.blog.manage.sys.service.SysRoleService;
 import cn.dblearn.blog.manage.sys.service.SysUserRoleService;
 import cn.dblearn.blog.manage.sys.service.SysUserService;

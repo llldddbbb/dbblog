@@ -58,7 +58,7 @@ public class Article implements Serializable {
     private String cover;
 
     @ApiModelProperty(value = "文章展示类别,0:普通，1：大图片，2：无图片")
-    private Integer type;
+    private Integer coverType;
 
     @ApiModelProperty(value = "创建时间")
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")

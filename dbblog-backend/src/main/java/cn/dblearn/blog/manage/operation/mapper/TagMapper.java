@@ -20,16 +20,16 @@ public interface TagMapper extends BaseMapper<Tag> {
 
     /**
      * 根据foreignId获取Tag列表
-     * @param foreignId
+     * @param linkId
      * @param type
      * @return
      */
-    List<Tag> listByForeignId(@Param("foreignId") Integer foreignId, @Param("type")Integer type);
+    List<Tag> listByLinkId(@Param("linkId") Integer linkId, @Param("type")Integer type);
 
     /**
      * 根据foreignId删除多对多关联
-     * @param foreignId
+     * @param linkId
      * @param type
      */
-    void deleteTagLink(@Param("foreignId") Integer foreignId, @Param("type")Integer type);
+    void deleteTagLink(@Param("linkId") Integer linkId, @Param("type")Integer type);
 }

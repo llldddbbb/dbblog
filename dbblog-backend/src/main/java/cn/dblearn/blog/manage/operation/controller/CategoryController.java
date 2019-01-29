@@ -7,6 +7,7 @@ import cn.dblearn.blog.common.validator.ValidatorUtils;
 import cn.dblearn.blog.manage.operation.entity.Category;
 import cn.dblearn.blog.manage.operation.service.CategoryService;
 import cn.dblearn.blog.manage.sys.controller.AbstractController;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,6 @@ import java.util.Map;
 @RequestMapping("/admin/operation/category")
 public class CategoryController extends AbstractController {
 
-
     @Autowired
     private CategoryService categoryService;
 
@@ -47,8 +47,8 @@ public class CategoryController extends AbstractController {
      */
     @RequestMapping("/select")
     @RequiresPermissions("operation:category:list")
-    public Result select(){
-        List<Category> categoryList = categoryService.list(null);
+    public Result select(Integer type){
+        List<Category> categoryList = categoryService.list(new QueryWrapper<Category>().lambda().eq(type!=null,Category::getType,type));
 
         //添加顶级分类
         Category root = new Category();

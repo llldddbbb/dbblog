@@ -4,7 +4,7 @@ import cn.dblearn.blog.common.constants.RedisKeyConstants;
 import cn.dblearn.blog.common.Result;
 import cn.dblearn.blog.common.util.RedisUtils;
 import cn.dblearn.blog.manage.sys.oauth2.TokenGenerator;
-import cn.dblearn.blog.manage.sys.pojo.entity.SysUserToken;
+import cn.dblearn.blog.manage.sys.entity.SysUserToken;
 import cn.dblearn.blog.manage.sys.service.SysUserTokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

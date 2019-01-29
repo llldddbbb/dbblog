@@ -2,8 +2,8 @@ package cn.dblearn.blog.manage.sys.controller;
 
 import cn.dblearn.blog.common.exception.enums.ErrorEnum;
 import cn.dblearn.blog.common.Result;
-import cn.dblearn.blog.manage.sys.pojo.entity.SysUser;
-import cn.dblearn.blog.manage.sys.pojo.form.SysLoginForm;
+import cn.dblearn.blog.manage.sys.entity.SysUser;
+import cn.dblearn.blog.manage.sys.entity.form.SysLoginForm;
 import cn.dblearn.blog.manage.sys.service.SysCaptchaService;
 import cn.dblearn.blog.manage.sys.service.SysUserService;
 import cn.dblearn.blog.manage.sys.service.SysUserTokenService;

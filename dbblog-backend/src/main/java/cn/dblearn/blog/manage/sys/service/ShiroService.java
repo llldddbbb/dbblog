@@ -1,7 +1,7 @@
 package cn.dblearn.blog.manage.sys.service;
 
-import cn.dblearn.blog.manage.sys.pojo.entity.SysUser;
-import cn.dblearn.blog.manage.sys.pojo.entity.SysUserToken;
+import cn.dblearn.blog.manage.sys.entity.SysUser;
+import cn.dblearn.blog.manage.sys.entity.SysUserToken;
 
 import java.util.Set;
 

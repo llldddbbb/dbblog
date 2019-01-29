@@ -11,7 +11,7 @@
         <result column="comment_num" property="commentNum"/>
         <result column="like_num" property="likeNum"/>
         <result column="cover" property="cover"/>
-        <result column="type" property="type" />
+        <result column="cover_type" property="coverType" />
         <result column="create_time" property="createTime"/>
         <collection property="tagList" column="article_id" ofType="cn.dblearn.blog.manage.operation.entity.Tag"
                     select="cn.dblearn.blog.manage.operation.mapper.TagMapper.listByArticleId"/>
@@ -42,7 +42,7 @@
 
     <select id="listByClassifyId" resultMap="homeArticle">
         select distinct <include refid="homeArticleColumn"/> from article ba
-        left join tag_link bat on bat.foreign_id = ba.id
+        left join tag_link bat on bat.link_id = ba.id
         left join tag bt on bt.id=bat.tag_id
         <where>
             <if test="orientationId !=null">

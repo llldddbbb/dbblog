@@ -27,7 +27,7 @@ public class TagLink implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
-    private Integer foreignId;
+    private Integer linkId;
 
     private Integer tagId;
 
@@ -37,9 +37,10 @@ public class TagLink implements Serializable {
     public TagLink() {
     }
 
-    public TagLink(Integer foreignId, Integer tagId) {
-        this.foreignId =  foreignId;
+    public TagLink(Integer linkId, Integer tagId,Integer type) {
+        this.linkId =  linkId;
         this.tagId = tagId;
+        this.type = type;
     }
 
 }

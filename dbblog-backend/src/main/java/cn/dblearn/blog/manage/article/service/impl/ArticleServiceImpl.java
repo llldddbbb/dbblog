@@ -1,5 +1,6 @@
 package cn.dblearn.blog.manage.article.service.impl;
 
+import cn.dblearn.blog.common.enums.ModuleEnum;
 import cn.dblearn.blog.common.util.PageUtils;
 import cn.dblearn.blog.common.util.Query;
 import cn.dblearn.blog.manage.article.entity.Article;
@@ -9,18 +10,14 @@ import cn.dblearn.blog.manage.article.mapper.ArticleMapper;
 import cn.dblearn.blog.manage.article.service.ArticleService;
 import cn.dblearn.blog.manage.operation.entity.Category;
 import cn.dblearn.blog.manage.operation.entity.Tag;
-import cn.dblearn.blog.manage.operation.entity.TagLink;
-import cn.dblearn.blog.manage.operation.mapper.TagLinkMapper;
 import cn.dblearn.blog.manage.operation.service.CategoryService;
 import cn.dblearn.blog.manage.operation.service.TagService;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
@@ -41,9 +38,6 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
     @Autowired
     private TagService tagService;
-
-    @Autowired
-    private TagLinkMapper tagLinkMapper;
 
     @Autowired
     private CategoryService categoryService;
@@ -68,7 +62,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
             // 设置类别
             articleVo.setCategoryListStr(categoryStr);
             // 根据文章Id查询标签列表
-            List<Tag> tagList = tagService.listByArticleId(articleVo.getId());
+            List<Tag> tagList = tagService.listByLinkId(articleVo.getId(),ModuleEnum.ARTICLE.getValue());
             // 设置标签列表
             articleVo.setTagList(tagList);
         });
@@ -109,7 +103,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     @Transactional(rollbackFor = Exception.class)
     public void saveArticle(ArticleDto article) {
         baseMapper.insert(article);
-        this.saveTagAndNew(article);
+        tagService.saveTagAndNew(article.getTagList(),article.getId(),ModuleEnum.ARTICLE.getValue());
     }
 
     /**
@@ -121,10 +115,9 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     @Transactional(rollbackFor = Exception.class)
     public void updateArticle(ArticleDto article) {
         // 删除多对多所属标签
-        tagLinkMapper.delete(new QueryWrapper<TagLink>().lambda()
-                .eq(TagLink::getForeignId,article.getId()));
+        tagService.deleteTagLink(article.getId(),ModuleEnum.ARTICLE.getValue());
         // 更新所属标签
-        this.saveTagAndNew(article);
+        tagService.saveTagAndNew(article.getTagList(),article.getId(), ModuleEnum.ARTICLE.getValue());
         // 更新博文
         baseMapper.updateById(article);
     }
@@ -141,7 +134,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         Article article = this.baseMapper.selectById(articleId);
         BeanUtils.copyProperties(article,articleDto);
         // 查询所属标签
-        articleDto.setTagList(tagService.listByArticleId(articleId));
+        articleDto.setTagList(tagService.listByLinkId(articleId,ModuleEnum.ARTICLE.getValue()));
         return articleDto;
     }
 
@@ -155,26 +148,9 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     public void deleteBatch(Integer[] articleIds) {
         //先删除博文标签多对多关联
         Arrays.stream(articleIds).forEach(articleId -> {
-            tagLinkMapper.delete(new QueryWrapper<TagLink>().lambda()
-                    .eq(articleId!=null, TagLink::getForeignId,articleId));
+            tagService.deleteTagLink(articleId,ModuleEnum.ARTICLE.getValue());
         });
         this.baseMapper.deleteBatchIds(Arrays.asList(articleIds));
-    }
-
-    /**
-     * 添加文章所属标签，包含新增标签
-     * @param article
-     */
-    private void saveTagAndNew(ArticleDto article){
-        if(!CollectionUtils.isEmpty(article.getTagList())){
-            article.getTagList().forEach(tag -> {
-                if(tag.getId() == null) {
-                    tagService.save(tag);
-                }
-                TagLink articleTagLink=new TagLink(article.getId(),tag.getId());
-                tagLinkMapper.insert(articleTagLink);
-            });
-        }
     }
 
 

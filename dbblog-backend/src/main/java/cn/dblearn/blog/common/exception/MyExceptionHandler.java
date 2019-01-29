@@ -1,7 +1,7 @@
 package cn.dblearn.blog.common.exception;
 
-import cn.dblearn.blog.common.exception.enums.ErrorEnum;
 import cn.dblearn.blog.common.Result;
+import cn.dblearn.blog.common.exception.enums.ErrorEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.AuthorizationException;
 import org.springframework.dao.DuplicateKeyException;

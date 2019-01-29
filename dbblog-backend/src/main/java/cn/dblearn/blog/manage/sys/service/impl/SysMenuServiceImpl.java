@@ -4,7 +4,7 @@ import cn.dblearn.blog.common.constants.SysConstants;
 import cn.dblearn.blog.common.enums.MenuTypeEnum;
 import cn.dblearn.blog.common.util.MapUtils;
 import cn.dblearn.blog.manage.sys.mapper.SysMenuMapper;
-import cn.dblearn.blog.manage.sys.pojo.entity.SysMenu;
+import cn.dblearn.blog.manage.sys.entity.SysMenu;
 import cn.dblearn.blog.manage.sys.service.SysMenuService;
 import cn.dblearn.blog.manage.sys.service.SysRoleMenuService;
 import cn.dblearn.blog.manage.sys.service.SysUserService;

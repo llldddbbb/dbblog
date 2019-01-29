@@ -1,7 +1,7 @@
 package cn.dblearn.blog.manage.sys.service.impl;
 
 import cn.dblearn.blog.manage.sys.mapper.SysUserRoleMapper;
-import cn.dblearn.blog.manage.sys.pojo.entity.SysUserRole;
+import cn.dblearn.blog.manage.sys.entity.SysUserRole;
 import cn.dblearn.blog.manage.sys.service.SysUserRoleService;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;

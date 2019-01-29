@@ -1,7 +1,7 @@
 package cn.dblearn.blog.manage.sys.service;
 
 import cn.dblearn.blog.common.Result;
-import cn.dblearn.blog.manage.sys.pojo.entity.SysUserToken;
+import cn.dblearn.blog.manage.sys.entity.SysUserToken;
 
 /**
  * SysUserTokenService

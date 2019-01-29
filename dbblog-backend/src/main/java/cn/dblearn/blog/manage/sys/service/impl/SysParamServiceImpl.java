@@ -3,7 +3,7 @@ package cn.dblearn.blog.manage.sys.service.impl;
 import cn.dblearn.blog.common.util.PageUtils;
 import cn.dblearn.blog.common.util.Query;
 import cn.dblearn.blog.manage.sys.mapper.SysParamMapper;
-import cn.dblearn.blog.manage.sys.pojo.entity.SysParam;
+import cn.dblearn.blog.manage.sys.entity.SysParam;
 import cn.dblearn.blog.manage.sys.service.SysParamService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;

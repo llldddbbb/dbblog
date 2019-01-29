@@ -1,4 +1,4 @@
-package cn.dblearn.blog.manage.sys.pojo.form;
+package cn.dblearn.blog.manage.sys.entity.form;
 
 import lombok.Data;
 

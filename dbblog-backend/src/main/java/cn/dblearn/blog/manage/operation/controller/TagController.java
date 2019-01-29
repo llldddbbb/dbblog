@@ -6,12 +6,14 @@ import cn.dblearn.blog.common.validator.ValidatorUtils;
 import cn.dblearn.blog.manage.operation.entity.Tag;
 import cn.dblearn.blog.manage.operation.service.TagService;
 import cn.dblearn.blog.manage.sys.controller.AbstractController;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -38,6 +40,13 @@ public class TagController extends AbstractController {
         PageUtils page = tagService.queryPage(params);
 
         return Result.ok().put("page", page);
+    }
+
+    @GetMapping("/select")
+    @RequiresPermissions("operation:tag:list")
+    public Result select(@RequestParam("type") Integer type){
+        List<Tag> tagList = tagService.list(new QueryWrapper<Tag>().lambda().eq(type != null,Tag::getType,type));
+        return Result.ok().put("tagList",tagList);
     }
 
 

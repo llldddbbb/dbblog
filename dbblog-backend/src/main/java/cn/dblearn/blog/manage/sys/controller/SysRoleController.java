@@ -4,7 +4,7 @@ import cn.dblearn.blog.common.constants.SysConstants;
 import cn.dblearn.blog.common.Result;
 import cn.dblearn.blog.common.util.PageUtils;
 import cn.dblearn.blog.common.validator.ValidatorUtils;
-import cn.dblearn.blog.manage.sys.pojo.entity.SysRole;
+import cn.dblearn.blog.manage.sys.entity.SysRole;
 import cn.dblearn.blog.manage.sys.service.SysRoleMenuService;
 import cn.dblearn.blog.manage.sys.service.SysRoleService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;

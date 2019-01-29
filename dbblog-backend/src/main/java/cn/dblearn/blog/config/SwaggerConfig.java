@@ -17,6 +17,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 import java.util.List;
 
 import static com.google.common.collect.Lists.newArrayList;
+
 /**
  * SwaggerConfig
  *

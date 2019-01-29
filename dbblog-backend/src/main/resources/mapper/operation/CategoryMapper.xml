@@ -21,7 +21,7 @@
             <if test="name != null and name != ''">
                 t.name like concat('%',#{name},'%')
             </if>
-            <if test="type !=null">
+            <if test="type !=null and type !=''">
                 t.type = #{type}
             </if>
         </where>

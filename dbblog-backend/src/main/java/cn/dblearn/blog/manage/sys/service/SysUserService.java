@@ -1,7 +1,7 @@
 package cn.dblearn.blog.manage.sys.service;
 
 import cn.dblearn.blog.common.util.PageUtils;
-import cn.dblearn.blog.manage.sys.pojo.entity.SysUser;
+import cn.dblearn.blog.manage.sys.entity.SysUser;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;

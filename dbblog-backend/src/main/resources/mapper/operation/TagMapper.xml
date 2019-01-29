@@ -3,14 +3,15 @@
 <mapper namespace="cn.dblearn.blog.manage.operation.mapper.TagMapper">
 
     <delete id="deleteTagLink">
-        delete from tag_link atl where atl.foreign_id = #{foreignId} and atl.type = #{type}
+        delete from tag_link atl
+        where atl.foreign_id = #{linkId} and atl.type = #{type}
     </delete>
 
-    <select id="listByForeignId" resultType="cn.dblearn.blog.manage.operation.entity.Tag">
+    <select id="listByLinkId" resultType="cn.dblearn.blog.manage.operation.entity.Tag">
         select bt.* from tag bt left join tag_link bat on bt.id=bat.tag_id
         <where>
-            <if test="foreignId!=null">
-                and bat.foreign_id = #{foreignId}
+            <if test="linkId!=null">
+                and bat.link_id = #{linkId}
             </if>
             <if test="type!=null">
                 and bt.type = #{type}

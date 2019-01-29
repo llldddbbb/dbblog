@@ -3,7 +3,7 @@ package cn.dblearn.blog.manage.sys.controller;
 import cn.dblearn.blog.common.Result;
 import cn.dblearn.blog.common.util.PageUtils;
 import cn.dblearn.blog.common.validator.ValidatorUtils;
-import cn.dblearn.blog.manage.sys.pojo.entity.SysParam;
+import cn.dblearn.blog.manage.sys.entity.SysParam;
 import cn.dblearn.blog.manage.sys.service.SysParamService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresPermissions;

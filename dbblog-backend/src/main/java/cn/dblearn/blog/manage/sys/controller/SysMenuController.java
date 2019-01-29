@@ -4,7 +4,7 @@ package cn.dblearn.blog.manage.sys.controller;
 import cn.dblearn.blog.common.Result;
 import cn.dblearn.blog.common.enums.MenuTypeEnum;
 import cn.dblearn.blog.common.exception.MyException;
-import cn.dblearn.blog.manage.sys.pojo.entity.SysMenu;
+import cn.dblearn.blog.manage.sys.entity.SysMenu;
 import cn.dblearn.blog.manage.sys.service.ShiroService;
 import cn.dblearn.blog.manage.sys.service.SysMenuService;
 import org.apache.commons.lang.StringUtils;

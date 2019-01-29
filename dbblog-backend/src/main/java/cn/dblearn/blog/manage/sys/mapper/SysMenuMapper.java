@@ -1,6 +1,6 @@
 package cn.dblearn.blog.manage.sys.mapper;
 
-import cn.dblearn.blog.manage.sys.pojo.entity.SysMenu;
+import cn.dblearn.blog.manage.sys.entity.SysMenu;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 

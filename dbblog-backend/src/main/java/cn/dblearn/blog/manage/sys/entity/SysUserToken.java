@@ -1,4 +1,4 @@
-package cn.dblearn.blog.manage.sys.pojo.entity;
+package cn.dblearn.blog.manage.sys.entity;
 
 import io.swagger.annotations.ApiModel;
 import lombok.Data;

@@ -1,7 +1,7 @@
 package cn.dblearn.blog.manage.sys.service;
 
 import cn.dblearn.blog.common.util.PageUtils;
-import cn.dblearn.blog.manage.sys.pojo.entity.SysParam;
+import cn.dblearn.blog.manage.sys.entity.SysParam;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.Map;

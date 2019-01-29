@@ -1,4 +1,4 @@
-package cn.dblearn.blog.manage.sys.pojo.entity;
+package cn.dblearn.blog.manage.sys.entity;
 
 import cn.dblearn.blog.common.validator.group.AddGroup;
 import cn.dblearn.blog.common.validator.group.UpdateGroup;

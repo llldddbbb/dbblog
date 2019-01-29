@@ -1,6 +1,6 @@
 package cn.dblearn.blog.manage.sys.service;
 
-import cn.dblearn.blog.manage.sys.pojo.entity.SysRoleMenu;
+import cn.dblearn.blog.manage.sys.entity.SysRoleMenu;
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.springframework.stereotype.Service;
 

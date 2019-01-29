@@ -1,4 +1,4 @@
-package cn.dblearn.blog.manage.sys.pojo.entity;
+package cn.dblearn.blog.manage.sys.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;

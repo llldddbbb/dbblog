@@ -1,6 +1,6 @@
 package cn.dblearn.blog.manage.sys.controller;
 
-import cn.dblearn.blog.manage.sys.pojo.entity.SysUser;
+import cn.dblearn.blog.manage.sys.entity.SysUser;
 import org.apache.shiro.SecurityUtils;
 
 /**

@@ -6,7 +6,7 @@ import cn.dblearn.blog.common.util.PageUtils;
 import cn.dblearn.blog.common.util.Query;
 import cn.dblearn.blog.manage.sys.mapper.SysRoleMapper;
 import cn.dblearn.blog.manage.sys.service.SysUserRoleService;
-import cn.dblearn.blog.manage.sys.pojo.entity.SysRole;
+import cn.dblearn.blog.manage.sys.entity.SysRole;
 import cn.dblearn.blog.manage.sys.service.SysRoleMenuService;
 import cn.dblearn.blog.manage.sys.service.SysRoleService;
 import cn.dblearn.blog.manage.sys.service.SysUserService;

@@ -1,5 +1,6 @@
-package cn.dblearn.blog.manage.sys.pojo.entity;
+package cn.dblearn.blog.manage.sys.entity;
 
+import com.baomidou.mybatisplus.annotation.FieldStrategy;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -37,6 +38,7 @@ public class SysMenu implements Serializable {
     private String url;
 
     @ApiModelProperty(value = "授权(多个用逗号分隔，如：user:list,user:create)")
+    @TableField(strategy= FieldStrategy.IGNORED)
     private String perms;
 
     @ApiModelProperty(value = "类型   0：目录   1：菜单   2：按钮")
