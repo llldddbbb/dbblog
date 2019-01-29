@@ -12,7 +12,6 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
 import java.util.Map;
 
 /**
@@ -48,8 +47,7 @@ public class ReadBookController extends AbstractController {
     @GetMapping("/info/{id}")
     @RequiresPermissions("read:book:info")
     public Result info(@PathVariable("id") String id){
-       ReadBook book = bookService.getById(id);
-
+        ReadBookDto book = bookService.getBook(id);
         return Result.ok().put("book", book);
     }
 
@@ -70,9 +68,21 @@ public class ReadBookController extends AbstractController {
      */
     @PutMapping("/update")
     @RequiresPermissions("read:book:update")
-    public Result update(@RequestBody ReadBook book){
+    public Result update(@RequestBody ReadBookDto book){
         ValidatorUtils.validateEntity(book);
-        bookService.updateById(book);
+        bookService.updateBook(book);
+        return Result.ok();
+    }
+
+    /**
+     * 更新状态
+     * @param readBook
+     * @return
+     */
+    @PutMapping("/update/status")
+    @RequiresPermissions("read:book:update")
+    public Result updateStatus(@RequestBody ReadBook readBook) {
+        bookService.updateById(readBook);
         return Result.ok();
     }
 
@@ -81,8 +91,8 @@ public class ReadBookController extends AbstractController {
      */
     @DeleteMapping("/delete")
     @RequiresPermissions("read:book:delete")
-    public Result delete(@RequestBody String[] ids){
-        bookService.removeByIds(Arrays.asList(ids));
+    public Result delete(@RequestBody Integer[] ids){
+        bookService.deleteBatch(ids);
 
         return Result.ok();
     }

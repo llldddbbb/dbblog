@@ -58,18 +58,21 @@
       prop="readNum"
       header-align="center"
       align="center"
+      width="80"
       label="浏览">
     </el-table-column>
     <el-table-column
       prop="commentNum"
       header-align="center"
       align="center"
+      width="80"
       label="评论">
     </el-table-column>
     <el-table-column
       prop="likeNum"
       header-align="center"
       align="center"
+      width="80"
       label="喜欢">
     </el-table-column>
     <el-table-column
@@ -94,7 +97,9 @@
         <el-tooltip class="item" effect="dark" content="点击发布" v-if="!scope.row.publish" placement="top">
           <el-button type="info" size="mini" @click="updatePublish(scope.row.id, true)">未发布</el-button>
         </el-tooltip>
-        <el-button type="success" size="mini" v-if="scope.row.publish === true">已发布</el-button>
+        <el-tooltip class="item" effect="dark" content="点击下架" v-if="scope.row.publish" placement="top">
+          <el-button type="success" size="mini" @click="updatePublish(scope.row.id, false)" v-if="scope.row.publish === true">已发布</el-button>
+        </el-tooltip>
       </template>
     </el-table-column>
     <el-table-column

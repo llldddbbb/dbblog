@@ -56,7 +56,7 @@ public class TagServiceImpl extends ServiceImpl<TagMapper, Tag> implements TagSe
      */
     @Override
     public List<Tag> listByLinkId(Integer linkId, Integer type) {
-        return this.baseMapper.listByLinkId(linkId, ModuleEnum.ARTICLE.getValue());
+        return this.baseMapper.listByLinkId(linkId, type);
     }
 
     /**

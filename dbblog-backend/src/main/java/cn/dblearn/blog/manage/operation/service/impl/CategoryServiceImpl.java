@@ -7,7 +7,9 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -44,5 +46,31 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
     public List<Category> queryListParentId(Integer id) {
         return baseMapper.selectList(new QueryWrapper<Category>().lambda()
                 .eq(Category::getParentId,id));
+    }
+
+    /**
+     * 根据类别Id数组查询类别数组
+     * @param categoryIds
+     * @param categoryList
+     * @return
+     */
+    @Override
+    public String renderCategoryArr(String categoryIds, List<Category> categoryList) {
+        if (StringUtils.isEmpty(categoryIds)) {
+            return "";
+        }
+        List<String> categoryStrList = new ArrayList<>();
+        String[] categoryIdArr = categoryIds.split(",");
+        for (int i = 0; i < categoryIdArr.length; i++) {
+            Integer categoryId = Integer.parseInt(categoryIdArr[i]);
+            // 根据Id查找类别名称
+            String categoryStr = categoryList.stream()
+                    .filter(category -> category.getId().equals(categoryId))
+                    .map(Category::getName)
+                    .findAny().get();
+            categoryStrList.add(categoryStr);
+        }
+        return String.join(",",categoryStrList);
+
     }
 }

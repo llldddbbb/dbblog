@@ -2,7 +2,7 @@
   <div class="mod-config">
     <el-form :inline="true" :model="dataForm" @keyup.enter.native="getDataList()">
       <el-form-item>
-        <el-input v-model="dataForm.key" placeholder="参数名" clearable></el-input>
+        <el-input v-model="dataForm.title" placeholder="标题" clearable></el-input>
       </el-form-item>
       <el-form-item>
         <el-button @click="getDataList()">查询</el-button>
@@ -26,6 +26,9 @@
         header-align="center"
         align="center"
         label="封面">
+        <template slot-scope="scope">
+          <img :src="scope.row.cover" style="width: 50px;height: 100px">
+        </template>
       </el-table-column>
     <el-table-column
         prop="title"
@@ -34,41 +37,71 @@
         label="标题">
     </el-table-column>
       <el-table-column
-        prop="cover"
+        prop="categoryListStr"
         header-align="center"
         align="center"
         label="分类">
       </el-table-column>
       <el-table-column
-        prop="cover"
+        prop="tagList"
         header-align="center"
         align="center"
-        label="标签">
+        label="标签"
+        width="300">
+        <template slot-scope="scope">
+          <el-row>
+            <el-button v-for="tag in scope.row.tagList" :key="tag.id" size="mini">{{tag.name}}</el-button>
+          </el-row>
+        </template>
       </el-table-column>
     <el-table-column
         prop="readNum"
         header-align="center"
         align="center"
+        width="80"
         label="阅读">
     </el-table-column>
     <el-table-column
         prop="commentNum"
         header-align="center"
         align="center"
+        width="80"
         label="评论">
     </el-table-column>
     <el-table-column
         prop="likeNum"
         header-align="center"
         align="center"
+        width="80"
         label="点赞">
     </el-table-column>
-    <el-table-column
+      <el-table-column
         prop="recommend"
         header-align="center"
         align="center"
         label="推荐">
-    </el-table-column>
+        <template slot-scope="scope">
+          <el-switch
+            v-model="scope.row.recommend"
+            active-color="#13ce66"
+            @change="updateRecommend(scope.row.id,scope.row.recommend)">
+          </el-switch>
+        </template>
+      </el-table-column>
+      <el-table-column
+        prop="recommend"
+        header-align="center"
+        align="center"
+        label="状态">
+        <template slot-scope="scope">
+          <el-tooltip class="item" effect="dark" content="点击发布" v-if="!scope.row.publish" placement="top">
+            <el-button type="info" size="mini" @click="updatePublish(scope.row.id, true)">未发布</el-button>
+          </el-tooltip>
+          <el-tooltip class="item" effect="dark" content="点击下架" v-if="scope.row.publish" placement="top">
+            <el-button type="success" size="mini" @click="updatePublish(scope.row.id, false)" v-if="scope.row.publish === true">已发布</el-button>
+          </el-tooltip>
+        </template>
+      </el-table-column>
       <el-table-column
         fixed="right"
         header-align="center"
@@ -124,7 +157,7 @@ export default {
         params: this.$http.adornParams({
           'page': this.pageIndex,
           'limit': this.pageSize,
-          'key': this.dataForm.key
+          'title': this.dataForm.title
         })
       }).then(({data}) => {
         if (data && data.code === 200) {
@@ -154,10 +187,7 @@ export default {
     },
     // 新增 / 修改
     addOrUpdateHandle (id) {
-      this.addOrUpdateVisible = true
-      this.$nextTick(() => {
-        this.$refs.addOrUpdate.init(id)
-      })
+      this.$router.push({path: 'read/book/update/' + id})
     },
     // 删除
     deleteHandle (id) {
@@ -187,6 +217,37 @@ export default {
             this.$message.error(data.msg)
           }
         })
+      })
+    },
+    // 更新文章推荐状态
+    updateRecommend (id, value) {
+      let data = {
+        id: id,
+        recommend: value
+      }
+      this.updateStatus(data)
+    },
+    // 更新文章发布状态
+    updatePublish (id, value) {
+      let data = {
+        id: id,
+        publish: value
+      }
+      this.updateStatus(data)
+    },
+    // 更新状态
+    updateStatus (data) {
+      this.$http({
+        url: this.$http.adornUrl(`/admin/read/book/update/status`),
+        method: 'put',
+        data: this.$http.adornData(data)
+      }).then(({data}) => {
+        if (data && data.code === 200) {
+          this.$message.success('更新成功')
+          this.getDataList()
+        } else {
+          this.$message.error(data.msg)
+        }
       })
     }
   }

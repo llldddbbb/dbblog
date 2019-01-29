@@ -62,7 +62,7 @@
         select * from article
         <where>
             <if test="article.title!=null and article.title !=''">
-                and title like concat('%',#{title},'%')
+                and title like concat('%',#{article.title},'%')
             </if>
         </where>
     </select>

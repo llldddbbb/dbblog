@@ -9,18 +9,16 @@ import cn.dblearn.blog.manage.article.entity.vo.ArticleVo;
 import cn.dblearn.blog.manage.article.mapper.ArticleMapper;
 import cn.dblearn.blog.manage.article.service.ArticleService;
 import cn.dblearn.blog.manage.operation.entity.Category;
-import cn.dblearn.blog.manage.operation.entity.Tag;
 import cn.dblearn.blog.manage.operation.service.CategoryService;
 import cn.dblearn.blog.manage.operation.service.TagService;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -54,45 +52,18 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         List<ArticleVo> articleList = baseMapper.listArticleVo(page, params);
         page.setRecords(articleList);
         // 查询所有分类
-        List<Category> categoryList = categoryService.list(null);
+        List<Category> categoryList = categoryService.list(new QueryWrapper<Category>().lambda().eq(Category::getType,ModuleEnum.ARTICLE.getValue()));
         // 封装ArticleVo
         articleList.forEach(articleVo -> {
-            // 根据类别Id数组查询类别数组
-            String categoryStr = renderCategoryArr(articleVo.getCategoryId(),categoryList);
             // 设置类别
-            articleVo.setCategoryListStr(categoryStr);
-            // 根据文章Id查询标签列表
-            List<Tag> tagList = tagService.listByLinkId(articleVo.getId(),ModuleEnum.ARTICLE.getValue());
+            articleVo.setCategoryListStr(categoryService.renderCategoryArr(articleVo.getCategoryId(),categoryList));
             // 设置标签列表
-            articleVo.setTagList(tagList);
+            articleVo.setTagList(tagService.listByLinkId(articleVo.getId(),ModuleEnum.ARTICLE.getValue()));
         });
         return new PageUtils(page);
     }
 
-    /**
-     * 根据类别Id数组查询类别数组
-     * @param categoryIds
-     * @param categoryList
-     * @return
-     */
-    private String renderCategoryArr(String categoryIds, List<Category> categoryList) {
-        if (StringUtils.isEmpty(categoryIds)) {
-            return "";
-        }
-        List<String> categoryStrList = new ArrayList<>();
-        String[] categoryIdArr = categoryIds.split(",");
-        for (int i = 0; i < categoryIdArr.length; i++) {
-            Integer categoryId = Integer.parseInt(categoryIdArr[i]);
-            // 根据Id查找类别名称
-            String categoryStr = categoryList.stream()
-                    .filter(category -> category.getId().equals(categoryId))
-                    .map(Category::getName)
-                    .findAny().get();
-            categoryStrList.add(categoryStr);
-        }
-        return String.join(",",categoryStrList);
 
-    }
 
     /**
      * 保存博文文章

@@ -118,7 +118,8 @@ export default {
       book: {
         recommend: false,
         tagList: [],
-        type: 0
+        type: 0,
+        pageNum: 1
       },
       coverTypeList: this.getSysParamArr('BOOK_COVER_TYPE'),
       url: '',
@@ -230,7 +231,7 @@ export default {
     saveBook () {
       this.$refs['bookForm'].validate((valid) => {
         if (valid) {
-          // 转化categoryId
+          // 转化categoryIdt: _import('modules/r
           this.book.categoryId = this.categoryOptionsSelect.join(',')
           this.$http({
             url: this.$http.adornUrl(`/admin/read/book/${!this.book.id ? 'save' : 'update'}`),
@@ -242,7 +243,7 @@ export default {
               // 关闭当前标签
               this.$emit('closeCurrentTabs')
               // 跳转到list
-              this.$router.push('/book-book')
+              this.$router.push('/read-book')
             } else {
               this.$message.error(data.msg)
             }

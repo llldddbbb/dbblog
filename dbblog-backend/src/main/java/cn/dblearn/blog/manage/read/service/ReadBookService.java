@@ -4,6 +4,7 @@ import cn.dblearn.blog.manage.read.entity.ReadBook;
 import cn.dblearn.blog.manage.read.entity.dto.ReadBookDto;
 import com.baomidou.mybatisplus.extension.service.IService;
 import cn.dblearn.blog.common.util.PageUtils;
+
 import java.util.Map;
 
 /**
@@ -28,4 +29,23 @@ public interface ReadBookService extends IService<ReadBook> {
       * @param book
      */
     void saveBook(ReadBookDto book);
+
+    /**
+     * 获取图书对象
+     * @param id
+     * @return
+     */
+    ReadBookDto getBook(String id);
+
+    /**
+     * 更新图书
+     * @param book
+     */
+    void updateBook(ReadBookDto book);
+
+    /**
+     * 批量删除
+     * @param bookIds
+     */
+    void deleteBatch(Integer[] bookIds);
 }

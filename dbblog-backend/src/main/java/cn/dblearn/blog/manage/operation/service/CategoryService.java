@@ -29,4 +29,12 @@ public interface CategoryService extends IService<Category> {
      * @return
      */
     List<Category> queryListParentId(Integer id);
+
+    /**
+     * 根据类别Id数组查询类别数组
+     * @param categoryIds
+     * @param categoryList
+     * @return
+     */
+    String renderCategoryArr(String categoryIds, List<Category> categoryList);
 }

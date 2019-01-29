@@ -2,32 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.dblearn.blog.manage.read.mapper.ReadBookMapper">
 
-    <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="cn.dblearn.blog.manage.read.entity.ReadBook">
-        <result column="id" property="id" />
-        <result column="title" property="title" />
-        <result column="cover" property="cover" />
-        <result column="author" property="author" />
-        <result column="publisher" property="publisher" />
-        <result column="publish_date" property="publishDate" />
-        <result column="page_num" property="pageNum" />
-        <result column="grade" property="grade" />
-        <result column="introduction" property="introduction" />
-        <result column="catalogue" property="catalogue" />
-        <result column="read_sense" property="readSense" />
-        <result column="rs_create_time" property="rsCreateTime" />
-        <result column="rs_update_time" property="rsUpdateTime" />
-        <result column="create_time" property="createTime" />
-        <result column="update_time" property="updateTime" />
-        <result column="read_num" property="readNum" />
-        <result column="comment_num" property="commentNum" />
-        <result column="like_num" property="likeNum" />
-        <result column="recommend" property="recommend" />
-    </resultMap>
-
-    <!-- 通用查询结果列 -->
-    <sql id="Base_Column_List">
-        id, title, cover, author, publisher, publish_date, page_num, grade, introduction, catalogue, read_sense, rs_create_time, rs_update_time, create_time, update_time, read_num, comment_num, like_num, recommend
-    </sql>
-
+    <select id="listBookVo" resultType="cn.dblearn.blog.manage.read.entity.vo.ReadBookVo">
+        select * from read_book
+        <where>
+            <if test="params.title!=null and params.title!=''">
+                and title = #{params.title}
+            </if>
+        </where>
+    </select>
 </mapper>
