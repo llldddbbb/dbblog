@@ -139,20 +139,6 @@ export default {
   activated () {
     this.getDataList()
   },
-  computed: {
-    menuActiveName: {
-      get () { return this.$store.state.common.menuActiveName },
-      set (val) { this.$store.commit('common/updateMenuActiveName', val) }
-    },
-    mainTabs: {
-      get () { return this.$store.state.common.mainTabs },
-      set (val) { this.$store.commit('common/updateMainTabs', val) }
-    },
-    mainTabsActiveName: {
-      get () { return this.$store.state.common.mainTabsActiveName },
-      set (val) { this.$store.commit('common/updateMainTabsActiveName', val) }
-    }
-  },
   methods: {
     // 获取数据列表
     getDataList () {
@@ -191,24 +177,8 @@ export default {
     selectionChangeHandle (val) {
       this.dataListSelections = val
     },
-    // tabs, 删除tab
-    removeTabHandle (tabName) {
-      this.mainTabs = this.mainTabs.filter(item => item.name !== tabName)
-      if (this.mainTabs.length >= 1) {
-        // 当前选中tab被删除
-        if (tabName === this.mainTabsActiveName) {
-          this.$router.push({ name: this.mainTabs[this.mainTabs.length - 1].name }, () => {
-            this.mainTabsActiveName = this.$route.name
-          })
-        }
-      } else {
-        this.menuActiveName = ''
-        this.$router.push({ name: 'home' })
-      }
-    },
     // 新增 / 修改
     addOrUpdateHandle (id) {
-      this.removeTabHandle('article-update')
       this.$router.push({path: 'article/article/update/' + id})
     },
     // 删除

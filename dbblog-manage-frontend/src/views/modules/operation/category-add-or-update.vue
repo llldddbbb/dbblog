@@ -13,7 +13,7 @@
         <el-input v-model="dataForm.name" placeholder="名称"></el-input>
       </el-form-item>
       <el-form-item label="所属分类" prop="type">
-        <el-select placeholder="请选择所属分类" clearable filterable v-model="dataForm.type">
+        <el-select placeholder="请选择所属分类" clearable filterable v-model="dataForm.type" @change="getCategorySelect()">
           <el-option
             v-for="type in typeList"
             :key="type.parKey"
@@ -56,7 +56,7 @@ export default {
       visible: false,
       dataForm: {
         rank: 0,
-        type: 0,
+        type: '',
         parentId: 0,
         parentName: ''
       },
@@ -86,32 +86,33 @@ export default {
   methods: {
     init (id) {
       this.dataForm.categoryId = id || ''
+      this.visible = true
+      this.$nextTick(() => {
+        this.$refs['dataForm'].resetFields()
+      })
+      if (this.dataForm.id) {
+        this.$http({
+          url: this.$http.adornUrl(`/admin/operation/category/info/${this.dataForm.id}`),
+          method: 'get',
+          params: this.$http.adornParams()
+        }).then(({data}) => {
+          if (data && data.code === 200) {
+            this.dataForm = data.category
+          }
+        })
+      }
+    },
+    // 获取目录列表
+    getCategorySelect () {
       this.$http({
         url: this.$http.adornUrl('/admin/operation/category/select'),
         method: 'get',
-        params: this.$http.adornParams()
+        params: this.$http.adornParams({type: this.dataForm.type})
       }).then(({data}) => {
         if (data && data.code === 200) {
           this.categoryList = treeDataTranslate(data.categoryList)
         } else {
           this.categoryList = []
-        }
-      }).then(() => {
-        this.visible = true
-        this.$nextTick(() => {
-          this.$refs['dataForm'].resetFields()
-        })
-      }).then(() => {
-        if (this.dataForm.categoryId) {
-          this.$http({
-            url: this.$http.adornUrl(`/admin/operation/category/info/${this.dataForm.categoryId}`),
-            method: 'get',
-            params: this.$http.adornParams()
-          }).then(({data}) => {
-            if (data && data.code === 200) {
-              this.dataForm = data.category
-            }
-          })
         }
       })
     },
@@ -149,7 +150,7 @@ export default {
     },
     // 分类列表树选中
     categoryListTreeCurrentChangeHandle (data, node) {
-      this.dataForm.parentId = data.categoryId
+      this.dataForm.parentId = data.id
       this.dataForm.parentName = data.name
     }
   }

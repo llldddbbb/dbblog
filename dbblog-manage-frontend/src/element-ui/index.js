@@ -35,7 +35,7 @@ import {
   // ButtonGroup,
   Table,
   TableColumn,
-  // DatePicker,
+  DatePicker,
   // TimeSelect,
   // TimePicker,
   Popover,
@@ -57,7 +57,7 @@ import {
   // Progress,
   Badge,
   Card,
-  // Rate,
+  Rate,
   // Steps,
   // Step,
   // Carousel,
@@ -104,7 +104,7 @@ Vue.use(Button)
 // Vue.use(ButtonGroup)
 Vue.use(Table)
 Vue.use(TableColumn)
-// Vue.use(DatePicker)
+Vue.use(DatePicker)
 // Vue.use(TimeSelect)
 // Vue.use(TimePicker)
 Vue.use(Popover)
@@ -126,7 +126,7 @@ Vue.use(Upload)
 // Vue.use(Progress)
 Vue.use(Badge)
 Vue.use(Card)
-// Vue.use(Rate)
+Vue.use(Rate)
 // Vue.use(Steps)
 // Vue.use(Step)
 // Vue.use(Carousel)

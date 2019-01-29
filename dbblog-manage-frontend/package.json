@@ -15,18 +15,19 @@
   },
   "dependencies": {
     "axios": "0.17.1",
+    "echarts": "4.1.0",
     "element-ui": "2.3.2",
     "lodash": "4.17.5",
+    "mavon-editor": "^2.3.1",
     "node-sass": "4.9.0",
     "sass-loader": "6.0.6",
-    "mavon-editor": "^2.3.1",
     "svg-sprite-loader": "^3.7.3",
     "vue": "^2.5.2",
-    "vue-router": "^3.0.1",
     "vue-cookie": "1.1.4",
-    "vuex": "3.0.1",
     "vue-count-to": "1.0.13",
-    "echarts": "4.1.0"
+    "vue-quill-editor": "^3.0.6",
+    "vue-router": "^3.0.1",
+    "vuex": "3.0.1"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

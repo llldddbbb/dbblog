@@ -2,7 +2,7 @@
   <div class="mod-config">
     <el-form :inline="true" :model="dataForm" @keyup.enter.native="getDataList()">
       <el-form-item>
-        <el-select v-model="dataForm.type">
+        <el-select v-model="dataForm.type" clearable>
           <el-option v-for="type in typeList"
           :key="type.parKey"
           :value="type.parKey"
@@ -33,6 +33,9 @@
         header-align="center"
         align="center"
         label="类型">
+        <template slot-scope="scope">
+          {{getSysParam('MODULE_TYPE',scope.row.type,typeList)}}
+        </template>
       </el-table-column>
       <el-table-column
         prop="rank"
@@ -104,7 +107,6 @@ export default {
       }).then(({data}) => {
         if (data && data.code === 200) {
           this.dataList = treeDataTranslate(data.categoryList)
-          console.log(this.dataList)
         } else {
           this.dataList = []
         }

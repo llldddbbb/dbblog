@@ -29,14 +29,22 @@ const mainRoutes = {
     // 提示: 如需要通过iframe嵌套展示内容, 但不通过tab打开, 请自行创建组件使用iframe处理!
     { path: '/home', component: _import('common/home'), name: 'home', meta: { title: '首页' } },
     { path: '/theme', component: _import('common/theme'), name: 'theme', meta: { title: '主题' } },
-    { path: '/article/article/update/:articleId',
+    { path: '/article/article/update/:id',
       component: _import('modules/article/article-add-or-update'),
       name: 'article-update',
       meta: {
         menuId: 'article-update',
         title: '博文修改',
-        isTab: true,
-        iframeUrl: ''
+        isTab: true
+      }
+    },
+    { path: '/read/book/update/:id',
+      component: _import('modules/read/book-add-or-update'),
+      name: 'book-update',
+      meta: {
+        menuId: 'book-update',
+        title: '阅读修改',
+        isTab: true
       }
     }
   ],

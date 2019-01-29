@@ -1,14 +1,14 @@
   <template>
   <div>
-    <el-form :model="article" label-width="80px" :rules="rules" ref="articleForm">
-      <el-form-item label="博文标题" prop="title">
-        <el-col :span="12">
-          <el-input placeholder="博文标题" v-model="article.title"  clearable></el-input>
+    <el-form :model="book" label-width="80px" :rules="rules" ref="bookForm">
+      <el-form-item label="图书标题" prop="title">
+        <el-col :span="18">
+          <el-input placeholder="图书标题" v-model="book.title"  clearable></el-input>
         </el-col>
       </el-form-item>
       <el-row>
         <el-col :span="6">
-          <el-form-item label="博文分类">
+          <el-form-item label="图书分类">
             <el-cascader
               style="width: 100%;"
               clearable
@@ -20,7 +20,7 @@
           </el-form-item>
         </el-col>
         <el-col :span="6">
-          <el-form-item label="博文标签">
+          <el-form-item label="图书标签">
             <el-select
               style="width: 100%"
               v-model="tagListSelect"
@@ -28,7 +28,7 @@
               allow-create
               filterable
               default-first-option
-              placeholder="请选择文章标签" @change="filterTagList">
+              placeholder="请选择图书标签" @change="filterTagList">
               <el-option
                 v-for="item in tagList"
                   :key="item.id"
@@ -38,23 +38,40 @@
             </el-select>
           </el-form-item>
         </el-col>
+        <el-col :span="6">
+          <el-form-item label="出版日期">
+            <el-date-picker placeholder="出版日期" v-model="book.publishDate"></el-date-picker>
+          </el-form-item>
+        </el-col>
       </el-row>
-      <el-form-item label="博文作者">
-        <el-row>
-          <el-col :span="4">
-            <el-input placeholder="博文作者" v-model="article.author" clearable></el-input>
-          </el-col>
-        </el-row>
-      </el-form-item>
+      <el-row>
+        <el-col :span="6">
+          <el-form-item label="图书作者">
+            <el-input placeholder="图书作者" v-model="book.author" clearable></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="6">
+          <el-form-item label="出版社">
+            <el-input placeholder="出版社" v-model="book.publisher" clearable></el-input>
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="6">
+          <el-form-item label="评分">
+            <el-rate v-model="book.grade" allow-half style="line-height: 2" ></el-rate>
+          </el-form-item>
+        </el-col>
+        <el-col :span="6">
+          <el-form-item label="页数">
+            <el-input-number v-model="book.pageNum" :min="1"  label="页数"></el-input-number>
+          </el-form-item>
+        </el-col>
+      </el-row>
       <el-form-item label="是否推荐">
-        <el-radio-group v-model="article.recommend">
+        <el-radio-group v-model="book.recommend">
           <el-radio :label="true" >是</el-radio>
           <el-radio :label="false" >否</el-radio>
-        </el-radio-group>
-      </el-form-item>
-      <el-form-item label="展示类型">
-        <el-radio-group v-model="article.coverType">
-          <el-radio v-for="type in coverTypeList" :key="type.parKey" :label="type.parKey" >{{type.parValue}}</el-radio>
         </el-radio-group>
       </el-form-item>
       <el-form-item label="上传封面">
@@ -74,16 +91,14 @@
           </el-upload>
         </el-col>
       </el-form-item>
-      <el-form-item label="博文描述">
-        <el-col :span="12">
-          <el-input type="textarea" v-model="article.description" placeholder="博文描述" clearable></el-input>
-        </el-col>
+      <el-form-item label="简介">
+        <quill-editor v-model="book.introduction"></quill-editor>
       </el-form-item>
-      <el-form-item label="博文内容">
-        <mavon-editor ref=md v-model="article.content" @imgAdd="imgAdd" ></mavon-editor>
+      <el-form-item label="目录">
+        <quill-editor v-model="book.catalogue"></quill-editor>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="saveArticle()">保存</el-button>
+        <el-button type="primary" @click="saveBook()">保存</el-button>
         <el-button >重置</el-button>
       </el-form-item>
     </el-form>
@@ -91,25 +106,25 @@
 </template>
 
 <script>
-import MavonEditor from 'mavon-editor'
-import 'mavon-editor/dist/css/index.css'
+// require styles 引入样式
+import 'quill/dist/quill.core.css'
+import 'quill/dist/quill.snow.css'
+import 'quill/dist/quill.bubble.css'
+import { quillEditor } from 'vue-quill-editor'
 import { treeDataTranslate } from '@/utils'
 export default {
-  components: {
-    'mavon-editor': MavonEditor.mavonEditor
-  },
   data () {
     return {
-      article: {
+      book: {
         recommend: false,
         tagList: [],
         type: 0
       },
-      coverTypeList: this.getSysParamArr('ARTICLE_COVER_TYPE'),
+      coverTypeList: this.getSysParamArr('BOOK_COVER_TYPE'),
       url: '',
       file: [],
       rules: {
-        title: {required: true, message: '请输入博文标题', trigger: 'change'}
+        title: {required: true, message: '请输入图书标题', trigger: 'change'}
       },
       tagList: [],
       tagListSelect: [],
@@ -123,16 +138,19 @@ export default {
       }
     }
   },
+  components: {
+    quillEditor
+  },
   created () {
     this.init()
   },
   methods: {
     init () {
-      // 获取博文分类
+      // 获取图书分类
       this.$http({
         url: this.$http.adornUrl('/admin/operation/category/list'),
         method: 'get',
-        params: this.$http.adornParams({type: 0})
+        params: this.$http.adornParams({type: 1})
       }).then(({data}) => {
         if (data && data.code === 200) {
           this.categoryOptions = treeDataTranslate(data.categoryList)
@@ -141,7 +159,7 @@ export default {
         this.$http({
           url: this.$http.adornUrl('/admin/operation/tag/select'),
           method: 'get',
-          params: this.$http.adornParams({type: 0})
+          params: this.$http.adornParams({type: 1})
         }).then(({data}) => {
           if (data && data.code === 200) {
             this.tagList = data.tagList
@@ -152,19 +170,19 @@ export default {
         let id = this.$route.params.id
         if (id) {
           this.$http({
-            url: this.$http.adornUrl('/admin/article/info/' + id),
+            url: this.$http.adornUrl('/admin/read/book/info/' + id),
             method: 'get',
             params: this.$http.adornParams()
           }).then(({data}) => {
             if (data && data.code === 200) {
-              this.article = data.article
-              this.file = [{url: data.article.cover}]
+              this.book = data.book
+              this.file = [{url: data.book.cover}]
               // 转换tagList
-              this.tagListSelect = this.article.tagList.map(tag => {
+              this.tagListSelect = this.book.tagList.map(tag => {
                 return tag.id
               })
               // 转换categoryId
-              this.categoryOptionsSelect = this.article.categoryId.split(',').map((data) => { return +data })
+              this.categoryOptionsSelect = this.book.categoryId.split(',').map((data) => { return +data })
             }
           })
         }
@@ -183,10 +201,10 @@ export default {
           }
         }
         if (isInput) {
-          tagList.push({name: value, type: 0})
+          tagList.push({name: value, type: 1})
         }
       })
-      this.article.tagList = tagList
+      this.book.tagList = tagList
     },
     // 上传之前
     beforeUploadHandle (file) {
@@ -198,7 +216,7 @@ export default {
     // 上传成功
     successHandle (response) {
       if (response && response.code === 200) {
-        this.article.cover = response.resource.url
+        this.book.cover = response.resource.url
         this.file = [response.resource]
         this.$message.success('上传成功！')
       }
@@ -206,25 +224,25 @@ export default {
     // 移除上传文件
     handleRemove (file, fileList) {
       this.file = []
-      this.article.cover = ''
+      this.book.cover = ''
     },
-    // 保存文章
-    saveArticle () {
-      this.$refs['articleForm'].validate((valid) => {
+    // 保存图书
+    saveBook () {
+      this.$refs['bookForm'].validate((valid) => {
         if (valid) {
           // 转化categoryId
-          this.article.categoryId = this.categoryOptionsSelect.join(',')
+          this.book.categoryId = this.categoryOptionsSelect.join(',')
           this.$http({
-            url: this.$http.adornUrl(`/admin/article/${!this.article.id ? 'save' : 'update'}`),
-            method: !this.article.id ? 'post' : 'put',
-            data: this.$http.adornData(this.article)
+            url: this.$http.adornUrl(`/admin/read/book/${!this.book.id ? 'save' : 'update'}`),
+            method: !this.book.id ? 'post' : 'put',
+            data: this.$http.adornData(this.book)
           }).then(({data}) => {
             if (data && data.code === 200) {
-              this.$message.success('保存博文成功')
+              this.$message.success('保存图书成功')
               // 关闭当前标签
               this.$emit('closeCurrentTabs')
               // 跳转到list
-              this.$router.push('/article-article')
+              this.$router.push('/book-book')
             } else {
               this.$message.error(data.msg)
             }
@@ -234,7 +252,7 @@ export default {
         }
       })
     },
-    // 文章内容图片上传
+    // 图书内容图片上传
     imgAdd (pos, $file) {
       // 第一步.将图片上传到服务器.
       let formData = new FormData()
