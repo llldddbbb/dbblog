@@ -74,6 +74,13 @@
           <el-radio :label="false" >否</el-radio>
         </el-radio-group>
       </el-form-item>
+      <el-row>
+        <el-col :span="12">
+          <el-form-item label="阅读进度">
+            <el-slider v-model="book.status"></el-slider>
+          </el-form-item>
+        </el-col>
+      </el-row>
       <el-form-item label="上传封面">
         <el-col :span="12">
           <el-upload
@@ -119,6 +126,7 @@ export default {
         recommend: false,
         tagList: [],
         type: 0,
+        status: 0,
         pageNum: 1
       },
       coverTypeList: this.getSysParamArr('BOOK_COVER_TYPE'),

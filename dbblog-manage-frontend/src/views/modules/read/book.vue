@@ -54,26 +54,23 @@
           </el-row>
         </template>
       </el-table-column>
-    <el-table-column
-        prop="readNum"
-        header-align="center"
-        align="center"
-        width="80"
-        label="阅读">
-    </el-table-column>
+
     <el-table-column
         prop="commentNum"
         header-align="center"
         align="center"
         width="80"
-        label="评论">
+        label="进度">
+      <template slot-scope="scope">
+        <el-slider v-model="scope.row.status"></el-slider>
+      </template>
     </el-table-column>
     <el-table-column
         prop="likeNum"
         header-align="center"
         align="center"
         width="80"
-        label="点赞">
+        label="读后感">
     </el-table-column>
       <el-table-column
         prop="recommend"
