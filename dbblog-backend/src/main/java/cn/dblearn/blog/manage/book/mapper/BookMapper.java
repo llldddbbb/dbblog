@@ -1,7 +1,7 @@
-package cn.dblearn.blog.manage.read.mapper;
+package cn.dblearn.blog.manage.book.mapper;
 
-import cn.dblearn.blog.manage.read.entity.ReadBook;
-import cn.dblearn.blog.manage.read.entity.vo.ReadBookVo;
+import cn.dblearn.blog.manage.book.entity.Book;
+import cn.dblearn.blog.manage.book.entity.vo.BookVo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.ibatis.annotations.Mapper;
@@ -19,7 +19,7 @@ import java.util.Map;
  * @since 2019-01-27
  */
 @Mapper
-public interface ReadBookMapper extends BaseMapper<ReadBook> {
+public interface BookMapper extends BaseMapper<Book> {
 
     /**
      * 获取bookVo
@@ -27,5 +27,5 @@ public interface ReadBookMapper extends BaseMapper<ReadBook> {
      * @param params
      * @return
      */
-    List<ReadBookVo> listBookVo(Page<ReadBookVo> page, @Param("params") Map<String, Object> params);
+    List<BookVo> listBookVo(Page<BookVo> page, @Param("params") Map<String, Object> params);
 }

@@ -1,7 +1,7 @@
-package cn.dblearn.blog.manage.read.service;
+package cn.dblearn.blog.manage.book.service;
 
-import cn.dblearn.blog.manage.read.entity.ReadBook;
-import cn.dblearn.blog.manage.read.entity.dto.ReadBookDto;
+import cn.dblearn.blog.manage.book.entity.Book;
+import cn.dblearn.blog.manage.book.entity.dto.BookDto;
 import com.baomidou.mybatisplus.extension.service.IService;
 import cn.dblearn.blog.common.util.PageUtils;
 
@@ -15,7 +15,7 @@ import java.util.Map;
  * @author bobbi
  * @since 2019-01-27
  */
-public interface ReadBookService extends IService<ReadBook> {
+public interface BookService extends IService<Book> {
 
     /**
      * 分页查询
@@ -28,20 +28,20 @@ public interface ReadBookService extends IService<ReadBook> {
      * 保存图书
       * @param book
      */
-    void saveBook(ReadBookDto book);
+    void saveBook(BookDto book);
 
     /**
      * 获取图书对象
      * @param id
      * @return
      */
-    ReadBookDto getBook(String id);
+    BookDto getBook(String id);
 
     /**
      * 更新图书
      * @param book
      */
-    void updateBook(ReadBookDto book);
+    void updateBook(BookDto book);
 
     /**
      * 批量删除

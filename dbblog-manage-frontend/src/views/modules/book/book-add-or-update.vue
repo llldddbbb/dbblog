@@ -179,7 +179,7 @@ export default {
         let id = this.$route.params.id
         if (id) {
           this.$http({
-            url: this.$http.adornUrl('/admin/read/book/info/' + id),
+            url: this.$http.adornUrl('/admin/book/info/' + id),
             method: 'get',
             params: this.$http.adornParams()
           }).then(({data}) => {
@@ -242,7 +242,7 @@ export default {
           // 转化categoryId
           this.book.categoryId = this.categoryOptionsSelect.join(',')
           this.$http({
-            url: this.$http.adornUrl(`/admin/read/book/${!this.book.id ? 'save' : 'update'}`),
+            url: this.$http.adornUrl(`/admin/book/${!this.book.id ? 'save' : 'update'}`),
             method: !this.book.id ? 'post' : 'put',
             data: this.$http.adornData(this.book)
           }).then(({data}) => {
@@ -251,7 +251,7 @@ export default {
               // 关闭当前标签
               this.$emit('closeCurrentTabs')
               // 跳转到list
-              this.$router.push('/read-book')
+              this.$router.push('/book-book')
             } else {
               this.$message.error(data.msg)
             }

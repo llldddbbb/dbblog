@@ -1,7 +1,7 @@
-package cn.dblearn.blog.manage.read.entity.vo;
+package cn.dblearn.blog.manage.book.entity.vo;
 
 import cn.dblearn.blog.manage.operation.entity.Tag;
-import cn.dblearn.blog.manage.read.entity.ReadBook;
+import cn.dblearn.blog.manage.book.entity.Book;
 import lombok.Data;
 
 import java.util.List;
@@ -15,7 +15,7 @@ import java.util.List;
  * @description
  */
 @Data
-public class ReadBookVo extends ReadBook {
+public class BookVo extends Book {
     /**
      * 所属分类，以逗号分隔
      */

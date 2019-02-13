@@ -1,4 +1,4 @@
-package cn.dblearn.blog.manage.read.entity;
+package cn.dblearn.blog.manage.book.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.annotations.ApiModel;
@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @ApiModel(value="ReadBook对象", description="图书表")
-public class ReadBook implements Serializable {
+public class Book implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

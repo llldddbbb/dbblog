@@ -1,4 +1,4 @@
-package cn.dblearn.blog.manage.read.entity;
+package cn.dblearn.blog.manage.book.entity;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -21,7 +21,7 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @ApiModel(value="ReadBookSense对象", description="读后感")
-public class ReadBookSense implements Serializable {
+public class BookSense implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

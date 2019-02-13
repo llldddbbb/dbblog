@@ -1,11 +1,11 @@
-package cn.dblearn.blog.manage.read.controller;
+package cn.dblearn.blog.manage.book.controller;
 
 import cn.dblearn.blog.common.Result;
 import cn.dblearn.blog.common.util.PageUtils;
 import cn.dblearn.blog.common.validator.ValidatorUtils;
-import cn.dblearn.blog.manage.read.entity.ReadBook;
-import cn.dblearn.blog.manage.read.entity.dto.ReadBookDto;
-import cn.dblearn.blog.manage.read.service.ReadBookService;
+import cn.dblearn.blog.manage.book.entity.Book;
+import cn.dblearn.blog.manage.book.entity.dto.BookDto;
+import cn.dblearn.blog.manage.book.service.BookService;
 import cn.dblearn.blog.manage.sys.controller.AbstractController;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -24,16 +24,16 @@ import java.util.Map;
  */
 @RestController
 @Slf4j
-@RequestMapping("/admin/read/book")
-public class ReadBookController extends AbstractController {
+@RequestMapping("/admin/book")
+public class BookController extends AbstractController {
     @Autowired
-    private ReadBookService bookService;
+    private BookService bookService;
 
     /**
      * 列表
      */
     @GetMapping("/list")
-    @RequiresPermissions("read:book:list")
+    @RequiresPermissions("book:list")
     public Result list(@RequestParam Map<String, Object> params) {
         PageUtils page = bookService.queryPage(params);
 
@@ -45,9 +45,9 @@ public class ReadBookController extends AbstractController {
      * 信息
      */
     @GetMapping("/info/{id}")
-    @RequiresPermissions("read:book:info")
+    @RequiresPermissions("book:info")
     public Result info(@PathVariable("id") String id) {
-        ReadBookDto book = bookService.getBook(id);
+        BookDto book = bookService.getBook(id);
         return Result.ok().put("book", book);
     }
 
@@ -55,8 +55,8 @@ public class ReadBookController extends AbstractController {
      * 保存
      */
     @PostMapping("/save")
-    @RequiresPermissions("read:book:save")
-    public Result save(@RequestBody ReadBookDto book) {
+    @RequiresPermissions("book:save")
+    public Result save(@RequestBody BookDto book) {
         ValidatorUtils.validateEntity(book);
         bookService.saveBook(book);
 
@@ -67,8 +67,8 @@ public class ReadBookController extends AbstractController {
      * 修改
      */
     @PutMapping("/update")
-    @RequiresPermissions("read:book:update")
-    public Result update(@RequestBody ReadBookDto book) {
+    @RequiresPermissions("book:update")
+    public Result update(@RequestBody BookDto book) {
         ValidatorUtils.validateEntity(book);
         bookService.updateBook(book);
         return Result.ok();
@@ -81,8 +81,8 @@ public class ReadBookController extends AbstractController {
      * @return
      */
     @PutMapping("/update/status")
-    @RequiresPermissions("read:book:update")
-    public Result updateStatus(@RequestBody ReadBook readBook) {
+    @RequiresPermissions("book:update")
+    public Result updateStatus(@RequestBody Book readBook) {
         bookService.updateById(readBook);
         return Result.ok();
     }
@@ -91,7 +91,7 @@ public class ReadBookController extends AbstractController {
      * 删除
      */
     @DeleteMapping("/delete")
-    @RequiresPermissions("read:book:delete")
+    @RequiresPermissions("book:delete")
     public Result delete(@RequestBody Integer[] ids) {
         bookService.deleteBatch(ids);
 

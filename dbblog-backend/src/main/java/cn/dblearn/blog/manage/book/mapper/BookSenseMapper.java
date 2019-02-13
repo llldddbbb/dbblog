@@ -1,6 +1,6 @@
-package cn.dblearn.blog.manage.read.mapper;
+package cn.dblearn.blog.manage.book.mapper;
 
-import cn.dblearn.blog.manage.read.entity.ReadBookSense;
+import cn.dblearn.blog.manage.book.entity.BookSense;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -13,6 +13,6 @@ import org.apache.ibatis.annotations.Mapper;
  * @since 2019-02-13
  */
 @Mapper
-public interface ReadBookSenseMapper extends BaseMapper<ReadBookSense> {
+public interface BookSenseMapper extends BaseMapper<BookSense> {
 
 }

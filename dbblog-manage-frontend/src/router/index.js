@@ -38,8 +38,8 @@ const mainRoutes = {
         isTab: true
       }
     },
-    { path: '/read/book/update/:id',
-      component: _import('modules/read/book-add-or-update'),
+    { path: '/book/book/update/:id',
+      component: _import('modules/book/book-add-or-update'),
       name: 'book-update',
       meta: {
         menuId: 'book-update',

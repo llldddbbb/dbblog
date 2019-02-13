@@ -1,6 +1,6 @@
-package cn.dblearn.blog.manage.read.service;
+package cn.dblearn.blog.manage.book.service;
 
-import cn.dblearn.blog.manage.read.entity.ReadBookSense;
+import cn.dblearn.blog.manage.book.entity.BookSense;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -11,12 +11,12 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @author bobbi
  * @since 2019-02-13
  */
-public interface ReadBookSenseService extends IService<ReadBookSense> {
+public interface BookSenseService extends IService<BookSense> {
 
     /**
      * 获取读后感
      * @param bookId
      * @return
      */
-    ReadBookSense getReadSense(Integer bookId);
+    BookSense getBookSense(Integer bookId);
 }

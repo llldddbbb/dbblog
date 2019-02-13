@@ -6,7 +6,7 @@
       </el-form-item>
       <el-form-item>
         <el-button @click="getDataList()">查询</el-button>
-        <el-button v-if="isAuth('read:book:delete')" type="danger" @click="deleteHandle()" :disabled="dataListSelections.length <= 0">批量删除</el-button>
+        <el-button v-if="isAuth('book:delete')" type="danger" @click="deleteHandle()" :disabled="dataListSelections.length <= 0">批量删除</el-button>
       </el-form-item>
     </el-form>
     <el-table
@@ -127,17 +127,17 @@
       layout="total, sizes, prev, pager, next, jumper">
     </el-pagination>
     <!-- 弹窗, 读后感 -->
-    <el-dialog title="读后感" :visible.sync="readSenseVisible">
+    <el-dialog title="读后感" :visible.sync="bookSenseVisible">
       <el-form>
         <el-form-item label="作者">
-          <el-input v-model="readSense.author"/>
+          <el-input v-model="bookSense.author"/>
         </el-form-item>
         <el-form-item>
-          <quill-editor v-model="readSense.content"></quill-editor>
+          <quill-editor v-model="bookSense.content"></quill-editor>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="updateReadSense()">保存</el-button>
-          <el-button @click="readSenseVisible = false" >取消</el-button>
+          <el-button @click="bookSenseVisible = false" >取消</el-button>
         </el-form-item>
       </el-form>
     </el-dialog>
@@ -162,8 +162,8 @@ export default {
       totalPage: 0,
       dataListLoading: false,
       dataListSelections: [],
-      readSenseVisible: false,
-      readSense: {
+      bookSenseVisible: false,
+      bookSense: {
         content: '',
         author: ''
       }
@@ -180,7 +180,7 @@ export default {
     getDataList () {
       this.dataListLoading = true
       this.$http({
-        url: this.$http.adornUrl('/admin/read/book/list'),
+        url: this.$http.adornUrl('/admin/book/list'),
         method: 'get',
         params: this.$http.adornParams({
           'page': this.pageIndex,
@@ -215,7 +215,7 @@ export default {
     },
     // 新增 / 修改
     addOrUpdateHandle (id) {
-      this.$router.push({path: 'read/book/update/' + id})
+      this.$router.push({path: 'book/update/' + id})
     },
     // 删除
     deleteHandle (id) {
@@ -228,7 +228,7 @@ export default {
         type: 'warning'
       }).then(() => {
         this.$http({
-          url: this.$http.adornUrl('/admin/read/book/delete'),
+          url: this.$http.adornUrl('/admin/book/delete'),
           method: 'delete',
           data: this.$http.adornData(ids, false)
         }).then(({data}) => {
@@ -274,7 +274,7 @@ export default {
     // 更新状态
     updateStatus (data) {
       this.$http({
-        url: this.$http.adornUrl(`/admin/read/book/update/status`),
+        url: this.$http.adornUrl(`/admin/book/update/status`),
         method: 'put',
         data: this.$http.adornData(data)
       }).then(({data}) => {
@@ -289,24 +289,24 @@ export default {
     // 更新读后感
     getReadSense (id) {
       this.$http({
-        url: this.$http.adornUrl('/admin/read/book/sense/' + id),
+        url: this.$http.adornUrl('/admin/book/sense/' + id),
         method: 'get',
         params: this.$http.adornParams()
       }).then(({data}) => {
         if (data && data.code === 200) {
-          this.readSense = data.readSense
-          this.readSense.bookId = id
+          this.bookSense = data.bookSense
+          this.bookSense.bookId = id
         }
       }).then(() => {
-        this.readSenseVisible = true
+        this.bookSenseVisible = true
       })
     },
     // 更新读后感
     updateReadSense () {
       this.$http({
-        url: this.$http.adornUrl(`/admin/read/book/sense/${!this.readSense.id ? 'save' : 'update'}`),
-        method: !this.readSense.id ? 'post' : 'put',
-        data: this.$http.adornData(this.readSense)
+        url: this.$http.adornUrl(`/admin/book/sense/${!this.bookSense.id ? 'save' : 'update'}`),
+        method: !this.bookSense.id ? 'post' : 'put',
+        data: this.$http.adornData(this.bookSense)
       }).then(({data}) => {
         if (data && data.code === 200) {
           this.$message({
@@ -314,7 +314,7 @@ export default {
             type: 'success',
             duration: 1500,
             onClose: () => {
-              this.readSenseVisible = false
+              this.bookSenseVisible = false
             }
           })
         } else {

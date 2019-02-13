@@ -1,7 +1,7 @@
-package cn.dblearn.blog.manage.read.entity.dto;
+package cn.dblearn.blog.manage.book.entity.dto;
 
 import cn.dblearn.blog.manage.operation.entity.Tag;
-import cn.dblearn.blog.manage.read.entity.ReadBook;
+import cn.dblearn.blog.manage.book.entity.Book;
 import lombok.Data;
 
 import java.util.List;
@@ -15,7 +15,7 @@ import java.util.List;
  * @description
  */
 @Data
-public class ReadBookDto extends ReadBook {
+public class BookDto extends Book {
 
     List<Tag> tagList;
 }
