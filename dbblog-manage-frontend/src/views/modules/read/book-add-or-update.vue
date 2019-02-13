@@ -77,7 +77,7 @@
       <el-row>
         <el-col :span="12">
           <el-form-item label="阅读进度">
-            <el-slider v-model="book.status"></el-slider>
+            <el-slider v-model="book.progress" :step="10"></el-slider>
           </el-form-item>
         </el-col>
       </el-row>
@@ -239,7 +239,7 @@ export default {
     saveBook () {
       this.$refs['bookForm'].validate((valid) => {
         if (valid) {
-          // 转化categoryIdt: _import('modules/r
+          // 转化categoryId
           this.book.categoryId = this.categoryOptionsSelect.join(',')
           this.$http({
             url: this.$http.adornUrl(`/admin/read/book/${!this.book.id ? 'save' : 'update'}`),

@@ -34,7 +34,7 @@ public class ReadBookController extends AbstractController {
      */
     @GetMapping("/list")
     @RequiresPermissions("read:book:list")
-    public Result list(@RequestParam Map<String, Object> params){
+    public Result list(@RequestParam Map<String, Object> params) {
         PageUtils page = bookService.queryPage(params);
 
         return Result.ok().put("page", page);
@@ -46,7 +46,7 @@ public class ReadBookController extends AbstractController {
      */
     @GetMapping("/info/{id}")
     @RequiresPermissions("read:book:info")
-    public Result info(@PathVariable("id") String id){
+    public Result info(@PathVariable("id") String id) {
         ReadBookDto book = bookService.getBook(id);
         return Result.ok().put("book", book);
     }
@@ -56,7 +56,7 @@ public class ReadBookController extends AbstractController {
      */
     @PostMapping("/save")
     @RequiresPermissions("read:book:save")
-    public Result save(@RequestBody ReadBookDto book){
+    public Result save(@RequestBody ReadBookDto book) {
         ValidatorUtils.validateEntity(book);
         bookService.saveBook(book);
 
@@ -68,7 +68,7 @@ public class ReadBookController extends AbstractController {
      */
     @PutMapping("/update")
     @RequiresPermissions("read:book:update")
-    public Result update(@RequestBody ReadBookDto book){
+    public Result update(@RequestBody ReadBookDto book) {
         ValidatorUtils.validateEntity(book);
         bookService.updateBook(book);
         return Result.ok();
@@ -76,6 +76,7 @@ public class ReadBookController extends AbstractController {
 
     /**
      * 更新状态
+     *
      * @param readBook
      * @return
      */
@@ -91,9 +92,11 @@ public class ReadBookController extends AbstractController {
      */
     @DeleteMapping("/delete")
     @RequiresPermissions("read:book:delete")
-    public Result delete(@RequestBody Integer[] ids){
+    public Result delete(@RequestBody Integer[] ids) {
         bookService.deleteBatch(ids);
 
         return Result.ok();
     }
+
+
 }

@@ -77,8 +77,8 @@ public class ReadBook implements Serializable {
     @ApiModelProperty(value = "更新时间")
     private LocalDateTime updateTime;
 
-    @ApiModelProperty(value = "读书状态")
-    private Integer status;
+    @ApiModelProperty(value = "读书进度")
+    private Integer progress;
 
 
 }

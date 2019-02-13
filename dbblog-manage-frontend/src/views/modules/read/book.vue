@@ -25,7 +25,8 @@
         prop="cover"
         header-align="center"
         align="center"
-        label="封面">
+        label="封面"
+        width="150">
         <template slot-scope="scope">
           <img :src="scope.row.cover" style="width: 50px;height: 100px">
         </template>
@@ -54,29 +55,22 @@
           </el-row>
         </template>
       </el-table-column>
-
     <el-table-column
-        prop="commentNum"
+        prop="progress"
         header-align="center"
         align="center"
-        width="80"
+        width="200"
         label="进度">
       <template slot-scope="scope">
-        <el-slider v-model="scope.row.status"></el-slider>
+        <el-slider v-model="scope.row.progress" :step="10" @change="updateProgress(scope.row.id,scope.row.progress)"></el-slider>
       </template>
-    </el-table-column>
-    <el-table-column
-        prop="likeNum"
-        header-align="center"
-        align="center"
-        width="80"
-        label="读后感">
     </el-table-column>
       <el-table-column
         prop="recommend"
         header-align="center"
         align="center"
-        label="推荐">
+        label="推荐"
+        width="80">
         <template slot-scope="scope">
           <el-switch
             v-model="scope.row.recommend"
@@ -89,13 +83,25 @@
         prop="recommend"
         header-align="center"
         align="center"
-        label="状态">
+        label="状态"
+        width="100">
         <template slot-scope="scope">
           <el-tooltip class="item" effect="dark" content="点击发布" v-if="!scope.row.publish" placement="top">
             <el-button type="info" size="mini" @click="updatePublish(scope.row.id, true)">未发布</el-button>
           </el-tooltip>
           <el-tooltip class="item" effect="dark" content="点击下架" v-if="scope.row.publish" placement="top">
             <el-button type="success" size="mini" @click="updatePublish(scope.row.id, false)" v-if="scope.row.publish === true">已发布</el-button>
+          </el-tooltip>
+        </template>
+      </el-table-column>
+      <el-table-column
+        header-align="center"
+        align="center"
+        label="读后感"
+        width="80">
+        <template slot-scope="scope">
+          <el-tooltip class="item" effect="dark" content="修改读后感" placement="top">
+            <el-button icon="el-icon-edit" circle @click="getReadSense(scope.row.id)"></el-button>
           </el-tooltip>
         </template>
       </el-table-column>
@@ -120,17 +126,35 @@
       :total="totalPage"
       layout="total, sizes, prev, pager, next, jumper">
     </el-pagination>
-    <!-- 弹窗, 新增 / 修改 -->
-    <add-or-update v-if="addOrUpdateVisible" ref="addOrUpdate" @refreshDataList="getDataList"></add-or-update>
+    <!-- 弹窗, 读后感 -->
+    <el-dialog title="读后感" :visible.sync="readSenseVisible">
+      <el-form>
+        <el-form-item label="作者">
+          <el-input v-model="readSense.author"/>
+        </el-form-item>
+        <el-form-item>
+          <quill-editor v-model="readSense.content"></quill-editor>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="updateReadSense()">保存</el-button>
+          <el-button @click="readSenseVisible = false" >取消</el-button>
+        </el-form-item>
+      </el-form>
+    </el-dialog>
   </div>
 </template>
 
 <script>
+// require styles 引入样式
+import 'quill/dist/quill.core.css'
+import 'quill/dist/quill.snow.css'
+import 'quill/dist/quill.bubble.css'
+import { quillEditor } from 'vue-quill-editor'
 export default {
   data () {
     return {
       dataForm: {
-        key: ''
+        title: ''
       },
       dataList: [],
       pageIndex: 1,
@@ -138,8 +162,15 @@ export default {
       totalPage: 0,
       dataListLoading: false,
       dataListSelections: [],
-      addOrUpdateVisible: false
+      readSenseVisible: false,
+      readSense: {
+        content: '',
+        author: ''
+      }
     }
+  },
+  components: {
+    quillEditor
   },
   activated () {
     this.getDataList()
@@ -216,7 +247,7 @@ export default {
         })
       })
     },
-    // 更新文章推荐状态
+    // 更新图书推荐状态
     updateRecommend (id, value) {
       let data = {
         id: id,
@@ -224,11 +255,19 @@ export default {
       }
       this.updateStatus(data)
     },
-    // 更新文章发布状态
+    // 更新图书发布状态
     updatePublish (id, value) {
       let data = {
         id: id,
         publish: value
+      }
+      this.updateStatus(data)
+    },
+    // 更新图书阅读进度
+    updateProgress (id, value) {
+      let data = {
+        id: id,
+        progress: value
       }
       this.updateStatus(data)
     },
@@ -242,6 +281,42 @@ export default {
         if (data && data.code === 200) {
           this.$message.success('更新成功')
           this.getDataList()
+        } else {
+          this.$message.error(data.msg)
+        }
+      })
+    },
+    // 更新读后感
+    getReadSense (id) {
+      this.$http({
+        url: this.$http.adornUrl('/admin/read/book/sense/' + id),
+        method: 'get',
+        params: this.$http.adornParams()
+      }).then(({data}) => {
+        if (data && data.code === 200) {
+          this.readSense = data.readSense
+          this.readSense.bookId = id
+        }
+      }).then(() => {
+        this.readSenseVisible = true
+      })
+    },
+    // 更新读后感
+    updateReadSense () {
+      this.$http({
+        url: this.$http.adornUrl(`/admin/read/book/sense/${!this.readSense.id ? 'save' : 'update'}`),
+        method: !this.readSense.id ? 'post' : 'put',
+        data: this.$http.adornData(this.readSense)
+      }).then(({data}) => {
+        if (data && data.code === 200) {
+          this.$message({
+            message: '操作成功',
+            type: 'success',
+            duration: 1500,
+            onClose: () => {
+              this.readSenseVisible = false
+            }
+          })
         } else {
           this.$message.error(data.msg)
         }
