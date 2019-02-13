@@ -1,0 +1,78 @@
+package cn.dblearn.blog.manage.book.controller;
+
+import cn.dblearn.blog.common.Result;
+import cn.dblearn.blog.common.util.PageUtils;
+import cn.dblearn.blog.common.validator.ValidatorUtils;
+import cn.dblearn.blog.manage.book.entity.BookNote;
+import cn.dblearn.blog.manage.book.entity.dto.BookNoteDto;
+import cn.dblearn.blog.manage.book.service.BookNoteService;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
+import java.time.LocalDateTime;
+import java.util.Map;
+
+
+/**
+ * BookNoteAdminController
+ *
+ * @author bobbi
+ * @date 2018/11/20 20:25
+ * @email 571002217@qq.com
+ * @description
+ */
+@RestController
+@RequestMapping("/admin/book/note")
+public class BookNoteController {
+
+    @Resource
+    private BookNoteService bookNoteService;
+
+    @GetMapping("/list")
+    @RequiresPermissions("book:note:list")
+    public Result listBookNote(@RequestParam Map<String, Object> params) {
+        PageUtils page = bookNoteService.queryPage(params);
+        return Result.ok().put("page",page);
+    }
+
+    @GetMapping("/info/{bookNoteId}")
+    @RequiresPermissions("book:note:list")
+    public Result info(@PathVariable Integer bookNoteId) {
+        BookNoteDto bookNote = bookNoteService.getBookNote(bookNoteId);
+        return Result.ok().put("bookNote",bookNote);
+    }
+
+    @PostMapping("/save")
+    @RequiresPermissions("book:note:save")
+    public Result saveBookNote(@RequestBody BookNoteDto bookNote){
+        ValidatorUtils.validateEntity(bookNote);
+        bookNoteService.saveBookNote(bookNote);
+        return Result.ok();
+    }
+
+    @PutMapping("/update")
+    @RequiresPermissions("book:note:update")
+    public Result updateBookNote(@RequestBody BookNoteDto bookNote){
+        ValidatorUtils.validateEntity(bookNote);
+        bookNote.setUpdateTime(LocalDateTime.now());
+        bookNoteService.updateBookNote(bookNote);
+        return Result.ok();
+    }
+    
+    @PutMapping("/update/status")
+    @RequiresPermissions("book:note:update")
+    public Result updateStatus(@RequestBody BookNote bookNote) {
+        bookNoteService.updateById(bookNote);
+        return Result.ok();
+    }
+
+
+    @DeleteMapping("/delete")
+    @RequiresPermissions("book:note:delete")
+    public Result deleteBatch(@RequestBody Integer[] bookNoteIds){
+        bookNoteService.deleteBatch(bookNoteIds);
+        return Result.ok();
+    }
+
+}

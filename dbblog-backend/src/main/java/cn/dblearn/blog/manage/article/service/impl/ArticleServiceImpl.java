@@ -22,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * articleAdminServiceImpl
@@ -50,16 +51,17 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     public PageUtils queryPage(Map<String, Object> params) {
         Page<ArticleVo> page = new Query<ArticleVo>(params).getPage();
         List<ArticleVo> articleList = baseMapper.listArticleVo(page, params);
-        page.setRecords(articleList);
         // 查询所有分类
         List<Category> categoryList = categoryService.list(new QueryWrapper<Category>().lambda().eq(Category::getType,ModuleEnum.ARTICLE.getValue()));
         // 封装ArticleVo
-        articleList.forEach(articleVo -> {
-            // 设置类别
-            articleVo.setCategoryListStr(categoryService.renderCategoryArr(articleVo.getCategoryId(),categoryList));
-            // 设置标签列表
-            articleVo.setTagList(tagService.listByLinkId(articleVo.getId(),ModuleEnum.ARTICLE.getValue()));
-        });
+        Optional.ofNullable(articleList).ifPresent((articleVos ->
+                articleVos.forEach(articleVo -> {
+                // 设置类别
+                articleVo.setCategoryListStr(categoryService.renderCategoryArr(articleVo.getCategoryId(),categoryList));
+                // 设置标签列表
+                articleVo.setTagList(tagService.listByLinkId(articleVo.getId(),ModuleEnum.ARTICLE.getValue()));
+            })));
+        page.setRecords(articleList);
         return new PageUtils(page);
     }
 

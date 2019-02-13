@@ -175,11 +175,11 @@ export default {
       let tagList = []
       selectValueList.forEach(value => {
         let isInput = true
-        for (let i = 0; i < tagList.length; i++) {
-          let tag = tagList[i]
+        for (let i = 0; i < this.tagList.length; i++) {
+          let tag = this.tagList[i]
           if (tag.id === value || value.id) {
             isInput = false
-            tagList.push({id: tag.id, name: tag.name, type: 1})
+            tagList.push({id: tag.id, name: tag.name, type: 0})
           }
         }
         if (isInput) {

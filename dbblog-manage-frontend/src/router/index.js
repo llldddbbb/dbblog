@@ -46,6 +46,15 @@ const mainRoutes = {
         title: '阅读修改',
         isTab: true
       }
+    },
+    { path: '/book/note/update/:id',
+      component: _import('modules/book/note-add-or-update'),
+      name: 'book-note-update',
+      meta: {
+        menuId: 'book-note-update',
+        title: '笔记修改',
+        isTab: true
+      }
     }
   ],
   beforeEnter (to, from, next) {

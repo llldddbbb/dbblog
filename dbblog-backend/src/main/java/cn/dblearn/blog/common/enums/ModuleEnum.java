@@ -17,9 +17,13 @@ public enum ModuleEnum {
      */
     ARTICLE(0),
     /**
-     * 阅读模块
+     * 图书模块
      */
-    READING(1);
+    BOOK(1),
+    /**
+     * 图书笔记模块
+     */
+    BOOK_NOTE(2);
 
     private Integer value;
 

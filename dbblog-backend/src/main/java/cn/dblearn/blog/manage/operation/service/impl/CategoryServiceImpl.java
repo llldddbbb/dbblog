@@ -9,9 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * <p>
@@ -64,7 +62,8 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
         for (int i = 0; i < categoryIdArr.length; i++) {
             Integer categoryId = Integer.parseInt(categoryIdArr[i]);
             // 根据Id查找类别名称
-            String categoryStr = categoryList.stream()
+            String categoryStr = categoryList
+                    .stream()
                     .filter(category -> category.getId().equals(categoryId))
                     .map(Category::getName)
                     .findAny().get();

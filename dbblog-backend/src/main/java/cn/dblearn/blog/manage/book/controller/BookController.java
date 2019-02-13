@@ -12,6 +12,7 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -38,6 +39,16 @@ public class BookController extends AbstractController {
         PageUtils page = bookService.queryPage(params);
 
         return Result.ok().put("page", page);
+    }
+
+    /**
+     * 列表
+     */
+    @GetMapping("/select")
+    @RequiresPermissions("book:list")
+    public Result select() {
+        List<Book> bookList = bookService.list(null);
+        return Result.ok().put("bookList", bookList);
     }
 
 
