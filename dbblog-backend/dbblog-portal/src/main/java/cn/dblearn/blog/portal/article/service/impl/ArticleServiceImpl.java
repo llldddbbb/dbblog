@@ -28,12 +28,12 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     /**
      * 获取文章详情
      *
-     * @param articleId
+     * @param id
      * @return
      */
     @Override
-    public Article getArticle(Integer articleId) {
-        return baseMapper.selectById(articleId);
+    public Article getArticle(Integer id) {
+        return baseMapper.selectById(id);
     }
 
     /**

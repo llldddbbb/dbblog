@@ -1,16 +1,16 @@
 <template>
   <div class="article-list-cell">
-    <a :href="'article/'+article.articleId">
+    <a :href="'article/'+article.id">
       <iv-row type="flex">
         <iv-col :xs="24" :sm="24" :md="textSpan" :lg="textSpan" :order="textOrderType" style="padding-left: 0;padding-right: 0;">
           <div class="text-wrapper">
             <h4 class="title">
-              <a :href="'article/'+article.articleId">{{article.title}}</a>
+              <a :href="'article/'+article.id">{{article.title}}</a>
             </h4>
             <div class="tags">
               <iv-tag :color="getTagColor(index)" :key="tag.id" v-for ="(tag , index) in article.tagList">{{tag.tagName}}</iv-tag>
             </div>
-            <p class="desc">{{article.description}}<a :href="'article/'+article.articleId"> View More
+            <p class="desc">{{article.description}}<a :href="'article/'+article.id"> View More
               <iv-icon type="arrow-right-b"></iv-icon>
             </a></p>
             <p class="operate_info">
@@ -33,8 +33,8 @@
 
 <script type="text/ecmascript-6">
 import { mapTagColor } from '@/utils'
-const ARTICLE_TYPE_BIG_IMAGE = 2
-const ARTICLE_TYPE_NO_IMAGE = 3
+const ARTICLE_TYPE_BIG_IMAGE = 1
+const ARTICLE_TYPE_NO_IMAGE = 2
 
 export default {
   props: {
@@ -49,31 +49,31 @@ export default {
   },
   computed: {
     textOrderType: function () {
-      return this.article.type === ARTICLE_TYPE_BIG_IMAGE ? 2 : 1
+      return this.article.coverType === ARTICLE_TYPE_BIG_IMAGE ? 2 : 1
     },
     imgOrderType: function () {
-      return this.article.type === ARTICLE_TYPE_BIG_IMAGE ? 1 : 2
+      return this.article.coverType === ARTICLE_TYPE_BIG_IMAGE ? 1 : 2
     },
     textSpan: function () {
-      if (this.article.type === ARTICLE_TYPE_BIG_IMAGE) {
+      if (this.article.coverType === ARTICLE_TYPE_BIG_IMAGE) {
         return 24
-      } else if (this.article.type === ARTICLE_TYPE_NO_IMAGE) {
+      } else if (this.article.coverType === ARTICLE_TYPE_NO_IMAGE) {
         return 24
       } else {
         return 17
       }
     },
     imgSpan: function () {
-      if (this.article.type === ARTICLE_TYPE_BIG_IMAGE) {
+      if (this.article.coverType === ARTICLE_TYPE_BIG_IMAGE) {
         return 24
-      } else if (this.article.type === ARTICLE_TYPE_NO_IMAGE) {
+      } else if (this.article.coverType === ARTICLE_TYPE_NO_IMAGE) {
         return 0
       } else {
         return 7
       }
     },
     themeClass: function () {
-      if (this.article.type === ARTICLE_TYPE_BIG_IMAGE) {
+      if (this.article.coverType === ARTICLE_TYPE_BIG_IMAGE) {
         return 'big-image'
       } else {
         return ''

@@ -25,9 +25,9 @@ public enum ModuleEnum {
      */
     BOOK_NOTE(2);
 
-    private Integer value;
+    private int value;
 
-    ModuleEnum(Integer value) {
+    ModuleEnum(int value) {
         this.value = value;
     }
 }

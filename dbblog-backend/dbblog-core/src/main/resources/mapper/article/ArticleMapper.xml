@@ -35,4 +35,8 @@
             order by comment_num desc
         </if>
     </select>
+
+    <update id="updateViewNum">
+        update article set read_num = read_num + 1 where id = #{id}
+    </update>
 </mapper>

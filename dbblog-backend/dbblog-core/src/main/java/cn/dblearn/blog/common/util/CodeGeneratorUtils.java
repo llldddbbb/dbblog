@@ -106,7 +106,7 @@ public class CodeGeneratorUtils {
             }
         });
         //配置前端addOrUpdate页面
-        focList.add(new FileOutConfig("/templates/freemarker/add-or-update.vue.ftl") {
+        focList.add(new FileOutConfig("/templates/add-or-update.vue.ftl") {
             @Override
             public String outputFile(TableInfo tableInfo) {
                 // 自定义输入文件名称
@@ -115,7 +115,7 @@ public class CodeGeneratorUtils {
             }
         });
         //配置前端list页面
-        focList.add(new FileOutConfig("/templates/freemarker/index.vue.ftl") {
+        focList.add(new FileOutConfig("/templates/index.vue.ftl") {
             @Override
             public String outputFile(TableInfo tableInfo) {
                 // 自定义输入文件名称
@@ -124,7 +124,7 @@ public class CodeGeneratorUtils {
             }
         });
         //配置菜单SQL
-        focList.add(new FileOutConfig("/templates/freemarker/menu.sql.ftl") {
+        focList.add(new FileOutConfig("/templates/menu.sql.ftl") {
             @Override
             public String outputFile(TableInfo tableInfo) {
                 // 自定义输入文件名称
@@ -134,12 +134,12 @@ public class CodeGeneratorUtils {
         });
 
         TemplateConfig tc = new TemplateConfig();
-        tc.setEntity("/templates/freemarker/entity.java");
+        tc.setEntity("/templates/entity.java");
         tc.setXml(null);
-        tc.setMapper("/templates/freemarker/mapper.java");
-        tc.setService("/templates/freemarker/service.java");
-        tc.setServiceImpl("/templates/freemarker/serviceImpl.java");
-        tc.setController("/templates/freemarker/controller.java");
+        tc.setMapper("/templates/mapper.java");
+        tc.setService("/templates/service.java");
+        tc.setServiceImpl("/templates/serviceImpl.java");
+        tc.setController("/templates/controller.java");
 
         cfg.setFileOutConfigList(focList);
         mpg.setCfg(cfg);
