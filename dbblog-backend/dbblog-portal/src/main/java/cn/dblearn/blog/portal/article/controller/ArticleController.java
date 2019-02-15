@@ -23,7 +23,7 @@ import java.util.Map;
  * @since 2018-11-07
  */
 @RestController("articlePortalController")
-public class ArticlePortalController {
+public class ArticleController {
 
     @Autowired
     private ArticleService articleService;
