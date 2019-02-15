@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.dblearn.blog.mapper.article.ArticleCommentMapper">
+
+    <select id="listByArticleId" resultType="cn.dblearn.blog.entity.article.ArticleComment">
+      select bac.*,
+      (select bac2.nick_name from comment bac2 where bac2.id=bac.parent_id) as parentNickName
+      from comment bac where bac.link_id=#{articleId}
+    </select>
+</mapper>

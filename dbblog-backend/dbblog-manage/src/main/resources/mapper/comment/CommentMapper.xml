@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.dblearn.blog.mapper.common.CommentMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.dblearn.blog.entity.comment.Comment">
+        <id column="comment_id" property="commentId" />
+        <result column="nick_name" property="nickName" />
+        <result column="email" property="email" />
+        <result column="content" property="content" />
+        <result column="parent_id" property="parentId" />
+        <result column="article_id" property="articleId" />
+        <result column="like_num" property="likeNum" />
+        <result column="dislike_num" property="dislikeNum" />
+        <result column="comment_level" property="commentLevel" />
+        <result column="create_time" property="createTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        comment_id, nick_name, email, content, parent_id, article_id, like_num, dislike_num, comment_level, create_time
+    </sql>
+
+</mapper>

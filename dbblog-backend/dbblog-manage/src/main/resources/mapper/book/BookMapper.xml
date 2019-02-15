@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.dblearn.blog.mapper.book.BookMapper">
+
+    <select id="listBookVo" resultType="cn.dblearn.blog.entity.book.vo.BookVo">
+        select * from book
+        <where>
+            <if test="params.title!=null and params.title!=''">
+                and title = #{params.title}
+            </if>
+        </where>
+    </select>
+</mapper>

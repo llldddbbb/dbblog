@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.dblearn.blog.mapper.sys.SysUserMapper">
+    <!--查询用户的所有权限-->
+    <select id="queryAllPerms" resultType="String">
+        select sm.perms from sys_user_role sur
+          left join sys_role_menu srm on sur.role_id=srm.role_id
+          left join sys_menu sm on srm.menu_id = sm.menu_id
+        where sur.user_id = #{userId}
+    </select>
+
+    <!-- 查询用户的所有菜单ID -->
+    <select id="queryAllMenuId" resultType="Integer">
+		select distinct rm.menu_id from sys_user_role ur
+			LEFT JOIN sys_role_menu rm on ur.role_id = rm.role_id
+		where ur.user_id = #{userId}
+	</select>
+</mapper>

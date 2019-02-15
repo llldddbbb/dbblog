@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.dblearn.blog.mapper.operation.CategoryMapper">
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.dblearn.blog.entity.operation.Category">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="type" property="type" />
+        <result column="rank" property="rank" />
+        <result column="parent_id" property="parentId" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, name, type, rank, parent_id
+    </sql>
+
+    <select id="queryAll" parameterType="Map" resultType="cn.dblearn.blog.entity.operation.Category">
+        select t.*,s.name as parentName from category t left join category s on t.parent_id = s.id
+        <where>
+            <if test="name != null and name != ''">
+                t.name like concat('%',#{name},'%')
+            </if>
+            <if test="type !=null and type !=''">
+                t.type = #{type}
+            </if>
+        </where>
+    </select>
+</mapper>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.dblearn.blog.mapper.sys.SysRoleMenuMapper">
+    <select id="queryMenuIdList" resultType="Integer">
+        select srm.menu_id from sys_role_menu srm where srm.role_id=#{roleId}
+    </select>
+</mapper>

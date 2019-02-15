@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.dblearn.blog.mapper.operation.TagMapper">
+
+    <delete id="deleteTagLink">
+        delete from tag_link atl
+        where atl.foreign_id = #{linkId} and atl.type = #{type}
+    </delete>
+
+    <select id="listByLinkId" resultType="cn.dblearn.blog.entity.operation.Tag">
+        select bt.* from tag bt left join tag_link bat on bt.id=bat.tag_id
+        <where>
+            <if test="linkId!=null">
+                and bat.link_id = #{linkId}
+            </if>
+            <if test="type!=null">
+                and bt.type = #{type}
+            </if>
+        </where>
+    </select>
+</mapper>
