@@ -28,4 +28,18 @@ public interface BookMapper extends BaseMapper<Book> {
      * @return
      */
     List<BookVo> listBookVo(Page<BookVo> page, @Param("params") Map<String, Object> params);
+
+    /**
+     * 根据条件查询分页
+     * @param page
+     * @param params
+     * @return
+     */
+    List<BookVo> queryPageCondition(Page<BookVo> page, @Param("params") Map<String, Object> params);
+
+    /**
+     * 更新阅读记录
+     * @param id
+     */
+    void updateReadNum(int id);
 }

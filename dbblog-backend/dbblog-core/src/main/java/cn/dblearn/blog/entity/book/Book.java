@@ -51,7 +51,7 @@ public class Book implements Serializable {
     private Double grade;
 
     @ApiModelProperty(value = "简介")
-    private String introduction;
+    private String description;
 
     @ApiModelProperty(value = "原书目录")
     private String catalogue;

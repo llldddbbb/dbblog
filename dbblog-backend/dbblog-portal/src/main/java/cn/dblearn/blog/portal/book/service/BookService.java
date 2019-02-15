@@ -1,21 +1,21 @@
-package cn.dblearn.blog.portal.article.service;
-
+package cn.dblearn.blog.portal.book.service;
 
 import cn.dblearn.blog.common.util.PageUtils;
-import cn.dblearn.blog.entity.article.Article;
+import cn.dblearn.blog.entity.book.Book;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.Map;
 
+
 /**
  * <p>
- * 文章 服务类
+ * 图书表 服务类
  * </p>
  *
  * @author bobbi
- * @since 2018-11-07
+ * @since 2019-01-27
  */
-public interface ArticleService extends IService<Article> {
+public interface BookService extends IService<Book> {
 
     /**
      * 分页分类获取列表

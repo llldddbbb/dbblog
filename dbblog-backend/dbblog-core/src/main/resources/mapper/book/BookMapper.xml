@@ -2,6 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.dblearn.blog.mapper.book.BookMapper">
 
+    <sql id="homeBookColumn">
+        id,title,description,author,read_num,comment_num,like_num,cover,create_time
+    </sql>
+
     <select id="listBookVo" resultType="cn.dblearn.blog.entity.book.vo.BookVo">
         select * from book
         <where>
@@ -10,4 +14,29 @@
             </if>
         </where>
     </select>
+
+    <select id="queryPageCondition" resultType="cn.dblearn.blog.entity.book.vo.BookVo">
+        select <include refid="homeBookColumn"/> from book
+        <where>
+            <if test="params.recommend != null">
+                and recommend = true
+            </if>
+        </where>
+        <if test="params.recommend !=null">
+            order by create_time desc
+        </if>
+        <if test="params.latest !=null">
+            order by create_time desc
+        </if>
+        <if test="params.favorite !=null">
+            order by like_num desc
+        </if>
+        <if test="params.commentMost !=null">
+            order by comment_num desc
+        </if>
+    </select>
+
+    <update id="updateReadNum">
+        update book set read_num = read_num + 1 where id = #{id}
+    </update>
 </mapper>

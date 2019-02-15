@@ -4,11 +4,10 @@ import cn.dblearn.blog.common.util.HttpContextUtils;
 import cn.dblearn.blog.common.util.IPUtils;
 import cn.dblearn.blog.common.util.JsonUtils;
 import cn.dblearn.blog.mapper.article.ArticleMapper;
+import cn.dblearn.blog.mapper.book.BookMapper;
 import cn.dblearn.blog.mapper.log.ViewLogMapper;
 import cn.dblearn.blog.portal.annotation.ViewLog;
-import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.shiro.SecurityUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -21,7 +20,6 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 /**
  * ViewLogAspect
@@ -41,6 +39,9 @@ public class ViewLogAspect {
 
     @Autowired
     private ArticleMapper articleMapper;
+
+    @Autowired
+    private BookMapper bookMapper;
 
     @Pointcut("@annotation(cn.dblearn.blog.portal.annotation.ViewLog)")
     public void logPointCut() {
@@ -76,7 +77,10 @@ public class ViewLogAspect {
         // 根据注解类型增加数量
         switch (type) {
             case "article":
-                articleMapper.updateViewNum(Integer.parseInt(id));
+                articleMapper.updateReadNum(Integer.parseInt(id));
+                break;
+            case "book":
+                bookMapper.updateReadNum(Integer.parseInt(id));
                 break;
             default:
                 break;

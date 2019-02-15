@@ -29,7 +29,7 @@ public interface ArticleMapper extends BaseMapper<Article> {
      * @param params
      * @return
      */
-    List<ArticleVo> listArticleVo(Page<ArticleVo> page, @Param("article") Map<String, Object> params);
+    List<ArticleVo> listArticleVo(Page<ArticleVo> page, @Param("params") Map<String, Object> params);
 
     /**
      * 根据条件查询分页
@@ -37,11 +37,11 @@ public interface ArticleMapper extends BaseMapper<Article> {
      * @param params
      * @return
      */
-    List<ArticleVo> queryPageCondition(Page<ArticleVo> page, @Param("article") Map<String, Object> params);
+    List<ArticleVo> queryPageCondition(Page<ArticleVo> page, @Param("params") Map<String, Object> params);
 
     /**
      * 更新阅读记录
      * @param id
      */
-    void updateViewNum(Integer id);
+    void updateReadNum(Integer id);
 }

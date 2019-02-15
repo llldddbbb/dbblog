@@ -24,18 +24,6 @@ import java.util.Map;
 @Service("ArticlePortalService")
 public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> implements ArticleService {
 
-
-    /**
-     * 获取文章详情
-     *
-     * @param id
-     * @return
-     */
-    @Override
-    public Article getArticle(Integer id) {
-        return baseMapper.selectById(id);
-    }
-
     /**
      * 分页分类获取列表
      *

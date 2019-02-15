@@ -99,7 +99,7 @@
         </el-col>
       </el-form-item>
       <el-form-item label="简介">
-        <quill-editor v-model="book.introduction"></quill-editor>
+        <quill-editor v-model="book.description"></quill-editor>
       </el-form-item>
       <el-form-item label="目录">
         <quill-editor v-model="book.catalogue"></quill-editor>

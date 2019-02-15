@@ -4,26 +4,29 @@
       <iv-col :xs="24" :sm="24" :md="24" :lg="17" :xl="17">
         <div class="layout-left">
           <section-title :mainTitle="'文章'" :subTitle="'Articles'" :tipText="'View More'" :tipHref="'/articles'">
-            <title-menu-filter @refreshArticle="refreshArticle"  slot="menu" :menu-filter-list="menuFilterList"></title-menu-filter>
+            <title-menu-filter @refreshArticle="refreshArticle"  slot="menu" :menu-filter-list="articleFilterList"></title-menu-filter>
           </section-title>
           <article-list-cell v-for="article in articleList" :article="article" :key="article.title"></article-list-cell>
-          <section-title :mainTitle="'主题'" :subTitle="'Topics'"></section-title>
-          <div class="topic-cards">
-            <iv-row :gutter="10">
-              <iv-col :xs="24" :sm="12" :md="8" :lg="8" :xl="8">
-                <topic-card></topic-card>
-              </iv-col>
-              <iv-col :xs="24" :sm="12" :md="8" :lg="8" :xl="8">
-                <topic-card></topic-card>
-              </iv-col>
-              <iv-col :xs="24" :sm="12" :md="8" :lg="8" :xl="8">
-                <topic-card></topic-card>
-              </iv-col>
-              <iv-col :xs="24" :sm="12" :md="8" :lg="8" :xl="8">
-                <topic-card></topic-card>
-              </iv-col>
-            </iv-row>
-          </div>
+          <section-title :mainTitle="'阅读'" :subTitle="'Book'">
+            <title-menu-filter @refreshArticle="refreshBook"  slot="menu" :menu-filter-list="bookFilterList"></title-menu-filter>
+          </section-title>
+          <article-list-cell v-for="book in bookList" :article="book" :key="book.title"></article-list-cell>
+          <!--<div class="topic-cards">-->
+            <!--<iv-row :gutter="10">-->
+              <!--<iv-col :xs="24" :sm="12" :md="8" :lg="8" :xl="8">-->
+                <!--<topic-card></topic-card>-->
+              <!--</iv-col>-->
+              <!--<iv-col :xs="24" :sm="12" :md="8" :lg="8" :xl="8">-->
+                <!--<topic-card></topic-card>-->
+              <!--</iv-col>-->
+              <!--<iv-col :xs="24" :sm="12" :md="8" :lg="8" :xl="8">-->
+                <!--<topic-card></topic-card>-->
+              <!--</iv-col>-->
+              <!--<iv-col :xs="24" :sm="12" :md="8" :lg="8" :xl="8">-->
+                <!--<topic-card></topic-card>-->
+              <!--</iv-col>-->
+            <!--</iv-row>-->
+          <!--</div>-->
         </div>
       </iv-col>
       <iv-col :xs="0" :sm="0" :md="0" :lg="7">
@@ -53,7 +56,7 @@ export default {
   data () {
     return {
       articleList: [],
-      menuFilterList: [
+      articleFilterList: [
         {
           name: '最新',
           url: '/articles/latest',
@@ -72,6 +75,29 @@ export default {
         {
           name: '推荐',
           url: '/articles/recommend',
+          active: false
+        }
+      ],
+      bookList: [],
+      bookFilterList: [
+        {
+          name: '最新',
+          url: '/books/latest',
+          active: true
+        },
+        {
+          name: '点赞最多',
+          url: '/books/favorite',
+          active: false
+        },
+        {
+          name: '评论最多',
+          url: '/books/commentMost',
+          active: false
+        },
+        {
+          name: '推荐',
+          url: '/books/recommend',
           active: false
         }
       ],
@@ -95,7 +121,8 @@ export default {
     'side-toc': SideToc
   },
   created: function () {
-    this.refreshArticle(this.menuFilterList[0].url)
+    this.refreshArticle(this.articleFilterList[0].url)
+    this.refreshBook(this.bookFilterList[0].url)
   },
   methods: {
     refreshArticle (url) {
@@ -106,6 +133,17 @@ export default {
       }).then(({data}) => {
         if (data && data.code === 200) {
           this.articleList = data.page.list
+        }
+      })
+    },
+    refreshBook (url) {
+      this.$http({
+        url: this.$http.adornUrl(url),
+        params: this.$http.adornParams(this.pageParam),
+        method: 'get'
+      }).then(({data}) => {
+        if (data && data.code === 200) {
+          this.bookList = data.page.list
         }
       })
     }
