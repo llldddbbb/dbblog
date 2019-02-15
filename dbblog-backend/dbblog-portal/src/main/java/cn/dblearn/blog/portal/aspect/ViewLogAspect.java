@@ -3,8 +3,10 @@ package cn.dblearn.blog.portal.aspect;
 import cn.dblearn.blog.common.util.HttpContextUtils;
 import cn.dblearn.blog.common.util.IPUtils;
 import cn.dblearn.blog.common.util.JsonUtils;
+import cn.dblearn.blog.entity.book.BookNote;
 import cn.dblearn.blog.mapper.article.ArticleMapper;
 import cn.dblearn.blog.mapper.book.BookMapper;
+import cn.dblearn.blog.mapper.book.BookNoteMapper;
 import cn.dblearn.blog.mapper.log.ViewLogMapper;
 import cn.dblearn.blog.portal.annotation.ViewLog;
 import lombok.extern.slf4j.Slf4j;
@@ -42,6 +44,9 @@ public class ViewLogAspect {
 
     @Autowired
     private BookMapper bookMapper;
+
+    @Autowired
+    private BookNoteMapper bookNoteMapper;
 
     @Pointcut("@annotation(cn.dblearn.blog.portal.annotation.ViewLog)")
     public void logPointCut() {
@@ -82,10 +87,12 @@ public class ViewLogAspect {
             case "book":
                 bookMapper.updateReadNum(Integer.parseInt(id));
                 break;
+            case "bookNote":
+                bookNoteMapper.updateReadNum(Integer.parseInt(id));
+                break;
             default:
                 break;
         }
-
         // 请求的方法名
         String className = joinPoint.getTarget().getClass().getName();
         String methodName = signature.getName();

@@ -16,6 +16,7 @@ import java.util.List;
  */
 @Data
 public class BookVo extends Book {
+
     /**
      * 所属分类，以逗号分隔
      */

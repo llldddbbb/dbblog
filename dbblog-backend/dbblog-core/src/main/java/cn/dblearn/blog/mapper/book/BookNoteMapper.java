@@ -28,5 +28,19 @@ public interface BookNoteMapper extends BaseMapper<BookNote> {
      * @param params
      * @return
      */
-    List<BookNoteVo> listBookNoteVo(Page<BookNoteVo> page, @Param("bookNote") Map<String, Object> params);
+    List<BookNoteVo> listBookNoteVo(Page<BookNoteVo> page, @Param("params") Map<String, Object> params);
+
+    /**
+     * 分页分类获取列表
+     *
+     * @param params
+     * @return
+     */
+    List<BookNoteVo> queryPageCondition(Page<BookNoteVo> page, @Param("params") Map<String, Object> params);
+
+    /**
+     * 更新阅读记录数
+     * @param id
+     */
+    void updateReadNum(Integer id);
 }

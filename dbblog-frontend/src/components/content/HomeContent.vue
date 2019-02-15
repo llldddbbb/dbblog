@@ -11,6 +11,10 @@
             <title-menu-filter @refreshArticle="refreshBook"  slot="menu" :menu-filter-list="bookFilterList"></title-menu-filter>
           </section-title>
           <article-list-cell v-for="book in bookList" :article="book" :key="book.title"></article-list-cell>
+          <section-title :mainTitle="'笔记'" :subTitle="'Book'">
+            <title-menu-filter @refreshArticle="refreshBookNote"  slot="menu" :menu-filter-list="bookNoteFilterList"></title-menu-filter>
+          </section-title>
+          <article-list-cell v-for="bookNote in bookNoteList" :article="bookNote" :key="bookNote.title"></article-list-cell>
           <!--<div class="topic-cards">-->
             <!--<iv-row :gutter="10">-->
               <!--<iv-col :xs="24" :sm="12" :md="8" :lg="8" :xl="8">-->
@@ -101,6 +105,29 @@ export default {
           active: false
         }
       ],
+      bookNoteList: [],
+      bookNoteFilterList: [
+        {
+          name: '最新',
+          url: '/bookNotes/latest',
+          active: true
+        },
+        {
+          name: '点赞最多',
+          url: '/bookNotes/favorite',
+          active: false
+        },
+        {
+          name: '评论最多',
+          url: '/bookNotes/commentMost',
+          active: false
+        },
+        {
+          name: '推荐',
+          url: '/bookNotes/recommend',
+          active: false
+        }
+      ],
       pageParam: {
         page: 1,
         limit: 10
@@ -123,6 +150,7 @@ export default {
   created: function () {
     this.refreshArticle(this.articleFilterList[0].url)
     this.refreshBook(this.bookFilterList[0].url)
+    this.refreshBookNote(this.bookNoteFilterList[0].url)
   },
   methods: {
     refreshArticle (url) {
@@ -144,6 +172,23 @@ export default {
       }).then(({data}) => {
         if (data && data.code === 200) {
           this.bookList = data.page.list
+          this.bookList.forEach(book => {
+            book.coverType = 2
+          })
+        }
+      })
+    },
+    refreshBookNote (url) {
+      this.$http({
+        url: this.$http.adornUrl(url),
+        params: this.$http.adornParams(this.pageParam),
+        method: 'get'
+      }).then(({data}) => {
+        if (data && data.code === 200) {
+          this.bookNoteList = data.page.list
+          this.bookNoteList.forEach(book => {
+            book.coverType = 2
+          })
         }
       })
     }
