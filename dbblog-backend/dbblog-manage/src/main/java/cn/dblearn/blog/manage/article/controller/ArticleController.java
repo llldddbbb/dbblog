@@ -32,6 +32,7 @@ public class ArticleController {
     @GetMapping("/list")
     @RequiresPermissions("article:list")
     public Result listArticle(@RequestParam Map<String, Object> params) {
+        params.put("latest",true);
         PageUtils page = articleService.queryPage(params);
         return Result.ok().put("page",page);
     }

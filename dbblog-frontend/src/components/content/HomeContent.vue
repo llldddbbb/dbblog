@@ -74,7 +74,11 @@ export default {
           url: '/articles/recommend',
           active: false
         }
-      ]
+      ],
+      pageParam: {
+        page: 1,
+        limit: 10
+      }
     }
   },
   components: {
@@ -91,28 +95,17 @@ export default {
     'side-toc': SideToc
   },
   created: function () {
-    this.listHomeArticle()
+    this.refreshArticle(this.menuFilterList[0].url)
   },
   methods: {
-    listHomeArticle () {
-      this.$http({
-        url: this.$http.adornUrl('/'),
-        params: this.$http.adornParams(),
-        method: 'get'
-      }).then(({data}) => {
-        if (data && data.code === 200) {
-          this.articleList = data.articleList
-        }
-      })
-    },
     refreshArticle (url) {
       this.$http({
         url: this.$http.adornUrl(url),
-        params: this.$http.adornParams(),
+        params: this.$http.adornParams(this.pageParam),
         method: 'get'
       }).then(({data}) => {
         if (data && data.code === 200) {
-          this.articleList = data.articleList
+          this.articleList = data.page.list
         }
       })
     }

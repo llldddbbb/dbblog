@@ -8,7 +8,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import java.util.Map;
 
 /**
- * BlogArticleAdminService
+ * ArticleService
  *
  * @author bobbi
  * @date 2018/11/21 12:47
@@ -48,4 +48,5 @@ public interface ArticleService extends IService<Article> {
      * @return
      */
     ArticleDto getArticle(Integer articleId);
+
 }

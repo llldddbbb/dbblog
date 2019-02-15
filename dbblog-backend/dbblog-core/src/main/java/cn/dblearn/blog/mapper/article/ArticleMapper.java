@@ -30,4 +30,12 @@ public interface ArticleMapper extends BaseMapper<Article> {
      * @return
      */
     List<ArticleVo> listArticleVo(Page<ArticleVo> page, @Param("article") Map<String, Object> params);
+
+    /**
+     * 根据条件查询分页
+     * @param page
+     * @param params
+     * @return
+     */
+    List<ArticleVo> queryPageCondition(Page<ArticleVo> page, @Param("article") Map<String, Object> params);
 }
