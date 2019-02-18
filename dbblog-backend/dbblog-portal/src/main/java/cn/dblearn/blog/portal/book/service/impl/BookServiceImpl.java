@@ -12,12 +12,14 @@ import cn.dblearn.blog.portal.book.service.BookService;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * <p>
@@ -55,5 +57,24 @@ public class BookServiceImpl extends ServiceImpl<BookMapper, Book> implements Bo
 
         page.setRecords(bookList);
         return new PageUtils(page);
+    }
+
+    /**
+     * 获取Book对象
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public BookVo getBookVo(Integer id) {
+        BookVo book = Optional.ofNullable(this.baseMapper.selectById(id)).flatMap(book1 -> {
+            BookVo bookVo = new BookVo();
+            BeanUtils.copyProperties(book1, bookVo);
+            return Optional.ofNullable(bookVo);
+        }).map(bookVo -> {
+            bookVo.setTagList(tagService.listByLinkId(bookVo.getId(), ModuleEnum.BOOK.getValue()));
+            return bookVo;
+        }).orElse(null);
+        return book;
     }
 }

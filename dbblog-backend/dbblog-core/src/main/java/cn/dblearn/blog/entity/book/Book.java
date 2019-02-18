@@ -1,6 +1,7 @@
 package cn.dblearn.blog.entity.book;
 
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -27,7 +28,7 @@ public class Book implements Serializable {
     private Integer id;
 
     @ApiModelProperty(value = "标题")
-    private Integer title;
+    private String title;
 
     @ApiModelProperty(value = "封面")
     private String cover;
@@ -72,9 +73,11 @@ public class Book implements Serializable {
     private Boolean publish;
 
     @ApiModelProperty(value = "创建时间")
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
 
     @ApiModelProperty(value = "更新时间")
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime;
 
     @ApiModelProperty(value = "读书进度")

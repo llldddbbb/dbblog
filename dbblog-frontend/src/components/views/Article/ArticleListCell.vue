@@ -1,5 +1,5 @@
 <template>
-  <div class="article-list-cell">
+  <div class="book-note-cell">
     <a :href="'article/'+article.id">
       <iv-row type="flex">
         <iv-col :xs="24" :sm="24" :md="textSpan" :lg="textSpan" :order="textOrderType" style="padding-left: 0;padding-right: 0;">
@@ -8,7 +8,7 @@
               <a :href="'article/'+article.id">{{article.title}}</a>
             </h4>
             <div class="tags">
-              <iv-tag :color="getTagColor(index)" :key="tag.id" v-for ="(tag , index) in article.tagList">{{tag.tagName}}</iv-tag>
+              <iv-tag :color="getTagColor(index)" :key="tag.id" type="border" v-for ="(tag , index) in article.tagList">{{tag.name}}</iv-tag>
             </div>
             <p class="desc">{{article.description}}<a :href="'article/'+article.id"> View More
               <iv-icon type="arrow-right-b"></iv-icon>
@@ -40,7 +40,8 @@ export default {
   props: {
     article: {
       Type: Object
-    }
+    },
+    type: ''
   },
   methods: {
     getTagColor: function (index) {
@@ -86,7 +87,7 @@ export default {
 <style lang="stylus" rel="stylesheet/stylus" scoped>
   @import "../../../common/stylus/index.styl";
 
-  .article-list-cell
+  .article-cell
     margin-bottom 15px
     > a
       display block

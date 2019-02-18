@@ -38,7 +38,7 @@
         width 100%
         height 25%
         padding 10px
-        background rgba($color-secondary-warning, 0.9)
+        background rgba($iview-secondary-warning-color, 0.9)
         transition: All 0.4s ease-in-out
         opacity 1.0
         .title

@@ -8,11 +8,13 @@ import cn.dblearn.blog.entity.book.vo.BookNoteVo;
 import cn.dblearn.blog.manage.operation.service.TagService;
 import cn.dblearn.blog.mapper.book.BookNoteMapper;
 import cn.dblearn.blog.portal.book.service.BookNoteService;
+import cn.dblearn.blog.portal.book.service.BookService;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -31,6 +33,9 @@ public class BookNoteServiceImpl extends ServiceImpl<BookNoteMapper, BookNote> i
     @Autowired
     private TagService tagService;
 
+    @Resource
+    private BookService bookService;
+
 
     /**
      * 分页分类获取列表
@@ -47,6 +52,8 @@ public class BookNoteServiceImpl extends ServiceImpl<BookNoteMapper, BookNote> i
                 bookNoteVos.forEach(bookNoteVo -> {
                     // 设置标签列表
                     bookNoteVo.setTagList(tagService.listByLinkId(bookNoteVo.getId(), ModuleEnum.BOOK_NOTE.getValue()));
+                    // 设置所属书本
+                    bookNoteVo.setBook(bookService.getBookVo(bookNoteVo.getBookId()));
                 })));
         page.setRecords(bookNoteList);
         return new PageUtils(page);

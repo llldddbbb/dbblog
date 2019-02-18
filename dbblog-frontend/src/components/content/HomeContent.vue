@@ -6,15 +6,15 @@
           <section-title :mainTitle="'文章'" :subTitle="'Articles'" :tipText="'View More'" :tipHref="'/articles'">
             <title-menu-filter @refreshArticle="refreshArticle"  slot="menu" :menu-filter-list="articleFilterList"></title-menu-filter>
           </section-title>
-          <article-list-cell v-for="article in articleList" :article="article" :key="article.title"></article-list-cell>
-          <section-title :mainTitle="'阅读'" :subTitle="'Book'">
+          <article-list-cell v-for="article in articleList" :article="article" :key="article.title" :type="'article'"></article-list-cell>
+          <section-title :mainTitle="'阅读'" :subTitle="'Books'">
             <title-menu-filter @refreshArticle="refreshBook"  slot="menu" :menu-filter-list="bookFilterList"></title-menu-filter>
           </section-title>
-          <article-list-cell v-for="book in bookList" :article="book" :key="book.title"></article-list-cell>
-          <section-title :mainTitle="'笔记'" :subTitle="'Book'">
+          <article-list-cell v-for="book in bookList" :article="book" :key="book.title" :type="'book'"></article-list-cell>
+          <section-title :mainTitle="'笔记'" :subTitle="'Notes'">
             <title-menu-filter @refreshArticle="refreshBookNote"  slot="menu" :menu-filter-list="bookNoteFilterList"></title-menu-filter>
           </section-title>
-          <article-list-cell v-for="bookNote in bookNoteList" :article="bookNote" :key="bookNote.title"></article-list-cell>
+          <book-note-list-cell v-for="bookNote in bookNoteList" :bookNote="bookNote" :key="bookNote.title"></book-note-list-cell>
           <!--<div class="topic-cards">-->
             <!--<iv-row :gutter="10">-->
               <!--<iv-col :xs="24" :sm="12" :md="8" :lg="8" :xl="8">-->
@@ -45,6 +45,7 @@
 
 <script type="text/ecmascript-6">
 import ArticleListCell from '@/components/views/Article/ArticleListCell'
+import BookNoteListCell from '@/components/views/Book/BookNoteListCell'
 import SectionTitle from '@/components/views/SectionTitle/SectionTitle'
 import TitleMenuFilter from '@/components/views/SectionTitle/TitleMenuFilter'
 import TopicCard from '@/components/views/TopicCard'
@@ -136,6 +137,7 @@ export default {
   },
   components: {
     'article-list-cell': ArticleListCell,
+    'book-note-list-cell': BookNoteListCell,
     'section-title': SectionTitle,
     'title-menu-filter': TitleMenuFilter,
     'topic-card': TopicCard,
