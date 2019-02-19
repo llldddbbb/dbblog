@@ -21,6 +21,9 @@
             <if test="params.recommend != null">
                 and recommend = true
             </if>
+            <if test="params.categoryId !=null">
+                and find_in_set(#{params.categoryId},category_id)
+            </if>
         </where>
         <if test="params.recommend !=null">
             order by create_time desc
@@ -34,6 +37,7 @@
         <if test="params.commentMost !=null">
             order by comment_num desc
         </if>
+
     </select>
 
     <update id="updateReadNum">
