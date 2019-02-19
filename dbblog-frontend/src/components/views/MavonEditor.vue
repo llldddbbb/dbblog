@@ -29,15 +29,27 @@
         </iv-col>
       </iv-row>
     </div>
-    <mavon-editor class="editor-area" style="height: 100%; min-height: 50px; min-width: 200px; z-index: 9;" :toolbarsFlag="toolbarsFlag"
-                  :subfield="subfield" :placeholder="placeholder" :toolbars="toolbars" @change="change"></mavon-editor>
+    <div class="editor-area">
+      <iv-spin size="large" v-if="!editable" fix style="z-index: 1001;">
+        该文章已关闭评论
+      </iv-spin>
+      <mavon-editor class="editor-area"
+                    style="height: 100%; min-height: 50px; min-width: 200px; z-index: 9;"
+                    :toolbarsFlag="toolbarsFlag"
+                    :subfield="subfield"
+                    :placeholder="placeholder"
+                    :toolbars="toolbars"
+                    :editable="editable"
+                    v-if="editable"
+                    @change="change"></mavon-editor>
+    </div>
     <div class="bottom-area">
       <div class="comment-tip">
         <a href="https://guides.github.com/features/mastering-markdown/" target="_blank"><iv-icon
           type="information-circled"></iv-icon> 支持MarkDown</a>
       </div>
       <div class="buttons">
-        <iv-button size="default" @click="publish" :type="buttonType">发布</iv-button>
+        <iv-button size="default" @click="publish" :type="buttonType"  :disabled="!editable">发布</iv-button>
       </div>
     </div>
   </div>
@@ -60,7 +72,8 @@ export default {
     },
     toolbarsFlag: {
       default: false
-    }
+    },
+    editable: false
   },
   data () {
     return {
@@ -183,7 +196,12 @@ export default {
         &:hover
           cursor pointer
     .editor-area
+      position relative
       flex 1
+      padding 2px
+      height 100%
+      min-height 50px
+      min-width 200px
     .bottom-area
       flex 0 0 40px
       height 40px

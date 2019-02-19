@@ -75,6 +75,11 @@
           <el-radio :label="false" >否</el-radio>
         </el-radio-group>
       </el-form-item>
+      <el-form-item label="展示类型">
+        <el-radio-group v-model="bookNote.coverType">
+          <el-radio v-for="type in coverTypeList" :key="type.parKey" :label="type.parKey" >{{type.parValue}}</el-radio>
+        </el-radio-group>
+      </el-form-item>
       <el-form-item label="上传封面">
         <el-col :span="12">
           <el-upload
@@ -123,6 +128,7 @@ export default {
         tagList: [],
         type: 2
       },
+      coverTypeList: this.getSysParamArr('ARTICLE_COVER_TYPE'),
       url: '',
       file: [],
       rules: {

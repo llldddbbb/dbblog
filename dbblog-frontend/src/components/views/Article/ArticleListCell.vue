@@ -1,5 +1,5 @@
 <template>
-  <div class="book-note-cell">
+  <div class="article-cell">
     <a :href="'article/'+article.id">
       <iv-row type="flex">
         <iv-col :xs="24" :sm="24" :md="textSpan" :lg="textSpan" :order="textOrderType" style="padding-left: 0;padding-right: 0;">
@@ -8,9 +8,9 @@
               <a :href="'article/'+article.id">{{article.title}}</a>
             </h4>
             <div class="tags">
-              <iv-tag :color="getTagColor(index)" :key="tag.id" type="border" v-for ="(tag , index) in article.tagList">{{tag.name}}</iv-tag>
+              <iv-tag :color="index | mapTagColor" :key="tag.id" type="border" v-for ="(tag , index) in article.tagList">{{tag.name}}</iv-tag>
             </div>
-            <p class="desc">{{article.description}}<a :href="'article/'+article.id"> View More
+            <p class="desc">{{article.description | filterHtml}}<a :href="'article/'+article.id"> View More
               <iv-icon type="arrow-right-b"></iv-icon>
             </a></p>
             <p class="operate_info">
@@ -32,7 +32,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-import { mapTagColor } from '@/utils'
+import { mixin } from '@/utils'
 const ARTICLE_TYPE_BIG_IMAGE = 1
 const ARTICLE_TYPE_NO_IMAGE = 2
 
@@ -43,11 +43,7 @@ export default {
     },
     type: ''
   },
-  methods: {
-    getTagColor: function (index) {
-      return mapTagColor(index)
-    }
-  },
+  mixins: [mixin],
   computed: {
     textOrderType: function () {
       return this.article.coverType === ARTICLE_TYPE_BIG_IMAGE ? 2 : 1

@@ -1,7 +1,7 @@
 <template>
   <div class="article-page-header">
     <div class="tags">
-      <iv-tag :color="getTagColor(index)" v-for="(tag , index) in article.tagList" :key="tag.tagId">{{tag.tagName}}</iv-tag>
+      <iv-tag :color="index | mapTagColor" v-for="(tag , index) in article.tagList" :key="tag.tagId">{{tag.tagName}}</iv-tag>
     </div>
     <p class="title">{{article.title}}</p>
     <iv-row>
@@ -17,20 +17,19 @@
         </p>
       </iv-col>
     </iv-row>
+    <p class="abstract" v-if="article.description">
+      {{article.description}}
+    </p>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
-import { mapTagColor } from '@/utils'
+import { mixin } from '@/utils'
 export default {
   props: {
     article: {}
   },
-  methods: {
-    getTagColor: function (index) {
-      return mapTagColor(index)
-    }
-  }
+  mixins: [mixin]
 }
 </script>
 
@@ -82,5 +81,26 @@ export default {
           &:hover
             color $color-main-primary
             text-decoration underline
-
+    .abstract
+      color $default-desc-color
+      border 1px dashed $default-border-color
+      background $default-border-color
+      @media only screen and (max-width: $responsive-sm)
+        padding 8px
+        margin-top 8px
+        font-size 13px
+        line-height 18px
+      @media screen and (min-width: $responsive-sm)
+        padding 15px
+        margin-top 8px
+        font-size 14px
+        line-height 24px
+      @media screen and (min-width: $responsive-md)
+        padding 20px
+        margin-top 15px
+        line-height 28px
+      @media screen and (min-width: $responsive-lg)
+        padding 20px
+        margin-top 15px
+        line-height 28px
 </style>

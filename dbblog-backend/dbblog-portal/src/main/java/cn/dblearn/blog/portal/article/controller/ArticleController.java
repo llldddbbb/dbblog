@@ -4,7 +4,7 @@ package cn.dblearn.blog.portal.article.controller;
 import cn.dblearn.blog.common.Result;
 import cn.dblearn.blog.common.util.PageUtils;
 import cn.dblearn.blog.entity.article.Article;
-import cn.dblearn.blog.portal.annotation.ViewLog;
+import cn.dblearn.blog.portal.common.annotation.ViewLog;
 import cn.dblearn.blog.portal.article.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -32,30 +32,8 @@ public class ArticleController {
         return Result.ok().put("article",article);
     }
 
-    @GetMapping("/articles/latest")
+    @GetMapping("/articles")
     public Result listLatest(@RequestParam Map<String, Object> params){
-        params.put("latest",true);
-        PageUtils page = articleService.queryPageCondition(params);
-        return Result.ok().put("page",page);
-    }
-
-    @GetMapping("/articles/favorite")
-    public Result listFavorite(@RequestParam Map<String, Object> params){
-        params.put("favorite",true);
-        PageUtils page = articleService.queryPageCondition(params);
-        return Result.ok().put("page",page);
-    }
-
-    @GetMapping("/articles/commentMost")
-    public Result listCommentMost(@RequestParam Map<String, Object> params){
-        params.put("commentMost",true);
-        PageUtils page = articleService.queryPageCondition(params);
-        return Result.ok().put("page",page);
-    }
-
-    @GetMapping("/articles/recommend")
-    public Result listRecommend(@RequestParam Map<String, Object> params) {
-        params.put("recommend",true);
         PageUtils page = articleService.queryPageCondition(params);
         return Result.ok().put("page",page);
     }

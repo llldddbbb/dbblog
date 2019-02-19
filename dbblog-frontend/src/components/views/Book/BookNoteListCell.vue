@@ -15,9 +15,9 @@
             <iv-icon type="document-text"></iv-icon>&nbsp;&nbsp;Chapter：{{bookNote.chapter}}
           </p>
           <div class="tags">
-            <iv-tag :color="getTagColor(index)" type="border" v-for="tag in bookNote.tagList" :key="tag.id" class="border-tag">{{ tag.name }}</iv-tag>
+            <iv-tag :color="index | mapTagColor" type="border" v-for="(index, tag) in bookNote.tagList" :key="tag.id" class="border-tag">{{ tag.name }}</iv-tag>
           </div>
-          <p class="desc">{{ bookNote.description}}
+          <p class="desc">{{ bookNote.description | filterHtml }}
             <a  :href="`bookNote/${bookNote.id}`"> View More
               <iv-icon type="arrow-right-b"></iv-icon>
             </a>
@@ -59,7 +59,7 @@
             <iv-icon type="checkmark-circled"></iv-icon>
             <span class="progress">{{bookNote.book.progress}}%</span>
           </iv-progress>
-          <p class="desc">{{ bookNote.book.description }}</p>
+          <p class="desc">{{ bookNote.book.description | filterHtml }}</p>
           <iv-tag type="border" v-for="tag in bookNote.book.tagList" :key="tag.name" class="border-tag">{{ tag.name }}</iv-tag>
         </div>
       </div>
@@ -68,7 +68,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-import { mapTagColor } from '@/utils'
+import { mixin } from '@/utils'
 const ARTICLE_TYPE_BIG_IMAGE = 1
 const ARTICLE_TYPE_NO_IMAGE = 2
 export default {
@@ -78,6 +78,7 @@ export default {
       Type: Object
     }
   },
+  mixins: [mixin],
   data () {
     return {
       showBookInfo: false
@@ -119,9 +120,6 @@ export default {
   methods: {
     toggleBookInfo () {
       this.showBookInfo = !this.showBookInfo
-    },
-    getTagColor: function (index) {
-      return mapTagColor(index)
     },
     likePost (post) {
     }

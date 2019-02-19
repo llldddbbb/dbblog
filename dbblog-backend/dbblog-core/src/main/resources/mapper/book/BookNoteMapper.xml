@@ -12,7 +12,7 @@
     </select>
 
     <sql id="homeBookNoteColumn">
-        id,title,description,author,read_num,comment_num,like_num,cover,create_time,book_id
+        id,title,description,author,read_num,comment_num,like_num,cover,create_time,book_id,chapter,cover_type
     </sql>
     
     <select id="queryPageCondition" resultType="cn.dblearn.blog.entity.book.vo.BookNoteVo">

@@ -1,7 +1,7 @@
 <template>
   <div class="title-menu-timeline">
     <ul class="list clearfix">
-      <li v-for="menuFilter in menuFilterList" :key="menuFilter.name"><a :class="menuFilter.active?'active':''" @click="refreshArticle(menuFilter.url)">{{menuFilter.name}}</a></li>
+      <li v-for="menuFilter in menuFilterList" :key="menuFilter.name"><a :class="menuFilter.active?'active':''" @click="refreshArticle(menuFilter.type)">{{menuFilter.name}}</a></li>
     </ul>
     <div class="refresh">
       <a @click="refresh" title="刷新">
@@ -20,13 +20,15 @@ export default {
     refresh () {
       this.$router.go(0)
     },
-    refreshArticle (url) {
-      this.replaceActive(url)
-      this.$emit('refreshArticle', url)
+    refreshArticle (type) {
+      this.replaceActive(type)
+      let param = {}
+      param[type] = true
+      this.$emit('refreshArticle', param)
     },
-    replaceActive (url) {
+    replaceActive (type) {
       this.menuFilterList.map((menuFilter) => {
-        if (menuFilter.url === url) {
+        if (menuFilter.type === type) {
           menuFilter.active = true
         } else {
           menuFilter.active = false

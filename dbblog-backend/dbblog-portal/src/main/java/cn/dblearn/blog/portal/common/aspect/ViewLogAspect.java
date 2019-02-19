@@ -1,14 +1,13 @@
-package cn.dblearn.blog.portal.aspect;
+package cn.dblearn.blog.portal.common.aspect;
 
 import cn.dblearn.blog.common.util.HttpContextUtils;
 import cn.dblearn.blog.common.util.IPUtils;
 import cn.dblearn.blog.common.util.JsonUtils;
-import cn.dblearn.blog.entity.book.BookNote;
 import cn.dblearn.blog.mapper.article.ArticleMapper;
 import cn.dblearn.blog.mapper.book.BookMapper;
 import cn.dblearn.blog.mapper.book.BookNoteMapper;
 import cn.dblearn.blog.mapper.log.ViewLogMapper;
-import cn.dblearn.blog.portal.annotation.ViewLog;
+import cn.dblearn.blog.portal.common.annotation.ViewLog;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -48,7 +47,7 @@ public class ViewLogAspect {
     @Autowired
     private BookNoteMapper bookNoteMapper;
 
-    @Pointcut("@annotation(cn.dblearn.blog.portal.annotation.ViewLog)")
+    @Pointcut("@annotation(cn.dblearn.blog.portal.common.annotation.ViewLog)")
     public void logPointCut() {
 
     }

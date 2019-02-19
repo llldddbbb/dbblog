@@ -3,7 +3,7 @@
     <iv-row>
       <iv-col :xs="24" :sm="24" :md="24" :lg="17">
         <div class="layout-left">
-          <article-list-header @listArticle="listArticle"></article-list-header>
+          <article-list-header @listArticle="listArticle" :categorys="categoryList" ></article-list-header>
           <article-list-cell v-for="article in articleList" :article="article" :key="article.id"></article-list-cell>
         </div>
       </iv-col>
@@ -24,25 +24,41 @@ import ArticlePageFooter from '@/components/views/Article/ArticlePageFooter'
 import ArticleListCell from '@/components/views/Article/ArticleListCell'
 import Recommend from '@/components/views/Recommend'
 import TagWall from '@/components/views/TagWall'
+import {treeDataTranslate} from '@/utils'
 
 export default {
   data () {
     return {
-      articleList: []
+      articleList: [],
+      categoryList: []
     }
   },
   created () {
     this.listArticle()
+    this.listCategory()
   },
   methods: {
     listArticle (params) {
       this.$http({
-        url: this.$http.adornUrl('/articles/classify'),
+        url: this.$http.adornUrl('/articles'),
         params: this.$http.adornParams(params),
         method: 'get'
       }).then(({data}) => {
         if (data && data.code === 200) {
-          this.articleList = data.articleList
+          this.articleList = data.page.list
+        }
+      })
+    },
+    listCategory () {
+      let params = {}
+      params.type = 0
+      this.$http({
+        url: this.$http.adornUrl('/operation/categories'),
+        method: 'get',
+        params: this.$http.adornParams(params)
+      }).then(({data}) => {
+        if (data && data.code === 200) {
+          this.categoryList = treeDataTranslate(data.categoryList)
         }
       })
     }

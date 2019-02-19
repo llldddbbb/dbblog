@@ -1,4 +1,4 @@
-package cn.dblearn.blog.portal.annotation;
+package cn.dblearn.blog.portal.common.annotation;
 
 import java.lang.annotation.*;
 

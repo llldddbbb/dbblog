@@ -79,5 +79,8 @@ public class BookNote implements Serializable {
     @ApiModelProperty(value = "发布状态")
     private Boolean publish;
 
+    @ApiModelProperty(value = "封面类型")
+    private Integer coverType;
+
 
 }

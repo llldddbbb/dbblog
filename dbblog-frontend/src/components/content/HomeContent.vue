@@ -56,7 +56,7 @@ import ArchiveListCell from '@/components/views/Archive/ArchiveListCell'
 import About from '@/components/views/About'
 import FriendLinks from '@/components/views/FriendLinks'
 import SideToc from '@/components/views/SideToc'
-
+import merge from 'lodash/merge' // 合并对象工具
 export default {
   data () {
     return {
@@ -64,22 +64,22 @@ export default {
       articleFilterList: [
         {
           name: '最新',
-          url: '/articles/latest',
+          type: 'latest',
           active: true
         },
         {
           name: '点赞最多',
-          url: '/articles/favorite',
+          type: 'favorite',
           active: false
         },
         {
           name: '评论最多',
-          url: '/articles/commentMost',
+          type: 'commentMost',
           active: false
         },
         {
           name: '推荐',
-          url: '/articles/recommend',
+          type: 'recommend',
           active: false
         }
       ],
@@ -87,22 +87,22 @@ export default {
       bookFilterList: [
         {
           name: '最新',
-          url: '/books/latest',
+          type: 'latest',
           active: true
         },
         {
           name: '点赞最多',
-          url: '/books/favorite',
+          type: 'favorite',
           active: false
         },
         {
           name: '评论最多',
-          url: '/books/commentMost',
+          type: 'commentMost',
           active: false
         },
         {
           name: '推荐',
-          url: '/books/recommend',
+          type: 'recommend',
           active: false
         }
       ],
@@ -110,22 +110,22 @@ export default {
       bookNoteFilterList: [
         {
           name: '最新',
-          url: '/bookNotes/latest',
+          type: 'latest',
           active: true
         },
         {
           name: '点赞最多',
-          url: '/bookNotes/favorite',
+          type: 'favorite',
           active: false
         },
         {
           name: '评论最多',
-          url: '/bookNotes/commentMost',
+          type: 'commentMost',
           active: false
         },
         {
           name: '推荐',
-          url: '/bookNotes/recommend',
+          type: 'recommend',
           active: false
         }
       ],
@@ -150,15 +150,18 @@ export default {
     'side-toc': SideToc
   },
   created: function () {
-    this.refreshArticle(this.articleFilterList[0].url)
-    this.refreshBook(this.bookFilterList[0].url)
-    this.refreshBookNote(this.bookNoteFilterList[0].url)
+    let param = {}
+    param.latest = true
+    this.refreshArticle(param)
+    this.refreshBook(param)
+    this.refreshBookNote(param)
   },
   methods: {
-    refreshArticle (url) {
+    refreshArticle (param) {
+      let params = merge(param, this.pageParam)
       this.$http({
-        url: this.$http.adornUrl(url),
-        params: this.$http.adornParams(this.pageParam),
+        url: this.$http.adornUrl('/articles'),
+        params: this.$http.adornParams(params),
         method: 'get'
       }).then(({data}) => {
         if (data && data.code === 200) {
@@ -166,10 +169,11 @@ export default {
         }
       })
     },
-    refreshBook (url) {
+    refreshBook (param) {
+      let params = merge(param, this.pageParam)
       this.$http({
-        url: this.$http.adornUrl(url),
-        params: this.$http.adornParams(this.pageParam),
+        url: this.$http.adornUrl('/books'),
+        params: this.$http.adornParams(params),
         method: 'get'
       }).then(({data}) => {
         if (data && data.code === 200) {
@@ -180,10 +184,11 @@ export default {
         }
       })
     },
-    refreshBookNote (url) {
+    refreshBookNote (param) {
+      let params = merge(param, this.pageParam)
       this.$http({
-        url: this.$http.adornUrl(url),
-        params: this.$http.adornParams(this.pageParam),
+        url: this.$http.adornUrl('/bookNotes'),
+        params: this.$http.adornParams(params),
         method: 'get'
       }).then(({data}) => {
         if (data && data.code === 200) {

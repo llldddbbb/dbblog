@@ -1,7 +1,6 @@
 package cn.dblearn.blog.portal.book.service.impl;
 
 import cn.dblearn.blog.common.enums.ModuleEnum;
-import cn.dblearn.blog.common.util.HtmlUtils;
 import cn.dblearn.blog.common.util.PageUtils;
 import cn.dblearn.blog.common.util.Query;
 import cn.dblearn.blog.entity.book.Book;
@@ -48,8 +47,6 @@ public class BookServiceImpl extends ServiceImpl<BookMapper, Book> implements Bo
         List<BookVo> bookList = baseMapper.queryPageCondition(page, params);
         if (!CollectionUtils.isEmpty(bookList)) {
             bookList.forEach(bookVo -> {
-                // 将description去除html标签
-                bookVo.setDescription(HtmlUtils.Html2Text(bookVo.getDescription()));
                 // 设置标签列表
                 bookVo.setTagList(tagService.listByLinkId(bookVo.getId(), ModuleEnum.BOOK.getValue()));
             });

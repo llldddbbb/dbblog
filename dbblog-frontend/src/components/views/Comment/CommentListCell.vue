@@ -17,7 +17,7 @@
                   <span class="name" :class="theme"><a href="">{{comment.nickName}}</a></span>
                   <span class="reply-icon" :class="theme" v-if="comment.parentNickName">&nbsp;<iv-icon type="forward"></iv-icon></span>
                   <span class="reply-name" :class="theme" v-if="comment.parentNickName"><a href="">{{comment.parentNickName}}</a></span>
-                  <span class="time">{{formatData}}</span>
+                  <span class="time">{{comment.publishTime | socialDateFormat}}</span>
                 </p>
                 <p class="comment-content" :class="theme">
                   {{comment.content}}</p>
@@ -42,7 +42,7 @@
 
 <script type="text/ecmascript-6">
 import MavonEditor from '@/components/views/MavonEditor'
-import { dateStr } from '@/utils'
+import { mixin } from '@/utils'
 
 const CELL_LEFT_SPAN = {
   'xs': 3,
@@ -69,15 +69,11 @@ export default {
       default: ''
     }
   },
+  mixins: [mixin],
   data () {
     return {
       showEditor: false,
       spreadEditor: false
-    }
-  },
-  computed: {
-    formatData () {
-      return dateStr(this.comment.publishTime)
     }
   },
   methods: {

@@ -215,7 +215,7 @@ export default {
     },
     // 新增 / 修改
     addOrUpdateHandle (id) {
-      this.$router.push({path: 'book/update/' + id})
+      this.$router.push({path: 'book/book/update/' + id})
     },
     // 删除
     deleteHandle (id) {
