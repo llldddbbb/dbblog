@@ -22,12 +22,18 @@ export default {
   },
   data () {
     return {
-      loading: false
+      loading: false,
+      noMore: false
     }
   },
   methods: {
     browseMore () {
+      if (this.noMore) {
+        this.loading = false
+        return
+      }
       this.loading = true
+      this.$emit('browseMore')
       var that = this
       setTimeout(function () {
         that.loading = false

@@ -5,6 +5,7 @@
         <div class="layout-left">
           <article-list-header @listArticle="listArticle" :categorys="categoryList" ></article-list-header>
           <article-list-cell v-for="article in articleList" :article="article" :key="article.id"></article-list-cell>
+          <browse-more @browseMore="browseMore"  ref="browseMore"></browse-more>
         </div>
       </iv-col>
       <iv-col :xs="0" :sm="0" :md="0" :lg="7">
@@ -24,13 +25,20 @@ import ArticlePageFooter from '@/components/views/Article/ArticlePageFooter'
 import ArticleListCell from '@/components/views/Article/ArticleListCell'
 import Recommend from '@/components/views/Recommend'
 import TagWall from '@/components/views/TagWall'
+import BrowseMore from '@/components/views/BrowseMore'
 import {treeDataTranslate} from '@/utils'
 
 export default {
   data () {
     return {
       articleList: [],
-      categoryList: []
+      categoryList: [],
+      pageParam: {
+        page: 1,
+        limit: 5
+      },
+      currentPage: 1,
+      tempParams: {}
     }
   },
   created () {
@@ -38,10 +46,16 @@ export default {
     this.listCategory()
   },
   methods: {
-    listArticle (params) {
+    listArticle (param) {
+      this.tempParams = param
+      this.currentPage = 1
+      if (param) {
+        param.page = this.pageParam.page
+        param.limit = this.pageParam.limit
+      }
       this.$http({
         url: this.$http.adornUrl('/articles'),
-        params: this.$http.adornParams(params),
+        params: this.$http.adornParams(param),
         method: 'get'
       }).then(({data}) => {
         if (data && data.code === 200) {
@@ -61,6 +75,21 @@ export default {
           this.categoryList = treeDataTranslate(data.categoryList)
         }
       })
+    },
+    browseMore () {
+      let params = this.tempParams
+      this.currentPage++
+      params.page = this.currentPage
+      params.limit = this.pageParam.limit
+      this.$http({
+        url: this.$http.adornUrl('/articles'),
+        params: this.$http.adornParams(params),
+        method: 'get'
+      }).then(({data}) => {
+        if (data && data.code === 200) {
+          this.articleList = this.articleList.concat(data.page.list)
+        }
+      })
     }
   },
   components: {
@@ -69,7 +98,8 @@ export default {
     'article-page-footer': ArticlePageFooter,
     'article-list-cell': ArticleListCell,
     'recommend': Recommend,
-    'tag-wall': TagWall
+    'tag-wall': TagWall,
+    'browse-more': BrowseMore
   }
 }
 </script>
