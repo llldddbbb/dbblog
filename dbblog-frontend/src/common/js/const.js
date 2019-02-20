@@ -15,64 +15,28 @@ export const ResponsivePoint = {
 }
 
 // 默认请求数据时的limit size
-export const DefaultLimitSize = 10
-
-// 请求数据时的最大limit size
-export const MaxLimitSize = 100
+export const DefaultLimitSize = 5
 
 // section title默认的menus
-export const SectionTitleDefaultMenus = [
+export const DefaultFilterList = [
   {
-    title: 'sectionTitle.filter.order.desc',
-    selectedTitle: 'sectionTitle.filter.order.asc',
-    selected: true,
-    method: 'timeSorted'
+    name: '最新',
+    type: 'latest',
+    active: true
   },
-  {title: 'sectionTitle.filter.mostComment', selected: false, method: 'mostComment'},
-  {title: 'sectionTitle.filter.recommend', selected: false, method: 'recommend'}
+  {
+    name: '点赞最多',
+    type: 'favorite',
+    active: false
+  },
+  {
+    name: '评论最多',
+    type: 'commentMost',
+    active: false
+  },
+  {
+    name: '推荐',
+    type: 'recommend',
+    active: false
+  }
 ]
-
-// section tite默认的日期选择options
-export const SectionTitleDefaultDatePickerOptions = {
-  disabledDate (date) {
-    return date && date.valueOf() > Date.now()
-  },
-  shortcuts: [
-    {
-      text: '近一周',
-      value () {
-        const end = new Date()
-        const start = new Date()
-        start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
-        return [start, end]
-      }
-    },
-    {
-      text: '近一个月',
-      value () {
-        const end = new Date()
-        const start = new Date()
-        start.setTime(start.getTime() - 3600 * 1000 * 24 * 30)
-        return [start, end]
-      }
-    },
-    {
-      text: '近三个月',
-      value () {
-        const end = new Date()
-        const start = new Date()
-        start.setTime(start.getTime() - 3600 * 1000 * 24 * 90)
-        return [start, end]
-      }
-    },
-    {
-      text: '近一年',
-      value () {
-        const end = new Date()
-        const start = new Date()
-        start.setTime(start.getTime() - 3600 * 1000 * 24 * 365)
-        return [start, end]
-      }
-    }
-  ]
-}

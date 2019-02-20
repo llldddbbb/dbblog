@@ -141,7 +141,7 @@ export default {
       this.selectedRecursiveCategorys = recursiveCategoryIds
     },
     selectCategory (categoryId) {
-      this.$emit('listArticle', categoryId === -1 ? {} : {categoryId: categoryId})
+      this.$emit('filterByCategory', categoryId === -1 ? undefined : categoryId)
     }
   },
   watch: {
