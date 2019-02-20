@@ -5,7 +5,7 @@
         <div class="layout-left">
           <article-list-header @listArticle="listArticle" :categorys="categoryList" ></article-list-header>
           <article-list-cell v-for="article in articleList" :article="article" :key="article.id"></article-list-cell>
-          <browse-more @browseMore="browseMore"  ref="browseMore"></browse-more>
+          <browse-more @browseMore="browseMore" :noMoreData="noMoreData"  ref="browseMore"></browse-more>
         </div>
       </iv-col>
       <iv-col :xs="0" :sm="0" :md="0" :lg="7">
@@ -38,7 +38,8 @@ export default {
         limit: 5
       },
       currentPage: 1,
-      tempParams: {}
+      tempParams: {},
+      noMoreData: false
     }
   },
   created () {
@@ -55,10 +56,13 @@ export default {
       }
       this.$http({
         url: this.$http.adornUrl('/articles'),
-        params: this.$http.adornParams(param),
+        params: this.$http.adornParams(param || this.pageParam),
         method: 'get'
       }).then(({data}) => {
         if (data && data.code === 200) {
+          if (data.page.totalPage <= data.page.currPage) {
+            this.noMoreData = true
+          }
           this.articleList = data.page.list
         }
       })
@@ -77,18 +81,32 @@ export default {
       })
     },
     browseMore () {
-      let params = this.tempParams
       this.currentPage++
-      params.page = this.currentPage
-      params.limit = this.pageParam.limit
+      let params = {
+        page: this.currentPage,
+        limit: this.pageParam.limit
+      }
+      if (this.tempParams) {
+        params = this.tempParams
+        params.page = this.currentPage
+        params.limit = this.pageParam.limit
+      }
       this.$http({
         url: this.$http.adornUrl('/articles'),
         params: this.$http.adornParams(params),
         method: 'get'
       }).then(({data}) => {
         if (data && data.code === 200) {
+          if (data.page.totalPage <= data.page.currPage) {
+            this.noMoreData = true
+          }
           this.articleList = this.articleList.concat(data.page.list)
         }
+      }).then(response => {
+        this.$refs.browseMore.stopLoading()
+      }).catch(error => {
+        this.$refs.browseMore.stopLoading()
+        console.log(error)
       })
     }
   },
