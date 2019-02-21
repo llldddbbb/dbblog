@@ -27,79 +27,11 @@
         class="aa-dataset-1"></div></span></span>
         </form>
       </li>
-      <li class="nav-dropdown-container learn">
-        <a class="nav-link current">菜单</a><span class="arrow"></span>
-        <ul class="nav-dropdown">
-          <li>
-            <ul>
-              <li><a href="/v2/guide/" class="nav-link current">菜单1</a></li>
-              <li><a href="/v2/api/" class="nav-link">菜单</a></li>
-              <li><a href="/v2/style-guide/" class="nav-link">菜单</a></li>
-              <li><a href="/v2/examples/" class="nav-link">菜单</a></li>
-            </ul>
-          </li>
-        </ul>
-      </li>
 
-      <li class="nav-dropdown-container ecosystem">
-        <a class="nav-link">菜单</a>
-        <ul class="nav-dropdown">
-          <li><h4>菜单</h4></li>
-          <li>
-            <ul>
-              <li><a href="https://forum.vuejs.org/" class="nav-link" target="_blank">菜单</a></li>
-              <li><a href="https://chat.vuejs.org/" class="nav-link" target="_blank">菜单</a></li>
-            </ul>
-          </li>
-          <li><h4>菜单</h4></li>
-          <li>
-            <ul>
-              <li><a href="https://github.com/vuejs/vue-devtools" class="nav-link" target="_blank">菜单</a></li>
-              <li><a href="https://vuejs-templates.github.io/webpack" class="nav-link" target="_blank">菜单</a>
-              </li>
-              <li><a href="https://vue-loader.vuejs.org" class="nav-link" target="_blank">菜单</a></li>
-            </ul>
-          </li>
-          <li><h4>菜单</h4></li>
-          <li>
-            <ul>
-              <li><a href="https://router.vuejs.org/" class="nav-link" target="_blank">菜单</a></li>
-              <li><a href="https://vuex.vuejs.org/" class="nav-link" target="_blank">菜单</a></li>
-              <li><a href="https://ssr.vuejs.org/" class="nav-link" target="_blank">菜单</a></li>
-            </ul>
-          </li>
-          <li><h4>菜单</h4></li>
-          <li>
-            <ul>
-              <li><a href="https://github.com/vuejs/roadmap" class="nav-link" target="_blank">菜单</a></li>
-              <li><a href="https://twitter.com/vuejs" class="nav-link" target="_blank">菜单</a></li>
-              <li><a href="https://medium.com/the-vue-point" class="nav-link" target="_blank">菜单</a></li>
-              <li><a href="https://vuejobs.com/?ref=vuejs" class="nav-link" target="_blank">菜单</a></li>
-            </ul>
-          </li>
-          <li><h4>菜单</h4></li>
-          <li>
-            <ul>
-              <li><a href="https://github.com/vuejs" class="nav-link" target="_blank">菜单</a></li>
-              <li><a href="https://curated.vuejs.org/" class="nav-link" target="_blank">菜单</a></li>
-              <li><a href="https://github.com/vuejs/awesome-vue" class="nav-link" target="_blank">菜单</a></li>
-            </ul>
-          </li>
-        </ul>
-      </li>
-
-      <li class="nav-dropdown-container language">
-        <a class="nav-link">文章</a><span class="arrow"></span>
-        <ul class="nav-dropdown">
-          <li><a href="https://vuejs.org/v2/guide/index.html" class="nav-link" target="_blank">菜单</a></li>
-          <li><a href="https://jp.vuejs.org/v2/guide/index.html" class="nav-link" target="_blank">菜单</a></li>
-          <li><a href="https://ru.vuejs.org/v2/guide/index.html" class="nav-link" target="_blank">菜单</a></li>
-          <li><a href="https://kr.vuejs.org/v2/guide/index.html" class="nav-link" target="_blank">菜单</a></li>
-          <li><a href="https://br.vuejs.org/v2/guide/index.html" class="nav-link" target="_blank">菜单</a></li>
-          <li><a href="https://fr.vuejs.org/v2/guide/index.html" class="nav-link" target="_blank">菜单</a></li>
-        </ul>
-      </li>
-      <li><a href="https://github.com/vuejs/cn.vuejs.org/" target="_blank" class="nav-link contribute">菜单</a></li>
+      <li><a href="/articles" class="nav-link contribute">文章</a></li>
+      <li><a href="/bookNotes" class="nav-link contribute">阅读</a></li>
+      <li><a href="/timeline" class="nav-link contribute">时光轴</a></li>
+      <li><a href="/article/1" class="nav-link contribute">关于</a></li>
     </ul>
     </div>
     </transition>

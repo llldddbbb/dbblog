@@ -92,6 +92,7 @@ public class ViewLogAspect {
             default:
                 break;
         }
+        viewLogEntity.setParams(id);
         // 请求的方法名
         String className = joinPoint.getTarget().getClass().getName();
         String methodName = signature.getName();

@@ -3,11 +3,14 @@ package cn.dblearn.blog.portal.article.controller;
 
 import cn.dblearn.blog.common.Result;
 import cn.dblearn.blog.common.util.PageUtils;
-import cn.dblearn.blog.entity.article.Article;
-import cn.dblearn.blog.portal.common.annotation.ViewLog;
+import cn.dblearn.blog.entity.article.vo.ArticleVo;
 import cn.dblearn.blog.portal.article.service.ArticleService;
+import cn.dblearn.blog.portal.common.annotation.ViewLog;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
 
@@ -28,7 +31,7 @@ public class ArticleController {
     @GetMapping("/article/{articleId}")
     @ViewLog(type = "article")
     public Result getArticle(@PathVariable Integer articleId){
-        Article article = articleService.getById(articleId);
+        ArticleVo article = articleService.getArticleVo(articleId);
         return Result.ok().put("article",article);
     }
 

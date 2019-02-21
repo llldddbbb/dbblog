@@ -15,18 +15,18 @@
             </iv-select>
           </iv-input>
         </iv-col>
-        <iv-col :xs="24" :sm="24" :md="6" :lg="7" class-name="iv-dropdown-link">
-          <iv-dropdown>
-            <iv-icon type="log-in"></iv-icon> 或登录以评论 <iv-icon type="arrow-down-b"></iv-icon>
-            <iv-dropdown-menu slot="list">
-              <iv-dropdown-item>菜单</iv-dropdown-item>
-              <iv-dropdown-item>菜单</iv-dropdown-item>
-              <iv-dropdown-item>菜单</iv-dropdown-item>
-              <iv-dropdown-item disabled>菜单</iv-dropdown-item>
-              <iv-dropdown-item divided>菜单</iv-dropdown-item>
-            </iv-dropdown-menu>
-          </iv-dropdown>
-        </iv-col>
+        <!--<iv-col :xs="24" :sm="24" :md="6" :lg="7" class-name="iv-dropdown-link">-->
+          <!--<iv-dropdown>-->
+            <!--<iv-icon type="log-in"></iv-icon> 或登录以评论 <iv-icon type="arrow-down-b"></iv-icon>-->
+            <!--<iv-dropdown-menu slot="list">-->
+              <!--<iv-dropdown-item>菜单</iv-dropdown-item>-->
+              <!--<iv-dropdown-item>菜单</iv-dropdown-item>-->
+              <!--<iv-dropdown-item>菜单</iv-dropdown-item>-->
+              <!--<iv-dropdown-item disabled>菜单</iv-dropdown-item>-->
+              <!--<iv-dropdown-item divided>菜单</iv-dropdown-item>-->
+            <!--</iv-dropdown-menu>-->
+          <!--</iv-dropdown>-->
+        <!--</iv-col>-->
       </iv-row>
     </div>
     <div class="editor-area">

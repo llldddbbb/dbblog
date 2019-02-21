@@ -18,23 +18,23 @@
     <select id="queryPageCondition" resultType="cn.dblearn.blog.entity.article.vo.ArticleVo">
         select <include refid="homeArticleColumn"/> from article 
         <where>
-            <if test="params.recommend != null">
+            <if test="params.recommend != null and params.recommend != ''">
                 and recommend = true
             </if>
-            <if test="params.categoryId !=null">
+            <if test="params.categoryId !=null and params.categoryId != ''">
                 and find_in_set(#{params.categoryId},category_id)
             </if>
         </where>
-        <if test="params.recommend !=null">
+        <if test="params.recommend !=null and params.recommend != ''">
             order by create_time desc
         </if>
-        <if test="params.latest !=null">
+        <if test="params.latest !=null and params.latest != ''">
             order by create_time desc
         </if>
-        <if test="params.favorite !=null">
+        <if test="params.favorite !=null and params.favorite != ''">
             order by like_num desc
         </if>
-        <if test="params.commentMost !=null">
+        <if test="params.commentMost !=null and params.commentMost != ''">
             order by comment_num desc
         </if>
 

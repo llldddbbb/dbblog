@@ -34,7 +34,7 @@
     <div class="comment-list">
       <comment-cell-list :theme="theme" :comment="comment" v-for="comment in commentList" :key="comment.commentId" ></comment-cell-list>
     </div>
-    <browse-more></browse-more>
+    <!--<browse-more></browse-more>-->
   </div>
 </template>
 

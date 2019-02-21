@@ -10,6 +10,7 @@ import cn.dblearn.blog.mapper.article.ArticleMapper;
 import cn.dblearn.blog.portal.article.service.ArticleService;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -49,5 +50,20 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
                 })));
         page.setRecords(articleList);
         return new PageUtils(page);
+    }
+
+    /**
+     * 获取ArticleVo对象
+     *
+     * @param articleId
+     * @return
+     */
+    @Override
+    public ArticleVo getArticleVo(Integer articleId) {
+        Article article = baseMapper.selectById(articleId);
+        ArticleVo articleVo = new ArticleVo();
+        BeanUtils.copyProperties(article,articleVo);
+        articleVo.setTagList(tagService.listByLinkId(articleId,ModuleEnum.ARTICLE.getValue()));
+        return articleVo;
     }
 }
