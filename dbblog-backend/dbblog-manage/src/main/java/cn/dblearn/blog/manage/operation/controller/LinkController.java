@@ -1,14 +1,16 @@
 package cn.dblearn.blog.manage.operation.controller;
 
 import cn.dblearn.blog.common.Result;
+import cn.dblearn.blog.common.base.AbstractController;
+import cn.dblearn.blog.common.constants.RedisKeyConstants;
 import cn.dblearn.blog.common.util.PageUtils;
 import cn.dblearn.blog.common.validator.ValidatorUtils;
 import cn.dblearn.blog.entity.operation.Link;
 import cn.dblearn.blog.manage.operation.service.LinkService;
-import cn.dblearn.blog.common.base.AbstractController;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
@@ -69,6 +71,7 @@ public class LinkController extends AbstractController {
      */
     @PutMapping("/update")
     @RequiresPermissions("operation:link:update")
+    @CacheEvict(value = RedisKeyConstants.PORTAL_LINK_LIST)
     public Result update(@RequestBody Link link){
         ValidatorUtils.validateEntity(link);
         linkService.updateById(link);
@@ -80,6 +83,7 @@ public class LinkController extends AbstractController {
      */
     @DeleteMapping("/delete")
     @RequiresPermissions("operation:link:delete")
+    @CacheEvict(value = RedisKeyConstants.PORTAL_LINK_LIST)
     public Result delete(@RequestBody String[] ids){
         linkService.removeByIds(Arrays.asList(ids));
 

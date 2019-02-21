@@ -1,0 +1,32 @@
+package cn.dblearn.blog.portal.operation;
+
+import cn.dblearn.blog.common.Result;
+import cn.dblearn.blog.entity.operation.Link;
+import cn.dblearn.blog.portal.operation.service.LinkService;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.Resource;
+import java.util.List;
+
+/**
+ * LinkController
+ *
+ * @author bobbi
+ * @date 2019/02/21 17:09
+ * @email 571002217@qq.com
+ * @description
+ */
+@RequestMapping("/operation")
+@RestController("LinkPortalController")
+public class LinkController {
+
+    @Resource
+    private LinkService linkService;
+
+    @RequestMapping("/links")
+    public Result listLink() {
+        List<Link> linkList = linkService.listLink();
+        return Result.ok().put("linkList",linkList);
+    }
+}

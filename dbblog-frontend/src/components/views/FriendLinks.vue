@@ -2,39 +2,12 @@
   <div class="friend-links">
     <panel :title="'友情链接'">
       <ul class="link-list" slot="content">
-        <li>
-          <a href="">
-            <img src="../../assets/avatar.png" alt="">
+        <li v-for="link in linkList" :key="link.id">
+          <a :href="link.url" target="_blank">
+            <img :src="link.avatar" alt="">
             <div class="right">
-              <p class="title">百度的个人</p>
-              <p class="link">www.baidu.com</p>
-            </div>
-          </a>
-        </li>
-        <li>
-          <a href="">
-            <img src="../../assets/avatar.png" alt="">
-            <div class="right">
-              <p class="title">百度的个人</p>
-              <p class="link">www.baidu.com</p>
-            </div>
-          </a>
-        </li>
-        <li>
-          <a href="">
-            <img src="../../assets/avatar.png" alt="">
-            <div class="right">
-              <p class="title">百度的个人</p>
-              <p class="link">www.baidu.com</p>
-            </div>
-          </a>
-        </li>
-        <li>
-          <a href="">
-            <img src="../../assets/avatar.png" alt="">
-            <div class="right">
-              <p class="title">百度的个人</p>
-              <p class="link">www.baidu.com</p>
+              <p class="title">{{link.title}}</p>
+              <p class="link">{{link.url}}</p>
             </div>
           </a>
         </li>
@@ -47,8 +20,29 @@
 import Panel from '@/components/utils/Panel'
 
 export default {
+  data () {
+    return {
+      linkList: []
+    }
+  },
+  created () {
+    this.listLink()
+  },
   components: {
     'panel': Panel
+  },
+  methods: {
+    listLink () {
+      this.$http({
+        url: this.$http.adornUrl('/operation/links'),
+        method: 'get',
+        params: this.$http.adornParams()
+      }).then(({data}) => {
+        if (data && data.code === 200) {
+          this.linkList = data.linkList
+        }
+      })
+    }
   }
 }
 </script>
