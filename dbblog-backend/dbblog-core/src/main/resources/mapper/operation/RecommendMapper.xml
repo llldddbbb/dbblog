@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.dblearn.blog.manage.operation.mapper.RecommendMapper">
+
+    <select id="listSelect" resultType="cn.dblearn.blog.entity.operation.vo.RecommendVo">
+        select a.id as linkId, a.title, 0 as type
+        from article a
+        union all
+        select b.id as linkId, b.title, 2 as type
+        from book_note b
+    </select>
+
+</mapper>
