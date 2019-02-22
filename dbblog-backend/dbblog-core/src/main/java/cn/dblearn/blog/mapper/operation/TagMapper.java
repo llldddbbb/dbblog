@@ -1,6 +1,7 @@
 package cn.dblearn.blog.mapper.operation;
 
 import cn.dblearn.blog.entity.operation.Tag;
+import cn.dblearn.blog.entity.operation.vo.TagVo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -32,4 +33,10 @@ public interface TagMapper extends BaseMapper<Tag> {
      * @param type
      */
     void deleteTagLink(@Param("linkId") Integer linkId, @Param("type") Integer type);
+
+    /**
+     * 获取tagVoList
+     * @return
+     */
+    List<TagVo> listTagVo();
 }

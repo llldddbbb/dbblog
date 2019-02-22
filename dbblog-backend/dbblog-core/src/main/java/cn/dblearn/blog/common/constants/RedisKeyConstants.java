@@ -30,4 +30,9 @@ public class RedisKeyConstants {
      */
     public final static String PORTAL_RECOMMEND_LIST="PORTAL_RECOMMEND_LIST";
 
+    /**
+     * 标签列表
+     */
+    public final static String PORTAL_TAG_LIST="PORTAL:TAG:LIST";
+
 }

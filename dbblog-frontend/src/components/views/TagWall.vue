@@ -2,7 +2,7 @@
   <div class="tag-wall">
     <panel :title="'相关标签'">
       <div slot="content" class="content">
-        <iv-tag v-for="(tag , index) in tags" type="dot" color="blue" :key="index" style="margin: 0 5px 5px 0;">{{ tag }}
+        <iv-tag v-for="(tag , index) in tagList" type="dot" color="blue" :key="index" style="margin: 0 5px 5px 0;" class="dot-tag">{{ tag.name +' ['+ tag.linkNum + ']'}}
         </iv-tag>
       </div>
     </panel>
@@ -15,11 +15,27 @@ import Panel from '@/components/utils/Panel'
 export default {
   data () {
     return {
-      tags: ['iOS', '大数据', 'python', '流式计算', 'Linux', 'Big Date', 'PHP', 'iOS', '大数据', 'python', '流式计算', 'Linux', 'Big Date', 'PHP', 'iOS', '大数据', 'python', '流式计算', 'Linux', 'Big Date', 'PHP', 'iOS', '大数据', 'python', '流式计算', 'Linux', 'Big Date', 'PHP', 'iOS', '大数据', 'python', '流式计算', 'Linux', 'Big Date', 'PHP', 'iOS', '大数据', 'python', '流式计算', 'Linux', 'Big Date', 'PHP', 'iOS', '大数据', 'python', '流式计算', 'Linux', 'iOS', '大数据', 'python', 'iOS', '大数据', 'python', '流式计算', 'Linux', 'Big Date', 'PHP', 'Java', 'Spring', 'HTML', 'CSS', '流式计算', 'Linux', 'Big Date', 'PHP', '流式计算', 'Linux', 'Big Date', 'PHP']
+      tagList: []
     }
   },
   components: {
     'panel': Panel
+  },
+  created () {
+    this.listTag()
+  },
+  methods: {
+    listTag () {
+      this.$http({
+        url: this.$http.adornUrl('/operation/tags'),
+        method: 'get',
+        params: this.$http.adornParams()
+      }).then(({data}) => {
+        if (data && data.code === 200) {
+          this.tagList = data.tagList
+        }
+      })
+    }
   }
 }
 </script>
