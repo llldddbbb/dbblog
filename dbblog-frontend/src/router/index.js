@@ -12,7 +12,9 @@ import CommonFooter from '@/components/footer/CommonFooter'
 // 首页
 import HomeContent from '@/components/content/HomeContent'
 import ArticleContent from '@/components/content/ArticleContent'
+import BookNoteContent from '@/components/content/BookNoteContent'
 import ArticleListContent from '@/components/content/ArticleListContent'
+import BookNoteListContent from '@/components/content/BookNoteListContent'
 import PhotographContent from '@/components/content/PhotographContent'
 import MovieContent from '@/components/content/MovieContent'
 import MovieListContent from '@/components/content/MovieListContent'
@@ -54,6 +56,24 @@ let router = new Router({
           components: {
             header: SimpleHeader,
             content: ArticleListContent,
+            footer: CommonFooter
+          }
+        },
+        {
+          path: 'bookNote/:bookNoteId',
+          name: 'bookNote',
+          components: {
+            header: SimpleHeader,
+            content: BookNoteContent,
+            footer: CommonFooter
+          }
+        },
+        {
+          path: 'bookNotes',
+          name: 'bookNotes',
+          components: {
+            header: SimpleHeader,
+            content: BookNoteListContent,
             footer: CommonFooter
           }
         },
