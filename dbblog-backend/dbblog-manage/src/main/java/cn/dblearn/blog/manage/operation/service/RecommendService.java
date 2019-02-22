@@ -30,4 +30,10 @@ public interface RecommendService extends IService<Recommend> {
      * @return
      */
     List<RecommendVo> listSelect();
+
+    /**
+     * 更新置顶状态
+     * @param id
+     */
+    void updateTop(Integer id);
 }

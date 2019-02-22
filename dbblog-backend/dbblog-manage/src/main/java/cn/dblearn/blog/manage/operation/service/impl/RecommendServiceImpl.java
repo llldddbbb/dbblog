@@ -52,4 +52,23 @@ public class RecommendServiceImpl extends ServiceImpl<RecommendMapper, Recommend
         return baseMapper.listSelect();
     }
 
+    /**
+     * 更新置顶状态
+     *
+     * @param id
+     */
+    @Override
+    public void updateTop(Integer id) {
+        // 更新本条
+        Recommend recommend = new Recommend();
+        recommend.setTop(true);
+        recommend.setId(id);
+        this.baseMapper.updateById(recommend);
+        //批量更新其他
+        recommend.setTop(false);
+        recommend.setId(null);
+        this.baseMapper.update(recommend,new QueryWrapper<Recommend>().lambda()
+                .ne(Recommend::getId,id));
+    }
+
 }

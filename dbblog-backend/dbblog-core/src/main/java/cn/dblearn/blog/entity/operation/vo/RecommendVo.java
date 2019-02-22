@@ -2,8 +2,10 @@ package cn.dblearn.blog.entity.operation.vo;
 
 import cn.dblearn.blog.entity.operation.Recommend;
 import cn.dblearn.blog.entity.operation.Tag;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -28,6 +30,9 @@ public class RecommendVo extends Recommend {
     private String urlType;
 
     private String cover;
+
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDateTime createTime;
 
     private List<Tag> tagList;
 

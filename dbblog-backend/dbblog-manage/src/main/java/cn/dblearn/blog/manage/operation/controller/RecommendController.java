@@ -2,6 +2,7 @@ package cn.dblearn.blog.manage.operation.controller;
 
 import cn.dblearn.blog.common.Result;
 import cn.dblearn.blog.common.base.AbstractController;
+import cn.dblearn.blog.common.constants.RedisKeyConstants;
 import cn.dblearn.blog.common.util.PageUtils;
 import cn.dblearn.blog.common.validator.ValidatorUtils;
 import cn.dblearn.blog.entity.operation.Recommend;
@@ -10,6 +11,7 @@ import cn.dblearn.blog.manage.operation.service.RecommendService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
@@ -66,6 +68,7 @@ public class RecommendController extends AbstractController {
      */
     @PostMapping("/save")
     @RequiresPermissions("operation:recommend:save")
+    @CacheEvict(value = RedisKeyConstants.PORTAL_RECOMMEND_LIST)
     public Result save(@RequestBody Recommend recommend){
         ValidatorUtils.validateEntity(recommend);
         recommendService.save(recommend);
@@ -78,9 +81,18 @@ public class RecommendController extends AbstractController {
      */
     @PutMapping("/update")
     @RequiresPermissions("operation:recommend:update")
+    @CacheEvict(value = RedisKeyConstants.PORTAL_RECOMMEND_LIST)
     public Result update(@RequestBody Recommend recommend){
         ValidatorUtils.validateEntity(recommend);
         recommendService.updateById(recommend);
+        return Result.ok();
+    }
+
+    @PutMapping("/top/{id}")
+    @RequiresPermissions("operation:recommend:update")
+    @CacheEvict(value = RedisKeyConstants.PORTAL_RECOMMEND_LIST)
+    public Result updateTop (@PathVariable Integer id) {
+        recommendService.updateTop(id);
         return Result.ok();
     }
 
@@ -89,6 +101,7 @@ public class RecommendController extends AbstractController {
      */
     @DeleteMapping("/delete")
     @RequiresPermissions("operation:recommend:delete")
+    @CacheEvict(value = RedisKeyConstants.PORTAL_RECOMMEND_LIST)
     public Result delete(@RequestBody String[] ids){
         recommendService.removeByIds(Arrays.asList(ids));
 

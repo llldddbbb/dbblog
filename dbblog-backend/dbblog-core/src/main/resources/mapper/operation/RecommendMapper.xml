@@ -11,7 +11,7 @@
     </select>
 
     <select id="listRecommendVo" resultType="cn.dblearn.blog.entity.operation.vo.RecommendVo">
-        select * from recommend order by create_time desc limit 10
+        select * from recommend order by top desc,id desc  limit 10
     </select>
 
 </mapper>

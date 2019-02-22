@@ -2,13 +2,11 @@ package cn.dblearn.blog.entity.operation;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -40,9 +38,8 @@ public class Recommend implements Serializable {
     @ApiModelProperty(value = "标题")
     private String title;
 
-    @ApiModelProperty(value = "创建时间")
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDateTime createTime;
+    @ApiModelProperty(value = "置顶")
+    private Boolean top;
 
 
 }

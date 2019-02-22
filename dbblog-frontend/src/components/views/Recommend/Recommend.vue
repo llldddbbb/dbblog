@@ -3,46 +3,32 @@
     <panel :title="'推荐阅读'">
       <div slot="content" class="content">
         <div class="top">
-          <a href="">
-            <p class="title">你以为毕业后还能去搬砖？别做梦了，机器人已经连房子都会盖啦</p>
+          <a :href="topRecommend.urlType + '/' + topRecommend.linkId">
+            <p class="title">{{topRecommend.title}}</p>
             <div class="tags">
-              <iv-tag color="blue">标签二</iv-tag>
-              <iv-tag color="green">标签三</iv-tag>
-              <iv-tag color="red">标签四</iv-tag>
-              <iv-tag color="yellow">标签五</iv-tag>
+              <iv-tag v-if="topRecommend.type === 0" :color="index | mapTagColor" v-for="(tag,index) in topRecommend.tagList" :key="tag.id">{{tag.name}}</iv-tag>
             </div>
             <p class="info">
-              <span class="time">2017-11-17 09:19</span>
-              <span class="likes"><a href=""><iv-icon type="heart"></iv-icon> {{article.likes}} </a></span>
-              <span class="comments"><a href=""><iv-icon type="compose"></iv-icon> {{article.comments}} </a></span>
-              <span class="readings"><a href=""><iv-icon type="eye"></iv-icon> {{article.readings}} </a></span>
+              <span class="time">{{topRecommend.createTime}}</span>
+              <span class="likes"><a href=""><iv-icon type="heart"></iv-icon> {{topRecommend.likeNum}} </a></span>
+              <span class="comments"><a href=""><iv-icon type="compose"></iv-icon> {{topRecommend.commentNum}} </a></span>
+              <span class="readings"><a href=""><iv-icon type="eye"></iv-icon> {{topRecommend.readNum}} </a></span>
             </p>
             <div class="img">
-              <img src="../../../assets/recommend.jpg" alt="">
+              <img :src="topRecommend.cover" alt="">
             </div>
-            <p class="desc">希望不管是机器人的设计者还是使用者都能明白，使用机器的目的是帮助我们实现更多创造性的工作，保护我们免于危险，激发我们的人性和爱。</p>
+            <p class="desc">{{topRecommend.description}}</p>
           </a>
         </div>
         <ul class="others">
-          <li>
-            <a href="">
-              <p class="title">你以为毕业后还能去搬砖？别做梦了，机器人已经连房子都会盖啦</p>
+          <li v-for="recommend in recommendList" :key="recommend.id">
+            <a :href="recommend.urlType + '/' +recommend.linkId">
+              <p class="title">{{recommend.title}}</p>
               <p class="info">
-                <span class="time">2017-11-17 09:19</span>
-                <span class="likes"><a href=""><iv-icon type="heart"></iv-icon> {{article.likes}} </a></span>
-                <span class="comments"><a href=""><iv-icon type="compose"></iv-icon> {{article.comments}} </a></span>
-                <span class="readings"><a href=""><iv-icon type="eye"></iv-icon> {{article.readings}} </a></span>
-              </p>
-            </a>
-          </li>
-          <li>
-            <a href="">
-              <p class="title">你以为毕业后还能去搬砖？别做梦了，机器人已经连房子都会盖啦</p>
-              <p class="info">
-                <span class="time">2017-11-17 09:19</span>
-                <span class="likes"><a href=""><iv-icon type="heart"></iv-icon> {{article.likes}} </a></span>
-                <span class="comments"><a href=""><iv-icon type="compose"></iv-icon> {{article.comments}} </a></span>
-                <span class="readings"><a href=""><iv-icon type="eye"></iv-icon> {{article.readings}} </a></span>
+                <span class="time">{{recommend.createTime}}</span>
+                <span class="likes"><a href=""><iv-icon type="heart"></iv-icon> {{recommend.likeNum}} </a></span>
+                <span class="comments"><a href=""><iv-icon type="compose"></iv-icon> {{recommend.commentNum}} </a></span>
+                <span class="readings"><a href=""><iv-icon type="eye"></iv-icon> {{recommend.readNum}} </a></span>
               </p>
             </a>
           </li>
@@ -53,21 +39,32 @@
 </template>
 
 <script type="text/ecmascript-6">
+import {mixin} from '@/utils'
 import Panel from '@/components/utils/Panel'
 
 export default {
   data () {
     return {
-      article: {
-        'id': 1,
-        'title': '被迫向现实低头，再爱也只能到此为止',
-        'author': '男孩与榴莲',
-        'publish_time': '2017-10-22 17:57:08',
-        'desc': '离奇消失亚伯勒郡有一条出名的“S”形单向公路，路面狭窄，两侧耸立着高大的石墙，只能容一辆车子通行',
-        'readings': '148',
-        'comments': '2',
-        'likes': '20'
-      }
+      mixins: [mixin],
+      recommendList: [],
+      topRecommend: {}
+    }
+  },
+  created () {
+    this.listRecommend()
+  },
+  methods: {
+    listRecommend () {
+      this.$http({
+        url: this.$http.adornUrl('/operation/recommends'),
+        method: 'get',
+        params: this.$http.adornParams()
+      }).then(({data}) => {
+        if (data && data.code === 200) {
+          this.recommendList = data.recommendList
+          this.topRecommend = this.recommendList.shift()
+        }
+      })
     }
   },
   components: {

@@ -59,6 +59,7 @@ public class LinkController extends AbstractController {
      */
     @PostMapping("/save")
     @RequiresPermissions("operation:link:save")
+    @CacheEvict(value = RedisKeyConstants.PORTAL_LINK_LIST)
     public Result save(@RequestBody Link link){
         ValidatorUtils.validateEntity(link);
         linkService.save(link);
