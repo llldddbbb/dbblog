@@ -1,7 +1,10 @@
 package cn.dblearn.blog.entity.operation.vo;
 
 import cn.dblearn.blog.entity.operation.Recommend;
+import cn.dblearn.blog.entity.operation.Tag;
 import lombok.Data;
+
+import java.util.List;
 
 /**
  * RecommendVo
@@ -14,6 +17,18 @@ import lombok.Data;
 @Data
 public class RecommendVo extends Recommend {
 
-    private String title;
+    private String description;
+
+    private Long readNum;
+
+    private Long commentNum;
+
+    private Long likeNum;
+
+    private String urlType;
+
+    private String cover;
+
+    private List<Tag> tagList;
 
 }

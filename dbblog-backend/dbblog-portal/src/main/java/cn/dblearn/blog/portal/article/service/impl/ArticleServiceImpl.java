@@ -66,4 +66,16 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         articleVo.setTagList(tagService.listByLinkId(articleId,ModuleEnum.ARTICLE.getValue()));
         return articleVo;
     }
+
+    /**
+     * 获取简单的Article对象
+     * @param articleId
+     * @return
+     */
+    @Override
+    public ArticleVo getSimpleArticleVo(Integer articleId) {
+        ArticleVo articleVo = baseMapper.getSimpleArticleVo(articleId);
+        articleVo.setTagList(tagService.listByLinkId(articleId,ModuleEnum.ARTICLE.getValue()));
+        return articleVo;
+    }
 }

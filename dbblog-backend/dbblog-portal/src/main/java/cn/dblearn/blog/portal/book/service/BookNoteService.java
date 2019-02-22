@@ -2,6 +2,7 @@ package cn.dblearn.blog.portal.book.service;
 
 import cn.dblearn.blog.common.util.PageUtils;
 import cn.dblearn.blog.entity.book.BookNote;
+import cn.dblearn.blog.entity.book.vo.BookNoteVo;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.Map;
@@ -22,4 +23,11 @@ public interface BookNoteService extends IService<BookNote> {
      * @return
      */
     PageUtils queryPageCondition(Map<String, Object> params);
+
+    /**
+     * 获取简单对象
+     * @param linkId
+     * @return
+     */
+    BookNoteVo getSimpleBookNoteVo(Integer linkId);
 }

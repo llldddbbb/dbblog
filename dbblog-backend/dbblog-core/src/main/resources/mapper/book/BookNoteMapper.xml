@@ -40,4 +40,8 @@
         update book_note set read_num = read_num + 1 where id = #{id}
     </update>
 
+    <select id="getSimpleBookNoteVo" resultType="cn.dblearn.blog.entity.book.vo.BookNoteVo">
+        select <include refid="homeBookNoteColumn"/> from book_note where id = #{id}
+    </select>
+
 </mapper>

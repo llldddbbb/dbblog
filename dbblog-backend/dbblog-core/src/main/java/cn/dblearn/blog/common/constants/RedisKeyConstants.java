@@ -25,4 +25,9 @@ public class RedisKeyConstants {
      */
     public final static String PORTAL_LINK_LIST="PORTAL:LINK:LIST";
 
+    /**
+     * 推荐列表
+     */
+    public final static String PORTAL_RECOMMEND_LIST="PORTAL_RECOMMEND_LIST";
+
 }

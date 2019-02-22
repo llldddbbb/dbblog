@@ -23,7 +23,7 @@ import java.time.LocalDateTime;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@ApiModel(value="BookNote对象", description="笔记")
+@ApiModel(value = "BookNote对象", description = "笔记")
 public class BookNote implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -45,13 +45,13 @@ public class BookNote implements Serializable {
     private String content;
 
     @ApiModelProperty(value = "阅读量")
-    private Integer readNum;
+    private Long readNum;
 
     @ApiModelProperty(value = "评论量")
-    private Integer commentNum;
+    private Long commentNum;
 
     @ApiModelProperty(value = "点赞量")
-    private Integer likeNum;
+    private Long likeNum;
 
     @ApiModelProperty(value = "封面")
     private String cover;

@@ -44,4 +44,11 @@ public interface ArticleMapper extends BaseMapper<Article> {
      * @param id
      */
     void updateReadNum(Integer id);
+
+    /**
+     * 获取简单的对象
+     * @param articleId
+     * @return
+     */
+    ArticleVo getSimpleArticleVo(Integer articleId);
 }

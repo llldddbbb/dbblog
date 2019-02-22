@@ -31,4 +31,11 @@ public interface ArticleService extends IService<Article> {
      * @return
      */
     ArticleVo getArticleVo(Integer articleId);
+
+    /**
+     * 获取简单的Article对象
+     * @param articleId
+     * @return
+     */
+     ArticleVo getSimpleArticleVo(Integer articleId);
 }

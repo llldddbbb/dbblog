@@ -11,7 +11,7 @@ import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -62,10 +62,10 @@ public class Article implements Serializable {
 
     @ApiModelProperty(value = "创建时间")
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date createTime;
+    private LocalDateTime createTime;
 
     @ApiModelProperty(value = "更新时间")
-    private Date updateTime;
+    private LocalDateTime updateTime;
 
     @ApiModelProperty(value = "是否推荐文章")
     private Boolean recommend;

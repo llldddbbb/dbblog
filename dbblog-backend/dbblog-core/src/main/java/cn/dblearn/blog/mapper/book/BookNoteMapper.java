@@ -43,4 +43,11 @@ public interface BookNoteMapper extends BaseMapper<BookNote> {
      * @param id
      */
     void updateReadNum(Integer id);
+
+    /**
+     * 获取简单对象
+     * @param bookNoteId
+     * @return
+     */
+    BookNoteVo getSimpleBookNoteVo(Integer bookNoteId);
 }

@@ -43,4 +43,8 @@
     <update id="updateReadNum">
         update article set read_num = read_num + 1 where id = #{id}
     </update>
+
+    <select id="getSimpleArticleVo" resultType="cn.dblearn.blog.entity.article.vo.ArticleVo">
+        select <include refid="homeArticleColumn"/> from article where id = #{id}
+    </select>
 </mapper>

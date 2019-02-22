@@ -1,4 +1,4 @@
-package cn.dblearn.blog.portal.operation;
+package cn.dblearn.blog.portal.operation.controller;
 
 import cn.dblearn.blog.common.Result;
 import cn.dblearn.blog.entity.operation.Link;
