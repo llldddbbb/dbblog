@@ -3,9 +3,9 @@ package cn.dblearn.blog.portal.book.controller;
 
 import cn.dblearn.blog.common.Result;
 import cn.dblearn.blog.common.util.PageUtils;
-import cn.dblearn.blog.entity.book.Book;
-import cn.dblearn.blog.portal.common.annotation.ViewLog;
+import cn.dblearn.blog.entity.book.vo.BookVo;
 import cn.dblearn.blog.portal.book.service.BookService;
+import cn.dblearn.blog.portal.common.annotation.ViewLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,7 +31,7 @@ public class BookController {
     @GetMapping("/book/{bookId}")
     @ViewLog(type = "book")
     public Result getBook(@PathVariable Integer bookId){
-        Book book = bookService.getById(bookId);
+        BookVo book = bookService.getBookVo(bookId);
         return Result.ok().put("book",book);
     }
 

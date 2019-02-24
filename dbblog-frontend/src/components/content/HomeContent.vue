@@ -4,15 +4,15 @@
       <iv-col :xs="24" :sm="24" :md="24" :lg="17" :xl="17">
         <div class="layout-left">
           <section-title :mainTitle="'文章'" :subTitle="'Articles'" :tipText="'View More'" :tipHref="'/articles'">
-            <title-menu-filter @refreshArticle="refreshArticle"  slot="menu" :menu-filter-list="articleFilterList"></title-menu-filter>
+            <title-menu-filter @refreshArticle="refreshArticle"  slot="menu" :menu-filter-list="defaultFilterList"></title-menu-filter>
           </section-title>
           <article-list-cell v-for="article in articleList" :article="article" :key="article.title" :type="'article'"></article-list-cell>
           <section-title :mainTitle="'阅读'" :subTitle="'Books'">
-            <title-menu-filter @refreshArticle="refreshBook"  slot="menu" :menu-filter-list="bookFilterList"></title-menu-filter>
+            <title-menu-filter @refreshArticle="refreshBook"  slot="menu"></title-menu-filter>
           </section-title>
-          <article-list-cell v-for="book in bookList" :article="book" :key="book.title" :type="'book'"></article-list-cell>
-          <section-title :mainTitle="'笔记'" :subTitle="'Notes'">
-            <title-menu-filter @refreshArticle="refreshBookNote"  slot="menu" :menu-filter-list="bookNoteFilterList"></title-menu-filter>
+          <book-list-cell v-for="book in bookList" :book="book" :key="book.title" :type="'book'"></book-list-cell>
+          <section-title :mainTitle="'笔记'" :subTitle="'Notes'" :tipText="'View More'" :tipHref="'/bookNotes'">
+            <title-menu-filter @refreshArticle="refreshBookNote"  slot="menu" :menu-filter-list="defaultFilterList"></title-menu-filter>
           </section-title>
           <book-note-list-cell v-for="bookNote in bookNoteList" :bookNote="bookNote" :key="bookNote.title"></book-note-list-cell>
           <!--<div class="topic-cards">-->
@@ -45,7 +45,8 @@
 
 <script type="text/ecmascript-6">
 import ArticleListCell from '@/components/views/Article/ArticleListCell'
-import BookNoteListCell from '@/components/views/Book/BookNoteListCell'
+import BookNoteListCell from '@/components/views/BookNote/BookNoteListCell'
+import BookListCell from '@/components/views/Book/BookListCell'
 import SectionTitle from '@/components/views/SectionTitle/SectionTitle'
 import TitleMenuFilter from '@/components/views/SectionTitle/TitleMenuFilter'
 import TopicCard from '@/components/views/TopicCard'
@@ -57,87 +58,24 @@ import About from '@/components/views/About'
 import FriendLinks from '@/components/views/FriendLinks'
 import SideToc from '@/components/views/SideToc'
 import merge from 'lodash/merge' // 合并对象工具
+import {DefaultFilterList, DefaultLimitSize} from '@/common/js/const'
 export default {
   data () {
     return {
       articleList: [],
-      articleFilterList: [
-        {
-          name: '最新',
-          type: 'latest',
-          active: true
-        },
-        {
-          name: '点赞最多',
-          type: 'favorite',
-          active: false
-        },
-        {
-          name: '评论最多',
-          type: 'commentMost',
-          active: false
-        },
-        {
-          name: '推荐',
-          type: 'recommend',
-          active: false
-        }
-      ],
-      bookList: [],
-      bookFilterList: [
-        {
-          name: '最新',
-          type: 'latest',
-          active: true
-        },
-        {
-          name: '点赞最多',
-          type: 'favorite',
-          active: false
-        },
-        {
-          name: '评论最多',
-          type: 'commentMost',
-          active: false
-        },
-        {
-          name: '推荐',
-          type: 'recommend',
-          active: false
-        }
-      ],
       bookNoteList: [],
-      bookNoteFilterList: [
-        {
-          name: '最新',
-          type: 'latest',
-          active: true
-        },
-        {
-          name: '点赞最多',
-          type: 'favorite',
-          active: false
-        },
-        {
-          name: '评论最多',
-          type: 'commentMost',
-          active: false
-        },
-        {
-          name: '推荐',
-          type: 'recommend',
-          active: false
-        }
-      ],
+      bookList: [],
+      defaultFilterList: DefaultFilterList,
       pageParam: {
         page: 1,
-        limit: 5
+        limit: DefaultLimitSize
       }
     }
   },
   components: {
     'article-list-cell': ArticleListCell,
     'book-note-list-cell': BookNoteListCell,
+    'book-list-cell': BookListCell,
     'section-title': SectionTitle,
     'title-menu-filter': TitleMenuFilter,
     'topic-card': TopicCard,
@@ -193,9 +131,6 @@ export default {
       }).then(({data}) => {
         if (data && data.code === 200) {
           this.bookNoteList = data.page.list
-          this.bookNoteList.forEach(book => {
-            book.coverType = 2
-          })
         }
       })
     }

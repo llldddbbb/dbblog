@@ -5,8 +5,10 @@ import cn.dblearn.blog.common.util.PageUtils;
 import cn.dblearn.blog.common.util.Query;
 import cn.dblearn.blog.entity.book.Book;
 import cn.dblearn.blog.entity.book.vo.BookVo;
+import cn.dblearn.blog.manage.book.service.BookSenseService;
 import cn.dblearn.blog.manage.operation.service.TagService;
 import cn.dblearn.blog.mapper.book.BookMapper;
+import cn.dblearn.blog.portal.book.service.BookNoteService;
 import cn.dblearn.blog.portal.book.service.BookService;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -34,6 +36,12 @@ public class BookServiceImpl extends ServiceImpl<BookMapper, Book> implements Bo
 
     @Resource
     private TagService tagService;
+
+    @Resource
+    private BookSenseService bookSenseService;
+
+    @Resource
+    private BookNoteService bookNoteService;
 
     /**
      * 分页分类获取列表
@@ -70,6 +78,8 @@ public class BookServiceImpl extends ServiceImpl<BookMapper, Book> implements Bo
             return Optional.ofNullable(bookVo);
         }).map(bookVo -> {
             bookVo.setTagList(tagService.listByLinkId(bookVo.getId(), ModuleEnum.BOOK.getValue()));
+            bookVo.setBookNoteList(bookNoteService.listSimpleBookNote(bookVo.getId()));
+            bookVo.setBookSense(bookSenseService.getBookSense(bookVo.getId()));
             return bookVo;
         }).orElse(null);
         return book;

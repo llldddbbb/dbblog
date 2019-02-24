@@ -5,6 +5,7 @@ import cn.dblearn.blog.entity.book.BookNote;
 import cn.dblearn.blog.entity.book.vo.BookNoteVo;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -26,8 +27,15 @@ public interface BookNoteService extends IService<BookNote> {
 
     /**
      * 获取简单对象
-     * @param linkId
+     * @param bookNoteId
      * @return
      */
-    BookNoteVo getSimpleBookNoteVo(Integer linkId);
+    BookNoteVo getSimpleBookNoteVo(Integer bookNoteId);
+
+    /**
+     * 获取简单List
+     * @param bookId
+     * @return
+     */
+    List<BookNote> listSimpleBookNote(Integer bookId);
 }

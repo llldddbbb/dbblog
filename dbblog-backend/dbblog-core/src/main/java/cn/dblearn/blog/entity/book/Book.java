@@ -43,6 +43,7 @@ public class Book implements Serializable {
     private String publisher;
 
     @ApiModelProperty(value = "出版日期")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate publishDate;
 
     @ApiModelProperty(value = "页数")

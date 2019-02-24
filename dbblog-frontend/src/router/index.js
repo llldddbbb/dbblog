@@ -13,6 +13,7 @@ import CommonFooter from '@/components/footer/CommonFooter'
 import HomeContent from '@/components/content/HomeContent'
 import ArticleContent from '@/components/content/ArticleContent'
 import BookNoteContent from '@/components/content/BookNoteContent'
+import BookContent from '@/components/content/BookContent'
 import ArticleListContent from '@/components/content/ArticleListContent'
 import BookNoteListContent from '@/components/content/BookNoteListContent'
 import PhotographContent from '@/components/content/PhotographContent'
@@ -74,6 +75,15 @@ let router = new Router({
           components: {
             header: SimpleHeader,
             content: BookNoteListContent,
+            footer: CommonFooter
+          }
+        },
+        {
+          path: 'book/:bookId',
+          name: 'book',
+          components: {
+            header: SimpleHeader,
+            content: BookContent,
             footer: CommonFooter
           }
         },

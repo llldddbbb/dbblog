@@ -134,6 +134,7 @@ export default {
             zoom: 1.05
     .others
       li
+        list-style-type none
         margin-top 10px
         padding-top 10px
         border-top 1px solid $color-border

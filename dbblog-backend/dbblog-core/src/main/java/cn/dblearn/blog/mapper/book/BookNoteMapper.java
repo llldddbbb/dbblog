@@ -50,4 +50,11 @@ public interface BookNoteMapper extends BaseMapper<BookNote> {
      * @return
      */
     BookNoteVo getSimpleBookNoteVo(Integer bookNoteId);
+
+    /**
+     * 获取简单list
+     * @param bookId
+     * @return
+     */
+    List<BookNote> listSimpleBookNote(Integer bookId);
 }

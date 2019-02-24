@@ -29,7 +29,8 @@ import {
   CarouselItem,
   DatePicker,
   DatePickerCell,
-  Spin
+  Spin,
+  Rate
 } from 'iview'
 
 Vue.component('iv-row', Row)
@@ -54,6 +55,7 @@ Vue.component('iv-carousel-item', CarouselItem)
 Vue.component('iv-date-picker', DatePicker)
 Vue.component('iv-date-picker-cell', DatePickerCell)
 Vue.component('iv-spin', Spin)
+Vue.component('iv-rate', Rate)
 
 Vue.prototype.$http = httpRequest // Ajax 请求方法
 let vm = new Vue({

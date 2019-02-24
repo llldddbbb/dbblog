@@ -71,4 +71,17 @@ public class BookNoteServiceImpl extends ServiceImpl<BookNoteMapper, BookNote> i
         bookNoteVo.setBook(bookService.getBookVo(bookNoteVo.getBookId()));
         return bookNoteVo;
     }
+
+    /**
+     * 获取简单List
+     *
+     * @param bookId
+     * @return
+     */
+    @Override
+    public List<BookNote> listSimpleBookNote(Integer bookId) {
+        return baseMapper.listSimpleBookNote(bookId);
+    }
+
+
 }
