@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.dblearn.blog.mapper.timeline.TimelineMapper">
+
+    <select id="listTimelinePost" resultType="cn.dblearn.blog.entity.timeline.TimelinePost">
+        select *  from (
+              select a.id,a.title,a.description,a.create_time,'article' as postType from article a where DATE_FORMAT(a.create_time,'%Y')=#{year} and DATE_FORMAT(a.create_time,'%m')=#{month}
+              union all
+              select bn.id,bn.title,bn.description,bn.create_time,'bookNote' as postType from book_note bn  where DATE_FORMAT(bn.create_time,'%Y')=#{year} and DATE_FORMAT(bn.create_time,'%m') = #{month}) t order by t.create_time desc
+    </select>
+
+    <select id="listTimeline" resultType="cn.dblearn.blog.entity.timeline.Timeline">
+        select t.year,count(t.year) as count from (
+                      select a.id,a.title,a.description,a.create_time,DATE_FORMAT(a.create_time,'%Y') as year from article a
+                      union all
+                      select bn.id,bn.title,bn.description,bn.create_time ,DATE_FORMAT(bn.create_time,'%Y') as year from book_note bn) t group by t.year order by t.year desc
+    </select>
+
+</mapper>

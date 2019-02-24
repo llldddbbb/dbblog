@@ -33,7 +33,6 @@
 
 <script type="text/ecmascript-6">
 import { mixin } from '@/utils'
-const ARTICLE_TYPE_BIG_IMAGE = 1
 const ARTICLE_TYPE_NO_IMAGE = 2
 
 export default {
