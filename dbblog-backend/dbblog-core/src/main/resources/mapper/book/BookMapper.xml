@@ -3,7 +3,7 @@
 <mapper namespace="cn.dblearn.blog.mapper.book.BookMapper">
 
     <sql id="homeBookColumn">
-        id,title,description,author,read_num,comment_num,like_num,cover,create_time
+        id,title,description,author,read_num,comment_num,like_num,cover,create_time,reading,progress
     </sql>
 
     <select id="listBookVo" resultType="cn.dblearn.blog.entity.book.vo.BookVo">

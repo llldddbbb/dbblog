@@ -16,6 +16,7 @@ import BookNoteContent from '@/components/content/BookNoteContent'
 import BookContent from '@/components/content/BookContent'
 import ArticleListContent from '@/components/content/ArticleListContent'
 import BookNoteListContent from '@/components/content/BookNoteListContent'
+import BookListContent from '@/components/content/BookListContent'
 import PhotographContent from '@/components/content/PhotographContent'
 import MovieContent from '@/components/content/MovieContent'
 import MovieListContent from '@/components/content/MovieListContent'
@@ -84,6 +85,15 @@ let router = new Router({
           components: {
             header: SimpleHeader,
             content: BookContent,
+            footer: CommonFooter
+          }
+        },
+        {
+          path: 'books',
+          name: 'books',
+          components: {
+            header: SimpleHeader,
+            content: BookListContent,
             footer: CommonFooter
           }
         },

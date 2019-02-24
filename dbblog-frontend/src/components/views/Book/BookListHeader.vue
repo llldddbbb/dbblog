@@ -2,7 +2,7 @@
   <div class="article-list-header">
     <classify-menu @filterByCategory="filterByCategory" :categorys="categorys" ></classify-menu>
     <section-title :mainTitle="mainTitle" :subTitle="subTitle">
-      <title-menu-filter @filterByMenu="filterByMenu"  slot="menu" :menu-filter-list="filterList || defaultFilterList"></title-menu-filter>
+      <title-menu-filter @filterByMenu="filterByMenu"  slot="menu" :menu-filter-list="defaultFilterList"></title-menu-filter>
     </section-title>
   </div>
 </template>
@@ -27,8 +27,7 @@ export default {
   props: {
     categorys: Array,
     mainTitle: '',
-    subTitle: '',
-    filterList: Array
+    subTitle: ''
   },
   methods: {
     filterByMenu (params) {

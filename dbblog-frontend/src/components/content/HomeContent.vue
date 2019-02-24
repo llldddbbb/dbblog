@@ -7,7 +7,7 @@
             <title-menu-filter @refreshArticle="refreshArticle"  slot="menu" :menu-filter-list="defaultFilterList"></title-menu-filter>
           </section-title>
           <article-list-cell v-for="article in articleList" :article="article" :key="article.title" :type="'article'"></article-list-cell>
-          <section-title :mainTitle="'阅读'" :subTitle="'Books'">
+          <section-title :mainTitle="'阅读'" :subTitle="'Books'" :tipText="'View More'" :tipHref="'/books'">
             <title-menu-filter @refreshArticle="refreshBook"  slot="menu"></title-menu-filter>
           </section-title>
           <book-list-cell v-for="book in bookList" :book="book" :key="book.title" :type="'book'"></book-list-cell>

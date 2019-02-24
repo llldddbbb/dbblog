@@ -46,35 +46,19 @@ export default {
   mixins: [mixin],
   computed: {
     textOrderType: function () {
-      return this.book.coverType === ARTICLE_TYPE_BIG_IMAGE ? 2 : 1
+      return ARTICLE_TYPE_NO_IMAGE
     },
     imgOrderType: function () {
-      return this.book.coverType === ARTICLE_TYPE_BIG_IMAGE ? 1 : 2
+      return ARTICLE_TYPE_NO_IMAGE
     },
     textSpan: function () {
-      if (this.book.coverType === ARTICLE_TYPE_BIG_IMAGE) {
-        return 24
-      } else if (this.book.coverType === ARTICLE_TYPE_NO_IMAGE) {
-        return 24
-      } else {
-        return 17
-      }
+      return 24
     },
     imgSpan: function () {
-      if (this.book.coverType === ARTICLE_TYPE_BIG_IMAGE) {
-        return 24
-      } else if (this.book.coverType === ARTICLE_TYPE_NO_IMAGE) {
-        return 0
-      } else {
-        return 7
-      }
+      return 0
     },
     themeClass: function () {
-      if (this.book.coverType === ARTICLE_TYPE_BIG_IMAGE) {
-        return 'big-image'
-      } else {
-        return ''
-      }
+      return ''
     }
   }
 }

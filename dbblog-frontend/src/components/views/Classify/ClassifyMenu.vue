@@ -52,7 +52,9 @@ export default {
   },
   mounted () {
     this.$nextTick(() => {
-      this.setDefaultCategory(parseInt(this.defaultCategory))
+      if (this.categorys !== undefined) {
+        this.setDefaultCategory(parseInt(this.defaultCategory))
+      }
     })
   },
   methods: {

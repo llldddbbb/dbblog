@@ -52,7 +52,7 @@
           <el-tooltip class="item" effect="dark" content="点击置顶" v-if="!scope.row.top" placement="top">
             <el-button type="info" size="mini" @click="updateTop(scope.row.id)">未置顶</el-button>
           </el-tooltip>
-          <el-button type="success" size="mini" v-if="scope.row.top" >已置顶</el-button>
+          <el-button type="success" size="mini" v-if="scope.row.top">已置顶</el-button>
         </template>
       </el-table-column>
       <el-table-column

@@ -85,4 +85,8 @@ public class Book implements Serializable {
     private Integer progress;
 
 
+    @ApiModelProperty(value = "是否正在阅读")
+    private Boolean reading;
+
+
 }

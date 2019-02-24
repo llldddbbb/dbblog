@@ -95,6 +95,20 @@
         </template>
       </el-table-column>
       <el-table-column
+        prop="reading"
+        header-align="center"
+        align="center"
+        label="阅读">
+        <template slot-scope="scope">
+          <el-tooltip class="item" effect="dark" content="点击阅读" v-if="!scope.row.reading" placement="top">
+            <el-button type="info" size="mini" @click="updateReading(scope.row.id, true)">未阅读</el-button>
+          </el-tooltip>
+          <el-tooltip class="item" effect="dark" content="点击未读" v-if="scope.row.reading" placement="top">
+            <el-button type="success" size="mini" @click="updateReading(scope.row.id, false)" v-if="scope.row.reading">正在阅读</el-button>
+          </el-tooltip>
+        </template>
+      </el-table-column>
+      <el-table-column
         header-align="center"
         align="center"
         label="读后感"
@@ -268,6 +282,14 @@ export default {
       let data = {
         id: id,
         progress: value
+      }
+      this.updateStatus(data)
+    },
+    // 更新阅读状态
+    updateReading (id, value) {
+      let data = {
+        id: id,
+        reading: value
       }
       this.updateStatus(data)
     },
