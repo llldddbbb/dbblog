@@ -3,12 +3,10 @@ package cn.dblearn.blog.portal.book.controller;
 import cn.dblearn.blog.common.Result;
 import cn.dblearn.blog.common.util.PageUtils;
 import cn.dblearn.blog.entity.book.BookNote;
-import cn.dblearn.blog.portal.common.annotation.ViewLog;
+import cn.dblearn.blog.portal.common.annotation.LogLike;
+import cn.dblearn.blog.portal.common.annotation.LogView;
 import cn.dblearn.blog.portal.book.service.BookNoteService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.Map;
@@ -30,7 +28,7 @@ public class BookNoteController {
    
 
     @GetMapping("/bookNote/{bookNoteId}")
-    @ViewLog(type = "bookNote")
+    @LogView(type = "bookNote")
     public Result getBookNote(@PathVariable Integer bookNoteId){
         BookNote bookNote = bookNoteService.getById(bookNoteId);
         return Result.ok().put("bookNote",bookNote);
@@ -42,6 +40,11 @@ public class BookNoteController {
         return Result.ok().put("page",page);
     }
 
+    @PutMapping("/bookNote/like/{id}")
+    @LogLike(type = "bookNote")
+    public Result likeBookNote(@PathVariable Integer id) {
+        return Result.ok();
+    }
 
 
 }

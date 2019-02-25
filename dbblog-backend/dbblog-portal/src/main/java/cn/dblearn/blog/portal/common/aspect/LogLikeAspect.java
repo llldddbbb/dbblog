@@ -6,8 +6,10 @@ import cn.dblearn.blog.common.util.JsonUtils;
 import cn.dblearn.blog.mapper.article.ArticleMapper;
 import cn.dblearn.blog.mapper.book.BookMapper;
 import cn.dblearn.blog.mapper.book.BookNoteMapper;
-import cn.dblearn.blog.mapper.log.ViewLogMapper;
-import cn.dblearn.blog.portal.common.annotation.ViewLog;
+import cn.dblearn.blog.mapper.log.LogLikeMapper;
+import cn.dblearn.blog.mapper.log.LogViewMapper;
+import cn.dblearn.blog.portal.common.annotation.LogLike;
+import cn.dblearn.blog.portal.common.annotation.LogView;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -33,10 +35,10 @@ import java.time.LocalDateTime;
 @Aspect
 @Component
 @Slf4j
-public class ViewLogAspect {
+public class LogLikeAspect {
 
     @Autowired
-    private ViewLogMapper viewLogMapper;
+    private LogLikeMapper logLikeMapper;
 
     @Autowired
     private ArticleMapper articleMapper;
@@ -47,7 +49,7 @@ public class ViewLogAspect {
     @Autowired
     private BookNoteMapper bookNoteMapper;
 
-    @Pointcut("@annotation(cn.dblearn.blog.portal.common.annotation.ViewLog)")
+    @Pointcut("@annotation(cn.dblearn.blog.portal.common.annotation.LogLike)")
     public void logPointCut() {
 
     }
@@ -62,48 +64,44 @@ public class ViewLogAspect {
         long time = System.currentTimeMillis() - beginTime;
 
         //保存日志
-        saveViewLog(point, time);
+        saveLogLike(point, time);
 
         return result;
     }
 
-    private void saveViewLog(ProceedingJoinPoint joinPoint, long time) {
+    private void saveLogLike(ProceedingJoinPoint joinPoint, long time) {
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         Method method = signature.getMethod();
-        cn.dblearn.blog.entity.log.ViewLog viewLogEntity = new cn.dblearn.blog.entity.log.ViewLog();
-        ViewLog viewLog = method.getAnnotation(ViewLog.class);
+        cn.dblearn.blog.entity.log.LogLike logLikeEntity = new cn.dblearn.blog.entity.log.LogLike();
+        LogLike viewLog = method.getAnnotation(LogLike.class);
         //注解上的类型
         String type = viewLog.type();
-        viewLogEntity.setType(type);
+        logLikeEntity.setType(type);
         //请求的参数
         Object[] args = joinPoint.getArgs();
         String id = JsonUtils.toJson(args[0]);
         // 根据注解类型增加数量
         switch (type) {
             case "article":
-                articleMapper.updateReadNum(Integer.parseInt(id));
+                articleMapper.updateLikeNum(Integer.parseInt(id));
                 break;
             case "book":
-                bookMapper.updateReadNum(Integer.parseInt(id));
+                bookMapper.updateLikeNum(Integer.parseInt(id));
                 break;
             case "bookNote":
-                bookNoteMapper.updateReadNum(Integer.parseInt(id));
+                bookNoteMapper.updateLikeNum(Integer.parseInt(id));
                 break;
             default:
                 break;
         }
-        viewLogEntity.setParams(id);
-        // 请求的方法名
-        String className = joinPoint.getTarget().getClass().getName();
-        String methodName = signature.getName();
-        viewLogEntity.setMethod(className + "." + methodName + "()");
+        logLikeEntity.setParams(id);
         //获取request
         HttpServletRequest request = HttpContextUtils.getHttpServletRequest();
         //设置IP地址
-        viewLogEntity.setIp(IPUtils.getIpAddr(request));
-        viewLogEntity.setTime(time);
-        viewLogEntity.setCreateDate(LocalDateTime.now());
-        viewLogMapper.insert(viewLogEntity);
+        logLikeEntity.setIp(IPUtils.getIpAddr(request));
+        logLikeEntity.setTime(time);
+        logLikeEntity.setCreateDate(LocalDateTime.now());
+        logLikeMapper.insert(logLikeEntity);
 
     }
 }

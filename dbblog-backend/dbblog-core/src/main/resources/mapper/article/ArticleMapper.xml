@@ -47,4 +47,8 @@
     <select id="getSimpleArticleVo" resultType="cn.dblearn.blog.entity.article.vo.ArticleVo">
         select <include refid="homeArticleColumn"/> from article where id = #{id}
     </select>
+
+    <update id="updateLikeNum">
+        update article set like_num = like_num + 1 where id = #{id}
+    </update>
 </mapper>

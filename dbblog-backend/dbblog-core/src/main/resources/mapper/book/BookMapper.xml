@@ -39,4 +39,8 @@
     <update id="updateReadNum">
         update book set read_num = read_num + 1 where id = #{id}
     </update>
+
+    <update id="updateLikeNum">
+        update book set like_num = like_num + 1 where id = #{id}
+    </update>
 </mapper>

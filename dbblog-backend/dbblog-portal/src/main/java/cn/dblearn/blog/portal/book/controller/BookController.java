@@ -5,12 +5,10 @@ import cn.dblearn.blog.common.Result;
 import cn.dblearn.blog.common.util.PageUtils;
 import cn.dblearn.blog.entity.book.vo.BookVo;
 import cn.dblearn.blog.portal.book.service.BookService;
-import cn.dblearn.blog.portal.common.annotation.ViewLog;
+import cn.dblearn.blog.portal.common.annotation.LogLike;
+import cn.dblearn.blog.portal.common.annotation.LogView;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -29,7 +27,7 @@ public class BookController {
     private BookService bookService;
 
     @GetMapping("/book/{bookId}")
-    @ViewLog(type = "book")
+    @LogView(type = "book")
     public Result getBook(@PathVariable Integer bookId){
         BookVo book = bookService.getBookVo(bookId);
         return Result.ok().put("book",book);
@@ -39,6 +37,12 @@ public class BookController {
     public Result listLatest(@RequestParam Map<String, Object> params){
         PageUtils page = bookService.queryPageCondition(params);
         return Result.ok().put("page",page);
+    }
+
+    @PutMapping("/book/like/{id}")
+    @LogLike(type = "book")
+    public Result likeBook(@PathVariable Integer id) {
+        return Result.ok();
     }
 
 

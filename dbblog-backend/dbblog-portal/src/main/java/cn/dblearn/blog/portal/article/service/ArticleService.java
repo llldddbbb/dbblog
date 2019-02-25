@@ -38,4 +38,5 @@ public interface ArticleService extends IService<Article> {
      * @return
      */
      ArticleVo getSimpleArticleVo(Integer articleId);
+
 }

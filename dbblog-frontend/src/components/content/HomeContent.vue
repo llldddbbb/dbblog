@@ -12,7 +12,7 @@
           </section-title>
           <book-list-cell v-for="book in bookList" :book="book" :key="book.title" :type="'book'"></book-list-cell>
           <section-title :mainTitle="'笔记'" :subTitle="'Notes'" :tipText="'View More'" :tipHref="'/bookNotes'">
-            <title-menu-filter @refreshArticle="refreshBookNote"  slot="menu" :menu-filter-list="defaultFilterList"></title-menu-filter>
+            <title-menu-filter @refreshArticle="refreshBookNote"  slot="menu" :menu-filter-list="bookNoteFilterList"></title-menu-filter>
           </section-title>
           <book-note-list-cell v-for="bookNote in bookNoteList" :bookNote="bookNote" :key="bookNote.title"></book-note-list-cell>
           <!--<div class="topic-cards">-->
@@ -69,7 +69,8 @@ export default {
       pageParam: {
         page: 1,
         limit: DefaultLimitSize
-      }
+      },
+      bookNoteFilterList: JSON.parse(JSON.stringify(DefaultFilterList))
     }
   },
   components: {

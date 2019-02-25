@@ -1,6 +1,6 @@
 package cn.dblearn.blog.mapper.log;
 
-import cn.dblearn.blog.entity.log.ViewLog;
+import cn.dblearn.blog.entity.log.LogLike;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -13,6 +13,6 @@ import org.apache.ibatis.annotations.Mapper;
  * @since 2019-02-15
  */
 @Mapper
-public interface ViewLogMapper extends BaseMapper<ViewLog> {
+public interface LogLikeMapper extends BaseMapper<LogLike> {
 
 }

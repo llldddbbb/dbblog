@@ -42,4 +42,10 @@ public interface BookMapper extends BaseMapper<Book> {
      * @param id
      */
     void updateReadNum(int id);
+
+    /**
+     * 更新点赞记录
+     * @param parseInt
+     */
+    void updateLikeNum(int parseInt);
 }

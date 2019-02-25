@@ -57,4 +57,10 @@ public interface BookNoteMapper extends BaseMapper<BookNote> {
      * @return
      */
     List<BookNote> listSimpleBookNote(Integer bookId);
+
+    /**
+     * 更新点赞记录
+     * @param parseInt
+     */
+    void updateLikeNum(int parseInt);
 }

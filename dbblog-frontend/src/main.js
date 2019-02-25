@@ -30,7 +30,10 @@ import {
   DatePicker,
   DatePickerCell,
   Spin,
-  Rate
+  Rate,
+  Modal,
+  Message,
+  Notice
 } from 'iview'
 
 Vue.component('iv-row', Row)
@@ -58,6 +61,14 @@ Vue.component('iv-spin', Spin)
 Vue.component('iv-rate', Rate)
 
 Vue.prototype.$http = httpRequest // Ajax 请求方法
+Vue.prototype.$Modal = Modal
+Vue.prototype.$Message = Message
+Vue.prototype.$Notice = Notice
+
+Vue.prototype.$Notice.config({
+  top: 70,
+  duration: 3
+})
 let vm = new Vue({
   router,
   store,

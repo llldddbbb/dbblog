@@ -51,4 +51,10 @@ public interface ArticleMapper extends BaseMapper<Article> {
      * @return
      */
     ArticleVo getSimpleArticleVo(Integer articleId);
+
+    /**
+     * 更新点赞记录
+     * @param parseInt
+     */
+    void updateLikeNum(int parseInt);
 }

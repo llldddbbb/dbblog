@@ -2,14 +2,12 @@ package cn.dblearn.blog.entity.log;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
-import java.time.LocalDateTime;
-import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import io.swagger.models.auth.In;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -21,7 +19,7 @@ import lombok.experimental.Accessors;
  */
 @Data
 @ApiModel(value="ViewLog对象", description="阅读日志")
-public class ViewLog implements Serializable {
+public class LogView implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
