@@ -1,6 +1,6 @@
 <template>
   <div class="tag-wall">
-    <panel :title="'相关标签'">
+    <panel :title="'标签墙'">
       <div slot="content" class="content">
         <iv-tag v-for="(tag , index) in tagList" type="dot" color="blue" :key="index" style="margin: 0 5px 5px 0;" class="dot-tag">{{ tag.name +' ['+ tag.linkNum + ']'}}
         </iv-tag>

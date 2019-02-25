@@ -18,7 +18,7 @@ export default {
   },
   computed: {
     filterList () {
-      return JSON.parse(JSON.stringify(this.menuFilterList))
+      return this.menuFilterList
     }
   },
   methods: {

@@ -11,7 +11,14 @@
     </select>
 
     <select id="listRecommendVo" resultType="cn.dblearn.blog.entity.operation.vo.RecommendVo">
-        select * from recommend order by top desc,id desc  limit 10
+        select * from recommend order by top desc,id desc  limit 5
+    </select>
+
+    <select id="listHotRead" resultType="cn.dblearn.blog.entity.operation.vo.RecommendVo">
+      select *  from (
+               select a.id as linkId,a.title,0 as type,a.read_num from article a
+               union all
+               select bn.id as linkId ,bn.title,2 as type,bn.read_num from book_note bn  ) t order by t.read_num desc limit 5
     </select>
 
 </mapper>

@@ -62,6 +62,15 @@ let router = new Router({
           }
         },
         {
+          path: 'articles/category/:id',
+          name: 'articles/category',
+          components: {
+            header: SimpleHeader,
+            content: ArticleListContent,
+            footer: CommonFooter
+          }
+        },
+        {
           path: 'bookNote/:bookNoteId',
           name: 'bookNote',
           components: {

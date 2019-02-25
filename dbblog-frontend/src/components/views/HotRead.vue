@@ -1,34 +1,34 @@
 <template>
-  <div class="recommend">
-    <panel :title="'推荐阅读'">
+  <div class="hotRead">
+    <panel :title="'最热阅读'">
       <div slot="content" class="content">
         <div class="top">
-          <a :href="topRecommend.urlType + '/' + topRecommend.linkId">
-            <p class="title">{{topRecommend.title}}</p>
+          <a :href="topHotRead.urlType + '/' + topHotRead.linkId">
+            <p class="title">{{topHotRead.title}}</p>
             <div class="tags">
-              <iv-tag v-if="topRecommend.type === 0" :color="index | mapTagColor" v-for="(tag,index) in topRecommend.tagList" :key="tag.id">{{tag.name}}</iv-tag>
+              <iv-tag  :color="index | mapTagColor" v-for="(tag , index)  in topHotRead.tagList" :key="tag.id">{{tag.name}}</iv-tag>
             </div>
             <p class="info">
-              <span class="time">{{topRecommend.createTime}}</span>
-              <span class="likes"><a href=""><iv-icon type="heart"></iv-icon> {{topRecommend.likeNum}} </a></span>
-              <span class="comments"><a href=""><iv-icon type="compose"></iv-icon> {{topRecommend.commentNum}} </a></span>
-              <span class="readings"><a href=""><iv-icon type="eye"></iv-icon> {{topRecommend.readNum}} </a></span>
+              <span class="time">{{topHotRead.createTime}}</span>
+              <span class="likes"><a href=""><iv-icon type="heart"></iv-icon> {{topHotRead.likeNum}} </a></span>
+              <span class="comments"><a href=""><iv-icon type="compose"></iv-icon> {{topHotRead.commentNum}} </a></span>
+              <span class="readings"><a href=""><iv-icon type="eye"></iv-icon> {{topHotRead.readNum}} </a></span>
             </p>
             <div class="img">
-              <img :src="topRecommend.cover" alt="">
+              <img :src="topHotRead.cover" alt="">
             </div>
-            <p class="desc">{{topRecommend.description}}</p>
+            <p class="desc">{{topHotRead.description}}</p>
           </a>
         </div>
         <ul class="others">
-          <li v-for="recommend in recommendList" :key="recommend.id">
-            <a :href="recommend.urlType + '/' +recommend.linkId">
-              <p class="title">{{recommend.title}}</p>
+          <li v-for="hotRead in hotReadList" :key="hotRead.id">
+            <a :href="hotRead.urlType + '/' +hotRead.linkId">
+              <p class="title">{{hotRead.title}}</p>
               <p class="info">
-                <span class="time">{{recommend.createTime}}</span>
-                <span class="likes"><a href=""><iv-icon type="heart"></iv-icon> {{recommend.likeNum}} </a></span>
-                <span class="comments"><a href=""><iv-icon type="compose"></iv-icon> {{recommend.commentNum}} </a></span>
-                <span class="readings"><a href=""><iv-icon type="eye"></iv-icon> {{recommend.readNum}} </a></span>
+                <span class="time">{{hotRead.createTime}}</span>
+                <span class="likes"><a href=""><iv-icon type="heart"></iv-icon> {{hotRead.likeNum}} </a></span>
+                <span class="comments"><a href=""><iv-icon type="compose"></iv-icon> {{hotRead.commentNum}} </a></span>
+                <span class="readings"><a href=""><iv-icon type="eye"></iv-icon> {{hotRead.readNum}} </a></span>
               </p>
             </a>
           </li>
@@ -39,30 +39,30 @@
 </template>
 
 <script type="text/ecmascript-6">
-import {mixin} from '@/utils'
+import {mixin} from '@/utils/index'
 import Panel from '@/components/utils/Panel'
 
 export default {
   data () {
     return {
-      mixins: [mixin],
-      recommendList: [],
-      topRecommend: {}
+      hotReadList: [],
+      topHotRead: {}
     }
   },
+  mixins: [mixin],
   created () {
-    this.listRecommend()
+    this.listHotRead()
   },
   methods: {
-    listRecommend () {
+    listHotRead () {
       this.$http({
-        url: this.$http.adornUrl('/operation/recommends'),
+        url: this.$http.adornUrl('/operation/hotReads'),
         method: 'get',
         params: this.$http.adornParams()
       }).then(({data}) => {
         if (data && data.code === 200) {
-          this.recommendList = data.recommendList
-          this.topRecommend = this.recommendList.shift()
+          this.hotReadList = data.hotReadList
+          this.topHotRead = this.hotReadList.shift()
         }
       })
     }
@@ -74,9 +74,9 @@ export default {
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-  @import "../../../common/stylus/index.styl";
+  @import "../../common/stylus/index.styl";
 
-  .recommend
+  .hotRead
     .content
       padding 5px 20px
     .top, .others

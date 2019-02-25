@@ -3,9 +3,10 @@
     <iv-row>
       <iv-col :xs="24" :sm="24" :md="24" :lg="17">
         <div class="layout-left">
-          <article-list-header @filterByMenu="filterByMenu"
+          <article-list-header v-if="categoryList.length>0" @filterByMenu="filterByMenu"
                                @filterByCategory="filterByCategory"
                                :categorys="categoryList"
+                               :defaultCategory="selected_category"
                                :mainTitle="'文章列表'" :sub-title="'Articles'" ></article-list-header>
           <article-list-cell v-for="article in articleList" :article="article" :key="article.id"></article-list-cell>
           <browse-more @browseMore="browseMore" :noMoreData="noMoreData"  ref="browseMore"></browse-more>
@@ -38,9 +39,10 @@ export default {
     return {
       articleList: [],
       categoryList: [],
+      selected_category: this.$route.params.id,
       currentPage: 1,
       pageSize: DefaultLimitSize,
-      categoryId: undefined,
+      categoryId: this.$route.params.id,
       menuParams: {},
       noMoreData: false
     }

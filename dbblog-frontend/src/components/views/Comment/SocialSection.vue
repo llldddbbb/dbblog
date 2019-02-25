@@ -1,27 +1,8 @@
 <template>
   <div class="social-section">
-    <iv-menu :active-name="'1'" :class="theme" mode="horizontal">
-      <iv-menu-item name="1" style="padding-left: 0;">
-        <iv-icon type="heart"></iv-icon>
-        {{likeNum}} 人觉得很赞
-      </iv-menu-item>
-      <iv-menu-item name="2" style="padding-left: 0;">
-        <iv-icon type="heart"></iv-icon>
-        赞这篇文章
-      </iv-menu-item>
-      <iv-submenu name="3" style="padding-left: 0;">
-        <template slot="title">
-          <iv-icon type="android-share-alt"></iv-icon>
-          分享
-        </template>
-        <iv-menu-item name="3-1">QQ</iv-menu-item>
-        <iv-menu-item name="3-2">微信</iv-menu-item>
-        <iv-menu-item name="3-3">微博</iv-menu-item>
-      </iv-submenu>
-    </iv-menu>
     <div class="content">
       <div class="likes">
-        <a href="" v-for="comment in commentList" :key="comment.commentId"><img src="../../../assets/avatar.png" alt=""></a>
+        <a  v-for="comment in commentList" :key="comment.id"><img src="../../../assets/avatar.png" alt=""></a>
       </div>
     </div>
 
@@ -32,7 +13,7 @@
     </div>
 
     <div class="comment-list">
-      <comment-cell-list :theme="theme" :comment="comment" v-for="comment in commentList" :key="comment.commentId" ></comment-cell-list>
+      <comment-cell-list :theme="theme" :comment="comment" v-for="comment in commentList" :key="comment.id" ></comment-cell-list>
     </div>
     <!--<browse-more></browse-more>-->
   </div>

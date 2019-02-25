@@ -35,22 +35,26 @@
     </ul>
     </div>
     </transition>
-    <sidebar ref="sidebar"></sidebar>
+    <sidebar ref="sidebar" :categorys="categoryList"></sidebar>
   </div>
 
 </template>
 
 <script type="text/ecmascript-6">
 import SideBar from '@/components/header/SimpleHeader/SideBar'
-
+import {treeDataTranslate} from '@/utils'
 export default {
   components: {
     'sidebar': SideBar
   },
   data () {
     return {
-      show: true
+      show: true,
+      categoryList: []
     }
+  },
+  created () {
+    this.listCategory()
   },
   mounted: function () {
     this.$nextTick(function () {
@@ -68,7 +72,7 @@ export default {
       // 显示手机端的菜单
       var sidebar = this.$refs.sidebar
       this.$refs.menubutton.addEventListener('click', function () {
-        sidebar.openSideBar()
+        sidebar.toggleSideBar()
       })
     },
     watchScroll (e) {
@@ -88,6 +92,19 @@ export default {
           this.show = false
         }
       }
+    },
+    listCategory () {
+      let params = {}
+      params.type = 0
+      this.$http({
+        url: this.$http.adornUrl('/operation/categories'),
+        method: 'get',
+        params: this.$http.adornParams(params)
+      }).then(({data}) => {
+        if (data && data.code === 200) {
+          this.categoryList = treeDataTranslate(data.categoryList)
+        }
+      })
     }
   }
 }

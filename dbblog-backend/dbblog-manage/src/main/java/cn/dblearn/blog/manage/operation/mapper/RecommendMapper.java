@@ -29,4 +29,10 @@ public interface RecommendMapper extends BaseMapper<Recommend> {
      * @return
      */
     List<RecommendVo> listRecommendVo();
+
+    /**
+     * 获取最热列表
+     * @return
+     */
+    List<RecommendVo> listHotRead();
 }

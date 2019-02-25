@@ -1,103 +1,99 @@
 <template>
-  <div class="sidebar" v-bind:class="{ open: showMobileSideBar }">
-    <div class="sidebar-inner" id="sidebar-toc">
-      <ul class="main-menu">
-        <li>
-          <form id="search-form">
-            <span class="algolia-autocomplete" style="position: relative; display: inline-block; direction: ltr;"><input
-                    type="text" id="search-query-sidebar" class="search-query st-default-search-input aa-input"
-                    autocomplete="off" spellcheck="false" role="combobox" aria-autocomplete="list" aria-expanded="false"
-                    aria-owns="algolia-autocomplete-listbox-2" dir="auto"
-                    style="position: relative; vertical-align: top;"><pre aria-hidden="true"
-                                                                          style="position: absolute; visibility: hidden; white-space: pre; font-family: system-ui; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; word-spacing: 0px; letter-spacing: normal; text-indent: 0px; text-rendering: auto; text-transform: none;"></pre><span
-                    class="aa-dropdown-menu" role="listbox" id="algolia-autocomplete-listbox-2"
-                    style="position: absolute; top: 100%; z-index: 100; display: none; left: 0px; right: auto;"><div
-                    class="aa-dataset-3"></div></span></span>
-          </form>
-        </li>
-        <li class="nav-dropdown-container learn">
-          <a class="nav-link current">菜单</a><span class="arrow"></span>
-          <ul class="nav-dropdown">
-            <li>
-              <ul>
-                <li><a href="/v2/guide/" class="nav-link current">菜单</a></li>
-                <li><a href="/v2/api/" class="nav-link">菜单</a></li>
-                <li><a href="/v2/style-guide/" class="nav-link">菜单</a></li>
-                <li><a href="/v2/examples/" class="nav-link">菜单</a></li>
-              </ul>
-            </li>
-          </ul>
-        </li>
-
-        <li class="nav-dropdown-container ecosystem">
-          <a class="nav-link">菜单</a><span class="arrow"></span>
-          <ul class="nav-dropdown">
-            <li><h4>菜单</h4></li>
-            <li>
-              <ul>
-                <li><a href="https://forum.vuejs.org/" class="nav-link" target="_blank">菜单</a></li>
-                <li><a href="https://chat.vuejs.org/" class="nav-link" target="_blank">菜单</a></li>
-              </ul>
-            </li>
-            <li><h4>工具</h4></li>
-            <li>
-              <ul>
-                <li><a href="https://github.com/vuejs/vue-devtools" class="nav-link" target="_blank">菜单</a></li>
-                <li><a href="https://vuejs-templates.github.io/webpack" class="nav-link" target="_blank">菜单</a>
+  <div class="side-bar" @touchmove.stop.prevent :class="{ open: show }">
+    <div class="main-area">
+      <div class="top-wrapper" @touchmove.stop>
+        <div class="top-area">
+          <img src="../../../assets/background.jpg" alt="">
+          <div class="site-info">
+            <h1 class="site-name">DB'Blog</h1>
+            <h1 class="site-desc">Write the code, Change the World</h1>
+          </div>
+        </div>
+        <div class="sidebar-menus">
+          <div class="site-nav">
+            <p>
+              <iv-icon type="map"></iv-icon>
+              文章导航
+            </p>
+          </div>
+          <ul class="nav-menu">
+            <!-- 类别导航 -->
+            <li class="nav-dropdown-container" v-for="category_level1 in categorys" :key="category_level1.id">
+              <iv-icon type="minus-round"></iv-icon>&nbsp;
+              <a class="nav-link" :href="'/articles/category/'+category_level1.id" >{{category_level1.name}}<span class="arrow"></span>
+              </a>
+              <ul class="nav-dropdown" v-for="category_level2 in category_level1.children" :key="category_level2.id">
+                <li >
+                  <iv-icon type="minus-round"></iv-icon>
+                  <a class="nav-link" :href="'/articles/category/'+category_level2.id" >{{ category_level2.name}}</a>
+                  <ul class="nav-dropdown">
+                    <li>
+                      <iv-icon type="minus-round"></iv-icon>&nbsp;
+                      <a class="nav-link" :href="'/articles/category/'+category_level3.id" v-for="category_level3 in category_level2.children" :key="category_level3.id">{{ category_level3.name }}</a>
+                    </li>
+                  </ul>
                 </li>
-                <li><a href="https://vue-loader.vuejs.org" class="nav-link" target="_blank">菜单</a></li>
               </ul>
             </li>
-            <li><h4>菜单</h4></li>
-            <li>
-              <ul>
-                <li><a href="https://router.vuejs.org/" class="nav-link" target="_blank">菜单</a></li>
-                <li><a href="https://vuex.vuejs.org/" class="nav-link" target="_blank">菜单</a></li>
-                <li><a href="https://ssr.vuejs.org/" class="nav-link" target="_blank">菜单</a></li>
-              </ul>
-            </li>
-            <li><h4>菜单</h4></li>
-            <li>
-              <ul>
-                <li><a href="https://github.com/vuejs/roadmap" class="nav-link" target="_blank">菜单</a></li>
-                <li><a href="https://twitter.com/vuejs" class="nav-link" target="_blank">T菜单</a></li>
-                <li><a href="https://medium.com/the-vue-point" class="nav-link" target="_blank">菜单</a></li>
-                <li><a href="https://vuejobs.com/?ref=vuejs" class="nav-link" target="_blank">菜单</a></li>
-              </ul>
-            </li>
-            <li><h4>菜单</h4></li>
-            <li>
-              <ul>
-                <li><a href="https://github.com/vuejs" class="nav-link" target="_blank">菜单</a></li>
-                <li><a href="https://curated.vuejs.org/" class="nav-link" target="_blank">菜单</a></li>
-                <li><a href="https://github.com/vuejs/awesome-vue" class="nav-link" target="_blank">菜单</a></li>
-              </ul>
-            </li>
+            <!-- 自定义的导航 -->
+            <!--<li class="nav-dropdown-container" >-->
+              <!--<iv-icon type="minus-round"></iv-icon>&nbsp;-->
+              <!--<a class="nav-link" >-->
+                <!--自定义的导航-->
+              <!--</a>-->
+            <!--</li>-->
           </ul>
-        </li>
-      </ul>
-
+        </div>
+      </div>
     </div>
+    <div class="mask" @click.prevent="toggleSideBar"></div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+import {mixin} from '@/utils'
+
 export default {
+  name: 'side-bar',
   data () {
     return {
-      'showMobileSideBar': false
+      show: false,
+      showNav: false
     }
   },
+  props: {
+    categorys: Array
+  },
+  mixins: [mixin],
+  beforeRouteUpdate (to, from, next) {
+    next()
+  },
   methods: {
-    openSideBar () {
-      this.showMobileSideBar = !this.showMobileSideBar
+    rootRouterLink (category) {
+      let router = {}
+      router.name = category.category_type
+      return router
+    },
+    routerLink (category) {
+      let router = {}
+      router.name = category.category_type
+      router.params = {}
+      router.params['id'] = category.id
+      return router
+    },
+    toggleSideBar () {
+      this.show = !this.show
+      this.showNav = !(this.$route.name === 'article' ||
+          this.$route.name === 'book' ||
+          this.$route.name === 'book/note' ||
+          this.$route.name === 'movie' ||
+          this.$route.name === 'album'
+      )
     }
   }
 }
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
-  @import "stylus/sidebar.styl";
-  .sidebar
-    overscroll-behavior contain
+<style lang="stylus" type="text/stylus" rel="stylesheet/stylus">
+  @import "./stylus/sidebar.styl";
 </style>

@@ -52,9 +52,7 @@ export default {
   },
   mounted () {
     this.$nextTick(() => {
-      if (this.categorys !== undefined) {
-        this.setDefaultCategory(parseInt(this.defaultCategory))
-      }
+      this.setDefaultCategory(parseInt(this.defaultCategory))
     })
   },
   methods: {
@@ -112,9 +110,9 @@ export default {
             recursiveCategorys.push(category)
             recursiveCategoryIds.push(category.id)
             return category
-          } else if (category.sub_category && category.sub_category.length > 0) {
+          } else if (category.children && category.children.length > 0) {
             // 如果id不同，表示没命中，则在其sub_category中寻找
-            let result = recursiveCategory(category.sub_category, selectCategoryId)
+            let result = recursiveCategory(category.children, selectCategoryId)
             if (result) {
               // 如果在sub_category中找到了，则需要将自己的id也记录，组成一条树路径，以便后面使用
               recursiveCategorys.push(category)
@@ -130,13 +128,13 @@ export default {
       // 第一级
       if (recursiveCategorys[0]) {
         // 第二级
-        this.sub_category = recursiveCategorys[0].sub_category
+        this.sub_category = recursiveCategorys[0].children
       } else {
         this.sub_category = undefined
       }
       if (recursiveCategorys[1]) {
         // 第三级
-        this.sub_sub_category = recursiveCategorys[1].sub_category
+        this.sub_sub_category = recursiveCategorys[1].children
       } else {
         this.sub_sub_category = undefined
       }

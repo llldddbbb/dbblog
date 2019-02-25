@@ -27,4 +27,5 @@ export default {
       padding 13px 20px 13px
       line-height 18px
       text-align left
+      border-left 5px solid $default-link-hover-color
 </style>

@@ -17,4 +17,6 @@ import java.util.List;
 public interface RecommendService extends IService<Recommend> {
 
     List<RecommendVo> listRecommendVo();
+
+    List<RecommendVo> listHotRead();
 }

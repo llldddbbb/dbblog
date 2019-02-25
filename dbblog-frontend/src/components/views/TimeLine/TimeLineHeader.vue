@@ -1,7 +1,7 @@
 <template>
   <div class="timeline-header">
     <section-title :mainTitle="'存档时光'" :subTitle="'Articles'">
-      <title-menu-timeline slot="menu"></title-menu-timeline>
+      <!--<title-menu-timeline slot="menu"></title-menu-timeline>-->
     </section-title>
   </div>
 </template>

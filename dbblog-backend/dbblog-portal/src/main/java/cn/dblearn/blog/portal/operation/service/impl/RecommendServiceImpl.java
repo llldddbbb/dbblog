@@ -42,6 +42,18 @@ public class RecommendServiceImpl extends ServiceImpl<RecommendMapper, Recommend
     @Cacheable(value = RedisKeyConstants.PORTAL_RECOMMEND_LIST)
     public List<RecommendVo> listRecommendVo() {
         List<RecommendVo> recommendList =this.baseMapper.listRecommendVo();
+        return genRecommendList(recommendList);
+    }
+
+    @Override
+    public List<RecommendVo> listHotRead() {
+        List<RecommendVo> hotReadList =this.baseMapper.listHotRead();
+        genRecommendList(hotReadList);
+        hotReadList.get(0).setTop(true);
+        return hotReadList;
+    }
+
+    private List<RecommendVo> genRecommendList(List<RecommendVo> recommendList) {
         recommendList.forEach(recommendVo -> {
             if(ModuleEnum.ARTICLE.getValue() == recommendVo.getType()){
                 ArticleVo simpleArticleVo = articleService.getSimpleArticleVo(recommendVo.getLinkId());

@@ -29,4 +29,10 @@ public class RecommendController {
         List<RecommendVo> recommendList = recommendService.listRecommendVo();
         return Result.ok().put("recommendList",recommendList);
     }
+
+    @RequestMapping("/hotReads")
+    public Result listHotRead () {
+        List<RecommendVo> hotReadList = recommendService.listHotRead();
+        return Result.ok().put("hotReadList",hotReadList);
+    }
 }
