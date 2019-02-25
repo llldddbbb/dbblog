@@ -14,9 +14,9 @@
               <span class="comments"><a href=""><iv-icon type="compose"></iv-icon> {{topHotRead.commentNum}} </a></span>
               <span class="readings"><a href=""><iv-icon type="eye"></iv-icon> {{topHotRead.readNum}} </a></span>
             </p>
-            <div class="img">
-              <img :src="topHotRead.cover" alt="">
-            </div>
+            <!--<div class="img">-->
+              <!--<img :src="topHotRead.cover" alt="">-->
+            <!--</div>-->
             <p class="desc">{{topHotRead.description}}</p>
           </a>
         </div>

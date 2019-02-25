@@ -14,9 +14,9 @@
               <span class="comments"><a href=""><iv-icon type="compose"></iv-icon> {{topRecommend.commentNum}} </a></span>
               <span class="readings"><a href=""><iv-icon type="eye"></iv-icon> {{topRecommend.readNum}} </a></span>
             </p>
-            <div class="img">
-              <img :src="topRecommend.cover" alt="">
-            </div>
+            <!--<div class="img">-->
+              <!--<img :src="topRecommend.cover" alt="">-->
+            <!--</div>-->
             <p class="desc">{{topRecommend.description}}</p>
           </a>
         </div>
