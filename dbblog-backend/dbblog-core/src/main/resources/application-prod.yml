@@ -40,6 +40,6 @@ oss:
   qiniu:
     domain: http://oss.dblearn.cn
     prefix: dbblog
-    accessKey: tn86cySoW7wAY2dj8T1OBCwR4UeUPAi5MXPU-4vS
-    secretKey: IODztoTbbgmXxiO26CxM_8o4wpLX42Q8DYu9Wj2l
+    accessKey: ENC(pVGOa/io1AnqiEKkDTVORO3W8nzn+vbOl53TeRBIGgCuWvqUEzOAdIBLmdpoYVmsDHESGVc2QzY=)
+    secretKey: ENC(UXM3TEuaIuLrPdKuDASHoZExQyOrgGl7PqV/iB0EbHOFhnUSF3bMol8D2qh+QlthccS5QD0fHbM=)
     bucketName: dbblog

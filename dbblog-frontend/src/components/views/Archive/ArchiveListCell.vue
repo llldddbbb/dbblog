@@ -3,7 +3,7 @@
     <div class="info" >
       <iv-tag class="time-tag border-tag">{{ post.createTime}}</iv-tag>
       <div class="base-info">
-        <a class="title" :href="post.postType + '/' + post.id">
+        <a class="title" :href="'/' + post.postType + '/' + post.id">
           {{post.title}}
         </a>
         <a class="see-desc" @click.stop="seeDesc" :class="{show: showDesc}">查看简介&nbsp;&nbsp;<iv-icon type="android-arrow-dropup-circle"></iv-icon></a>

@@ -39,7 +39,7 @@
                 <p class="catalog" v-html="book.catalogue"></p>
               </v-tab>
               <v-tab :title="'读后感'" >
-                <div class="article-details" id="article-main-page" ref="book">
+                <div class="article-details" id="article-main-page" ref="book" v-if="book.bookSense">
                   <div class="detail">
                     <article class="typo container article-main-content"
                              v-html="book.bookSense.content">

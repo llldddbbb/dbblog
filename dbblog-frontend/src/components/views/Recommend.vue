@@ -3,7 +3,7 @@
     <panel :title="'推荐阅读'">
       <div slot="content" class="content">
         <div class="top">
-          <a :href="topRecommend.urlType + '/' + topRecommend.linkId">
+          <a :href="'/' + topRecommend.urlType + '/' + topRecommend.linkId">
             <p class="title">{{topRecommend.title}}</p>
             <div class="tags">
               <iv-tag  :color="index | mapTagColor" v-for="(tag,index) in topRecommend.tagList" :key="tag.id">{{tag.name}}</iv-tag>
@@ -17,12 +17,12 @@
             <!--<div class="img">-->
               <!--<img :src="topRecommend.cover" alt="">-->
             <!--</div>-->
-            <p class="desc">{{topRecommend.description}}</p>
+            <p class="desc">{{topRecommend.description | textLineBreak(60)}}</p>
           </a>
         </div>
         <ul class="others">
           <li v-for="recommend in recommendList" :key="recommend.id">
-            <a :href="recommend.urlType + '/' +recommend.linkId">
+            <a :href="'/' + recommend.urlType + '/' +recommend.linkId">
               <p class="title">{{recommend.title}}</p>
               <p class="info">
                 <span class="time">{{recommend.createTime}}</span>

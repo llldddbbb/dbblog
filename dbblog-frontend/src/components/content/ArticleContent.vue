@@ -1,5 +1,5 @@
 <template>
-  <div class="article-content">
+  <div class="article-content"  v-cloak>
     <iv-row>
       <iv-col :xs="24" :sm="24" :md="24" :lg="17">
         <div class="layout-left">
@@ -82,7 +82,7 @@ export default {
           this.$nextTick(function () {
             this.addCodeLineNumber()
             this.refreshDiectory()
-            this.refreshMobileDirectory()
+            // this.refreshMobileDirectory()
           })
         }
       })
