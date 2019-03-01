@@ -3,9 +3,9 @@ spring:
         type: com.alibaba.druid.pool.DruidDataSource
         driverClassName: com.mysql.jdbc.Driver
         druid:
-            url: jdbc:mysql://localhost:3306/dbblog?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
+            url: jdbc:mysql://182.254.171.61:3306/dbblog?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
             username: root
-            password: 123456
+            password: "Zb123016:"
             initial-size: 10
             max-active: 100
             min-idle: 10
@@ -36,3 +36,10 @@ mybatis-plus:
     global-config:
         #刷新Mapper，只在开发环境打开
         refresh: true
+oss:
+  qiniu:
+    domain: http://oss.dblearn.cn
+    prefix: dbblog
+    accessKey: tn86cySoW7wAY2dj8T1OBCwR4UeUPAi5MXPU-4vS
+    secretKey: IODztoTbbgmXxiO26CxM_8o4wpLX42Q8DYu9Wj2l
+    bucketName: dbblog

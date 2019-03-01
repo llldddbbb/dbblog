@@ -31,3 +31,14 @@ spring:
                 wall:
                     config:
                         multi-statement-allow: true
+oss:
+  qiniu:
+    domain: http://oss.dblearn.cn
+    prefix: dbblog
+    accessKey: ENC(pVGOa/io1AnqiEKkDTVORO3W8nzn+vbOl53TeRBIGgCuWvqUEzOAdIBLmdpoYVmsDHESGVc2QzY=)
+    secretKey: ENC(UXM3TEuaIuLrPdKuDASHoZExQyOrgGl7PqV/iB0EbHOFhnUSF3bMol8D2qh+QlthccS5QD0fHbM=)
+    bucketName: dbblog
+
+jasypt:
+  encryptor:
+    password: dbblog-jasypt

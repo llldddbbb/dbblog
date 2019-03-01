@@ -27,3 +27,4 @@ target/
 /dist/
 /nbdist/
 /.nb-gradle/
+/dbblog-core/src/main/resources/application-prod.yml

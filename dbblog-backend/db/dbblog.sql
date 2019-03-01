@@ -25,7 +25,7 @@ create table book
 (
 	id int auto_increment comment '主键'
 		primary key,
-	title int null comment '标题',
+	title varchar(100) null comment '标题',
 	cover varchar(255) null comment '封面',
 	author varchar(50) null comment '作者',
 	category_id varchar(20) null comment '分类类别',
@@ -34,7 +34,7 @@ create table book
 	publish_date date null comment '出版日期',
 	page_num int null comment '页数',
 	grade double null comment '评分',
-	introduction text null comment '简介',
+	description text null comment '简介',
 	catalogue text null comment '原书目录',
 	create_time timestamp default CURRENT_TIMESTAMP null comment '创建时间',
 	update_time datetime default CURRENT_TIMESTAMP null comment '更新时间',
@@ -42,7 +42,8 @@ create table book
 	comment_num int default '0' null comment '评论量',
 	like_num int default '0' null comment '点赞量',
 	publish tinyint(1) default '0' null comment '是否发布',
-	progress int default '0' null comment '读书状态'
+	progress int default '0' null comment '读书状态',
+	reading tinyint(1) null comment '是否阅读'
 )
 comment '图书表'
 ;
@@ -65,7 +66,8 @@ create table book_note
 	update_time timestamp default CURRENT_TIMESTAMP not null comment '更新时间',
 	recommend tinyint(1) default '0' not null comment '是否推荐笔记',
 	category_id varchar(50) null comment '分类类别存在多级分类，用逗号隔开',
-	publish tinyint default '0' null comment '发布状态'
+	publish tinyint default '0' null comment '发布状态',
+	cover_type int null comment '封面类型'
 )
 comment '笔记'
 ;
@@ -128,6 +130,33 @@ create table link
 comment '友链'
 ;
 
+create table log_like
+(
+	id bigint auto_increment
+		primary key,
+	type varchar(50) null comment '点赞类型',
+	params varchar(5000) null comment '请求参数',
+	time bigint not null comment '执行时长(毫秒)',
+	ip varchar(64) null comment 'IP地址',
+	create_date datetime null comment '创建时间'
+)
+comment '点赞日志'
+;
+
+create table log_view
+(
+	id bigint auto_increment
+		primary key,
+	type varchar(50) null comment '浏览类型',
+	method varchar(200) null comment '请求方法',
+	params varchar(5000) null comment '请求参数',
+	time bigint not null comment '执行时长(毫秒)',
+	ip varchar(64) null comment 'IP地址',
+	create_date datetime null comment '创建时间'
+)
+comment '阅读日志'
+;
+
 create table oss_resource
 (
 	id int auto_increment comment '主键'
@@ -136,6 +165,19 @@ create table oss_resource
 	url varchar(255) null
 )
 comment '云存储资源表'
+;
+
+create table recommend
+(
+	id int auto_increment comment '主键'
+		primary key,
+	link_id int null comment '推荐的文章Id',
+	type int null comment '推荐类型',
+	order_num int default '0' null comment '顺序',
+	title varchar(100) null comment '标题',
+	top tinyint(1) default '0' null comment '置顶'
+)
+comment '推荐'
 ;
 
 create table sys_menu

@@ -10,7 +10,7 @@ server:
   connection-timeout: 5000ms
   servlet:
     #映射项目路径
-    context-path: /dbBlog
+    context-path: /dbblog
 
 spring:
   profiles:
@@ -66,14 +66,4 @@ mybatis-plus:
     #不开启二级缓存
     cache-enabled: false
 
-oss:
-  qiniu:
-    domain: http://oss.dblearn.cn
-    prefix: dbblog
-    accessKey: ENC(pVGOa/io1AnqiEKkDTVORO3W8nzn+vbOl53TeRBIGgCuWvqUEzOAdIBLmdpoYVmsDHESGVc2QzY=)
-    secretKey: ENC(UXM3TEuaIuLrPdKuDASHoZExQyOrgGl7PqV/iB0EbHOFhnUSF3bMol8D2qh+QlthccS5QD0fHbM=)
-    bucketName: dbblog
 
-jasypt:
-  encryptor:
-    password: dbblog-jasypt
