@@ -5,13 +5,13 @@
         <iv-col :xs="24" :sm="24" :md="textSpan" :lg="textSpan" :order="textOrderType" style="padding-left: 0;padding-right: 0;">
           <div class="text-wrapper">
             <h4 class="title">
-              <a :href="'bookNote/'+bookNote.id">{{bookNote.title}}</a>
+              <a :href="'/bookNote/'+bookNote.id">{{bookNote.title}}</a>
               <span class="special" v-if="bookNote.top>0" title="置顶">置顶</span>
             </h4>
             <div class="tags">
               <iv-tag :color="index | mapTagColor" :key="tag.id" type="border" v-for ="(tag , index) in bookNote.tagList">{{tag.name}}</iv-tag>
             </div>
-            <p class="desc">{{bookNote.description | filterHtml | textLineBreak(70) }}<a :href="'bookNote/'+bookNote.id"> 查看更多
+            <p class="desc">{{bookNote.description | filterHtml | textLineBreak(70) }}<a :href="'/bookNote/'+bookNote.id"> 查看更多
               <iv-icon type="arrow-right-b"></iv-icon>
             </a></p>
             <p class="operate_info">

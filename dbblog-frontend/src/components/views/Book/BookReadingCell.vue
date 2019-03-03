@@ -1,7 +1,7 @@
 <template>
   <div class="book-reading-cell">
     <h4>正在阅读</h4>
-    <a :href="`book/${book.id}`">
+    <a>
       <div class="img">
         <div class="container">
           <div class="bracket"></div>
@@ -12,7 +12,7 @@
       </div>
       <div class="book-info">
         <p class="title">
-          <a :href="`book/${book.id}`"> {{book.title}}</a>
+          <a :href="`/book/${book.id}`"> {{book.title}}</a>
         </p>
         <p class="desc"><span>作者：</span>{{ book.author }}</p>
         <iv-progress :percent="book.progress" :stroke-width="6">
@@ -82,14 +82,16 @@ export default {
         flex 0 0 140px
         width 140px
         overflow hidden
-        margin 0 30px 10px 0
         border 1px solid $default-border-hover-color
         box-shadow 1px 1px 1px $default-border-color
         @media only screen and (max-width: $responsive-sm)
-          display none
+          display block
+          margin 0 15px 5px 0
         @media screen and (min-width: $responsive-sm)
-          display none
+          display block
+          margin 0 20px 7px 0
         @media screen and (min-width: $responsive-lg)
+          margin 0 30px 10px 0
           display block
         .container
           width 100%

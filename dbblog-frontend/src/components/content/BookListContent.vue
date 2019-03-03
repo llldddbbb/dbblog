@@ -6,7 +6,6 @@
           <div class="book-gallery">
             <div class="swiper-wrapper">
               <div class="swiper-slide" v-for="book in readingBookList" :key="book.id">
-                <!--<h4>正在阅读</h4>-->
                 <book-reading-cell :book="book"></book-reading-cell>
               </div>
             </div>
@@ -17,7 +16,7 @@
                                :categorys="categoryList"
                                :defaultCategory="selected_category"
                                :mainTitle="'图书列表'" :sub-title="'Books'" ></book-list-header>
-          <book-list-cell v-for="book in bookList" :book="book" :key="book.id"></book-list-cell>
+          <book-list-cell v-for="book in bookList" :book="book" :key="book.name"></book-list-cell>
           <book-note-list-header @filterByMenu="filterByBookNoteMenu"
                                  :filterList = bookNoteFilterList
                                 :mainTitle="'笔记列表'" :sub-title="'BookNotes'" ></book-note-list-header>
