@@ -48,4 +48,11 @@ public interface BookService extends IService<Book> {
      * @param bookIds
      */
     void deleteBatch(Integer[] bookIds);
+
+    /**
+     *
+     * @param categoryId
+     * @return
+     */
+    boolean checkByCategory(Integer categoryId);
 }

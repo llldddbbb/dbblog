@@ -101,15 +101,24 @@ body
               color $default-link-hover-color
         // 生成Toc目录css
         .sidebar-toc-list
+          .menu-root
+            padding-left 0
+            line-height: 1.4em
           #sidebar-toc
             position relative
             padding 15px
-            > .toc-list
-              padding-left 0
             .toc-link
+              padding-left 0.3em
+              overflow: hidden;
+              text-overflow:ellipsis;
+              white-space: nowrap;
               &::before
                 background transparent
-            .is-active-link
+            .active
+              font-weight: 700;
+              color: #409eff;
+              border-left: 2px solid #409eff;
+
               &::before
                 background-color $default-link-hover-color
     // 配置操作区域

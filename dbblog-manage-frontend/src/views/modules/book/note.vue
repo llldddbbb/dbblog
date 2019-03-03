@@ -95,6 +95,19 @@
       </template>
     </el-table-column>
     <el-table-column
+      prop="top"
+      header-align="center"
+      align="center"
+      label="置顶">
+      <template slot-scope="scope">
+        <el-switch
+          v-model="scope.row.top"
+          active-color="#13ce66"
+          @change="updateTop(scope.row.id,scope.row.top)">
+        </el-switch>
+      </template>
+    </el-table-column>
+    <el-table-column
       prop="recommend"
       header-align="center"
       align="center"
@@ -227,6 +240,13 @@ export default {
       let data = {
         id: id,
         recommend: value
+      }
+      this.updateStatus(data)
+    },
+    updateTop (id, value) {
+      let data = {
+        id: id,
+        top: value
       }
       this.updateStatus(data)
     },

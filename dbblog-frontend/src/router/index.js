@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import {LoadingBar} from 'iview'
-import HelloWorld from '@/components/HelloWorld'
 import Index from '@/components/index/Index'
 
 // 公共区域
@@ -107,6 +106,15 @@ let router = new Router({
           }
         },
         {
+          path: 'books/category/:id',
+          name: 'books/category',
+          components: {
+            header: SimpleHeader,
+            content: BookListContent,
+            footer: CommonFooter
+          }
+        },
+        {
           path: 'photograph',
           name: 'photograph',
           components: {
@@ -150,11 +158,6 @@ let router = new Router({
           }
         }
       ]
-    },
-    {
-      path: '/hello',
-      name: 'Hello',
-      component: HelloWorld
     }
   ]
 })

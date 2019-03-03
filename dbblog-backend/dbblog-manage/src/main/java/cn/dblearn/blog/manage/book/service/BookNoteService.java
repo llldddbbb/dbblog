@@ -48,4 +48,11 @@ public interface BookNoteService extends IService<BookNote> {
      * @return
      */
     BookNoteDto getBookNote(Integer bookNoteId);
+
+    /**
+     * 判断该类别下是否有笔记
+     * @param categoryId
+     * @return
+     */
+    boolean checkByCategory(Integer categoryId);
 }

@@ -118,6 +118,17 @@ public class BookNoteServiceImpl extends ServiceImpl<BookNoteMapper, BookNote> i
     }
 
     /**
+     * 判断该类别下是否有笔记
+     *
+     * @param categoryId
+     * @return
+     */
+    @Override
+    public boolean checkByCategory(Integer categoryId) {
+        return baseMapper.checkByCategory(categoryId) > 0;
+    }
+
+    /**
      * 批量删除
      *
      * @param bookNoteIds

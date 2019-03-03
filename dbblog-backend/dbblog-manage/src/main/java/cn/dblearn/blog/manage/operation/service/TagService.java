@@ -49,4 +49,6 @@ public interface TagService extends IService<Tag> {
      * @param type
      */
     void deleteTagLink(Integer linkId, Integer type);
+
+
 }

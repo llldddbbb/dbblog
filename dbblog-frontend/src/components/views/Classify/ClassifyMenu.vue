@@ -102,7 +102,7 @@ export default {
       let recursiveCategorys = []
       let recursiveCategoryIds = []
       let recursiveCategory = function (categorys, selectCategoryId) {
-        if (categoryId === null || categoryId === undefined) return null
+        if (categoryId === null || categoryId === undefined || isNaN(categoryId)) return null
         for (let index = 0; index < categorys.length; index++) {
           let category = categorys[index]
           if (category.id === selectCategoryId) {

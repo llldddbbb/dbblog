@@ -1,18 +1,22 @@
 package cn.dblearn.blog.manage.operation.controller;
 
 import cn.dblearn.blog.common.Result;
+import cn.dblearn.blog.common.base.AbstractController;
 import cn.dblearn.blog.common.enums.CategoryRankEnum;
 import cn.dblearn.blog.common.exception.MyException;
 import cn.dblearn.blog.common.validator.ValidatorUtils;
 import cn.dblearn.blog.entity.operation.Category;
+import cn.dblearn.blog.manage.article.service.ArticleService;
+import cn.dblearn.blog.manage.book.service.BookNoteService;
+import cn.dblearn.blog.manage.book.service.BookService;
 import cn.dblearn.blog.manage.operation.service.CategoryService;
-import cn.dblearn.blog.common.base.AbstractController;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 
@@ -31,6 +35,15 @@ public class CategoryController extends AbstractController {
 
     @Autowired
     private CategoryService categoryService;
+
+    @Resource
+    private ArticleService articleService;
+
+    @Resource
+    private BookService bookService;
+
+    @Resource
+    private BookNoteService bookNoteService;
 
     /**
      * 列表
@@ -142,6 +155,18 @@ public class CategoryController extends AbstractController {
         List<Category> categoryList = categoryService.queryListParentId(id);
         if(categoryList.size() > 0){
             return Result.error("请先删除子级别");
+        }
+        // 判断是否有文章
+        if(articleService.checkByCategory(id)) {
+            return Result.error("该类别下有文章，无法删除");
+        }
+        // 判断是否有图书
+        if(bookService.checkByCategory(id)){
+            return Result.error("该类别下有图书，无法删除");
+        }
+        // 判断是否有笔记
+        if(bookNoteService.checkByCategory(id)) {
+            return Result.error("该类别下有笔记，无法删除");
         }
 
         categoryService.removeById(id);

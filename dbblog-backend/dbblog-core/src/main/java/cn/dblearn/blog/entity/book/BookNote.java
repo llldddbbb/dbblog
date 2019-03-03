@@ -82,5 +82,9 @@ public class BookNote implements Serializable {
     @ApiModelProperty(value = "封面类型")
     private Integer coverType;
 
+    @ApiModelProperty(value = "是否置顶")
+    private Boolean top;
+
+
 
 }

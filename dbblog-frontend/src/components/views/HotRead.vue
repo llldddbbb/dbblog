@@ -10,9 +10,9 @@
             </div>
             <p class="info">
               <span class="time">{{topHotRead.createTime}}</span>
-              <span class="likes"><a href=""><iv-icon type="heart"></iv-icon> {{topHotRead.likeNum}} </a></span>
-              <span class="comments"><a href=""><iv-icon type="compose"></iv-icon> {{topHotRead.commentNum}} </a></span>
-              <span class="readings"><a href=""><iv-icon type="eye"></iv-icon> {{topHotRead.readNum}} </a></span>
+              <span class="likes"><a ><iv-icon type="heart"></iv-icon> {{topHotRead.likeNum}} </a></span>
+              <span class="comments"><a><iv-icon type="compose"></iv-icon> {{topHotRead.commentNum}} </a></span>
+              <span class="readings"><a><iv-icon type="eye"></iv-icon> {{topHotRead.readNum}} </a></span>
             </p>
             <!--<div class="img">-->
               <!--<img :src="topHotRead.cover" alt="">-->

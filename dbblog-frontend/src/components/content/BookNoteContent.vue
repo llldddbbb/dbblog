@@ -35,7 +35,7 @@ import marked from 'marked'
 // highlight.js引入
 import hljs from 'highlight.js'
 // 样式文件
-import 'highlight.js/styles/zenburn.css'
+import 'highlight.js/styles/solarized-light.css'
 // TOC滚动监听
 import TocScrollSpy from '@/common/js/TocScrollSpy'
 

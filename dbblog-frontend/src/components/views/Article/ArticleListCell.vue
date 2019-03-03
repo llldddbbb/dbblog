@@ -1,11 +1,12 @@
 <template>
   <div class="article-cell">
-    <a :href="'article/'+article.id">
+    <a>
       <iv-row type="flex">
         <iv-col :xs="24" :sm="24" :md="textSpan" :lg="textSpan" :order="textOrderType" style="padding-left: 0;padding-right: 0;">
           <div class="text-wrapper">
             <h4 class="title">
               <a :href="'article/'+article.id">{{article.title}}</a>
+              <span class="special" v-if="article.top>0" title="置顶">置顶</span>
             </h4>
             <div class="tags">
               <iv-tag :color="index | mapTagColor" :key="tag.id" type="border" v-for ="(tag , index) in article.tagList">{{tag.name}}</iv-tag>
@@ -14,7 +15,7 @@
               <iv-icon type="arrow-right-b"></iv-icon>
             </a></p>
             <p class="operate_info">
-              <span class="publish-time">At time / <a href="">{{article.createTime}}</a></span>
+              <span class="publish-time">At time / <a>{{article.createTime}}</a></span>
               <span class="readings"><a ><iv-icon type="eye"></iv-icon> {{article.readNum}} 阅读</a></span>
               <span class="comments"><a><iv-icon type="compose"></iv-icon> {{article.commentNum}} 评论</a></span>
               <span class="likes"><a><iv-icon type="heart"></iv-icon> {{article.likeNum}} 喜欢</a></span>
@@ -101,6 +102,16 @@ export default {
           font-size 23px
           font-weight 100
           line-height 27px
+          span.special
+            border-radius $border-radius
+            font-size 12px
+            font-weight 100
+            padding 3px 5px
+            margin-left 1px
+            vertical-align top
+            color $default-background-color
+            background $iview-secondary-warning-color
+            cursor pointer
           a
             color $color-typegraphy-title
             cursor pointer
@@ -127,6 +138,7 @@ export default {
           &::after
             margin-bottom 15px
         .tags
+          /*cursor: pointer;*/
           margin: 8px 0
         .desc
           color #666
@@ -147,10 +159,9 @@ export default {
             + span
               margin-left 8px
             a
-              cursor pointer
+              cursor default
               &:hover
                 color $color-main-primary
-                text-decoration underline
       .img-wrapper
         padding-bottom: 85%
         width: 100%

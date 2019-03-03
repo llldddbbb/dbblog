@@ -30,7 +30,7 @@
           <el-tree
             :data="categoryList"
             :props="categoryListTreeProps"
-            node-key="categoryId"
+            node-key="id"
             ref="categoryListTree"
             @current-change="categoryListTreeCurrentChangeHandle"
             :default-expand-all="true"
@@ -75,7 +75,11 @@ export default {
         ]
       },
       rankList: this.getSysParamArr('CATEGORY_RANK'),
-      typeList: this.getSysParamArr('MODULE_TYPE'),
+      typeList: this.getSysParamArr('MODULE_TYPE').filter(type => {
+        if (type.parKey !== 2) {
+          return type
+        }
+      }),
       categoryList: [],
       categoryListTreeProps: {
         label: 'name',
@@ -85,7 +89,7 @@ export default {
   },
   methods: {
     init (id) {
-      this.dataForm.categoryId = id || ''
+      this.dataForm.id = id || ''
       this.visible = true
       this.$nextTick(() => {
         this.$refs['dataForm'].resetFields()
@@ -99,7 +103,27 @@ export default {
           if (data && data.code === 200) {
             this.dataForm = data.category
           }
+        }).then(() => {
+          this.$http({
+            url: this.$http.adornUrl('/admin/operation/category/select'),
+            method: 'get',
+            params: this.$http.adornParams({type: this.dataForm.type})
+          }).then(({data}) => {
+            if (data && data.code === 200) {
+              this.categoryList = treeDataTranslate(data.categoryList)
+              this.categoryListTreeSetCurrentNode()
+            } else {
+              this.categoryList = []
+            }
+          })
         })
+      } else {
+        this.dataForm = {
+          rank: 0,
+          type: '',
+          parentId: 0,
+          parentName: ''
+        }
       }
     },
     // 获取目录列表
@@ -152,6 +176,11 @@ export default {
     categoryListTreeCurrentChangeHandle (data, node) {
       this.dataForm.parentId = data.id
       this.dataForm.parentName = data.name
+    },
+    // 分类列表树设置当前选中节点
+    categoryListTreeSetCurrentNode () {
+      this.$refs.categoryListTree.setCurrentKey(this.dataForm.parentId)
+      this.dataForm.parentName = (this.$refs.categoryListTree.getCurrentNode() || {})['name']
     }
   }
 }

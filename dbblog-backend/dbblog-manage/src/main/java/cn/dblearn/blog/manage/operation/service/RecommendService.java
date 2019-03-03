@@ -36,4 +36,11 @@ public interface RecommendService extends IService<Recommend> {
      * @param id
      */
     void updateTop(Integer id);
+
+    /**
+     * 批量删除
+     * @param articleIds
+     * @param value
+     */
+    void deleteBatchByLinkId(Integer[] articleIds, int value);
 }

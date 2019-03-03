@@ -111,6 +111,11 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         return articleDto;
     }
 
+    @Override
+    public boolean checkByCategory(Integer categoryId) {
+        return baseMapper.checkByCategory(categoryId) > 0;
+    }
+
     /**
      * 批量删除
      *

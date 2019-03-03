@@ -71,4 +71,20 @@ public class RecommendServiceImpl extends ServiceImpl<RecommendMapper, Recommend
                 .ne(Recommend::getId,id));
     }
 
+    /**
+     * 批量删除
+     *
+     * @param linkIds
+     * @param type
+     */
+    @Override
+    public void deleteBatchByLinkId(Integer[] linkIds, int type) {
+        for (int i = 0; i < linkIds.length; i++) {
+            int linkId = linkIds[i];
+            baseMapper.delete(new QueryWrapper<Recommend>().lambda()
+                    .eq(Recommend::getLinkId,linkId)
+                    .eq(Recommend::getType,type));
+        }
+    }
+
 }

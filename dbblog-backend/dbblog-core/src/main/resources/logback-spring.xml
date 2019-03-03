@@ -13,9 +13,12 @@
 
     <!-- 生产环境 -->
     <springProfile name="prod">
-        <logger name="org.springframework.web" level="ERROR"/>
-        <logger name="org.springboot.sample" level="ERROR" />
-        <logger name="cn.dblearn.blog" level="ERROR" />
+        <!--<logger name="org.springframework.web" level="ERROR"/>-->
+        <!--<logger name="org.springboot.sample" level="ERROR" />-->
+        <!--<logger name="cn.dblearn.blog" level="ERROR" />-->
+        <logger name="org.springframework.web" level="INFO"/>
+        <logger name="org.springboot.sample" level="INFO" />
+        <logger name="cn.dblearn.blog" level="DEBUG" />
     </springProfile>
 
 </configuration>

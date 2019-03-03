@@ -28,7 +28,7 @@
               </div>
               <div class="rating"></div>
             </div>
-            <vue-tabs class="book-detail-info" @tab-change="handleTabChange">
+            <vue-tabs class="book-detail-info" >
               <v-tab :title="'简介'">
                 <p class="summary" v-html="book.description"></p>
               </v-tab>

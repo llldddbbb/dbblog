@@ -21,18 +21,22 @@
             <if test="params.recommend != null">
                 and recommend = true
             </if>
+            <if test="params.categoryId !=null and params.categoryId != ''">
+                and find_in_set(#{params.categoryId},category_id)
+            </if>
+            and publish = true
         </where>
         <if test="params.recommend !=null">
-            order by create_time desc
+            order by reading desc, recommend desc
         </if>
         <if test="params.latest !=null">
-            order by create_time desc
+            order by reading desc,create_time desc
         </if>
         <if test="params.favorite !=null">
-            order by like_num desc
+            order by reading desc,like_num desc
         </if>
         <if test="params.commentMost !=null">
-            order by comment_num desc
+            order by reading desc,comment_num desc
         </if>
     </select>
 
@@ -43,4 +47,8 @@
     <update id="updateLikeNum">
         update book set like_num = like_num + 1 where id = #{id}
     </update>
+
+    <select id="checkByCategory" resultType="Integer">
+        select count(*) from book where category_id = #{categoryId}
+    </select>
 </mapper>

@@ -121,4 +121,13 @@ public class BookServiceImpl extends ServiceImpl<BookMapper, Book> implements Bo
         this.baseMapper.deleteBatchIds(Arrays.asList(bookIds));
     }
 
+    /**
+     * @param categoryId
+     * @return
+     */
+    @Override
+    public boolean checkByCategory(Integer categoryId) {
+        return baseMapper.checkByCategory(categoryId) > 0;
+    }
+
 }

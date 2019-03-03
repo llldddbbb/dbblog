@@ -68,7 +68,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
                     .stream()
                     .filter(category -> category.getId().equals(categoryId))
                     .map(Category::getName)
-                    .findAny().get();
+                    .findAny().orElse("类别已被删除");
             categoryStrList.add(categoryStr);
         }
         return String.join(",",categoryStrList);

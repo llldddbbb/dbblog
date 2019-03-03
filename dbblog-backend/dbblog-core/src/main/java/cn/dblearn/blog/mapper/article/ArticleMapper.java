@@ -57,4 +57,11 @@ public interface ArticleMapper extends BaseMapper<Article> {
      * @param parseInt
      */
     void updateLikeNum(int parseInt);
+
+    /**
+     * 判断类别下是否有文章
+     * @param categoryId
+     * @return
+     */
+    int checkByCategory(Integer categoryId);
 }

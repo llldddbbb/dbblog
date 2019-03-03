@@ -4,7 +4,7 @@
 
     <delete id="deleteTagLink">
         delete from tag_link atl
-        where atl.foreign_id = #{linkId} and atl.type = #{type}
+        where atl.link_id = #{linkId} and atl.type = #{type}
     </delete>
 
     <select id="listByLinkId" resultType="cn.dblearn.blog.entity.operation.Tag">

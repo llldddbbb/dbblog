@@ -92,6 +92,19 @@
       prop="recommend"
       header-align="center"
       align="center"
+      label="置顶">
+      <template slot-scope="scope">
+        <el-switch
+          v-model="scope.row.top"
+          active-color="#13ce66"
+          @change="updateTop(scope.row.id,scope.row.top)">
+        </el-switch>
+      </template>
+    </el-table-column>
+    <el-table-column
+      prop="recommend"
+      header-align="center"
+      align="center"
       label="状态">
       <template slot-scope="scope">
         <el-tooltip class="item" effect="dark" content="点击发布" v-if="!scope.row.publish" placement="top">
@@ -221,6 +234,14 @@ export default {
       let data = {
         id: id,
         recommend: value
+      }
+      this.updateStatus(data)
+    },
+    // 更新文章推荐状态
+    updateTop (id, value) {
+      let data = {
+        id: id,
+        top: value
       }
       this.updateStatus(data)
     },

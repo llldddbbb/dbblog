@@ -20,7 +20,7 @@ import java.util.List;
 public interface TagMapper extends BaseMapper<Tag> {
 
     /**
-     * 根据foreignId获取Tag列表
+     * 根据linkId获取Tag列表
      * @param linkId
      * @param type
      * @return
@@ -28,7 +28,7 @@ public interface TagMapper extends BaseMapper<Tag> {
     List<Tag> listByLinkId(@Param("linkId") Integer linkId, @Param("type") Integer type);
 
     /**
-     * 根据foreignId删除多对多关联
+     * 根据linkId删除多对多关联
      * @param linkId
      * @param type
      */

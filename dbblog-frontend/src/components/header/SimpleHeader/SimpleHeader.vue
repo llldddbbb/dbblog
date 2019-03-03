@@ -29,13 +29,13 @@
       </li>
 
       <li><a href="/articles" class="nav-link contribute">文章</a></li>
-      <li><a href="/bookNotes" class="nav-link contribute">阅读</a></li>
+      <li><a href="/books" class="nav-link contribute">阅读</a></li>
       <li><a href="/timeline" class="nav-link contribute">时光轴</a></li>
       <li><a href="/article/1" class="nav-link contribute">关于</a></li>
     </ul>
     </div>
     </transition>
-    <sidebar ref="sidebar" :categorys="categoryList"></sidebar>
+    <sidebar ref="sidebar" :articleCategoryList="articleCategoryList" :bookCategoryList="bookCategoryList"></sidebar>
   </div>
 
 </template>
@@ -50,7 +50,8 @@ export default {
   data () {
     return {
       show: true,
-      categoryList: []
+      articleCategoryList: [],
+      bookCategoryList: []
     }
   },
   created () {
@@ -94,15 +95,21 @@ export default {
       }
     },
     listCategory () {
-      let params = {}
-      params.type = 0
       this.$http({
         url: this.$http.adornUrl('/operation/categories'),
         method: 'get',
-        params: this.$http.adornParams(params)
+        params: this.$http.adornParams()
       }).then(({data}) => {
         if (data && data.code === 200) {
-          this.categoryList = treeDataTranslate(data.categoryList)
+          data.categoryList.forEach(category => {
+            if (category.type === 0) {
+              this.articleCategoryList.push(category)
+            } else if (category.type === 1) {
+              this.bookCategoryList.push(category)
+            }
+          })
+          this.articleCategoryList = treeDataTranslate(this.articleCategoryList)
+          this.bookCategoryList = treeDataTranslate(this.bookCategoryList)
         }
       })
     }

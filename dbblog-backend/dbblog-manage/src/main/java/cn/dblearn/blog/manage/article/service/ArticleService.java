@@ -49,4 +49,6 @@ public interface ArticleService extends IService<Article> {
      */
     ArticleDto getArticle(Integer articleId);
 
+
+    boolean checkByCategory(Integer id);
 }

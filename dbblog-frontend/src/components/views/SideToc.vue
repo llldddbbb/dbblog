@@ -85,6 +85,7 @@ export default {
             font-size 16px
             color $color-gradually-gray-21
             &.active
+              font-weight 800
               color $color-main-primary
           > ul > li > a
             font-size 16px

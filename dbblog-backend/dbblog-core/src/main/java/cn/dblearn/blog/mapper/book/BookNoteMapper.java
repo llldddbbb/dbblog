@@ -63,4 +63,11 @@ public interface BookNoteMapper extends BaseMapper<BookNote> {
      * @param parseInt
      */
     void updateLikeNum(int parseInt);
+
+    /**
+     * 判断该类别下是否有笔记
+     * @param categoryId
+     * @return
+     */
+    int checkByCategory(Integer categoryId);
 }

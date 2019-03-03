@@ -48,4 +48,11 @@ public interface BookMapper extends BaseMapper<Book> {
      * @param parseInt
      */
     void updateLikeNum(int parseInt);
+
+    /**
+     * 判断类别下是否有图书
+     * @param categoryId
+     * @return
+     */
+    int checkByCategory(Integer categoryId);
 }

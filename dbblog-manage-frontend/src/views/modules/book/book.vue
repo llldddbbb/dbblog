@@ -80,6 +80,20 @@
         </template>
       </el-table-column>
       <el-table-column
+        prop="reading"
+        header-align="center"
+        align="center"
+        label="阅读"
+        width="80">
+        <template slot-scope="scope">
+          <el-switch
+            v-model="scope.row.reading"
+            active-color="#13ce66"
+            @change="updateReading(scope.row.id,scope.row.reading)">
+          </el-switch>
+        </template>
+      </el-table-column>
+      <el-table-column
         prop="recommend"
         header-align="center"
         align="center"
@@ -91,20 +105,6 @@
           </el-tooltip>
           <el-tooltip class="item" effect="dark" content="点击下架" v-if="scope.row.publish" placement="top">
             <el-button type="success" size="mini" @click="updatePublish(scope.row.id, false)" v-if="scope.row.publish === true">已发布</el-button>
-          </el-tooltip>
-        </template>
-      </el-table-column>
-      <el-table-column
-        prop="reading"
-        header-align="center"
-        align="center"
-        label="阅读">
-        <template slot-scope="scope">
-          <el-tooltip class="item" effect="dark" content="点击阅读" v-if="!scope.row.reading" placement="top">
-            <el-button type="info" size="mini" @click="updateReading(scope.row.id, true)">未阅读</el-button>
-          </el-tooltip>
-          <el-tooltip class="item" effect="dark" content="点击未读" v-if="scope.row.reading" placement="top">
-            <el-button type="success" size="mini" @click="updateReading(scope.row.id, false)" v-if="scope.row.reading">正在阅读</el-button>
           </el-tooltip>
         </template>
       </el-table-column>

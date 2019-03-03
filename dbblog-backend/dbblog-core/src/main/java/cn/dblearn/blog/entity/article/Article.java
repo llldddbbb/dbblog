@@ -76,5 +76,7 @@ public class Article implements Serializable {
     @ApiModelProperty(value = "发布状态")
     private Boolean publish;
 
+    @ApiModelProperty(value = "是否置顶")
+    private Boolean top;
 
 }

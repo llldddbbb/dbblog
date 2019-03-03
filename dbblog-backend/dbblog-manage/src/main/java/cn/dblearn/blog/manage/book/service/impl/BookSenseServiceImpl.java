@@ -34,6 +34,6 @@ public class BookSenseServiceImpl extends ServiceImpl<BookSenseMapper, BookSense
          BookSense readSense = this.baseMapper.selectOne(new QueryWrapper<BookSense>().lambda()
                 .eq(bookId!=null, BookSense::getBookId,bookId));
         return Optional.ofNullable(readSense)
-                .orElse(new BookSense());
+                .orElse(null);
     }
 }
