@@ -80,7 +80,7 @@
         </el-col>
       </el-form-item>
       <el-form-item label="博文内容">
-        <mavon-editor ref=md v-model="article.content" @imgAdd="imgAdd" ></mavon-editor>
+        <mavon-editor ref=md v-model="article.content" @imgAdd="imgAdd" @change="mavonChangeHandle"></mavon-editor>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="saveArticle()">保存</el-button>
@@ -247,6 +247,9 @@ export default {
       }).then(({data}) => {
         this.$refs.md.$img2Url(pos, data.resource.url)
       })
+    },
+    mavonChangeHandle (context, render) {
+      this.article.contentFormat = render
     }
   }
 }

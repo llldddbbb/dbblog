@@ -5,7 +5,7 @@
         <div class="layout-left">
           <bookNote-page-header :bookNote="bookNote"></bookNote-page-header>
           <bookNote-page-content>
-            <article id="bookNote-main-page" class="typo container" slot="content" ref="bookNote" v-html="bookNote.content">
+            <article id="article-main-page" class="typo container" slot="content" ref="article" v-html="bookNote.contentFormat">
             </article>
           </bookNote-page-content>
           <bookNote-page-footer :likeNum="bookNote.likeNum" :commentList="bookNote.commentList"></bookNote-page-footer>
@@ -31,7 +31,6 @@ import FriendLinks from '@/components/views/FriendLinks'
 import SideToc from '@/components/views/SideToc'
 import Recommend from '@/components/views/Recommend'
 import TOC from '@/common/js/MarkdownToc'
-import marked from 'marked'
 // highlight.js引入
 import hljs from 'highlight.js'
 // 样式文件
@@ -62,7 +61,7 @@ export default {
   methods: {
     addCodeLineNumber () {
       // 添加行号
-      let blocks = this.$refs.bookNote.querySelectorAll('pre code')
+      let blocks = this.$refs.article.querySelectorAll('pre code')
       blocks.forEach((block) => {
         HLJS.highlightBlock(block)
         // 去前后空格并添加行号
@@ -76,8 +75,6 @@ export default {
       }).then(({data}) => {
         if (data && data.code === 200) {
           this.bookNote = data.bookNote
-          // 将markdown语法解析成html
-          this.bookNote.content = marked(data.bookNote.content)
           // 更新目录、高亮代码
           this.$nextTick(function () {
             this.addCodeLineNumber()
@@ -89,29 +86,29 @@ export default {
     },
     refreshDiectory () {
       /* eslint-disable*/
-      new TOC('bookNote-main-page', {
+      new TOC('article-main-page', {
         'level': 5,
         'top': 200,
         'class': 'list',
         'targetId': 'side-toc'
       })
       /* eslint-disable */
-      new TocScrollSpy('bookNote-main-page', 'side-toc', {
+      new TocScrollSpy('article-main-page', 'side-toc', {
         'spayLevel': 5,
-        'bookNoteMarginTop': 60
+        'articleMarginTop': 60
       });
     },
     refreshMobileDirectory () {
       /* eslint-disable */
-      new TOC('bookNote-main-page', {
+      new TOC('article-main-page', {
         'level': 5,
         'top': 200,
         'class': 'list',
         'targetId': 'sidebar-toc'
       });
-      new TocScrollSpy('bookNote-main-page', 'sidebar-toc', {
+      new TocScrollSpy('article-main-page', 'sidebar-toc', {
         'spayLevel': 5,
-        'bookNoteMarginTop': 60
+        'articleMarginTop': 60
       });
     }
   }

@@ -2,7 +2,7 @@
   <div class="recommend">
     <panel :title="'推荐阅读'">
       <div slot="content" class="content">
-        <div class="top">
+        <div class="top" v-if="topRecommend">
           <a :href="'/' + topRecommend.urlType + '/' + topRecommend.linkId">
             <p class="title">{{topRecommend.title}}</p>
             <div class="tags">

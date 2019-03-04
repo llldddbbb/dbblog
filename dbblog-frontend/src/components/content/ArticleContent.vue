@@ -5,7 +5,7 @@
         <div class="layout-left">
           <article-page-header :article="article"></article-page-header>
           <article-page-content>
-            <article id="article-main-page" class="typo container" slot="content" ref="article" v-html="article.content">
+            <article id="article-main-page" class="typo container" slot="content" ref="article" v-html="article.contentFormat">
             </article>
           </article-page-content>
           <article-page-footer :likeNum="article.likeNum" :commentList="article.commentList"></article-page-footer>
@@ -31,7 +31,6 @@ import FriendLinks from '@/components/views/FriendLinks'
 import SideToc from '@/components/views/SideToc'
 import Recommend from '@/components/views/Recommend'
 import TOC from '@/common/js/MarkdownToc'
-import marked from 'marked'
 // highlight.js引入
 import hljs from 'highlight.js'
 // 样式文件
@@ -76,8 +75,6 @@ export default {
       }).then(({data}) => {
         if (data && data.code === 200) {
           this.article = data.article
-          // 将markdown语法解析成html
-          this.article.content = marked(data.article.content)
           // 更新目录、高亮代码
           this.$nextTick(function () {
             this.addCodeLineNumber()
