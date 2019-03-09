@@ -1,0 +1,2 @@
+INSERT INTO dbblog.recommend (id, link_id, type, order_num, title, top) VALUES (3, 1, 0, 1, '关于本站和博主', 1);
+INSERT INTO dbblog.recommend (id, link_id, type, order_num, title, top) VALUES (4, 1, 2, 2, 'Java虚拟机01——Java内存数据区域和内存溢出异常', 0);

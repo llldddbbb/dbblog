@@ -94,6 +94,7 @@
 import MavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
 import { treeDataTranslate } from '@/utils'
+import marked from 'marked'
 export default {
   components: {
     'mavon-editor': MavonEditor.mavonEditor
@@ -249,7 +250,7 @@ export default {
       })
     },
     mavonChangeHandle (context, render) {
-      this.article.contentFormat = render
+      this.article.contentFormat = marked(context)
     }
   }
 }

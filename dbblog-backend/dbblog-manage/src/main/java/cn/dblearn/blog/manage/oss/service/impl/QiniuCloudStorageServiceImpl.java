@@ -10,6 +10,7 @@ import com.qiniu.http.Response;
 import com.qiniu.storage.Configuration;
 import com.qiniu.storage.UploadManager;
 import com.qiniu.util.Auth;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +26,7 @@ import java.io.InputStream;
  * @description
  */
 @Service("cloudStorageService")
+@Slf4j
 public class QiniuCloudStorageServiceImpl extends CloudStorageService {
     private UploadManager uploadManager;
     private String token;
@@ -49,6 +51,7 @@ public class QiniuCloudStorageServiceImpl extends CloudStorageService {
                 throw new RuntimeException("上传七牛出错：" + res.toString());
             }
         } catch (Exception e) {
+            log.error(e.getMessage());
             throw new MyException(ErrorEnum.OSS_CONFIG_ERROR);
         }
 
@@ -61,7 +64,8 @@ public class QiniuCloudStorageServiceImpl extends CloudStorageService {
             byte[] data = IOUtils.toByteArray(inputStream);
             return this.upload(data, path);
         } catch (IOException e) {
-            throw new MyException(ErrorEnum.OSS_UPLOAD_ERROR);
+            log.error(e.getMessage());
+            throw new MyException(ErrorEnum.OSS_CONFIG_ERROR);
         }
     }
 

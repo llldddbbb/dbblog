@@ -1,0 +1,11 @@
+INSERT INTO dbblog.tag_link (id, tag_id, link_id, type) VALUES (3, 3, 1, 1);
+INSERT INTO dbblog.tag_link (id, tag_id, link_id, type) VALUES (4, 4, 1, 1);
+INSERT INTO dbblog.tag_link (id, tag_id, link_id, type) VALUES (49, 1, 1, 0);
+INSERT INTO dbblog.tag_link (id, tag_id, link_id, type) VALUES (50, 2, 1, 0);
+INSERT INTO dbblog.tag_link (id, tag_id, link_id, type) VALUES (55, 5, 1, 2);
+INSERT INTO dbblog.tag_link (id, tag_id, link_id, type) VALUES (56, 6, 1, 2);
+INSERT INTO dbblog.tag_link (id, tag_id, link_id, type) VALUES (75, 7, 3, 0);
+INSERT INTO dbblog.tag_link (id, tag_id, link_id, type) VALUES (76, 8, 3, 0);
+INSERT INTO dbblog.tag_link (id, tag_id, link_id, type) VALUES (77, 9, 4, 0);
+INSERT INTO dbblog.tag_link (id, tag_id, link_id, type) VALUES (78, 7, 4, 0);
+INSERT INTO dbblog.tag_link (id, tag_id, link_id, type) VALUES (82, 10, 5, 0);

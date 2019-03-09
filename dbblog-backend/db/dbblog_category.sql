@@ -1,0 +1,9 @@
+INSERT INTO dbblog.category (id, name, type, rank, parent_id) VALUES (1, '漫谈', 0, 0, -1);
+INSERT INTO dbblog.category (id, name, type, rank, parent_id) VALUES (2, '本站相关', 0, 1, 1);
+INSERT INTO dbblog.category (id, name, type, rank, parent_id) VALUES (3, '关于', 0, 2, 2);
+INSERT INTO dbblog.category (id, name, type, rank, parent_id) VALUES (4, '后端', 1, 0, -1);
+INSERT INTO dbblog.category (id, name, type, rank, parent_id) VALUES (5, 'Java进阶', 1, 1, 4);
+INSERT INTO dbblog.category (id, name, type, rank, parent_id) VALUES (6, 'JVM', 1, 2, 5);
+INSERT INTO dbblog.category (id, name, type, rank, parent_id) VALUES (9, '后端', 0, 0, -1);
+INSERT INTO dbblog.category (id, name, type, rank, parent_id) VALUES (11, 'Java基础', 0, 1, 9);
+INSERT INTO dbblog.category (id, name, type, rank, parent_id) VALUES (12, '面试', 0, 2, 11);

@@ -95,7 +95,7 @@ export default {
       /* eslint-disable */
       new TocScrollSpy('article-main-page', 'side-toc', {
         'spayLevel': 5,
-        'articleMarginTop': 60
+        'articleMarginTop': 0
       });
     },
     refreshMobileDirectory () {
@@ -108,7 +108,7 @@ export default {
       });
       new TocScrollSpy('article-main-page', 'sidebar-toc', {
         'spayLevel': 5,
-        'articleMarginTop': 60
+        'articleMarginTop': 15
       });
     }
   }
