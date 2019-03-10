@@ -104,8 +104,6 @@ dbblog
 ## 界面预览
 ![博文图片1.png](http://oss.dblearn.cn/dbblog/20190310/34c7f3a92bae478c882caaed586042dc.png) 
 
-![博文图片2.png](http://oss.dblearn.cn/dbblog/20190310/2403f9585bf64dd2a90b180314a93403.png)
-
 ![博文图片3.png](http://oss.dblearn.cn/dbblog/20190310/c1af8818cbac486394eb083463c3c2d7.png)
 
 ![博文图片6.png](http://oss.dblearn.cn/dbblog/20190310/558c14cbdee84be99f32c267033df276.png)
