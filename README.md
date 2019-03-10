@@ -102,21 +102,7 @@ dbblog
 2. 启动项目：npm run dev
 
 ## 界面预览
-![博文图片1.png](http://oss.dblearn.cn/dbblog/20190310/34c7f3a92bae478c882caaed586042dc.png) 
 
-![博文图片3.png](http://oss.dblearn.cn/dbblog/20190310/c1af8818cbac486394eb083463c3c2d7.png)
-
-![博文图片6.png](http://oss.dblearn.cn/dbblog/20190310/558c14cbdee84be99f32c267033df276.png)
-
-![博文图片7.png](http://oss.dblearn.cn/dbblog/20190310/9289e11d4e2b489885246c6023924458.png)
-
-![1.png](http://oss.dblearn.cn/dbblog/20190310/61b8efb183144323b4138b2b9eecdfb7.png)
-
-![2.png](http://oss.dblearn.cn/dbblog/20190310/4e0874dc164e44028e500769f829d7e1.png)
-
-![3.png](http://oss.dblearn.cn/dbblog/20190310/7c641e6681ef468599dbe152bc0ea02a.png)
-
-![4.png](http://oss.dblearn.cn/dbblog/20190310/ee69937e2bd9494f882da788932123ca.png)
 
 ## 碎碎念
 上大学的时候做过博客，技术选型也从一开始的SSM+JSP [博客1](https://github.com/llldddbbb/Blog) 
