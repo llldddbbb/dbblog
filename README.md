@@ -102,7 +102,7 @@ dbblog
 2. 启动项目：npm run dev
 
 ## 界面预览
-![博文图片1.png](http://oss.dblearn.cn/dbblog/20190310/34c7f3a92bae478c882caaed586042dc.png)
+![博文图片1.png](http://oss.dblearn.cn/dbblog/20190310/34c7f3a92bae478c882caaed586042dc.png) 
 
 ![博文图片2.png](http://oss.dblearn.cn/dbblog/20190310/2403f9585bf64dd2a90b180314a93403.png)
 
