@@ -30,6 +30,7 @@ import java.io.InputStream;
 public class QiniuCloudStorageServiceImpl extends CloudStorageService {
     private UploadManager uploadManager;
     private String token;
+    private Auth auth;
 
     public QiniuCloudStorageServiceImpl(CloudStorageConfig config){
         this.config = config;
@@ -39,13 +40,14 @@ public class QiniuCloudStorageServiceImpl extends CloudStorageService {
 
     private void init(){
         uploadManager = new UploadManager(new Configuration(Zone.autoZone()));
-        token = Auth.create(config.getQiniuAccessKey(), config.getQiniuSecretKey()).
-                uploadToken(config.getQiniuBucketName());
+        auth = Auth.create(config.getQiniuAccessKey(), config.getQiniuSecretKey());
+        token = auth.uploadToken(config.getQiniuBucketName());
     }
 
     @Override
     public String upload(byte[] data, String path) {
         try {
+            token = auth.uploadToken(config.getQiniuBucketName());
             Response res = uploadManager.put(data, path, token);
             if (!res.isOK()) {
                 throw new RuntimeException("上传七牛出错：" + res.toString());
