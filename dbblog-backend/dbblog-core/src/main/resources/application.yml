@@ -15,7 +15,7 @@ server:
 spring:
   profiles:
     # 环境 开发dev，测试test，生产prod
-    active: prod
+    active: dev
   jackson:
     serialization:
       # jackson返回时间戳

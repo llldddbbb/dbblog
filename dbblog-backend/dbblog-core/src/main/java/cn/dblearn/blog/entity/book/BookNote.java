@@ -6,11 +6,9 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * <p>
@@ -21,8 +19,6 @@ import java.time.LocalDateTime;
  * @since 2019-02-13
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
 @ApiModel(value = "BookNote对象", description = "笔记")
 public class BookNote implements Serializable {
 
@@ -64,11 +60,11 @@ public class BookNote implements Serializable {
 
     @ApiModelProperty(value = "创建时间")
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime createTime;
+    private Date createTime;
 
     @ApiModelProperty(value = "更新时间")
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime updateTime;
+    private Date updateTime;
 
     @ApiModelProperty(value = "是否推荐笔记")
     private Boolean recommend;

@@ -1,16 +1,16 @@
 package cn.dblearn.blog.manage.book.controller;
 
 import cn.dblearn.blog.common.Result;
+import cn.dblearn.blog.common.base.AbstractController;
 import cn.dblearn.blog.common.validator.ValidatorUtils;
 import cn.dblearn.blog.entity.book.BookSense;
 import cn.dblearn.blog.manage.book.service.BookSenseService;
-import cn.dblearn.blog.common.base.AbstractController;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * <p>
@@ -53,7 +53,7 @@ public class BookSenseController extends AbstractController {
     @RequiresPermissions("book:update")
     public Result update(@RequestBody BookSense bookSense) {
         ValidatorUtils.validateEntity(bookSense);
-        bookSense.setUpdateTime(LocalDateTime.now());
+        bookSense.setUpdateTime(new Date());
         bookSenseService.updateById(bookSense);
         return Result.ok();
     }

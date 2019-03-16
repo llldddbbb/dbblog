@@ -4,14 +4,18 @@ import cn.dblearn.blog.common.validator.group.AddGroup;
 import cn.dblearn.blog.common.validator.group.UpdateGroup;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.elasticsearch.annotations.DateFormat;
+import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * <p>
@@ -23,12 +27,14 @@ import java.time.LocalDateTime;
  */
 @Data
 @ApiModel(value="BlogArticle对象", description="文章")
+@Document(indexName = "dbblog",type = "article")
 public class Article implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "主键")
     @TableId(value = "id", type = IdType.AUTO)
+    @Id
     private Integer id;
 
     @ApiModelProperty(value = "文章标题")
@@ -61,11 +67,12 @@ public class Article implements Serializable {
     private Integer coverType;
 
     @ApiModelProperty(value = "创建时间")
-    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime createTime;
+    @Field(type = FieldType.Date, format = DateFormat.none)
+    private Date createTime;
 
     @ApiModelProperty(value = "更新时间")
-    private LocalDateTime updateTime;
+    @Field(type = FieldType.Date, format = DateFormat.none)
+    private Date updateTime;
 
     @ApiModelProperty(value = "是否推荐文章")
     private Boolean recommend;

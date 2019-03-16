@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Map;
 
 
@@ -64,7 +64,7 @@ public class BookNoteController {
     @CacheEvict(value = RedisKeyConstants.PORTAL_RECOMMEND_LIST)
     public Result updateBookNote(@RequestBody BookNoteDto bookNote){
         ValidatorUtils.validateEntity(bookNote);
-        bookNote.setUpdateTime(LocalDateTime.now());
+        bookNote.setUpdateTime(new Date());
         bookNoteService.updateBookNote(bookNote);
         return Result.ok();
     }

@@ -1,33 +1,55 @@
 spring:
-    datasource:
-        type: com.alibaba.druid.pool.DruidDataSource
-        driverClassName: com.mysql.jdbc.Driver
-        druid:
-            url: jdbc:mysql://localhost:3306/dbblog?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
-            username: root
-            password: 123456
-            initial-size: 10
-            max-active: 100
-            min-idle: 10
-            max-wait: 60000
-            pool-prepared-statements: true
-            max-pool-prepared-statement-per-connection-size: 20
-            time-between-eviction-runs-millis: 60000
-            min-evictable-idle-time-millis: 300000
-            #validation-query: SELECT 1 FROM DUAL
-            test-while-idle: true
-            test-on-borrow: false
-            test-on-return: false
-            stat-view-servlet:
-                enabled: true
-                url-pattern: /druid/*
-                #login-username: admin
-                #login-password: admin
-            filter:
-                stat:
-                    log-slow-sql: true
-                    slow-sql-millis: 1000
-                    merge-sql: false
-                wall:
-                    config:
-                        multi-statement-allow: true
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driverClassName: com.mysql.jdbc.Driver
+    druid:
+      url: jdbc:mysql://localhost:3306/dbblog?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
+      username: root
+      password: 123456
+      initial-size: 10
+      max-active: 100
+      min-idle: 10
+      max-wait: 60000
+      pool-prepared-statements: true
+      max-pool-prepared-statement-per-connection-size: 20
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      #validation-query: SELECT 1 FROM DUAL
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      stat-view-servlet:
+        enabled: true
+        url-pattern: /druid/*
+        #login-username: admin
+        #login-password: admin
+      filter:
+        stat:
+          log-slow-sql: true
+          slow-sql-millis: 1000
+          merge-sql: false
+        wall:
+          config:
+            multi-statement-allow: true
+  # elasticsearch配置
+  data:
+    elasticsearch:
+      cluster-name: elasticsearch
+      cluster-nodes: 127.0.0.1:9300
+
+#mybatis-plus
+mybatis-plus:
+  global-config:
+    #刷新Mapper，只在开发环境打开
+    refresh: true
+oss:
+  qiniu:
+    domain: http://oss.dblearn.cn
+    prefix: dbblog
+    accessKey: ENC(pVGOa/io1AnqiEKkDTVORO3W8nzn+vbOl53TeRBIGgCuWvqUEzOAdIBLmdpoYVmsDHESGVc2QzY=)
+    secretKey: ENC(UXM3TEuaIuLrPdKuDASHoZExQyOrgGl7PqV/iB0EbHOFhnUSF3bMol8D2qh+QlthccS5QD0fHbM=)
+    bucketName: test
+
+jasypt:
+  encryptor:
+    password: dbblog-jasypt

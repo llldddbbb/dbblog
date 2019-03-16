@@ -3,6 +3,7 @@ package cn.dblearn.blog.manage.article.controller;
 import cn.dblearn.blog.common.Result;
 import cn.dblearn.blog.common.constants.RedisKeyConstants;
 import cn.dblearn.blog.common.enums.ModuleEnum;
+import cn.dblearn.blog.common.mq.annotation.RefreshEsMqSender;
 import cn.dblearn.blog.common.util.PageUtils;
 import cn.dblearn.blog.common.validator.ValidatorUtils;
 import cn.dblearn.blog.entity.article.Article;
@@ -15,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Map;
 
 
@@ -53,6 +54,7 @@ public class ArticleController {
 
     @PostMapping("/save")
     @RequiresPermissions("article:save")
+    @RefreshEsMqSender
     public Result saveArticle(@RequestBody ArticleDto article){
         ValidatorUtils.validateEntity(article);
         articleService.saveArticle(article);
@@ -62,9 +64,10 @@ public class ArticleController {
     @PutMapping("/update")
     @RequiresPermissions("article:update")
     @CacheEvict(value = RedisKeyConstants.PORTAL_RECOMMEND_LIST)
+    @RefreshEsMqSender
     public Result updateArticle(@RequestBody ArticleDto article){
         ValidatorUtils.validateEntity(article);
-        article.setUpdateTime(LocalDateTime.now());
+        article.setUpdateTime(new Date());
         articleService.updateArticle(article);
         return Result.ok();
     }
@@ -72,6 +75,7 @@ public class ArticleController {
     @PutMapping("/update/status")
     @RequiresPermissions("article:update")
     @CacheEvict(value = RedisKeyConstants.PORTAL_RECOMMEND_LIST)
+    @RefreshEsMqSender
     public Result updateStatus(@RequestBody Article article) {
         articleService.updateById(article);
         return Result.ok();
@@ -82,6 +86,7 @@ public class ArticleController {
     @RequiresPermissions("article:delete")
     @Transactional(rollbackFor = Exception.class)
     @CacheEvict(value = RedisKeyConstants.PORTAL_RECOMMEND_LIST)
+    @RefreshEsMqSender
     public Result deleteBatch(@RequestBody Integer[] articleIds){
         recommendService.deleteBatchByLinkId(articleIds, ModuleEnum.ARTICLE.getValue());
         articleService.deleteBatch(articleIds);

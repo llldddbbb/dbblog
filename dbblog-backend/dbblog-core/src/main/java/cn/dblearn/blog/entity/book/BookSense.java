@@ -8,7 +8,7 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * <p>
@@ -40,11 +40,11 @@ public class BookSense implements Serializable {
 
     @ApiModelProperty(value = "创建时间")
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime createTime;
+    private Date createTime;
 
     @ApiModelProperty(value = "更新时间")
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime updateTime;
+    private Date updateTime;
 
 
 }

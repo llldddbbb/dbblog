@@ -8,6 +8,7 @@
         <module>dbblog-manage</module>
         <module>dbblog-auth</module>
         <module>dbblog-portal</module>
+        <module>dbblog-search</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -143,6 +144,18 @@
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-pool2</artifactId>
                 <version>${redis.pool.version}</version>
+            </dependency>
+            <!-- elasticsearch搜索层包-->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
+                <version>${springboot.version}</version>
+            </dependency>
+            <!--消息队列包-->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-amqp</artifactId>
+                <version>${springboot.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
