@@ -8,7 +8,6 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <packaging>jar</packaging>
     <artifactId>dbblog-portal</artifactId>
 
     <dependencies>
@@ -18,21 +17,6 @@
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
-
-    <build>
-        <finalName>dbblog</finalName>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration><!-- 指定该Main Class为全局的唯一入口 -->
-                    <mainClass>cn.dblearn.blog.BlogApplication</mainClass>
-                    <layout>ZIP</layout>
-                </configuration>
-            </plugin>
-
-        </plugins>
-    </build>
 
 
 </project>

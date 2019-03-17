@@ -43,6 +43,11 @@ export default {
       }).then(({data}) => {
         if (data && data.code === 200) {
           this.articleList = data.articleList
+          if (this.articleList.length > 0) {
+            this.articleList.map(article => {
+              article.coverType = 2
+            })
+          }
         }
       })
     }

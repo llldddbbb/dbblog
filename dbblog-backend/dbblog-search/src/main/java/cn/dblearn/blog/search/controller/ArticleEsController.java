@@ -25,7 +25,7 @@ import java.util.List;
  * @email 571002217@qq.com
  * @description
  */
-@RestController("/search")
+@RestController
 public class ArticleEsController {
 
     @Resource
@@ -38,15 +38,15 @@ public class ArticleEsController {
     private RabbitMqUtils rabbitMqUtils;
 
     /**
-     * 搜索标题
-     * @param title
+     * 搜索标题，描述，内容
+     * @param keywords
      * @return
      */
-    @GetMapping("/article")
-    public Result search(@RequestParam("title") String title){
+    @GetMapping("articles/search")
+    public Result search(@RequestParam("keywords") String keywords){
         articleRepository.refresh();
         // 对所有索引进行搜索
-        QueryBuilder queryBuilder = QueryBuilders.queryStringQuery(title);
+        QueryBuilder queryBuilder = QueryBuilders.queryStringQuery(keywords);
 
         Iterable<Article> listIt =  articleRepository.search(queryBuilder);
 
