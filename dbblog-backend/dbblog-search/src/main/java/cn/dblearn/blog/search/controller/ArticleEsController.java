@@ -2,11 +2,12 @@ package cn.dblearn.blog.search.controller;
 
 import cn.dblearn.blog.common.Result;
 import cn.dblearn.blog.common.constants.RabbitMqConstants;
-import cn.dblearn.blog.common.util.RabbitMqUtils;
 import cn.dblearn.blog.entity.article.Article;
 import cn.dblearn.blog.portal.article.service.ArticleService;
 import cn.dblearn.blog.search.mapper.ArticleRepository;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.google.common.collect.Lists;
+import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -26,6 +27,7 @@ import java.util.List;
  * @description
  */
 @RestController
+@Slf4j
 public class ArticleEsController {
 
     @Resource
@@ -34,8 +36,6 @@ public class ArticleEsController {
     @Resource
     private ArticleService articleService;
 
-    @Resource
-    private RabbitMqUtils rabbitMqUtils;
 
     /**
      * 搜索标题，描述，内容
@@ -44,7 +44,6 @@ public class ArticleEsController {
      */
     @GetMapping("articles/search")
     public Result search(@RequestParam("keywords") String keywords){
-        articleRepository.refresh();
         // 对所有索引进行搜索
         QueryBuilder queryBuilder = QueryBuilders.queryStringQuery(keywords);
 
@@ -59,9 +58,9 @@ public class ArticleEsController {
     @RabbitListener(queues=RabbitMqConstants.REFRESH_ES_INDEX_QUEUE)
     public void refresh(String msg) {
         articleRepository.deleteAll();
-        List<Article> list = articleService.list(null);
+        List<Article> list = articleService.list(new QueryWrapper<Article>().lambda().eq(Article::getPublish,true));
         articleRepository.saveAll(list);
-        System.out.println(msg);
+        log.info(msg);
     }
 
 }
