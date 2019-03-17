@@ -15,13 +15,16 @@
     </router-link>
     <ul id="nav">
       <li>
-        <form id="search-form">
-      <span class="algolia-autocomplete" style="position: relative; display: inline-block; direction: ltr;"><input
-        type="text" id="search-query-nav" class="search-query st-default-search-input aa-input"
+        <form id="search-form" action="/articles/search">
+      <span class="algolia-autocomplete" style="position: relative; display: inline-block; direction: ltr;">
+        <input
+        type="text" id="search-query-nav" class="search-query st-default-search-input aa-input" name="keywords" v-model="keywords" @keyup.enter="submit"
         autocomplete="off" spellcheck="false" role="combobox" aria-autocomplete="list" aria-expanded="false"
-        aria-owns="algolia-autocomplete-listbox-0" dir="auto" style="position: relative; vertical-align: top;"><pre
+        aria-owns="algolia-autocomplete-listbox-0" dir="auto" style="position: relative; vertical-align: top;">
+        <pre
         aria-hidden="true"
-        style="position: absolute; visibility: hidden; white-space: pre; font-family: system-ui; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; word-spacing: 0px; letter-spacing: normal; text-indent: 0px; text-rendering: auto; text-transform: none;"></pre><span
+        style="position: absolute; visibility: hidden; white-space: pre; font-family: system-ui; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; word-spacing: 0px; letter-spacing: normal; text-indent: 0px; text-rendering: auto; text-transform: none;"></pre>
+        <span
         class="aa-dropdown-menu" role="listbox" id="algolia-autocomplete-listbox-0"
         style="position: absolute; top: 100%; z-index: 100; display: none; left: 0px; right: auto;"><div
         class="aa-dataset-1"></div></span></span>
@@ -51,11 +54,13 @@ export default {
     return {
       show: true,
       articleCategoryList: [],
-      bookCategoryList: []
+      bookCategoryList: [],
+      keywords: ''
     }
   },
   created () {
     this.listCategory()
+    this.keywords = this.$route.query.keywords
   },
   mounted: function () {
     this.$nextTick(function () {

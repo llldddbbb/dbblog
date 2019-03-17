@@ -36,10 +36,10 @@
       </iv-row>
       <iv-row :gutter="20">
         <iv-col :span="6">
-          <p class="title">Hadoop</p>
+          <p class="title">Cloud</p>
         </iv-col>
         <iv-col :span="18">
-          <iv-progress status="active" :hide-info="true" :stroke-width="8" :percent="5" class="bar"></iv-progress>
+          <iv-progress status="active" :hide-info="true" :stroke-width="8" :percent="30" class="bar"></iv-progress>
         </iv-col>
       </iv-row>
     </div>

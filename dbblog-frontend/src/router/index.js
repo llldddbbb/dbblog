@@ -21,6 +21,7 @@ import MovieContent from '@/components/content/MovieContent'
 import MovieListContent from '@/components/content/MovieListContent'
 import AlbumPreviewContent from '@/components/content/AlbumPreviewContent'
 import TimeLineContent from '@/components/content/TimeLineContent'
+import SearchResultContent from '@/components/content/SearchResultContent'
 
 Vue.use(Router)
 
@@ -66,6 +67,15 @@ let router = new Router({
           components: {
             header: SimpleHeader,
             content: ArticleListContent,
+            footer: CommonFooter
+          }
+        },
+        {
+          path: 'articles/search',
+          name: 'search',
+          components: {
+            header: SimpleHeader,
+            content: SearchResultContent,
             footer: CommonFooter
           }
         },

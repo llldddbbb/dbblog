@@ -9,7 +9,7 @@
               <iv-tag  :color="index | mapTagColor" v-for="(tag , index)  in topHotRead.tagList" :key="tag.id">{{tag.name}}</iv-tag>
             </div>
             <p class="info">
-              <span class="time">{{topHotRead.createTime}}</span>
+              <span class="time">{{topHotRead.createTime | socialDate }}</span>
               <span class="likes"><a ><iv-icon type="heart"></iv-icon> {{topHotRead.likeNum}} </a></span>
               <span class="comments"><a><iv-icon type="compose"></iv-icon> {{topHotRead.commentNum}} </a></span>
               <span class="readings"><a><iv-icon type="eye"></iv-icon> {{topHotRead.readNum}} </a></span>
@@ -25,7 +25,7 @@
             <a :href="'/' + hotRead.urlType + '/' +hotRead.linkId">
               <p class="title">{{hotRead.title}}</p>
               <p class="info">
-                <span class="time">{{hotRead.createTime}}</span>
+                <span class="time">{{hotRead.createTime | socialDate }}</span>
                 <span class="likes"><a href=""><iv-icon type="heart"></iv-icon> {{hotRead.likeNum}} </a></span>
                 <span class="comments"><a href=""><iv-icon type="compose"></iv-icon> {{hotRead.commentNum}} </a></span>
                 <span class="readings"><a href=""><iv-icon type="eye"></iv-icon> {{hotRead.readNum}} </a></span>

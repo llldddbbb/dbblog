@@ -1,7 +1,7 @@
 <template>
   <div class="archive-list-cell">
     <div class="info" >
-      <iv-tag class="time-tag border-tag">{{ post.createTime}}</iv-tag>
+      <iv-tag class="time-tag border-tag">{{ post.createTime | socialDate }}</iv-tag>
       <div class="base-info">
         <a class="title" :href="'/' + post.postType + '/' + post.id">
           {{post.title}}

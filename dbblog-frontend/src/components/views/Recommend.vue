@@ -9,7 +9,7 @@
               <iv-tag  :color="index | mapTagColor" v-for="(tag,index) in topRecommend.tagList" :key="tag.id">{{tag.name}}</iv-tag>
             </div>
             <p class="info">
-              <span class="time">{{topRecommend.createTime}}</span>
+              <span class="time">{{topRecommend.createTime | socialDate }}</span>
               <span class="likes"><a><iv-icon type="heart"></iv-icon> {{topRecommend.likeNum}} </a></span>
               <span class="comments"><a><iv-icon type="compose"></iv-icon> {{topRecommend.commentNum}} </a></span>
               <span class="readings"><a><iv-icon type="eye"></iv-icon> {{topRecommend.readNum}} </a></span>
@@ -25,7 +25,7 @@
             <a :href="'/' + recommend.urlType + '/' +recommend.linkId">
               <p class="title">{{recommend.title}}</p>
               <p class="info">
-                <span class="time">{{recommend.createTime}}</span>
+                <span class="time">{{recommend.createTime | socialDate }}</span>
                 <span class="likes"><a href=""><iv-icon type="heart"></iv-icon> {{recommend.likeNum}} </a></span>
                 <span class="comments"><a href=""><iv-icon type="compose"></iv-icon> {{recommend.commentNum}} </a></span>
                 <span class="readings"><a href=""><iv-icon type="eye"></iv-icon> {{recommend.readNum}} </a></span>

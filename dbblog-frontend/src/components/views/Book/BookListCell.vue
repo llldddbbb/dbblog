@@ -15,7 +15,7 @@
               <iv-icon type="arrow-right-b"></iv-icon>
             </a></p>
             <p class="operate_info">
-              <span class="publish-time">At time / <a >{{book.createTime}}</a></span>
+              <span class="publish-time">At time / <a >{{book.createTime | socialDate }}</a></span>
               <span class="readings"><a ><iv-icon type="eye"></iv-icon> {{book.readNum}} 阅读</a></span>
               <span class="comments"><a ><iv-icon type="compose"></iv-icon> {{book.commentNum}} 评论</a></span>
               <span class="likes"><a><iv-icon type="heart"></iv-icon> {{book.likeNum}} 喜欢</a></span>

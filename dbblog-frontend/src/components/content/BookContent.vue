@@ -45,8 +45,8 @@
                              v-html="book.bookSense.content">
                     </article>
                     <div class="detail-footer">
-                      以上内容添加于：{{ book.bookSense.createTime}} &nbsp;&nbsp;&nbsp;
-                      更新于：{{ book.bookSense.updateTime }}
+                      以上内容添加于：{{ book.bookSense.createTime | socialDate }} &nbsp;&nbsp;&nbsp;
+                      更新于：{{ book.bookSense.updateTime | socialDate }}
                     </div>
                   </div>
                 </div>
