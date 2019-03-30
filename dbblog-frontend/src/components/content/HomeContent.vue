@@ -15,22 +15,6 @@
             <title-menu-filter @filterByMenu="refreshBookNote"  slot="menu" :menu-filter-list="bookNoteFilterList"></title-menu-filter>
           </section-title>
           <book-note-list-cell v-for="bookNote in bookNoteList" :bookNote="bookNote" :key="bookNote.title"></book-note-list-cell>
-          <!--<div class="topic-cards">-->
-            <!--<iv-row :gutter="10">-->
-              <!--<iv-col :xs="24" :sm="12" :md="8" :lg="8" :xl="8">-->
-                <!--<topic-card></topic-card>-->
-              <!--</iv-col>-->
-              <!--<iv-col :xs="24" :sm="12" :md="8" :lg="8" :xl="8">-->
-                <!--<topic-card></topic-card>-->
-              <!--</iv-col>-->
-              <!--<iv-col :xs="24" :sm="12" :md="8" :lg="8" :xl="8">-->
-                <!--<topic-card></topic-card>-->
-              <!--</iv-col>-->
-              <!--<iv-col :xs="24" :sm="12" :md="8" :lg="8" :xl="8">-->
-                <!--<topic-card></topic-card>-->
-              <!--</iv-col>-->
-            <!--</iv-row>-->
-          <!--</div>-->
         </div>
       </iv-col>
       <iv-col :xs="0" :sm="0" :md="0" :lg="7">
@@ -52,7 +36,6 @@ import BookNoteListCell from '@/components/views/BookNote/BookNoteListCell'
 import BookListCell from '@/components/views/Book/BookListCell'
 import SectionTitle from '@/components/views/SectionTitle/SectionTitle'
 import TitleMenuFilter from '@/components/views/SectionTitle/TitleMenuFilter'
-import TopicCard from '@/components/views/TopicCard'
 import ArticlePageHeader from '@/components/views/Article/ArticlePageHeader'
 import ArticlePageContent from '@/components/views/Article/ArticlePageContent'
 import ArchiveListTimeTitle from '@/components/views/Archive/ArchiveListTimeTitle'
@@ -85,7 +68,6 @@ export default {
     'book-list-cell': BookListCell,
     'section-title': SectionTitle,
     'title-menu-filter': TitleMenuFilter,
-    'topic-card': TopicCard,
     'article-page-header': ArticlePageHeader,
     'article-page-content': ArticlePageContent,
     'archive-list-time-title': ArchiveListTimeTitle,

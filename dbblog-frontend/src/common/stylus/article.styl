@@ -1,69 +1,4 @@
 @import "theme.styl"
-//
-//article#article-main-page
-//  text-align left
-//  h1, h2, h3, h4, h5, h6, h7
-//    padding 25px 0 15px
-//    font-weight 700
-//  h1
-//    font-size 27px
-//  h2
-//    font-size 25px
-//  h3
-//    font-size 22px
-//  h4, h5, h6, h7
-//    font-size 20px
-//  ul
-//    list-style-type square
-//    line-height 1.5em
-//    padding-left 2.5em
-//  li
-//    list-style-type square
-//    margin .5em 0
-//    color $color-typegraphy-title
-//    font-weight 200
-//  p
-//    font-size 17px
-//    line-height 25px
-//    color $color-typegraphy-title
-//    font-weight 200
-//    margin 15px 0
-//  img
-//    width 100%
-//  code.hljs
-//    display block
-//    padding 1px
-//    border 0
-//    margin 0
-//    //width 100%
-//    //font-size 16px
-//    //font-weight 200
-//    font-family "Source Code Pro", monospace
-//    //background #eee !important
-//    //color #333
-//    white-space pre-wrap
-//    > ul
-//      list-style decimal
-//      //margin 30px 0 0 55px !important
-//      padding 0
-//      background-color #fff
-//      > li
-//        list-style decimal-leading-zero
-//        //padding 5px!important
-//        //margin 0 !important
-//        line-height 18px
-//        //background #fff
-//        //border-left 1px solid #ddd !important
-//        word-break break-all
-//        word-wrap break-word
-//        &:nth-of-type(even)
-//          //background-color #fcfcfc
-//          color inherit
-//
-//
-//
-//
-//
 
 article#article-main-page
   text-align left
@@ -147,6 +82,26 @@ article#article-main-page
       line-height 1.1em
       padding-left 0.5em
       margin 1em 0
+    > li
+      list-style disc
+      font-weight 200
+      @media only screen and (max-width: $responsive-sm)
+        font-size 14px
+        margin 0.2em 0
+      @media screen and (min-width: $responsive-sm)
+        font-size 14px
+        margin 0.3em 0
+      @media screen and (min-width: $responsive-md)
+        font-size 15px
+        margin 0.3em 0
+      @media screen and (min-width: $responsive-lg)
+        font-size 17px
+        line-height 1.2em
+        margin 0.5em 0
+      > blockquote
+        border-left none
+        > p
+          font-size 0.82em
   ol
     color $default-info-color
     @media only screen and (max-width: $responsive-sm)
@@ -183,22 +138,10 @@ article#article-main-page
       @media screen and (min-width: $responsive-lg)
         font-size 17px
         margin 0.5em 0
-        line-height 1.5em
-  li
-    //list-style decimal
-    font-weight 200
-    @media only screen and (max-width: $responsive-sm)
-      font-size 14px
-      margin 0.2em 0
-    @media screen and (min-width: $responsive-sm)
-      font-size 14px
-      margin 0.3em 0
-    @media screen and (min-width: $responsive-md)
-      font-size 15px
-      margin 0.3em 0
-    @media screen and (min-width: $responsive-lg)
-      font-size 15px
-      margin 0.3em 0
+        line-height 1.2em
+      > blockquote
+        border-left none
+
   ol + ul, ul + ol
     @media only screen and (max-width: $responsive-sm)
       margin-left 0.4em
@@ -240,24 +183,20 @@ article#article-main-page
     padding 4px 5px 4px 12px
     margin 15px 0
     word-wrap break-word
-    border-left .25em solid $default-info-color
+    border-left .25em solid $default-link-hover-color
     background $default-border-color
     @media only screen and (max-width: $responsive-sm)
       padding-left 5px
       margin 8px 0
-      border-left .25em solid $default-desc-hover-color
     @media screen and (min-width: $responsive-sm)
       padding-left 8px
       margin 10px 0
-      border-left .25em solid $default-info-color
     @media screen and (min-width: $responsive-md)
       padding-left 10px
       margin 12px 0
-      border-left .25em solid $default-info-color
     @media screen and (min-width: $responsive-lg)
       padding-left 12px
       margin 15px 0
-      border-left .25em solid $default-info-color
     > p
       font-weight 300
       color $default-info-color
@@ -278,8 +217,14 @@ article#article-main-page
         margin 5px 0
         line-height 20px
 
-strong, b
+  code
+    li
+     list-style none
+     line-height 1em
+     font-size 0.88em
+strong, b ,em
   font-weight 700
+  color: orange
 
 .table-wrap
   width 100%
@@ -309,44 +254,3 @@ strong, b
       background $default-background-color
     tr:nth-child(even)
       background rgba($iview-main-primary-color, 0.03)
-
-body.dark
-  .article-details
-    .detail
-      .detail-footer
-        color $dark-desc-color
-        border-bottom 1px dashed $dark-border-color
-  article.article-main-content, .comment-main-content
-    h1, h2, h3, h4, h5, h6, h7
-      color $dark-title-color
-    li
-      color $dark-title-color
-    p
-      color $dark-title-color
-    blockquote
-      border-left 5px solid $dark-desc-hover-color
-      background $dark-border-color
-      @media only screen and (max-width: $responsive-sm)
-        border-left 2px solid $dark-desc-hover-color
-      @media screen and (min-width: $responsive-sm)
-        border-left 3px solid $dark-desc-hover-color
-      @media screen and (min-width: $responsive-md)
-        border-left 4px solid $dark-desc-hover-color
-      @media screen and (min-width: $responsive-lg)
-        border-left 5px solid $dark-desc-hover-color
-      > p
-        color $dark-info-color
-  .table-wrap
-    &::-webkit-scrollbar-thumb
-      background-color rgba(255, 255, 255, .26)
-    table
-      td, th
-        border 1px solid $dark-border-hover-color
-        color $dark-info-color
-      thead
-        th
-          background-color rgba($iview-main-primary-color, 0.1)
-      tr:nth-child(odd)
-        background $dark-background-color
-      tr:nth-child(even)
-        background rgba($iview-main-primary-color, 0.03)

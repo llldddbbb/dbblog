@@ -32,8 +32,7 @@ public class ShiroConfig {
     public SessionManager sessionManager(){
         DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
         // 是否定时检查session
-        sessionManager.setSessionValidationSchedulerEnabled(true);
-        sessionManager.setSessionIdCookieEnabled(true);
+        sessionManager.setSessionValidationSchedulerEnabled(false);
         return sessionManager;
     }
 

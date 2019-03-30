@@ -16,10 +16,6 @@ import BookContent from '@/components/content/BookContent'
 import ArticleListContent from '@/components/content/ArticleListContent'
 import BookNoteListContent from '@/components/content/BookNoteListContent'
 import BookListContent from '@/components/content/BookListContent'
-import PhotographContent from '@/components/content/PhotographContent'
-import MovieContent from '@/components/content/MovieContent'
-import MovieListContent from '@/components/content/MovieListContent'
-import AlbumPreviewContent from '@/components/content/AlbumPreviewContent'
 import TimeLineContent from '@/components/content/TimeLineContent'
 import SearchResultContent from '@/components/content/SearchResultContent'
 
@@ -121,40 +117,6 @@ let router = new Router({
           components: {
             header: SimpleHeader,
             content: BookListContent,
-            footer: CommonFooter
-          }
-        },
-        {
-          path: 'photograph',
-          name: 'photograph',
-          components: {
-            header: SimpleHeader,
-            content: PhotographContent,
-            footer: CommonFooter
-          }
-        },
-        {
-          path: 'album',
-          name: 'album',
-          components: {
-            content: AlbumPreviewContent
-          }
-        },
-        {
-          path: 'movie',
-          name: 'movie',
-          components: {
-            header: SimpleHeader,
-            content: MovieContent,
-            footer: CommonFooter
-          }
-        },
-        {
-          path: 'movielist',
-          name: 'movielist',
-          components: {
-            header: SimpleHeader,
-            content: MovieListContent,
             footer: CommonFooter
           }
         },
