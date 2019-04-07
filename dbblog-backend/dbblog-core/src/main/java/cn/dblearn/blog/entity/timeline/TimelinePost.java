@@ -1,9 +1,8 @@
 package cn.dblearn.blog.entity.timeline;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * TimeLineData
@@ -24,7 +23,6 @@ public class TimelinePost {
 
     private String postType;
 
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDateTime createTime;
+    private Date createTime;
 
 }
