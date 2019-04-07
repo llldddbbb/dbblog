@@ -89,4 +89,15 @@ public class ShiroServiceImpl implements ShiroService {
     public SysUser queryUser(Integer userId) {
         return sysUserMapper.selectById(userId);
     }
+
+    /**
+     * 续期
+     *
+     * @param userId
+     * @param accessToken
+     */
+    @Override
+    public void refreshToken(Integer userId, String accessToken) {
+        sysUserTokenService.refreshToken(userId,accessToken);
+    }
 }

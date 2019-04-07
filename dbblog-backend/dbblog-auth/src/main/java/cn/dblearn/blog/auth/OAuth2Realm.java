@@ -69,6 +69,9 @@ public class OAuth2Realm extends AuthorizingRealm {
             throw new LockedAccountException("账号已被锁定,请联系管理员");
         }
 
+        // 续期
+        shiroService.refreshToken(tokenEntity.getUserId(),accessToken);
+
         return new SimpleAuthenticationInfo(user, accessToken, getName());
     }
 }

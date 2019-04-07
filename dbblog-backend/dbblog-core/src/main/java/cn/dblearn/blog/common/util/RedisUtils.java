@@ -113,6 +113,14 @@ public class RedisUtils {
         redisTemplate.delete(key);
     }
 
+    /**
+     * 更新过期时间
+     * @param key
+     */
+    public void updateExpire(String key) {
+        redisTemplate.expire(key,DEFAULT_EXPIRE,TimeUnit.SECONDS);
+    }
+
 
 
 }

@@ -31,4 +31,11 @@ public interface SysUserTokenService {
      * @param userId
      */
     void logout(Integer userId);
+
+    /**
+     * 续期
+     * @param userId
+     * @param token
+     */
+    void refreshToken(Integer userId, String token);
 }

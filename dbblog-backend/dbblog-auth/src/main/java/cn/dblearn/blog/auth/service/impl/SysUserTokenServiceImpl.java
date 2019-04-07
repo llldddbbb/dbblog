@@ -86,5 +86,19 @@ public class SysUserTokenServiceImpl implements SysUserTokenService {
         redisUtils.delete(tokenKey);
     }
 
+    /**
+     * 续期
+     *
+     * @param userId
+     * @param token
+     */
+    @Override
+    public void refreshToken(Integer userId, String token) {
+        String tokenKey= RedisKeyConstants.MANAGE_SYS_USER_TOKEN+token;
+        String userIdKey= RedisKeyConstants.MANAGE_SYS_USER_TOKEN+userId;
+        redisUtils.updateExpire(tokenKey);
+        redisUtils.updateExpire(userIdKey);
+    }
+
 
 }

@@ -35,4 +35,11 @@ public interface ShiroService {
      * @return
      */
     SysUser queryUser(Integer userId);
+
+    /**
+     * 续期
+     * @param userId
+     * @param accessToken
+     */
+    void refreshToken(Integer userId, String accessToken);
 }
