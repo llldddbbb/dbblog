@@ -25,6 +25,11 @@ public class InitialConfig {
      */
     @PostConstruct
     public void initEsIndex(){
-        articleEsController.refresh("initial Index");
+        try {
+            articleEsController.refresh("initial Index");
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 }

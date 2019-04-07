@@ -226,19 +226,17 @@ article#article-main-page
     font-weight 700
     color: orange
 
-.table-wrap
-  width 100%
-  margin 10px 0
-  overflow auto
-  &::-webkit-scrollbar
-    width .4rem
-    height .4rem
-  &::-webkit-scrollbar-thumb
-    background-color rgba(0, 0, 0, .26)
   table
-    min-width 100%
     border-collapse collapse
     word-break normal
+    width 100%
+    margin 10px 0
+    overflow auto
+    &::-webkit-scrollbar
+      width .4rem
+      height .4rem
+    &::-webkit-scrollbar-thumb
+      background-color rgba(0, 0, 0, .26)
     td, th
       border 1px solid $default-border-hover-color
       color $default-info-color
@@ -254,3 +252,5 @@ article#article-main-page
       background $default-background-color
     tr:nth-child(even)
       background rgba($iview-main-primary-color, 0.03)
+
+
