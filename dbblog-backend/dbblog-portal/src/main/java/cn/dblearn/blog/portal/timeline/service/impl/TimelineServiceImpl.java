@@ -5,10 +5,12 @@ import cn.dblearn.blog.entity.timeline.TimelineMonth;
 import cn.dblearn.blog.entity.timeline.TimelinePost;
 import cn.dblearn.blog.mapper.timeline.TimelineMapper;
 import cn.dblearn.blog.portal.timeline.service.TimelineService;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -40,8 +42,11 @@ public class TimelineServiceImpl implements TimelineService {
     private List<Timeline> genTimelineMonth(List<Timeline> timelineList) {
         for(Timeline timeline : timelineList) {
             List<TimelineMonth> timelineMonthList = new ArrayList<>();
-           for (int i = 1; i < 13; i++) {
+           for (int i = Calendar.DECEMBER + 1; i > 0; i--) {
                List<TimelinePost> postList = timelineMapper.listTimelinePost(timeline.getYear(), i);
+               if(CollectionUtils.isEmpty(postList)) {
+                   continue;
+               }
                TimelineMonth month = new TimelineMonth();
                month.setCount(postList.size());
                month.setMonth(i);
