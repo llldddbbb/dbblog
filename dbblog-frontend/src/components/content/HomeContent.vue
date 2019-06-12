@@ -142,7 +142,6 @@ export default {
     @media screen and (min-width: 1200px)
       width 1200px
       margin 15px auto 0
-      margin-bottom 200px
       .layout-left, .layout-right
         padding 0
         @media only screen and (max-width: 768px)
