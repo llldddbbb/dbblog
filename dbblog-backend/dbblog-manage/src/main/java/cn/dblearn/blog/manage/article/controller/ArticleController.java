@@ -54,7 +54,7 @@ public class ArticleController {
 
     @PostMapping("/save")
     @RequiresPermissions("article:save")
-    @RefreshEsMqSender
+    @RefreshEsMqSender(sender = "dbblog-manage-saveArticle")
     public Result saveArticle(@RequestBody ArticleDto article){
         ValidatorUtils.validateEntity(article);
         articleService.saveArticle(article);
@@ -64,18 +64,18 @@ public class ArticleController {
     @PutMapping("/update")
     @RequiresPermissions("article:update")
     @CacheEvict(value = RedisKeyConstants.PORTAL_RECOMMEND_LIST)
-    @RefreshEsMqSender
+    @RefreshEsMqSender(sender = "dbblog-manage-updateArticle")
     public Result updateArticle(@RequestBody ArticleDto article){
         ValidatorUtils.validateEntity(article);
         article.setUpdateTime(new Date());
         articleService.updateArticle(article);
         return Result.ok();
     }
-    
+
     @PutMapping("/update/status")
     @RequiresPermissions("article:update")
     @CacheEvict(value = RedisKeyConstants.PORTAL_RECOMMEND_LIST)
-    @RefreshEsMqSender
+    @RefreshEsMqSender(sender = "dbblog-manage-updateStatus")
     public Result updateStatus(@RequestBody Article article) {
         articleService.updateById(article);
         return Result.ok();
@@ -86,8 +86,8 @@ public class ArticleController {
     @RequiresPermissions("article:delete")
     @Transactional(rollbackFor = Exception.class)
     @CacheEvict(value = RedisKeyConstants.PORTAL_RECOMMEND_LIST)
-    @RefreshEsMqSender
-    public Result deleteBatch(@RequestBody Integer[] articleIds){
+    @RefreshEsMqSender(sender = "dbblog-manage-deleteArticle")
+    public Result deleteBatch(@RequestBody Integer[] articleIds) {
         recommendService.deleteBatchByLinkId(articleIds, ModuleEnum.ARTICLE.getValue());
         articleService.deleteBatch(articleIds);
         return Result.ok();

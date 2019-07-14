@@ -1,30 +1,10 @@
 target/
 .mvn
-
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
-
-### IntelliJ IDEA ###
 .idea
-*.iws
 *.iml
-*.ipr
 *.cmd
 *.class
 /mvnw
-
-
-### NetBeans ###
-/nbproject/private/
-/build/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
 /dbblog-core/src/main/resources/application-prod.yml
+rebel.xml
+

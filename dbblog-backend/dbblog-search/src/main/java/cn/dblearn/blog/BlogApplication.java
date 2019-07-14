@@ -2,7 +2,6 @@ package cn.dblearn.blog;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Configuration;
 
 /**
  * BlogApplication
@@ -12,7 +11,6 @@ import org.springframework.context.annotation.Configuration;
  * @description: 启动类
  */
 @SpringBootApplication
-@Configuration
 public class BlogApplication {
 
 

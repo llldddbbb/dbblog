@@ -7,15 +7,18 @@ import cn.dblearn.blog.portal.article.service.ArticleService;
 import cn.dblearn.blog.search.mapper.ArticleRepository;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.google.common.collect.Lists;
+import com.rabbitmq.client.Channel;
 import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -56,11 +59,13 @@ public class ArticleEsController {
     }
 
     @RabbitListener(queues=RabbitMqConstants.REFRESH_ES_INDEX_QUEUE)
-    public void refresh(String msg) {
+    public void refresh(Message message, Channel channel) throws IOException {
+        //手动确认消息已经被消费
+        channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
         articleRepository.deleteAll();
         List<Article> list = articleService.list(new QueryWrapper<Article>().lambda().eq(Article::getPublish,true));
         articleRepository.saveAll(list);
-        log.info(msg);
+        log.info(message.toString());
     }
 
 }
