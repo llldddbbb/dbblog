@@ -16,14 +16,24 @@ export default {
     'browse-more': BrowseMore
   },
   mounted () {
-    window.changyan = undefined
-    window.cyan = undefined
-    this.$loadScript(null, 'https://changyan.sohu.com/upload/changyan.js', () => {
-      window.changyan.api.config({
-        appid: 'cyukGLEb1', // 此处换成你的畅言应用的appid,
-        conf: 'prod_4bfbafbc1dfd8e1854aa10135fef9bf9' // 此处换成你畅言应用的conf。
+    // 电脑端
+    if (document.body.clientWidth > 768) {
+      window.changyan = undefined
+      window.cyan = undefined
+      this.$loadScript(null, 'https://changyan.sohu.com/upload/changyan.js', () => {
+        window.changyan.api.config({
+          appid: 'cyukGLEb1', // 此处换成你的畅言应用的appid,
+          conf: 'prod_4bfbafbc1dfd8e1854aa10135fef9bf9' // 此处换成你畅言应用的conf。
+        })
       })
-    })
+    // 手机端
+    } else {
+      let script = document.createElement('script')
+      script.id = 'changyan_mobile_js'
+      this.$loadScript(script, 'https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=cyukGLEb1&conf=prod_4bfbafbc1dfd8e1854aa10135fef9bf9', () => {})
+    }
+    // 加载畅言评论框及评论数
+    this.$loadScript(null, 'https://assets.changyan.sohu.com/upload/plugins/plugins.count.js', () => {})
   },
   // 此方法是路由跳转时移除畅言插件
   beforeDestroy () {

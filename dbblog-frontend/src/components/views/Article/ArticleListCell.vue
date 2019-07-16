@@ -18,7 +18,7 @@
               <span class="publish-time">At time / <a>{{article.createTime | socialDate}}</a></span>
               <span class="readings"><a ><iv-icon type="eye"></iv-icon> {{article.readNum}} 阅读</a></span>
               <span class="comments"><a><iv-icon type="compose"></iv-icon>&nbsp;<span :id = "'sourceId::'+'Article'+article.id" class = "cy_cmt_count" ></span>评论</a></span>
-              <span class="likes"><a><iv-icon type="heart"></iv-icon> {{article.likeNum}} 喜欢</a></span>
+              <span class="likes"><a @click="likePost(article)"><iv-icon type="heart"></iv-icon> {{article.likeNum}} 喜欢</a></span>
             </p>
           </div>
         </iv-col>
@@ -76,6 +76,22 @@ export default {
       } else {
         return ''
       }
+    }
+  },
+  methods: {
+    likePost (post) {
+      this.$http({
+        url: this.$http.adornUrl('/article/like/' + post.id),
+        method: 'put',
+        data: this.$http.adornData()
+      }).then(({data}) => {
+        if (data && data.code === 200) {
+          post.likeNum += 1
+          this.$Message.success('点赞成功')
+        }
+      }).catch((error) => {
+        console.log(error)
+      })
     }
   }
 }
@@ -159,9 +175,10 @@ export default {
             + span
               margin-left 8px
             a
-              cursor default
+              cursor pointer
               &:hover
                 color $color-main-primary
+                text-decoration underline
       .img-wrapper
         padding-bottom: 85%
         width: 100%

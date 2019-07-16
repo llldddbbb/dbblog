@@ -1,6 +1,5 @@
 <template>
   <div class="bookNote-cell">
-    <a>
       <iv-row type="flex">
         <iv-col :xs="24" :sm="24" :md="textSpan" :lg="textSpan" :order="textOrderType" style="padding-left: 0;padding-right: 0;">
           <div class="text-wrapper">
@@ -25,7 +24,7 @@
               <span class="publish-time">At time / <a>{{bookNote.createTime | socialDate }}</a></span>
               <span class="readings"><a><iv-icon type="eye"></iv-icon> {{bookNote.readNum}} 阅读</a></span>
               <span class="comments"><a><iv-icon type="compose"></iv-icon>&nbsp;<span :id = "'sourceId::'+'BookNote'+bookNote.id" class = "cy_cmt_count" ></span>评论</a></span>
-              <span class="likes"><a ><iv-icon type="heart"></iv-icon> {{bookNote.likeNum}} 喜欢</a></span>
+              <span class="likes"><a @click="likePost(bookNote)" ><iv-icon type="heart"></iv-icon> {{bookNote.likeNum}} 喜欢</a></span>
             </p>
           </div>
         </iv-col>
@@ -61,7 +60,6 @@
         </div>
       </div>
       </a>
-    </a>
   </div>
 </template>
 
@@ -119,6 +117,20 @@ export default {
   methods: {
     toggleBookInfo () {
       this.showBookInfo = !this.showBookInfo
+    },
+    likePost (post) {
+      this.$http({
+        url: this.$http.adornUrl('/bookNote/like/' + post.id),
+        method: 'put',
+        data: this.$http.adornData()
+      }).then(({data}) => {
+        if (data && data.code === 200) {
+          post.likeNum += 1
+          this.$Message.success('点赞成功')
+        }
+      }).catch((error) => {
+        console.log(error)
+      })
     }
   }
 }
@@ -202,6 +214,7 @@ export default {
             cursor pointer
             &:hover
               color $default-info-hover-color
+              text-decoration underline
           + span
             margin-left 8px
         @media only screen and (max-width: 768px)
