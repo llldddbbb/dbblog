@@ -27,17 +27,26 @@ export default {
 <style lang="stylus" rel="stylesheet/stylus">
   @import "../../common/stylus/theme.styl"
   .common-footer
-    padding 15px 5px
-    margin-top 50px
+    font-weight 300
+    line-height 25px
     text-align center
-    background $default-background-color
-    border-top 1px solid $default-border-color
-    z-index 99
-  .copyright
-    margin 10px
+    margin 15px 0
     color $default-title-color
-    a
-      color $default-link-color
-      &:hover
-        color $default-link-hover-color
+    border-top 1px solid $default-border-color
+    background $default-background-color
+    @media only screen and (max-width: $responsive-sm)
+      font-size 13px
+    @media screen and (min-width: $responsive-sm)
+      font-size 14px
+    @media screen and (min-width: $responsive-md)
+      font-size 15px
+    @media screen and (min-width: $responsive-lg)
+      font-size 15px
+    .copyright
+      margin 10px
+      color $default-title-color
+      a
+        color $default-link-color
+        &:hover
+          color $default-link-hover-color
 </style>

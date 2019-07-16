@@ -58,9 +58,6 @@ export default {
           this.timelineList = data.timelineList
         }
       })
-    },
-    selectCategory (categoryId) {
-      this.page = 0
     }
   }
 }
@@ -70,15 +67,15 @@ export default {
   .timeline-content
     width auto
     @media only screen and (max-width: 768px)
-      margin 5px 5px 0 5px
+      margin 5px 5px 10px 5px
     @media screen and (min-width: 768px)
-      margin 10px 10px 0 10px
+      margin 10px 10px 20px 10px
     @media screen and (min-width: 992px)
-      margin 15px 35px 0 35px
+      margin 15px 35px 50px 35px
     @media screen and (min-width: 1200px)
       width 1200px
       margin 15px auto 0
-      margin-bottom 200px
+      margin-bottom 50px
     .layout-left, .layout-right
       padding 0
       @media only screen and (max-width: 768px)

@@ -1,8 +1,8 @@
 <template>
   <div class="thumb-card">
-    <a href="">
+    <a >
       <div class="top-area">
-        <a href="">
+        <a >
           <p class="desc">不望祁连山顶雪，错将张掖认江南</p>
           <div class="background"></div>
           <img src="../../../assets/photowall/photowall_pic_3.jpg" alt="">
@@ -11,13 +11,13 @@
         </a>
       </div>
       <div class="bottom-area">
-        <h4 class="title"><a href="">{{article.title}}</a></h4>
-        <p class="info"><span class="author">By / <a href="">{{article.author}}</a></span></p>
-        <p class="info"><span class="publish-time">At time / <a href="">{{article.publish_time}}</a></span></p>
+        <h4 class="title"><a >{{article.title}}</a></h4>
+        <p class="info"><span class="author">By / <a >{{article.author}}</a></span></p>
+        <p class="info"><span class="publish-time">At time / <a >{{article.publish_time}}</a></span></p>
         <p class="operate_info">
-          <span class="readings"><a href=""> {{article.readings}}次阅读</a></span> |
-          <span class="comments"><a href=""> {{article.comments}}个评论</a></span> |
-          <span class="likes"><a href=""> {{article.likes}}个喜欢</a></span></p>
+          <span class="readings"><a > {{article.readings}}次阅读</a></span> |
+          <span class="comments"><a > {{article.comments}}个评论</a></span> |
+          <span class="likes"><a > {{article.likes}}个喜欢</a></span></p>
       </div>
     </a>
   </div>

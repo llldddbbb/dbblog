@@ -97,6 +97,8 @@ export default {
         if (data && data.code === 200) {
           this.articleList = data.page.list
         }
+      }).then(() => {
+        this.loadChangyanCommentNum()
       })
     },
     refreshBook (param) {
@@ -112,6 +114,8 @@ export default {
             book.coverType = 2
           })
         }
+      }).then(() => {
+        this.loadChangyanCommentNum()
       })
     },
     refreshBookNote (param) {
@@ -124,6 +128,15 @@ export default {
         if (data && data.code === 200) {
           this.bookNoteList = data.page.list
         }
+      }).then(() => {
+        this.loadChangyanCommentNum()
+      })
+    },
+    // 加载畅言评论
+    loadChangyanCommentNum () {
+      let script = document.createElement('script')
+      script.id = 'cy_cmt_num'
+      this.$loadScript(script, 'https://changyan.sohu.com/upload/plugins/plugins.list.count.js?clientId=cyukGLEb1', () => {
       })
     }
   }
@@ -134,11 +147,11 @@ export default {
   .home-content
     width auto
     @media only screen and (max-width: 768px)
-      margin 5px 5px 0 5px
+      margin 5px 5px 10px 5px
     @media screen and (min-width: 768px)
-      margin 10px 10px 0 10px
+      margin 10px 10px 20px 10px
     @media screen and (min-width: 992px)
-      margin 15px 35px 0 35px
+      margin 15px 35px 50px 35px
     @media screen and (min-width: 1200px)
       width 1200px
       margin 15px auto 0

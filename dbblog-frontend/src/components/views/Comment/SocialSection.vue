@@ -1,97 +1,49 @@
 <template>
   <div class="social-section">
-    <div class="content">
-      <div class="likes">
-        <a  v-for="comment in commentList" :key="comment.id"><img src="../../../assets/avatar.png" alt=""></a>
-      </div>
-    </div>
-
-    <div class="comment-area">
-      <div class="editor" :class="{spread: spreadEditor}">
-        <mavon-editor :theme="theme" @valueChanged="valueChanged"></mavon-editor>
-      </div>
-    </div>
-
-    <div class="comment-list">
-      <comment-cell-list :theme="theme" :comment="comment" v-for="comment in commentList" :key="comment.id" ></comment-cell-list>
-    </div>
-    <!--<browse-more></browse-more>-->
+     <div id="SOHUCS" :sid="type+postId"></div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
-import MavonEditor from '@/components/views/MavonEditor'
-import CommentListCell from '@/components/views/Comment/CommentListCell'
 import BrowseMore from '@/components/views/BrowseMore'
 
 export default {
   props: {
-    likeNum: {},
-    commentList: Array,
-    theme: {
-      Type: String,
-      default: ''
-    }
-  },
-  data () {
-    return {
-      spreadEditor: false,
-      name: '',
-      select: 'email',
-      email: '',
-      mobile: ''
-    }
+    type: String,
+    postId: Number
   },
   components: {
-    'mavon-editor': MavonEditor,
-    'comment-cell-list': CommentListCell,
     'browse-more': BrowseMore
   },
-  methods: {
-    valueChanged (flag) {
-      console.log(flag)
-      this.spreadEditor = flag
-    }
+  mounted () {
+    window.changyan = undefined
+    window.cyan = undefined
+    this.$loadScript(null, 'https://changyan.sohu.com/upload/changyan.js', () => {
+      window.changyan.api.config({
+        appid: 'cyukGLEb1', // 此处换成你的畅言应用的appid,
+        conf: 'prod_4bfbafbc1dfd8e1854aa10135fef9bf9' // 此处换成你畅言应用的conf。
+      })
+    })
+  },
+  // 此方法是路由跳转时移除畅言插件
+  beforeDestroy () {
+    try {
+      // eslint-disable-next-line no-useless-escape
+      const removeRep = /^http(s)?\:\/\/changyan\./
+      const $head = document.getElementsByTagName('head')[0] || document.head || document.documentElement
+      const $script = $head.querySelectorAll('script')
+      $script.forEach((item, index) => {
+        const src = item.getAttribute('src')
+        if (src && removeRep.test(src)) {
+          $head.removeChild(item)
+        }
+      })
+      for (const key in window) {
+        if (/^(changyan(\d)?|cyan)/.test(key)) {
+          window[key] = undefined
+        }
+      }
+    } catch (error) {}
   }
 }
 </script>
-
-<style lang="stylus" rel="stylesheet/stylus" scoped>
-  @import "../.././../common/stylus/theme.styl";
-  // #mavon-editor .operate .iv-dropdown-link
-  .social-section
-    .dark-theme
-      background #000
-      &::after
-        display none
-      .ivu-menu-item
-        &:hover
-          color $color-secondary-warning
-          border-bottom 2px solid $color-secondary-warning
-      .ivu-menu-item-active
-        color $color-secondary-warning
-        border-bottom 2px solid $color-secondary-warning
-      .ivu-menu-submenu
-        &:hover
-          color $color-secondary-warning
-          border-bottom 2px solid $color-secondary-warning
-    .content
-      margin 15px 0
-      .likes
-        margin-bottom 20px
-        a
-          display inline-block
-          margin-right 10px
-          img
-            border-radius $border-radius
-            width 40px
-            height 40px
-    .comment-area
-      .editor
-        margin 15px 0 10px
-        height 200px
-        transition height 0.7s
-        &.spread
-          height 450px
-
-</style>

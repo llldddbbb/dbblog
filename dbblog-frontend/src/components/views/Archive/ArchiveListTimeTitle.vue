@@ -3,7 +3,7 @@
     <span class="date"><i class="ivu-icon" :class="iconType"></i></span>
     <span class="main-title">{{date}}</span>
     <span class="vertical-line"></span>
-    <span class="sub-title">共 <a href="">{{count}}</a> 篇</span>
+    <span class="sub-title">共 <a >{{count}}</a> 篇</span>
   </div>
 </template>
 

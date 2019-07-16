@@ -1,7 +1,7 @@
 <template>
   <div class="about">
     <img class="background" src="../../assets/background.jpg" alt="">
-    <img class="avatar" src="../../assets/avatar.png" alt="">
+    <img class="avatar" src="../../assets/avatar.jpg" alt="">
     <p class="name">Bobbi</p>
     <p class="desc">Write the code, Change the World</p>
     <ul class="social">

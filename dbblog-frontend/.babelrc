@@ -8,7 +8,10 @@
     }],
     "stage-2"
   ],
-  "plugins": ["transform-vue-jsx", "transform-runtime"],
+  "plugins": [["import", {
+    "libraryName": "iview",
+    "libraryDirectory": "src/components"
+  }]],
   "env": {
     "test": {
       "presets": ["env", "stage-2"],

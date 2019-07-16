@@ -1,7 +1,7 @@
 <template>
   <div class="article-page-footer">
     <license-tag></license-tag>
-    <social-section :likeNum="likeNum" :commentList="commentList"></social-section>
+    <social-section :post-id="postId" :type="'BookNote'"></social-section>
   </div>
 </template>
 
@@ -20,28 +20,7 @@ export default {
     'social-section': SocialSection
   },
   props: {
-    likeNum: {},
-    commentList: Array
+    postId: Number
   }
 }
 </script>
-
-<style lang="stylus" rel="stylesheet/stylus">
-  @import "../../../common/stylus/theme.styl";
-
-  .article-page-footer
-    text-align left
-    height 200px
-    .operate_menu
-      margin-top 30px
-    .comment-menu
-      margin-top 30px
-      .comment-menu-item
-        margin-bottom 20px
-      p.comment-menu-item
-        a
-          font-size 14px
-          &:hover
-            color $color-main-primary
-
-</style>

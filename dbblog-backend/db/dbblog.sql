@@ -104,23 +104,6 @@ alter table category
   add primary key (id)
 ;
 
-create table comment
-(
-  id int auto_increment comment '主键'
-    primary key,
-  nick_name varchar(50) null comment '昵称',
-  email varchar(255) null comment '邮箱',
-  content text null comment '评论内容',
-  parent_id int null comment '关联父Id',
-  link_id int null comment '关联Id',
-  like_num int default '0' null comment '点赞数量',
-  dislike_num int default '0' null comment '不喜欢数量',
-  comment_level int default '0' null comment '评论层级: 0：第一层，1：第二层，2：第三层',
-  create_time timestamp default CURRENT_TIMESTAMP not null comment '创建时间',
-  type int null comment '评论类型：0文章，1，阅读'
-)
-  comment '评论'
-;
 
 create table link
 (
