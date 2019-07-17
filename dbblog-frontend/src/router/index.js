@@ -36,6 +36,9 @@ let router = new Router({
             header: SimpleHeader,
             content: HomeContent,
             footer: CommonFooter
+          },
+          meta: {
+            title: 'Bobbi的个人博客 | 一个努力成长中的Java后端程序猿'
           }
         },
         {
@@ -54,6 +57,9 @@ let router = new Router({
             header: SimpleHeader,
             content: ArticleListContent,
             footer: CommonFooter
+          },
+          meta: {
+            title: '博文列表 | Bobbi的个人博客 | 一个努力成长中的Java后端程序猿'
           }
         },
         {
@@ -63,6 +69,9 @@ let router = new Router({
             header: SimpleHeader,
             content: ArticleListContent,
             footer: CommonFooter
+          },
+          meta: {
+            title: '博文列表 | Bobbi的个人博客 | 一个努力成长中的Java后端程序猿'
           }
         },
         {
@@ -72,6 +81,9 @@ let router = new Router({
             header: SimpleHeader,
             content: SearchResultContent,
             footer: CommonFooter
+          },
+          meta: {
+            title: '博文搜索 | Bobbi的个人博客 | 一个努力成长中的Java后端程序猿'
           }
         },
         {
@@ -99,6 +111,9 @@ let router = new Router({
             header: SimpleHeader,
             content: BookListContent,
             footer: CommonFooter
+          },
+          meta: {
+            title: '阅读 | Bobbi的个人博客 | 一个努力成长中的Java后端程序猿'
           }
         },
         {
@@ -108,6 +123,9 @@ let router = new Router({
             header: SimpleHeader,
             content: BookListContent,
             footer: CommonFooter
+          },
+          meta: {
+            title: '阅读 | Bobbi的个人博客 | 一个努力成长中的Java后端程序猿'
           }
         },
         {
@@ -117,6 +135,9 @@ let router = new Router({
             header: SimpleHeader,
             content: TimeLineContent,
             footer: CommonFooter
+          },
+          meta: {
+            title: '时间轴 | Bobbi的个人博客 | 一个努力成长中的Java后端程序猿'
           }
         }
       ]
@@ -133,6 +154,9 @@ LoadingBar.config({
 
 router.beforeEach((to, from, next) => {
   LoadingBar.start()
+  if (to.meta.title) {
+    document.title = to.meta.title
+  }
   next()
 })
 

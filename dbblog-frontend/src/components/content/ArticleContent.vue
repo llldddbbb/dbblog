@@ -1,11 +1,12 @@
 <template>
-  <div class="article-content"  v-cloak>
+  <div class="article-content" v-cloak>
     <iv-row>
       <iv-col :xs="24" :sm="24" :md="24" :lg="17">
         <div class="layout-left">
           <article-page-header :article="article"></article-page-header>
           <article-page-content>
-            <article id="article-main-page" class="typo container" slot="content" ref="article" v-html="article.contentFormat">
+            <article id="article-main-page" class="typo container" slot="content" ref="article"
+                     v-html="article.contentFormat">
             </article>
           </article-page-content>
           <article-page-footer :post-id="article.id"></article-page-footer>
@@ -14,8 +15,8 @@
       <iv-col :xs="0" :sm="0" :md="0" :lg="7">
         <div class="layout-right">
           <recommend></recommend>
-          <iv-affix :offset-top="60" >
-            <side-toc style="margin-top: 15px;"  ></side-toc>
+          <iv-affix :offset-top="60">
+            <side-toc style="margin-top: 15px;"></side-toc>
           </iv-affix>
         </div>
       </iv-col>
@@ -74,40 +75,41 @@ export default {
             this.addCodeLineNumber()
             this.refreshDiectory()
             this.refreshMobileDirectory()
+            document.title = this.article.title + ' | Bobbi的个人博客 | 一个努力成长中的Java后端程序猿'
           })
         }
       })
     },
     refreshDiectory () {
       /* eslint-disable*/
-      new TOC('article-main-page', {
-        'level': 5,
-        'top': 200,
-        'class': 'list',
-        'targetId': 'side-toc'
-      })
-      /* eslint-disable */
-      new TocScrollSpy('article-main-page', 'side-toc', {
-        'spayLevel': 5,
-        'articleMarginTop': 0
-      });
-    },
-    refreshMobileDirectory () {
-      /* eslint-disable */
-      new TOC('article-main-page', {
-        'level': 5,
-        'top': 200,
-        'class': 'list',
-        'targetId': 'sidebar-toc'
-      });
-      new TocScrollSpy('article-main-page', 'sidebar-toc', {
-        'spayLevel': 5,
-        'articleMarginTop': 15
-      });
+        new TOC('article-main-page', {
+          'level': 5,
+          'top': 200,
+          'class': 'list',
+          'targetId': 'side-toc'
+        })
+        /* eslint-disable */
+        new TocScrollSpy('article-main-page', 'side-toc', {
+          'spayLevel': 5,
+          'articleMarginTop': 0
+        })
+      },
+      refreshMobileDirectory () {
+        /* eslint-disable */
+        new TOC('article-main-page', {
+          'level': 5,
+          'top': 200,
+          'class': 'list',
+          'targetId': 'sidebar-toc'
+        })
+        new TocScrollSpy('article-main-page', 'sidebar-toc', {
+          'spayLevel': 5,
+          'articleMarginTop': 15
+        })
+      }
     }
-  }
 
-};
+  }
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">

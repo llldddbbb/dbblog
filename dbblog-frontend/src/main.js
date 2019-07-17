@@ -53,6 +53,12 @@ Vue.prototype.$loadScript = (script, url, callback) => {
   script.src = url
   document.getElementsByTagName('head')[0].appendChild(script)
 }
+Vue.directive('title', {
+  inserted: function (el, binding) {
+    document.title = el.dataset.title
+  }
+})
+
 Vue.prototype.$Notice.config({
   top: 70,
   duration: 3
