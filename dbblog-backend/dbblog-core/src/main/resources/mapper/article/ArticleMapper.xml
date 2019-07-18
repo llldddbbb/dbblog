@@ -2,6 +2,31 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.dblearn.blog.mapper.article.ArticleMapper">
 
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.dblearn.blog.entity.article.Article">
+        <id column="id" property="id" />
+        <result column="title" property="title" />
+        <result column="description" property="description" />
+        <result column="author" property="author" />
+        <result column="content" property="content" />
+        <result column="content_format" property="contentFormat" />
+        <result column="read_num" property="readNum" />
+        <result column="comment_num" property="commentNum" />
+        <result column="like_num" property="likeNum" />
+        <result column="cover_type" property="coverType" />
+        <result column="cover" property="cover" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="recommend" property="recommend" />
+        <result column="category_id" property="categoryId" />
+        <result column="publish" property="publish" />
+        <result column="top" property="top" />
+    </resultMap>
+
+    <resultMap id="WithTagList" type="cn.dblearn.blog.entity.article.dto.ArticleDTO" extends="BaseResultMap">
+        <association property="tagList" column="{linkId=id, type=type}" select="cn.dblearn.blog.mapper.operation.TagMapper.listByLinkId"/>
+    </resultMap>
+
     <sql id="homeArticleColumn">
         id,title,description,author,read_num,comment_num,like_num,cover,cover_type,create_time,top
     </sql>
@@ -15,8 +40,8 @@
         </where>
     </select>
 
-    <select id="queryPageCondition" resultType="cn.dblearn.blog.entity.article.vo.ArticleVo">
-        select <include refid="homeArticleColumn"/> from article 
+    <select id="queryPageCondition" resultMap="WithTagList">
+        select <include refid="homeArticleColumn"/> , 1 as `type` from article
         <where>
             <if test="params.recommend != null and params.recommend != ''">
                 and recommend = true

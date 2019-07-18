@@ -7,9 +7,9 @@ import cn.dblearn.blog.entity.book.vo.BookVo;
 import cn.dblearn.blog.portal.book.service.BookService;
 import cn.dblearn.blog.portal.common.annotation.LogLike;
 import cn.dblearn.blog.portal.common.annotation.LogView;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.Map;
 
 /**
@@ -23,7 +23,7 @@ import java.util.Map;
 @RestController("bookPortalController")
 public class BookController {
 
-    @Autowired
+    @Resource
     private BookService bookService;
 
     @GetMapping("/book/{bookId}")

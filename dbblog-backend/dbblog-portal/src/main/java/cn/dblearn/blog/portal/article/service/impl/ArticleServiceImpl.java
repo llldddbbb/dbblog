@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 /**
  * <p>
@@ -43,11 +42,6 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         Page<ArticleVo> page = new Query<ArticleVo>(params).getPage();
         List<ArticleVo> articleList = baseMapper.queryPageCondition(page, params);
         // 封装ArticleVo
-        Optional.ofNullable(articleList).ifPresent((articleVos ->
-                articleVos.forEach(articleVo -> {
-                    // 设置标签列表
-                    articleVo.setTagList(tagService.listByLinkId(articleVo.getId(), ModuleEnum.ARTICLE.getValue()));
-                })));
         page.setRecords(articleList);
         return new PageUtils(page);
     }

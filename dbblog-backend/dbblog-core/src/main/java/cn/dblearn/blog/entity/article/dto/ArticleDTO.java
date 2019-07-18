@@ -15,7 +15,7 @@ import java.util.List;
  * @description
  */
 @Data
-public class ArticleDto extends Article {
+public class ArticleDTO extends Article {
 
     private List<Tag> tagList;
 

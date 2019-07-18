@@ -1,6 +1,5 @@
 package cn.dblearn.blog.portal.book.service.impl;
 
-import cn.dblearn.blog.common.enums.ModuleEnum;
 import cn.dblearn.blog.common.util.PageUtils;
 import cn.dblearn.blog.common.util.Query;
 import cn.dblearn.blog.entity.book.BookNote;
@@ -17,7 +16,6 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 /**
  * bookNoteAdminServiceImpl
@@ -47,14 +45,6 @@ public class BookNoteServiceImpl extends ServiceImpl<BookNoteMapper, BookNote> i
     public PageUtils queryPageCondition(Map<String, Object> params) {
         Page<BookNoteVo> page = new Query<BookNoteVo>(params).getPage();
         List<BookNoteVo> bookNoteList = baseMapper.queryPageCondition(page, params);
-        // 封装BookNoteVo
-        Optional.ofNullable(bookNoteList).ifPresent((bookNoteVos ->
-                bookNoteVos.forEach(bookNoteVo -> {
-                    // 设置标签列表
-                    bookNoteVo.setTagList(tagService.listByLinkId(bookNoteVo.getId(), ModuleEnum.BOOK_NOTE.getValue()));
-                    // 设置所属书本
-                    bookNoteVo.setBook(bookService.getBookVo(bookNoteVo.getBookId()));
-                })));
         page.setRecords(bookNoteList);
         return new PageUtils(page);
     }

@@ -2,7 +2,7 @@ package cn.dblearn.blog.manage.article.service;
 
 import cn.dblearn.blog.common.util.PageUtils;
 import cn.dblearn.blog.entity.article.Article;
-import cn.dblearn.blog.entity.article.dto.ArticleDto;
+import cn.dblearn.blog.entity.article.dto.ArticleDTO;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.Map;
@@ -28,7 +28,7 @@ public interface ArticleService extends IService<Article> {
      * 保存博文文章
      * @param blogArticle
      */
-    void saveArticle(ArticleDto blogArticle);
+    void saveArticle(ArticleDTO blogArticle);
 
     /**
      * 批量删除
@@ -40,14 +40,14 @@ public interface ArticleService extends IService<Article> {
      * 更新博文
      * @param blogArticle
      */
-    void updateArticle(ArticleDto blogArticle);
+    void updateArticle(ArticleDTO blogArticle);
 
     /**
      * 获取文章对象
      * @param articleId
      * @return
      */
-    ArticleDto getArticle(Integer articleId);
+    ArticleDTO getArticle(Integer articleId);
 
 
     boolean checkByCategory(Integer id);

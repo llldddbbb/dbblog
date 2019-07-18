@@ -7,7 +7,7 @@ import cn.dblearn.blog.common.mq.annotation.RefreshEsMqSender;
 import cn.dblearn.blog.common.util.PageUtils;
 import cn.dblearn.blog.common.validator.ValidatorUtils;
 import cn.dblearn.blog.entity.article.Article;
-import cn.dblearn.blog.entity.article.dto.ArticleDto;
+import cn.dblearn.blog.entity.article.dto.ArticleDTO;
 import cn.dblearn.blog.manage.article.service.ArticleService;
 import cn.dblearn.blog.manage.operation.service.RecommendService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -48,14 +48,14 @@ public class ArticleController {
     @GetMapping("/info/{articleId}")
     @RequiresPermissions("article:list")
     public Result info(@PathVariable Integer articleId) {
-        ArticleDto article = articleService.getArticle(articleId);
+        ArticleDTO article = articleService.getArticle(articleId);
         return Result.ok().put("article",article);
     }
 
     @PostMapping("/save")
     @RequiresPermissions("article:save")
     @RefreshEsMqSender(sender = "dbblog-manage-saveArticle")
-    public Result saveArticle(@RequestBody ArticleDto article){
+    public Result saveArticle(@RequestBody ArticleDTO article){
         ValidatorUtils.validateEntity(article);
         articleService.saveArticle(article);
         return Result.ok();
@@ -65,7 +65,7 @@ public class ArticleController {
     @RequiresPermissions("article:update")
     @CacheEvict(value = RedisKeyConstants.PORTAL_RECOMMEND_LIST)
     @RefreshEsMqSender(sender = "dbblog-manage-updateArticle")
-    public Result updateArticle(@RequestBody ArticleDto article){
+    public Result updateArticle(@RequestBody ArticleDTO article){
         ValidatorUtils.validateEntity(article);
         article.setUpdateTime(new Date());
         articleService.updateArticle(article);

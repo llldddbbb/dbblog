@@ -36,8 +36,6 @@ public class RecommendServiceImpl extends ServiceImpl<RecommendMapper, Recommend
     private BookNoteService bookNoteService;
 
 
-
-
     @Override
     @Cacheable(value = RedisKeyConstants.PORTAL_RECOMMEND_LIST)
     public List<RecommendVo> listRecommendVo() {

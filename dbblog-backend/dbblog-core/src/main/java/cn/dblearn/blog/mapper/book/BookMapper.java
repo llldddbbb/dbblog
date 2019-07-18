@@ -55,4 +55,11 @@ public interface BookMapper extends BaseMapper<Book> {
      * @return
      */
     int checkByCategory(Integer categoryId);
+
+    /**
+     * 根据ID查询包含tag，bookNode子列表的Book实体
+     * @param id
+     * @return
+     */
+    BookVo selectByIdWithSubList(Integer id);
 }
