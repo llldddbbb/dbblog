@@ -25,7 +25,7 @@ http.adornUrl = (actionName) => {
  * @param openDefaultParams
  * @returns {*}
  */
-http.adornParams = (params = {}, openDefaultParams = true) => {
+http.adornParams = (params = {}, openDefaultParams = false) => {
   var defaluts = {
     't': new Date().getTime()
   }
