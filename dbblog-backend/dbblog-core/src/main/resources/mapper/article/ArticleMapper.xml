@@ -38,10 +38,11 @@
                 and title like concat('%',#{params.title},'%')
             </if>
         </where>
+        order by create_time desc
     </select>
 
     <select id="queryPageCondition" resultMap="WithTagList">
-        select <include refid="homeArticleColumn"/> , 1 as `type` from article
+        select <include refid="homeArticleColumn"/> , 0 as `type` from article
         <where>
             <if test="params.recommend != null and params.recommend != ''">
                 and recommend = true

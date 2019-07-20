@@ -43,7 +43,9 @@ export default {
       currentPage: 1,
       pageSize: DefaultLimitSize,
       categoryId: this.$route.params.id,
-      menuParams: {},
+      menuParams: {
+        latest: true
+      },
       noMoreData: false
     }
   },

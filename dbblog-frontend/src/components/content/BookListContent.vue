@@ -59,8 +59,12 @@ export default {
       pageSize: DefaultLimitSize,
       categoryId: undefined,
       selected_category: this.$route.params.id,
-      menuBookParams: {},
-      menuBookNoteParams: {},
+      menuBookParams: {
+        latest: true
+      },
+      menuBookNoteParams: {
+        latest: true
+      },
       noMoreData: false,
       readingBookList: [],
       bookNoteFilterList: JSON.parse(JSON.stringify(DefaultFilterList))
