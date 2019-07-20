@@ -31,6 +31,7 @@ export default {
           clientSecret: 'f0e76c80642d88e283e0dc00f9a6c013c2068310',
           repo: 'dbblog_comment',
           owner: 'llldddbbb',
+          labels: [this.type],
           admin: ['llldddbbb'],
           id: location.href, // Ensure uniqueness and length less than 50
           distractionFreeMode: false // Facebook-like distraction free mode
