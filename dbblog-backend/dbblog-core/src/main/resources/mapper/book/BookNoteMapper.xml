@@ -31,7 +31,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, title, description, author, content, content_format, read_num, comment_num, like_num, cover, book_id, chapter, create_time, update_time, recommend, category_id, publish, cover_type, top
+        id, title, description, author, content, content_format, read_num, like_num, cover, book_id, chapter, create_time, update_time, recommend, category_id, publish, cover_type, top
     </sql>
 
     <select id="listBookNoteVo" resultType="cn.dblearn.blog.entity.book.vo.BookNoteVO">
@@ -45,7 +45,7 @@
     </select>
 
     <sql id="homeBookNoteColumn">
-        id,title,description,author,read_num,comment_num,like_num,cover,create_time,book_id,chapter,cover_type,top
+        id,title,description,author,read_num,like_num,cover,create_time,book_id,chapter,cover_type,top
     </sql>
     
     <select id="queryPageCondition" resultMap="WithSubList">

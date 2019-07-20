@@ -36,11 +36,11 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, title, cover, author, category_id, recommend, publisher, publish_date, page_num, grade, description, catalogue, create_time, update_time, read_num, comment_num, like_num, publish, progress, reading
+        id, title, cover, author, category_id, recommend, publisher, publish_date, page_num, grade, description, catalogue, create_time, update_time, read_num, like_num, publish, progress, reading
     </sql>
 
     <sql id="homeBookColumn">
-        id,title,description,author,read_num,comment_num,like_num,cover,create_time,reading,progress
+        id,title,description,author,read_num,like_num,cover,create_time,reading,progress
     </sql>
 
     <select id="listBookVo" resultType="cn.dblearn.blog.entity.book.vo.BookVO">
