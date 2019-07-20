@@ -4,13 +4,11 @@ import cn.dblearn.blog.common.util.PageUtils;
 import cn.dblearn.blog.common.util.Query;
 import cn.dblearn.blog.entity.book.BookNote;
 import cn.dblearn.blog.entity.book.vo.BookNoteVO;
-import cn.dblearn.blog.manage.operation.service.TagService;
 import cn.dblearn.blog.mapper.book.BookNoteMapper;
 import cn.dblearn.blog.portal.book.service.BookNoteService;
 import cn.dblearn.blog.portal.book.service.BookService;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -27,9 +25,6 @@ import java.util.Map;
  */
 @Service("BookNotePortalService")
 public class BookNoteServiceImpl extends ServiceImpl<BookNoteMapper, BookNote> implements BookNoteService {
-
-    @Autowired
-    private TagService tagService;
 
     @Resource
     private BookService bookService;

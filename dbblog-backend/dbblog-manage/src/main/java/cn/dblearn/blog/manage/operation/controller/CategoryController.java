@@ -2,6 +2,7 @@ package cn.dblearn.blog.manage.operation.controller;
 
 import cn.dblearn.blog.common.Result;
 import cn.dblearn.blog.common.base.AbstractController;
+import cn.dblearn.blog.common.constants.RedisCacheNames;
 import cn.dblearn.blog.common.enums.CategoryRankEnum;
 import cn.dblearn.blog.common.exception.MyException;
 import cn.dblearn.blog.common.validator.ValidatorUtils;
@@ -11,9 +12,9 @@ import cn.dblearn.blog.manage.book.service.BookNoteService;
 import cn.dblearn.blog.manage.book.service.BookService;
 import cn.dblearn.blog.manage.operation.service.CategoryService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -29,11 +30,11 @@ import java.util.Map;
  * @since 2018-12-17
  */
 @RestController
-@Slf4j
+@CacheConfig(cacheNames = RedisCacheNames.CATEGORY)
 @RequestMapping("/admin/operation/category")
 public class CategoryController extends AbstractController {
 
-    @Autowired
+    @Resource
     private CategoryService categoryService;
 
     @Resource
@@ -89,6 +90,7 @@ public class CategoryController extends AbstractController {
      */
     @RequestMapping("/save")
     @RequiresPermissions("operation:category:save")
+    @CacheEvict(allEntries = true)
     public Result save(@RequestBody Category category){
         // 数据校验
         ValidatorUtils.validateEntity(category);
@@ -138,6 +140,7 @@ public class CategoryController extends AbstractController {
      */
     @RequestMapping("/update")
     @RequiresPermissions("operation:category:update")
+    @CacheEvict(allEntries = true)
     public Result update(@RequestBody Category category){
         categoryService.updateById(category);
 
@@ -149,6 +152,7 @@ public class CategoryController extends AbstractController {
      */
     @DeleteMapping("/delete/{id}")
     @RequiresPermissions("operation:category:delete")
+    @CacheEvict(allEntries = true)
     public Result delete(@PathVariable Integer id){
 
         //判断是否有子菜单或按钮

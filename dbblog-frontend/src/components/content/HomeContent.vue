@@ -91,21 +91,19 @@ export default {
       let params = merge(param, this.pageParam)
       this.$http({
         url: this.$http.adornUrl('/articles'),
-        params: this.$http.adornParams(params),
+        params: this.$http.adornParams(params, false),
         method: 'get'
       }).then(({data}) => {
         if (data && data.code === 200) {
           this.articleList = data.page.list
         }
-      }).then(() => {
-        this.loadChangyanCommentNum()
       })
     },
     refreshBook (param) {
       let params = merge(param, this.pageParam)
       this.$http({
         url: this.$http.adornUrl('/books'),
-        params: this.$http.adornParams(params),
+        params: this.$http.adornParams(params, false),
         method: 'get'
       }).then(({data}) => {
         if (data && data.code === 200) {
@@ -114,12 +112,10 @@ export default {
             book.coverType = 2
           })
         }
-      }).then(() => {
-        this.loadChangyanCommentNum()
       })
     },
     refreshBookNote (param) {
-      let params = merge(param, this.pageParam)
+      let params = merge(param, this.pageParam, false)
       this.$http({
         url: this.$http.adornUrl('/bookNotes'),
         params: this.$http.adornParams(params),
@@ -128,15 +124,6 @@ export default {
         if (data && data.code === 200) {
           this.bookNoteList = data.page.list
         }
-      }).then(() => {
-        this.loadChangyanCommentNum()
-      })
-    },
-    // 加载畅言评论
-    loadChangyanCommentNum () {
-      let script = document.createElement('script')
-      script.id = 'cy_cmt_num'
-      this.$loadScript(script, 'https://changyan.sohu.com/upload/plugins/plugins.list.count.js?clientId=cyukGLEb1', () => {
       })
     }
   }

@@ -2,17 +2,17 @@ package cn.dblearn.blog.manage.operation.controller;
 
 import cn.dblearn.blog.common.Result;
 import cn.dblearn.blog.common.base.AbstractController;
-import cn.dblearn.blog.common.constants.RedisKeyConstants;
+import cn.dblearn.blog.common.constants.RedisCacheNames;
 import cn.dblearn.blog.common.util.PageUtils;
 import cn.dblearn.blog.common.validator.ValidatorUtils;
 import cn.dblearn.blog.entity.operation.Link;
 import cn.dblearn.blog.manage.operation.service.LinkService;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.Arrays;
 import java.util.Map;
 
@@ -25,10 +25,11 @@ import java.util.Map;
  * @since 2019-02-14
  */
 @RestController
-@Slf4j
 @RequestMapping("/admin/operation/link")
+@CacheConfig(cacheNames = RedisCacheNames.LINK)
 public class LinkController extends AbstractController {
-    @Autowired
+
+    @Resource
     private LinkService linkService;
 
     /**
@@ -59,7 +60,7 @@ public class LinkController extends AbstractController {
      */
     @PostMapping("/save")
     @RequiresPermissions("operation:link:save")
-    @CacheEvict(value = RedisKeyConstants.PORTAL_LINK_LIST)
+    @CacheEvict(allEntries = true)
     public Result save(@RequestBody Link link){
         ValidatorUtils.validateEntity(link);
         linkService.save(link);
@@ -72,7 +73,7 @@ public class LinkController extends AbstractController {
      */
     @PutMapping("/update")
     @RequiresPermissions("operation:link:update")
-    @CacheEvict(value = RedisKeyConstants.PORTAL_LINK_LIST)
+    @CacheEvict(allEntries = true)
     public Result update(@RequestBody Link link){
         ValidatorUtils.validateEntity(link);
         linkService.updateById(link);
@@ -84,7 +85,7 @@ public class LinkController extends AbstractController {
      */
     @DeleteMapping("/delete")
     @RequiresPermissions("operation:link:delete")
-    @CacheEvict(value = RedisKeyConstants.PORTAL_LINK_LIST)
+    @CacheEvict(allEntries = true)
     public Result delete(@RequestBody String[] ids){
         linkService.removeByIds(Arrays.asList(ids));
 

@@ -1,7 +1,7 @@
 package cn.dblearn.blog.manage.book.controller;
 
 import cn.dblearn.blog.common.Result;
-import cn.dblearn.blog.common.constants.RedisKeyConstants;
+import cn.dblearn.blog.common.constants.RedisCacheNames;
 import cn.dblearn.blog.common.enums.ModuleEnum;
 import cn.dblearn.blog.common.util.PageUtils;
 import cn.dblearn.blog.common.validator.ValidatorUtils;
@@ -10,6 +10,7 @@ import cn.dblearn.blog.entity.book.dto.BookNoteDTO;
 import cn.dblearn.blog.manage.book.service.BookNoteService;
 import cn.dblearn.blog.manage.operation.service.RecommendService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -28,6 +29,7 @@ import java.util.Map;
  * @description
  */
 @RestController
+@CacheConfig(cacheNames ={RedisCacheNames.RECOMMEND,RedisCacheNames.TAG,RedisCacheNames.BOOK})
 @RequestMapping("/admin/book/note")
 public class BookNoteController {
 
@@ -53,6 +55,7 @@ public class BookNoteController {
 
     @PostMapping("/save")
     @RequiresPermissions("book:note:save")
+    @CacheEvict(allEntries = true)
     public Result saveBookNote(@RequestBody BookNoteDTO bookNote){
         ValidatorUtils.validateEntity(bookNote);
         bookNoteService.saveBookNote(bookNote);
@@ -61,7 +64,7 @@ public class BookNoteController {
 
     @PutMapping("/update")
     @RequiresPermissions("book:note:update")
-    @CacheEvict(value = RedisKeyConstants.PORTAL_RECOMMEND_LIST)
+    @CacheEvict(allEntries = true)
     public Result updateBookNote(@RequestBody BookNoteDTO bookNote){
         ValidatorUtils.validateEntity(bookNote);
         bookNote.setUpdateTime(new Date());
@@ -71,7 +74,7 @@ public class BookNoteController {
     
     @PutMapping("/update/status")
     @RequiresPermissions("book:note:update")
-    @CacheEvict(value = RedisKeyConstants.PORTAL_RECOMMEND_LIST)
+    @CacheEvict(allEntries = true)
     public Result updateStatus(@RequestBody BookNote bookNote) {
         bookNoteService.updateById(bookNote);
         return Result.ok();
@@ -81,7 +84,7 @@ public class BookNoteController {
     @DeleteMapping("/delete")
     @RequiresPermissions("book:note:delete")
     @Transactional(rollbackFor = Exception.class)
-    @CacheEvict(value = RedisKeyConstants.PORTAL_RECOMMEND_LIST)
+    @CacheEvict(allEntries = true)
     public Result deleteBatch(@RequestBody Integer[] bookNoteIds){
         recommendService.deleteBatchByLinkId(bookNoteIds, ModuleEnum.BOOK_NOTE.getValue());
         bookNoteService.deleteBatch(bookNoteIds);

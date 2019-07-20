@@ -59,13 +59,19 @@ public class ArticleEsController {
     }
 
     @RabbitListener(queues=RabbitMqConstants.REFRESH_ES_INDEX_QUEUE)
-    public void refresh(Message message, Channel channel) throws IOException {
-        //手动确认消息已经被消费
-        channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
-        articleRepository.deleteAll();
-        List<Article> list = articleService.list(new QueryWrapper<Article>().lambda().eq(Article::getPublish,true));
-        articleRepository.saveAll(list);
-        log.info(message.toString());
+    public void refresh(Message message, Channel channel){
+        try {
+            //手动确认消息已经被消费
+            channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
+            articleRepository.deleteAll();
+            List<Article> list = articleService.list(new QueryWrapper<Article>().lambda().eq(Article::getPublish,true));
+            articleRepository.saveAll(list);
+            log.info(message.toString());
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
 }

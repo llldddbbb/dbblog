@@ -1,6 +1,5 @@
 package cn.dblearn.blog.portal.operation.service.impl;
 
-import cn.dblearn.blog.common.constants.RedisKeyConstants;
 import cn.dblearn.blog.common.enums.ModuleEnum;
 import cn.dblearn.blog.entity.article.vo.ArticleVO;
 import cn.dblearn.blog.entity.book.vo.BookNoteVO;
@@ -12,7 +11,6 @@ import cn.dblearn.blog.portal.book.service.BookNoteService;
 import cn.dblearn.blog.portal.operation.service.RecommendService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.BeanUtils;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -37,7 +35,6 @@ public class RecommendServiceImpl extends ServiceImpl<RecommendMapper, Recommend
 
 
     @Override
-    @Cacheable(value = RedisKeyConstants.PORTAL_RECOMMEND_LIST)
     public List<RecommendVO> listRecommendVo() {
         List<RecommendVO> recommendList =this.baseMapper.listRecommendVo();
         return genRecommendList(recommendList);

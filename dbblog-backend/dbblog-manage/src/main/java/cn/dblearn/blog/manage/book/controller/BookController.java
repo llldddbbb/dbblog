@@ -1,17 +1,16 @@
 package cn.dblearn.blog.manage.book.controller;
 
 import cn.dblearn.blog.common.Result;
+import cn.dblearn.blog.common.base.AbstractController;
 import cn.dblearn.blog.common.util.PageUtils;
 import cn.dblearn.blog.common.validator.ValidatorUtils;
 import cn.dblearn.blog.entity.book.Book;
 import cn.dblearn.blog.entity.book.dto.BookDTO;
 import cn.dblearn.blog.manage.book.service.BookService;
-import cn.dblearn.blog.common.base.AbstractController;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 
@@ -24,10 +23,9 @@ import java.util.Map;
  * @since 2019-01-27
  */
 @RestController
-@Slf4j
 @RequestMapping("/admin/book")
 public class BookController extends AbstractController {
-    @Autowired
+    @Resource
     private BookService bookService;
 
     /**

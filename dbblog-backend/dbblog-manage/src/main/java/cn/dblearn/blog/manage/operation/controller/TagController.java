@@ -1,19 +1,18 @@
 package cn.dblearn.blog.manage.operation.controller;
 
 import cn.dblearn.blog.common.Result;
-import cn.dblearn.blog.common.constants.RedisKeyConstants;
+import cn.dblearn.blog.common.base.AbstractController;
+import cn.dblearn.blog.common.constants.RedisCacheNames;
 import cn.dblearn.blog.common.enums.ModuleEnum;
 import cn.dblearn.blog.common.util.PageUtils;
 import cn.dblearn.blog.common.validator.ValidatorUtils;
 import cn.dblearn.blog.entity.operation.Tag;
 import cn.dblearn.blog.entity.operation.TagLink;
 import cn.dblearn.blog.manage.operation.service.TagService;
-import cn.dblearn.blog.common.base.AbstractController;
 import cn.dblearn.blog.mapper.operation.TagLinkMapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
@@ -32,10 +31,10 @@ import java.util.Map;
  * @since 2019-01-21
  */
 @RestController
-@Slf4j
+@CacheConfig(cacheNames = RedisCacheNames.TAG)
 @RequestMapping("/admin/operation/tag")
 public class TagController extends AbstractController {
-    @Autowired
+    @Resource
     private TagService tagService;
 
     @Resource
@@ -76,7 +75,7 @@ public class TagController extends AbstractController {
      */
     @PostMapping("/save")
     @RequiresPermissions("operation:tag:save")
-    @CacheEvict(value = RedisKeyConstants.PORTAL_TAG_LIST)
+    @CacheEvict(allEntries = true)
     public Result save(@RequestBody Tag tag){
         ValidatorUtils.validateEntity(tag);
         tagService.save(tag);
@@ -89,7 +88,7 @@ public class TagController extends AbstractController {
      */
     @PutMapping("/update")
     @RequiresPermissions("operation:tag:update")
-    @CacheEvict(value = RedisKeyConstants.PORTAL_TAG_LIST)
+    @CacheEvict(allEntries = true)
     public Result update(@RequestBody Tag tag){
         ValidatorUtils.validateEntity(tag);
         tagService.updateById(tag);
@@ -101,7 +100,7 @@ public class TagController extends AbstractController {
      */
     @DeleteMapping("/delete")
     @RequiresPermissions("operation:tag:delete")
-    @CacheEvict(value = RedisKeyConstants.PORTAL_TAG_LIST)
+    @CacheEvict(allEntries = true)
     public Result delete(@RequestBody String[] ids){
         for (String id : ids) {
             List<TagLink> tagLinkList = tagLinkMapper.selectList(new QueryWrapper<TagLink>().lambda().eq(TagLink::getTagId, id));

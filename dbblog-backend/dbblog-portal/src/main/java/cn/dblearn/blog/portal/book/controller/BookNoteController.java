@@ -1,11 +1,14 @@
 package cn.dblearn.blog.portal.book.controller;
 
 import cn.dblearn.blog.common.Result;
+import cn.dblearn.blog.common.constants.RedisCacheNames;
 import cn.dblearn.blog.common.util.PageUtils;
 import cn.dblearn.blog.entity.book.BookNote;
 import cn.dblearn.blog.portal.common.annotation.LogLike;
 import cn.dblearn.blog.portal.common.annotation.LogView;
 import cn.dblearn.blog.portal.book.service.BookNoteService;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -21,6 +24,7 @@ import java.util.Map;
  * @description
  */
 @RestController("bookNotePortalController")
+@CacheConfig(cacheNames = {RedisCacheNames.BOOKNOTE})
 public class BookNoteController {
 
     @Resource
@@ -35,7 +39,8 @@ public class BookNoteController {
     }
 
     @GetMapping("/bookNotes")
-    public Result listLatest(@RequestParam Map<String, Object> params){
+    @Cacheable
+    public Result list(@RequestParam Map<String, Object> params){
         PageUtils page = bookNoteService.queryPageCondition(params);
         return Result.ok().put("page",page);
     }

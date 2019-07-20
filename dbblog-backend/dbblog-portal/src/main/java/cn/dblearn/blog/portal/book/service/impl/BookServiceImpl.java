@@ -8,7 +8,6 @@ import cn.dblearn.blog.mapper.book.BookMapper;
 import cn.dblearn.blog.portal.book.service.BookService;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,7 +22,6 @@ import java.util.Map;
  * @since 2019-01-27
  */
 @Service("bookPortalService")
-@Slf4j
 public class BookServiceImpl extends ServiceImpl<BookMapper, Book> implements BookService {
 
 

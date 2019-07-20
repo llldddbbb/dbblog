@@ -1,12 +1,10 @@
 package cn.dblearn.blog.portal.operation.service.impl;
 
-import cn.dblearn.blog.common.constants.RedisKeyConstants;
 import cn.dblearn.blog.entity.operation.Tag;
 import cn.dblearn.blog.entity.operation.vo.TagVO;
 import cn.dblearn.blog.mapper.operation.TagMapper;
 import cn.dblearn.blog.portal.operation.service.TagService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,7 +27,6 @@ public class TagServiceImpl extends ServiceImpl<TagMapper, Tag> implements TagSe
      * @return
      */
     @Override
-    @Cacheable(value = RedisKeyConstants.PORTAL_TAG_LIST)
     public List<TagVO> listTagVo() {
         return baseMapper.listTagVo();
     }
