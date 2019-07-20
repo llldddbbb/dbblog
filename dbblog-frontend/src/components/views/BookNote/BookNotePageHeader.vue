@@ -12,7 +12,6 @@
       <iv-col :xs="24" :sm="14" :md="14" :lg="14" style="padding-left: 0;padding-right: 0;">
         <p class="operate_info">
           <span class="readings"><a ><iv-icon type="eye"></iv-icon> {{bookNote.readNum}} 阅读</a></span> |
-          <span class="comments"><a ><iv-icon type="compose"></iv-icon>&nbsp;<a href="#SOHUCS" id="changyan_count_unit"></a> 评论</a></span> |
           <span class="likes"><a @click="likePost(bookNote)"><iv-icon type="heart"></iv-icon> {{bookNote.likeNum}} 喜欢</a></span>
         </p>
       </iv-col>

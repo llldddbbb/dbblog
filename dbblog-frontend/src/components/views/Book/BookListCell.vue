@@ -17,7 +17,6 @@
             <p class="operate_info">
               <span class="publish-time">At time / <a >{{book.createTime | socialDate }}</a></span>
               <span class="readings"><a ><iv-icon type="eye"></iv-icon> {{book.readNum}} 阅读</a></span>
-              <span class="comments"><a><iv-icon type="compose"></iv-icon>&nbsp;<span :id = "'sourceId::'+'Book'+book.id" class = "cy_cmt_count" ></span>评论</a></span>
               <span class="likes"><a @click="likePost(book)"><iv-icon type="heart"></iv-icon> {{book.likeNum}} 喜欢</a></span>
             </p>
           </div>

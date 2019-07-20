@@ -9,7 +9,7 @@
                      v-html="article.contentFormat">
             </article>
           </article-page-content>
-          <article-page-footer :post-id="article.id"></article-page-footer>
+          <article-page-footer :postId="article.id"></article-page-footer>
         </div>
       </iv-col>
       <iv-col :xs="0" :sm="0" :md="0" :lg="7">

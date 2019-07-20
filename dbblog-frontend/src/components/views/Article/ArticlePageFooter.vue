@@ -1,7 +1,7 @@
 <template>
   <div class="article-page-footer">
     <license-tag></license-tag>
-    <social-section :type="'Article'" :post-id="postId"></social-section>
+    <social-section :type="'Article'" :postId="postId"></social-section>
   </div>
 </template>
 

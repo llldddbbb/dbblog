@@ -72,8 +72,6 @@ export default {
           }
           this.articleList = data.page.list
         }
-      }).then(() => {
-        this.loadChangyanCommentNum()
       })
     },
     listCategory () {
@@ -124,18 +122,10 @@ export default {
           this.articleList = this.articleList.concat(data.page.list)
         }
       }).then(response => {
-        this.loadChangyanCommentNum()
         this.$refs.browseMore.stopLoading()
       }).catch(error => {
         this.$refs.browseMore.stopLoading()
         console.log(error)
-      })
-    },
-    // 加载畅言评论
-    loadChangyanCommentNum () {
-      let script = document.createElement('script')
-      script.id = 'cy_cmt_num'
-      this.$loadScript(script, 'https://changyan.sohu.com/upload/plugins/plugins.list.count.js?clientId=cyukGLEb1', () => {
       })
     }
   },
