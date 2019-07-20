@@ -104,7 +104,8 @@ export default {
       article: {
         recommend: false,
         tagList: [],
-        type: 0
+        type: 0,
+        coverType: 2 // 默认无图片
       },
       coverTypeList: this.getSysParamArr('ARTICLE_COVER_TYPE'),
       url: '',
