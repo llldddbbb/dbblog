@@ -31,7 +31,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/admin/article")
-@CacheConfig(cacheNames ={RedisCacheNames.RECOMMEND,RedisCacheNames.TAG,RedisCacheNames.ARTICLE})
+@CacheConfig(cacheNames ={RedisCacheNames.RECOMMEND,RedisCacheNames.TAG,RedisCacheNames.ARTICLE,RedisCacheNames.TIMELINE})
 public class ArticleController {
 
     @Resource

@@ -29,8 +29,8 @@ import java.util.Map;
  * @description
  */
 @RestController
-@CacheConfig(cacheNames ={RedisCacheNames.RECOMMEND,RedisCacheNames.TAG,RedisCacheNames.BOOK})
 @RequestMapping("/admin/book/note")
+@CacheConfig(cacheNames ={RedisCacheNames.RECOMMEND,RedisCacheNames.TAG,RedisCacheNames.ARTICLE,RedisCacheNames.TIMELINE})
 public class BookNoteController {
 
     @Resource
@@ -71,7 +71,7 @@ public class BookNoteController {
         bookNoteService.updateBookNote(bookNote);
         return Result.ok();
     }
-    
+
     @PutMapping("/update/status")
     @RequiresPermissions("book:note:update")
     @CacheEvict(allEntries = true)

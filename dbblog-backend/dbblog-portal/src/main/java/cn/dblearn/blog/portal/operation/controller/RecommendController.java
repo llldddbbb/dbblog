@@ -29,14 +29,14 @@ public class RecommendController {
     private RecommendService recommendService;
 
     @RequestMapping("/recommends")
-    @Cacheable
+    @Cacheable(key = "'RECOMMEND'")
     public Result listRecommend() {
         List<RecommendVO> recommendList = recommendService.listRecommendVo();
         return Result.ok().put("recommendList",recommendList);
     }
 
     @RequestMapping("/hotReads")
-    @Cacheable
+    @Cacheable(key = "'HOTREAD'")
     public Result listHotRead () {
         List<RecommendVO> hotReadList = recommendService.listHotRead();
         return Result.ok().put("hotReadList",hotReadList);

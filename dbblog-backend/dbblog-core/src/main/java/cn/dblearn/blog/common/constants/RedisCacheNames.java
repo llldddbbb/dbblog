@@ -11,6 +11,7 @@ package cn.dblearn.blog.common.constants;
 public class RedisCacheNames {
 
 
+
     private final static String PROFIX = "DBBLOG:";
 
     /**
@@ -46,5 +47,10 @@ public class RedisCacheNames {
      * 分类列表
      */
     public final static String CATEGORY = PROFIX +"CATEGORY";
+
+    /**
+     * 时光轴
+     */
+    public static final String TIMELINE =  PROFIX +"TIMELINE";
 
 }
