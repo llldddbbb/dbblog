@@ -12,7 +12,7 @@ import lombok.Data;
  * @description
  */
 @Data
-public class TagVo extends Tag {
+public class TagVO extends Tag {
 
     private String linkNum;
 }

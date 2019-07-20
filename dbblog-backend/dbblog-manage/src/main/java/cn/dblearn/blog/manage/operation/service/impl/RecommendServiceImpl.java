@@ -3,7 +3,7 @@ package cn.dblearn.blog.manage.operation.service.impl;
 import cn.dblearn.blog.common.util.PageUtils;
 import cn.dblearn.blog.common.util.Query;
 import cn.dblearn.blog.entity.operation.Recommend;
-import cn.dblearn.blog.entity.operation.vo.RecommendVo;
+import cn.dblearn.blog.entity.operation.vo.RecommendVO;
 import cn.dblearn.blog.manage.operation.mapper.RecommendMapper;
 import cn.dblearn.blog.manage.operation.service.RecommendService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -48,7 +48,7 @@ public class RecommendServiceImpl extends ServiceImpl<RecommendMapper, Recommend
      * @return
      */
     @Override
-    public List<RecommendVo> listSelect() {
+    public List<RecommendVO> listSelect() {
         return baseMapper.listSelect();
     }
 

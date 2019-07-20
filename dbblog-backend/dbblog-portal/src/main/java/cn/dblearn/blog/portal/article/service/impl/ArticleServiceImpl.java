@@ -4,7 +4,7 @@ import cn.dblearn.blog.common.enums.ModuleEnum;
 import cn.dblearn.blog.common.util.PageUtils;
 import cn.dblearn.blog.common.util.Query;
 import cn.dblearn.blog.entity.article.Article;
-import cn.dblearn.blog.entity.article.vo.ArticleVo;
+import cn.dblearn.blog.entity.article.vo.ArticleVO;
 import cn.dblearn.blog.manage.operation.service.TagService;
 import cn.dblearn.blog.mapper.article.ArticleMapper;
 import cn.dblearn.blog.portal.article.service.ArticleService;
@@ -39,8 +39,8 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
      */
     @Override
     public PageUtils queryPageCondition(Map<String, Object> params) {
-        Page<ArticleVo> page = new Query<ArticleVo>(params).getPage();
-        List<ArticleVo> articleList = baseMapper.queryPageCondition(page, params);
+        Page<ArticleVO> page = new Query<ArticleVO>(params).getPage();
+        List<ArticleVO> articleList = baseMapper.queryPageCondition(page, params);
         // 封装ArticleVo
         page.setRecords(articleList);
         return new PageUtils(page);
@@ -53,9 +53,9 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
      * @return
      */
     @Override
-    public ArticleVo getArticleVo(Integer articleId) {
+    public ArticleVO getArticleVo(Integer articleId) {
         Article article = baseMapper.selectById(articleId);
-        ArticleVo articleVo = new ArticleVo();
+        ArticleVO articleVo = new ArticleVO();
         BeanUtils.copyProperties(article,articleVo);
         articleVo.setTagList(tagService.listByLinkId(articleId,ModuleEnum.ARTICLE.getValue()));
         return articleVo;
@@ -67,8 +67,8 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
      * @return
      */
     @Override
-    public ArticleVo getSimpleArticleVo(Integer articleId) {
-        ArticleVo articleVo = baseMapper.getSimpleArticleVo(articleId);
+    public ArticleVO getSimpleArticleVo(Integer articleId) {
+        ArticleVO articleVo = baseMapper.getSimpleArticleVo(articleId);
         articleVo.setTagList(tagService.listByLinkId(articleId,ModuleEnum.ARTICLE.getValue()));
         return articleVo;
     }

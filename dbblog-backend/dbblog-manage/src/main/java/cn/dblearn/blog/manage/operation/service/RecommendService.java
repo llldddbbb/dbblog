@@ -2,7 +2,7 @@ package cn.dblearn.blog.manage.operation.service;
 
 import cn.dblearn.blog.common.util.PageUtils;
 import cn.dblearn.blog.entity.operation.Recommend;
-import cn.dblearn.blog.entity.operation.vo.RecommendVo;
+import cn.dblearn.blog.entity.operation.vo.RecommendVO;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
@@ -29,7 +29,7 @@ public interface RecommendService extends IService<Recommend> {
      * 获取推荐列表
      * @return
      */
-    List<RecommendVo> listSelect();
+    List<RecommendVO> listSelect();
 
     /**
      * 更新置顶状态

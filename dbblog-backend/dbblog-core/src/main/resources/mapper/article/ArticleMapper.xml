@@ -11,7 +11,6 @@
         <result column="content" property="content" />
         <result column="content_format" property="contentFormat" />
         <result column="read_num" property="readNum" />
-        <result column="comment_num" property="commentNum" />
         <result column="like_num" property="likeNum" />
         <result column="cover_type" property="coverType" />
         <result column="cover" property="cover" />
@@ -28,10 +27,10 @@
     </resultMap>
 
     <sql id="homeArticleColumn">
-        id,title,description,author,read_num,comment_num,like_num,cover,cover_type,create_time,top
+        id,title,description,author,read_num,like_num,cover,cover_type,create_time,top
     </sql>
 
-    <select id="listArticleVo" resultType="cn.dblearn.blog.entity.article.vo.ArticleVo">
+    <select id="listArticleVo" resultType="cn.dblearn.blog.entity.article.vo.ArticleVO">
         select * from article
         <where>
             <if test="params.title!=null and params.title !=''">
@@ -61,9 +60,6 @@
         <if test="params.favorite !=null and params.favorite != ''">
             order by top desc,like_num desc
         </if>
-        <if test="params.commentMost !=null and params.commentMost != ''">
-            order by top desc,comment_num desc
-        </if>
 
     </select>
 
@@ -71,7 +67,7 @@
         update article set read_num = read_num + 1 where id = #{id}
     </update>
 
-    <select id="getSimpleArticleVo" resultType="cn.dblearn.blog.entity.article.vo.ArticleVo">
+    <select id="getSimpleArticleVo" resultType="cn.dblearn.blog.entity.article.vo.ArticleVO">
         select <include refid="homeArticleColumn"/> from article where id = #{id}
     </select>
 

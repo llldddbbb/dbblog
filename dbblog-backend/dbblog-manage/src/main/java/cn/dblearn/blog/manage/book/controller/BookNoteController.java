@@ -6,7 +6,7 @@ import cn.dblearn.blog.common.enums.ModuleEnum;
 import cn.dblearn.blog.common.util.PageUtils;
 import cn.dblearn.blog.common.validator.ValidatorUtils;
 import cn.dblearn.blog.entity.book.BookNote;
-import cn.dblearn.blog.entity.book.dto.BookNoteDto;
+import cn.dblearn.blog.entity.book.dto.BookNoteDTO;
 import cn.dblearn.blog.manage.book.service.BookNoteService;
 import cn.dblearn.blog.manage.operation.service.RecommendService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -47,13 +47,13 @@ public class BookNoteController {
     @GetMapping("/info/{bookNoteId}")
     @RequiresPermissions("book:note:list")
     public Result info(@PathVariable Integer bookNoteId) {
-        BookNoteDto bookNote = bookNoteService.getBookNote(bookNoteId);
+        BookNoteDTO bookNote = bookNoteService.getBookNote(bookNoteId);
         return Result.ok().put("bookNote",bookNote);
     }
 
     @PostMapping("/save")
     @RequiresPermissions("book:note:save")
-    public Result saveBookNote(@RequestBody BookNoteDto bookNote){
+    public Result saveBookNote(@RequestBody BookNoteDTO bookNote){
         ValidatorUtils.validateEntity(bookNote);
         bookNoteService.saveBookNote(bookNote);
         return Result.ok();
@@ -62,7 +62,7 @@ public class BookNoteController {
     @PutMapping("/update")
     @RequiresPermissions("book:note:update")
     @CacheEvict(value = RedisKeyConstants.PORTAL_RECOMMEND_LIST)
-    public Result updateBookNote(@RequestBody BookNoteDto bookNote){
+    public Result updateBookNote(@RequestBody BookNoteDTO bookNote){
         ValidatorUtils.validateEntity(bookNote);
         bookNote.setUpdateTime(new Date());
         bookNoteService.updateBookNote(bookNote);

@@ -2,7 +2,7 @@ package cn.dblearn.blog.manage.book.service;
 
 import cn.dblearn.blog.common.util.PageUtils;
 import cn.dblearn.blog.entity.book.BookNote;
-import cn.dblearn.blog.entity.book.dto.BookNoteDto;
+import cn.dblearn.blog.entity.book.dto.BookNoteDTO;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.Map;
@@ -28,7 +28,7 @@ public interface BookNoteService extends IService<BookNote> {
      * 保存笔记笔记
      * @param blogBookNote
      */
-    void saveBookNote(BookNoteDto blogBookNote);
+    void saveBookNote(BookNoteDTO blogBookNote);
 
     /**
      * 批量删除
@@ -40,14 +40,14 @@ public interface BookNoteService extends IService<BookNote> {
      * 更新笔记
      * @param blogBookNote
      */
-    void updateBookNote(BookNoteDto blogBookNote);
+    void updateBookNote(BookNoteDTO blogBookNote);
 
     /**
      * 获取笔记对象
      * @param bookNoteId
      * @return
      */
-    BookNoteDto getBookNote(Integer bookNoteId);
+    BookNoteDTO getBookNote(Integer bookNoteId);
 
     /**
      * 判断该类别下是否有笔记

@@ -4,8 +4,8 @@ import cn.dblearn.blog.common.enums.ModuleEnum;
 import cn.dblearn.blog.common.util.PageUtils;
 import cn.dblearn.blog.common.util.Query;
 import cn.dblearn.blog.entity.book.BookNote;
-import cn.dblearn.blog.entity.book.dto.BookNoteDto;
-import cn.dblearn.blog.entity.book.vo.BookNoteVo;
+import cn.dblearn.blog.entity.book.dto.BookNoteDTO;
+import cn.dblearn.blog.entity.book.vo.BookNoteVO;
 import cn.dblearn.blog.mapper.book.BookNoteMapper;
 import cn.dblearn.blog.manage.book.service.BookNoteService;
 import cn.dblearn.blog.manage.book.service.BookService;
@@ -53,8 +53,8 @@ public class BookNoteServiceImpl extends ServiceImpl<BookNoteMapper, BookNote> i
      */
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
-        Page<BookNoteVo> page = new Query<BookNoteVo>(params).getPage();
-        List<BookNoteVo> bookNoteList = baseMapper.listBookNoteVo(page, params);
+        Page<BookNoteVO> page = new Query<BookNoteVO>(params).getPage();
+        List<BookNoteVO> bookNoteList = baseMapper.listBookNoteVo(page, params);
         // 查询所有分类
         List<Category> categoryList = categoryService.list(new QueryWrapper<Category>().lambda().eq(Category::getType,ModuleEnum.BOOK.getValue()));
         // 封装BookNoteVo
@@ -80,7 +80,7 @@ public class BookNoteServiceImpl extends ServiceImpl<BookNoteMapper, BookNote> i
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void saveBookNote(BookNoteDto bookNote) {
+    public void saveBookNote(BookNoteDTO bookNote) {
         baseMapper.insert(bookNote);
         tagService.saveTagAndNew(bookNote.getTagList(),bookNote.getId(),ModuleEnum.BOOK_NOTE.getValue());
     }
@@ -92,7 +92,7 @@ public class BookNoteServiceImpl extends ServiceImpl<BookNoteMapper, BookNote> i
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void updateBookNote(BookNoteDto bookNote) {
+    public void updateBookNote(BookNoteDTO bookNote) {
         // 删除多对多所属标签
         tagService.deleteTagLink(bookNote.getId(),ModuleEnum.BOOK_NOTE.getValue());
         // 更新所属标签
@@ -108,8 +108,8 @@ public class BookNoteServiceImpl extends ServiceImpl<BookNoteMapper, BookNote> i
      * @return
      */
     @Override
-    public BookNoteDto getBookNote(Integer bookNoteId) {
-        BookNoteDto bookNoteDto = new BookNoteDto();
+    public BookNoteDTO getBookNote(Integer bookNoteId) {
+        BookNoteDTO bookNoteDto = new BookNoteDTO();
         BookNote bookNote = this.baseMapper.selectById(bookNoteId);
         BeanUtils.copyProperties(bookNote,bookNoteDto);
         // 查询所属标签

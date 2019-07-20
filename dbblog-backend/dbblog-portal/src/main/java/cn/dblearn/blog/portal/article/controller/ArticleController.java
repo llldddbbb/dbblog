@@ -3,7 +3,7 @@ package cn.dblearn.blog.portal.article.controller;
 
 import cn.dblearn.blog.common.Result;
 import cn.dblearn.blog.common.util.PageUtils;
-import cn.dblearn.blog.entity.article.vo.ArticleVo;
+import cn.dblearn.blog.entity.article.vo.ArticleVO;
 import cn.dblearn.blog.portal.article.service.ArticleService;
 import cn.dblearn.blog.portal.common.annotation.LogLike;
 import cn.dblearn.blog.portal.common.annotation.LogView;
@@ -29,7 +29,7 @@ public class ArticleController {
     @GetMapping("/article/{articleId}")
     @LogView(type = "article")
     public Result getArticle(@PathVariable Integer articleId){
-        ArticleVo article = articleService.getArticleVo(articleId);
+        ArticleVO article = articleService.getArticleVo(articleId);
         return Result.ok().put("article",article);
     }
 

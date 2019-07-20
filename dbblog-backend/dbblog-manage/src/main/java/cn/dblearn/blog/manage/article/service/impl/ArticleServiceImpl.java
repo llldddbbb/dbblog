@@ -5,7 +5,7 @@ import cn.dblearn.blog.common.util.PageUtils;
 import cn.dblearn.blog.common.util.Query;
 import cn.dblearn.blog.entity.article.Article;
 import cn.dblearn.blog.entity.article.dto.ArticleDTO;
-import cn.dblearn.blog.entity.article.vo.ArticleVo;
+import cn.dblearn.blog.entity.article.vo.ArticleVO;
 import cn.dblearn.blog.mapper.article.ArticleMapper;
 import cn.dblearn.blog.manage.article.service.ArticleService;
 import cn.dblearn.blog.entity.operation.Category;
@@ -49,8 +49,8 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
      */
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
-        Page<ArticleVo> page = new Query<ArticleVo>(params).getPage();
-        List<ArticleVo> articleList = baseMapper.listArticleVo(page, params);
+        Page<ArticleVO> page = new Query<ArticleVO>(params).getPage();
+        List<ArticleVO> articleList = baseMapper.listArticleVo(page, params);
         // 查询所有分类
         List<Category> categoryList = categoryService.list(new QueryWrapper<Category>().lambda().eq(Category::getType,ModuleEnum.ARTICLE.getValue()));
         // 封装ArticleVo

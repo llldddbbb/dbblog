@@ -19,7 +19,7 @@
         </where>
     </select>
 
-    <select id="listTagVo" resultType="cn.dblearn.blog.entity.operation.vo.TagVo">
+    <select id="listTagVo" resultType="cn.dblearn.blog.entity.operation.vo.TagVO">
         select t.name ,sum(t.num) as linkNum from (
           select distinct t.type, t.name, (select count(*) from tag_link tl2 where tl2.tag_id = t.id) as num
           from tag t

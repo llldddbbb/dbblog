@@ -11,7 +11,6 @@
         <result column="content" property="content" />
         <result column="content_format" property="contentFormat" />
         <result column="read_num" property="readNum" />
-        <result column="comment_num" property="commentNum" />
         <result column="like_num" property="likeNum" />
         <result column="cover" property="cover" />
         <result column="book_id" property="bookId" />
@@ -25,7 +24,7 @@
         <result column="top" property="top" />
     </resultMap>
 
-    <resultMap id="WithSubList" type="cn.dblearn.blog.entity.book.vo.BookNoteVo" extends="BaseResultMap">
+    <resultMap id="WithSubList" type="cn.dblearn.blog.entity.book.vo.BookNoteVO" extends="BaseResultMap">
         <association property="tagList" column="{linkId=id,type=type}" select="cn.dblearn.blog.mapper.operation.TagMapper.listByLinkId"/>
         <association property="book" column="{id=book_id}" select="cn.dblearn.blog.mapper.book.BookMapper.selectById"/>
     </resultMap>
@@ -35,13 +34,14 @@
         id, title, description, author, content, content_format, read_num, comment_num, like_num, cover, book_id, chapter, create_time, update_time, recommend, category_id, publish, cover_type, top
     </sql>
 
-    <select id="listBookNoteVo" resultType="cn.dblearn.blog.entity.book.vo.BookNoteVo">
-        select * from book_note
+    <select id="listBookNoteVo" resultType="cn.dblearn.blog.entity.book.vo.BookNoteVO">
+        select <include refid="Base_Column_List"/> from book_note
         <where>
             <if test="params.title!=null and params.title !=''">
                 and title like concat('%',#{params.title},'%')
             </if>
         </where>
+        order by create_time desc
     </select>
 
     <sql id="homeBookNoteColumn">
@@ -68,16 +68,13 @@
         <if test="params.favorite !=null">
             order by top desc, like_num desc
         </if>
-        <if test="params.commentMost !=null">
-            order by top desc, comment_num desc
-        </if>
     </select>
 
     <update id="updateReadNum">
         update book_note set read_num = read_num + 1 where id = #{id}
     </update>
 
-    <select id="getSimpleBookNoteVo" resultType="cn.dblearn.blog.entity.book.vo.BookNoteVo">
+    <select id="getSimpleBookNoteVo" resultType="cn.dblearn.blog.entity.book.vo.BookNoteVO">
         select <include refid="homeBookNoteColumn"/> from book_note where id = #{id}
     </select>
 

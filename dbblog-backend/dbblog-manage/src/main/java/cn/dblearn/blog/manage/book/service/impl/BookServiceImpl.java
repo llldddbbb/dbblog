@@ -4,8 +4,8 @@ import cn.dblearn.blog.common.enums.ModuleEnum;
 import cn.dblearn.blog.common.util.PageUtils;
 import cn.dblearn.blog.common.util.Query;
 import cn.dblearn.blog.entity.book.Book;
-import cn.dblearn.blog.entity.book.dto.BookDto;
-import cn.dblearn.blog.entity.book.vo.BookVo;
+import cn.dblearn.blog.entity.book.dto.BookDTO;
+import cn.dblearn.blog.entity.book.vo.BookVO;
 import cn.dblearn.blog.mapper.book.BookMapper;
 import cn.dblearn.blog.manage.book.service.BookService;
 import cn.dblearn.blog.entity.operation.Category;
@@ -48,8 +48,8 @@ public class BookServiceImpl extends ServiceImpl<BookMapper, Book> implements Bo
      */
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
-        Page<BookVo> page=new Query<BookVo>(params).getPage();
-        List<BookVo> bookList = this.baseMapper.listBookVo(page,params);
+        Page<BookVO> page=new Query<BookVO>(params).getPage();
+        List<BookVO> bookList = this.baseMapper.listBookVo(page,params);
         // 查询所有分类
         List<Category> categoryList = categoryService.list(new QueryWrapper<Category>().lambda().eq(Category::getType,ModuleEnum.BOOK.getValue()));
         // 封装BookVo
@@ -70,7 +70,7 @@ public class BookServiceImpl extends ServiceImpl<BookMapper, Book> implements Bo
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void saveBook(BookDto book) {
+    public void saveBook(BookDTO book) {
        this.baseMapper.insert(book);
        tagService.saveTagAndNew(book.getTagList(),book.getId(), ModuleEnum.BOOK.getValue());
     }
@@ -82,9 +82,9 @@ public class BookServiceImpl extends ServiceImpl<BookMapper, Book> implements Bo
      * @return
      */
     @Override
-    public BookDto getBook(String id) {
+    public BookDTO getBook(String id) {
         Book readBook = this.baseMapper.selectById(id);
-        BookDto readBookDto = new BookDto();
+        BookDTO readBookDto = new BookDTO();
         BeanUtils.copyProperties(readBook,readBookDto);
         readBookDto.setTagList(tagService.listByLinkId(readBook.getId(),ModuleEnum.BOOK.getValue()));
         return readBookDto;
@@ -97,7 +97,7 @@ public class BookServiceImpl extends ServiceImpl<BookMapper, Book> implements Bo
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void updateBook(BookDto book) {
+    public void updateBook(BookDTO book) {
         // 删除多对多所属标签
         tagService.deleteTagLink(book.getId(),ModuleEnum.BOOK.getValue());
         // 更新所属标签

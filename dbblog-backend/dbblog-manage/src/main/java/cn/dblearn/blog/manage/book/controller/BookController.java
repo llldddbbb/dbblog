@@ -4,7 +4,7 @@ import cn.dblearn.blog.common.Result;
 import cn.dblearn.blog.common.util.PageUtils;
 import cn.dblearn.blog.common.validator.ValidatorUtils;
 import cn.dblearn.blog.entity.book.Book;
-import cn.dblearn.blog.entity.book.dto.BookDto;
+import cn.dblearn.blog.entity.book.dto.BookDTO;
 import cn.dblearn.blog.manage.book.service.BookService;
 import cn.dblearn.blog.common.base.AbstractController;
 import lombok.extern.slf4j.Slf4j;
@@ -58,7 +58,7 @@ public class BookController extends AbstractController {
     @GetMapping("/info/{id}")
     @RequiresPermissions("book:info")
     public Result info(@PathVariable("id") String id) {
-        BookDto book = bookService.getBook(id);
+        BookDTO book = bookService.getBook(id);
         return Result.ok().put("book", book);
     }
 
@@ -67,7 +67,7 @@ public class BookController extends AbstractController {
      */
     @PostMapping("/save")
     @RequiresPermissions("book:save")
-    public Result save(@RequestBody BookDto book) {
+    public Result save(@RequestBody BookDTO book) {
         ValidatorUtils.validateEntity(book);
         bookService.saveBook(book);
 
@@ -79,7 +79,7 @@ public class BookController extends AbstractController {
      */
     @PutMapping("/update")
     @RequiresPermissions("book:update")
-    public Result update(@RequestBody BookDto book) {
+    public Result update(@RequestBody BookDTO book) {
         ValidatorUtils.validateEntity(book);
         bookService.updateBook(book);
         return Result.ok();

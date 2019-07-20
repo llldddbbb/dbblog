@@ -42,9 +42,6 @@ public class BookNote implements Serializable {
     @ApiModelProperty(value = "阅读量")
     private Long readNum;
 
-    @ApiModelProperty(value = "评论量")
-    private Long commentNum;
-
     @ApiModelProperty(value = "点赞量")
     private Long likeNum;
 

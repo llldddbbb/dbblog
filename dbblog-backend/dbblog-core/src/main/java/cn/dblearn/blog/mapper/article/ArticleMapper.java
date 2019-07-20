@@ -1,7 +1,7 @@
 package cn.dblearn.blog.mapper.article;
 
 import cn.dblearn.blog.entity.article.Article;
-import cn.dblearn.blog.entity.article.vo.ArticleVo;
+import cn.dblearn.blog.entity.article.vo.ArticleVO;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.ibatis.annotations.Mapper;
@@ -29,7 +29,7 @@ public interface ArticleMapper extends BaseMapper<Article> {
      * @param params
      * @return
      */
-    List<ArticleVo> listArticleVo(Page<ArticleVo> page, @Param("params") Map<String, Object> params);
+    List<ArticleVO> listArticleVo(Page<ArticleVO> page, @Param("params") Map<String, Object> params);
 
     /**
      * 根据条件查询分页
@@ -37,7 +37,7 @@ public interface ArticleMapper extends BaseMapper<Article> {
      * @param params
      * @return
      */
-    List<ArticleVo> queryPageCondition(Page<ArticleVo> page, @Param("params") Map<String, Object> params);
+    List<ArticleVO> queryPageCondition(Page<ArticleVO> page, @Param("params") Map<String, Object> params);
 
     /**
      * 更新阅读记录
@@ -50,7 +50,7 @@ public interface ArticleMapper extends BaseMapper<Article> {
      * @param articleId
      * @return
      */
-    ArticleVo getSimpleArticleVo(Integer articleId);
+    ArticleVO getSimpleArticleVo(Integer articleId);
 
     /**
      * 更新点赞记录

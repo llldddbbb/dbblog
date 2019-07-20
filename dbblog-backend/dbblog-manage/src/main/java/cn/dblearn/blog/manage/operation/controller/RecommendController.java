@@ -6,7 +6,7 @@ import cn.dblearn.blog.common.constants.RedisKeyConstants;
 import cn.dblearn.blog.common.util.PageUtils;
 import cn.dblearn.blog.common.validator.ValidatorUtils;
 import cn.dblearn.blog.entity.operation.Recommend;
-import cn.dblearn.blog.entity.operation.vo.RecommendVo;
+import cn.dblearn.blog.entity.operation.vo.RecommendVO;
 import cn.dblearn.blog.manage.operation.service.RecommendService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -47,7 +47,7 @@ public class RecommendController extends AbstractController {
     @GetMapping("/select")
     @RequiresPermissions("operation:recommend:list")
     public Result select () {
-        List<RecommendVo> recommendList = recommendService.listSelect();
+        List<RecommendVO> recommendList = recommendService.listSelect();
         return Result.ok().put("recommendList",recommendList);
     }
 

@@ -3,7 +3,7 @@ package cn.dblearn.blog.portal.book.controller;
 
 import cn.dblearn.blog.common.Result;
 import cn.dblearn.blog.common.util.PageUtils;
-import cn.dblearn.blog.entity.book.vo.BookVo;
+import cn.dblearn.blog.entity.book.vo.BookVO;
 import cn.dblearn.blog.portal.book.service.BookService;
 import cn.dblearn.blog.portal.common.annotation.LogLike;
 import cn.dblearn.blog.portal.common.annotation.LogView;
@@ -29,7 +29,7 @@ public class BookController {
     @GetMapping("/book/{bookId}")
     @LogView(type = "book")
     public Result getBook(@PathVariable Integer bookId){
-        BookVo book = bookService.getBookVo(bookId);
+        BookVO book = bookService.getBookVo(bookId);
         return Result.ok().put("book",book);
     }
 

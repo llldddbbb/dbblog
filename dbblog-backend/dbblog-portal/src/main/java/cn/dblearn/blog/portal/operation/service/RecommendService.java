@@ -1,7 +1,7 @@
 package cn.dblearn.blog.portal.operation.service;
 
 import cn.dblearn.blog.entity.operation.Recommend;
-import cn.dblearn.blog.entity.operation.vo.RecommendVo;
+import cn.dblearn.blog.entity.operation.vo.RecommendVO;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
@@ -16,7 +16,7 @@ import java.util.List;
  */
 public interface RecommendService extends IService<Recommend> {
 
-    List<RecommendVo> listRecommendVo();
+    List<RecommendVO> listRecommendVo();
 
-    List<RecommendVo> listHotRead();
+    List<RecommendVO> listHotRead();
 }

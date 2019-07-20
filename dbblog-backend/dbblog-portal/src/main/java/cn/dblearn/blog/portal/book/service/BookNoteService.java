@@ -2,7 +2,7 @@ package cn.dblearn.blog.portal.book.service;
 
 import cn.dblearn.blog.common.util.PageUtils;
 import cn.dblearn.blog.entity.book.BookNote;
-import cn.dblearn.blog.entity.book.vo.BookNoteVo;
+import cn.dblearn.blog.entity.book.vo.BookNoteVO;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
@@ -30,7 +30,7 @@ public interface BookNoteService extends IService<BookNote> {
      * @param bookNoteId
      * @return
      */
-    BookNoteVo getSimpleBookNoteVo(Integer bookNoteId);
+    BookNoteVO getSimpleBookNoteVo(Integer bookNoteId);
 
     /**
      * 获取简单List

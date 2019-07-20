@@ -1,7 +1,7 @@
 package cn.dblearn.blog.portal.operation.controller;
 
 import cn.dblearn.blog.common.Result;
-import cn.dblearn.blog.entity.operation.vo.TagVo;
+import cn.dblearn.blog.entity.operation.vo.TagVO;
 import cn.dblearn.blog.portal.operation.service.TagService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,7 +27,7 @@ public class TagController {
 
     @GetMapping("/tags")
     public Result listTag() {
-        List<TagVo> tagList = tagService.listTagVo();
+        List<TagVO> tagList = tagService.listTagVo();
         return Result.ok().put("tagList",tagList);
     }
 

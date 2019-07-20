@@ -19,19 +19,18 @@
         <result column="create_time" property="createTime" />
         <result column="update_time" property="updateTime" />
         <result column="read_num" property="readNum" />
-        <result column="comment_num" property="commentNum" />
         <result column="like_num" property="likeNum" />
         <result column="publish" property="publish" />
         <result column="progress" property="progress" />
         <result column="reading" property="reading" />
     </resultMap>
 
-    <resultMap id="WithSubList" extends="BaseResultMap" type="cn.dblearn.blog.entity.book.vo.BookVo">
+    <resultMap id="WithSubList" extends="BaseResultMap" type="cn.dblearn.blog.entity.book.vo.BookVO">
         <association property="tagList" column="{linkId=id,type=type}" select="cn.dblearn.blog.mapper.operation.TagMapper.listByLinkId"/>
         <association property="bookNoteList" column="id" select="cn.dblearn.blog.mapper.book.BookNoteMapper.listSimpleBookNote"/>
         <association property="bookSense" column="{bookId=id}" select="cn.dblearn.blog.mapper.book.BookSenseMapper.selectOne"/>
     </resultMap>
-    <resultMap id="WithTagList" extends="BaseResultMap" type="cn.dblearn.blog.entity.book.vo.BookVo">
+    <resultMap id="WithTagList" extends="BaseResultMap" type="cn.dblearn.blog.entity.book.vo.BookVO">
         <association property="tagList" column="{linkId=id,type=type}" select="cn.dblearn.blog.mapper.operation.TagMapper.listByLinkId"/>
     </resultMap>
 
@@ -44,13 +43,14 @@
         id,title,description,author,read_num,comment_num,like_num,cover,create_time,reading,progress
     </sql>
 
-    <select id="listBookVo" resultType="cn.dblearn.blog.entity.book.vo.BookVo">
-        select * from book
+    <select id="listBookVo" resultType="cn.dblearn.blog.entity.book.vo.BookVO">
+        select <include refid="Base_Column_List"/> from book
         <where>
             <if test="params.title!=null and params.title!=''">
                 and title = #{params.title}
             </if>
         </where>
+        order by create_time desc
     </select>
 
     <select id="queryPageCondition" resultMap="WithTagList">
@@ -72,9 +72,6 @@
         </if>
         <if test="params.favorite !=null">
             order by reading desc,like_num desc
-        </if>
-        <if test="params.commentMost !=null">
-            order by reading desc,comment_num desc
         </if>
     </select>
 

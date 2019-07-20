@@ -2,22 +2,21 @@ package cn.dblearn.blog.entity.book.vo;
 
 import cn.dblearn.blog.entity.book.Book;
 import cn.dblearn.blog.entity.book.BookNote;
-import cn.dblearn.blog.entity.book.BookSense;
 import cn.dblearn.blog.entity.operation.Tag;
 import lombok.Data;
 
 import java.util.List;
 
 /**
- * ReadBookVo
+ * ArticleVo
  *
  * @author bobbi
- * @date 2019/01/29 14:17
+ * @date 2019/01/09 16:51
  * @email 571002217@qq.com
- * @description
+ * @description 文章列表VO
  */
 @Data
-public class BookVo extends Book {
+public class BookNoteVO extends BookNote {
 
     /**
      * 所属分类，以逗号分隔
@@ -30,12 +29,8 @@ public class BookVo extends Book {
     private List<Tag> tagList;
 
     /**
-     * 所属笔记
+     * 所属书本
      */
-    private List<BookNote> bookNoteList;
+    private Book book;
 
-    /**
-     * 读后感
-     */
-    private BookSense bookSense;
 }

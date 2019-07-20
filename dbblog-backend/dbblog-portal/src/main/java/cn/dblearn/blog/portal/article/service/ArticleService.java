@@ -3,7 +3,7 @@ package cn.dblearn.blog.portal.article.service;
 
 import cn.dblearn.blog.common.util.PageUtils;
 import cn.dblearn.blog.entity.article.Article;
-import cn.dblearn.blog.entity.article.vo.ArticleVo;
+import cn.dblearn.blog.entity.article.vo.ArticleVO;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.Map;
@@ -30,13 +30,13 @@ public interface ArticleService extends IService<Article> {
      * @param articleId
      * @return
      */
-    ArticleVo getArticleVo(Integer articleId);
+    ArticleVO getArticleVo(Integer articleId);
 
     /**
      * 获取简单的Article对象
      * @param articleId
      * @return
      */
-     ArticleVo getSimpleArticleVo(Integer articleId);
+     ArticleVO getSimpleArticleVo(Integer articleId);
 
 }

@@ -16,7 +16,7 @@ import java.util.List;
  * @description
  */
 @Data
-public class RecommendVo extends Recommend {
+public class RecommendVO extends Recommend {
 
     private String description;
 

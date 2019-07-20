@@ -3,7 +3,7 @@ package cn.dblearn.blog.portal.book.service.impl;
 import cn.dblearn.blog.common.util.PageUtils;
 import cn.dblearn.blog.common.util.Query;
 import cn.dblearn.blog.entity.book.BookNote;
-import cn.dblearn.blog.entity.book.vo.BookNoteVo;
+import cn.dblearn.blog.entity.book.vo.BookNoteVO;
 import cn.dblearn.blog.manage.operation.service.TagService;
 import cn.dblearn.blog.mapper.book.BookNoteMapper;
 import cn.dblearn.blog.portal.book.service.BookNoteService;
@@ -43,8 +43,8 @@ public class BookNoteServiceImpl extends ServiceImpl<BookNoteMapper, BookNote> i
      */
     @Override
     public PageUtils queryPageCondition(Map<String, Object> params) {
-        Page<BookNoteVo> page = new Query<BookNoteVo>(params).getPage();
-        List<BookNoteVo> bookNoteList = baseMapper.queryPageCondition(page, params);
+        Page<BookNoteVO> page = new Query<BookNoteVO>(params).getPage();
+        List<BookNoteVO> bookNoteList = baseMapper.queryPageCondition(page, params);
         page.setRecords(bookNoteList);
         return new PageUtils(page);
     }
@@ -56,8 +56,8 @@ public class BookNoteServiceImpl extends ServiceImpl<BookNoteMapper, BookNote> i
      * @return
      */
     @Override
-    public BookNoteVo getSimpleBookNoteVo(Integer bookNoteId) {
-        BookNoteVo bookNoteVo = baseMapper.getSimpleBookNoteVo(bookNoteId);
+    public BookNoteVO getSimpleBookNoteVo(Integer bookNoteId) {
+        BookNoteVO bookNoteVo = baseMapper.getSimpleBookNoteVo(bookNoteId);
         bookNoteVo.setBook(bookService.getBookVo(bookNoteVo.getBookId()));
         return bookNoteVo;
     }

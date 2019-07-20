@@ -15,7 +15,7 @@ import java.util.List;
  * @description 文章列表VO
  */
 @Data
-public class ArticleVo extends Article {
+public class ArticleVO extends Article {
 
     /**
      * 所属分类，以逗号分隔

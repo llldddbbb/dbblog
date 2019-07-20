@@ -58,9 +58,6 @@ public class Book implements Serializable {
     @ApiModelProperty(value = "阅读量")
     private Integer readNum;
 
-    @ApiModelProperty(value = "评论量")
-    private Integer commentNum;
-
     @ApiModelProperty(value = "点赞量")
     private Integer likeNum;
 

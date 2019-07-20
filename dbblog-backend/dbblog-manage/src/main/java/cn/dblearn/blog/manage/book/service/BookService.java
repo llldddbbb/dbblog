@@ -2,7 +2,7 @@ package cn.dblearn.blog.manage.book.service;
 
 import cn.dblearn.blog.common.util.PageUtils;
 import cn.dblearn.blog.entity.book.Book;
-import cn.dblearn.blog.entity.book.dto.BookDto;
+import cn.dblearn.blog.entity.book.dto.BookDTO;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.Map;
@@ -28,20 +28,20 @@ public interface BookService extends IService<Book> {
      * 保存图书
       * @param book
      */
-    void saveBook(BookDto book);
+    void saveBook(BookDTO book);
 
     /**
      * 获取图书对象
      * @param id
      * @return
      */
-    BookDto getBook(String id);
+    BookDTO getBook(String id);
 
     /**
      * 更新图书
      * @param book
      */
-    void updateBook(BookDto book);
+    void updateBook(BookDTO book);
 
     /**
      * 批量删除
