@@ -41,7 +41,7 @@ export default {
       categoryList: [],
       selected_category: this.$route.params.id,
       currentPage: 1,
-      pageSize: DefaultLimitSize,
+      pageSize: 15,
       categoryId: this.$route.params.id,
       menuParams: {
         latest: true

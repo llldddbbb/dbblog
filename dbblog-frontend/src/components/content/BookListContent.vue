@@ -56,7 +56,7 @@ export default {
       bookNoteList: [],
       categoryList: [],
       currentPage: 1,
-      pageSize: DefaultLimitSize,
+      pageSize: 15,
       categoryId: undefined,
       selected_category: this.$route.params.id,
       menuBookParams: {
