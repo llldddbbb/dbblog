@@ -1,4 +1,4 @@
-# Tomcat
+﻿# Tomcat
 server:
   tomcat:
     uri-encoding: UTF-8
@@ -11,6 +11,7 @@ server:
   servlet:
     #映射项目路径
     context-path: /dbblog
+
 
 spring:
   profiles:
@@ -33,6 +34,10 @@ spring:
   resources:
     #restFul风格: 不要为资源文件建立映射
     add-mappings: false
+  rabbitmq:
+    listener:
+      simple:
+        acknowledge-mode: manual
 
 #mybatis
 mybatis-plus:
