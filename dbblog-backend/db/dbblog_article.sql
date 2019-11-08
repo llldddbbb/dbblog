@@ -1,3 +1,5 @@
+truncate dbblog.article;
+
 INSERT INTO dbblog.article (id, title, description, author, content, content_format, read_num, comment_num, like_num, cover_type, cover, create_time, update_time, recommend, category_id, publish, top) VALUES (1, '关于本站和博主', '关于本站和博主', 'Bobbi', '# 关于我
 氧化钡，英文名Bobbi，是一名努力成长中的Java爱好者  
 以下是微信，欢迎互相交流

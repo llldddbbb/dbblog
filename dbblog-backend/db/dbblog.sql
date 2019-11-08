@@ -3,7 +3,7 @@ create table article
   id int auto_increment comment '主键'
     primary key,
   title varchar(50) not null comment '文章标题',
-  description varchar(255) null comment '文章描述',
+  description text null comment '文章描述',
   author varchar(50) null comment '文章作者',
   content longtext null comment '文章内容',
   content_format longtext null comment 'html的content',
@@ -54,7 +54,7 @@ create table book_note
   id int auto_increment comment '主键'
     primary key,
   title varchar(50) not null comment '笔记标题',
-  description varchar(255) null comment '笔记描述',
+  description text null comment '笔记描述',
   author varchar(50) null comment '笔记作者',
   content longtext null comment '笔记内容',
   content_format longtext null comment 'html的context',
@@ -93,7 +93,7 @@ create table category
   id int auto_increment comment '主键',
   name varchar(255) null comment '名称',
   type int null comment '类型：0文章，1阅读',
-  rank int null comment '级别',
+  `rank` int null comment '级别',
   parent_id int default '0' null comment '父主键',
   constraint operation_category_id_uindex
   unique (id)
@@ -215,7 +215,8 @@ create table sys_role_menu
 
 create table sys_user
 (
-  user_id int null,
+  user_id bigint auto_increment
+      primary key,
   username tinytext null,
   password varchar(255) null,
   email tinytext null,
