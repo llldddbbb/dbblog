@@ -145,15 +145,9 @@ export default {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
           this.$http({
-            url: this.$http.adornUrl(`/admin/operation/category/${!this.dataForm.categoryId ? 'save' : 'update'}`),
+            url: this.$http.adornUrl(`/admin/operation/category/${!this.dataForm.id ? 'save' : 'update'}`),
             method: 'post',
-            data: this.$http.adornData({
-              'id': this.dataForm.categoryId || undefined,
-              'name': this.dataForm.name,
-              'type': this.dataForm.type,
-              'rank': this.dataForm.rank,
-              'parentId': this.dataForm.parentId
-            })
+            data: this.$http.adornData(this.dataForm)
           }).then(({data}) => {
             if (data && data.code === 200) {
               this.$message({

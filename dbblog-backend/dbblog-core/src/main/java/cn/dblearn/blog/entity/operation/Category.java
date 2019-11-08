@@ -39,6 +39,7 @@ public class Category implements Serializable {
 
     @ApiModelProperty(value = "级别")
     @NotNull(message = "级别不能为空")
+    @TableField(value = "`rank`")
     private Integer rank;
 
     @ApiModelProperty(value = "父主键")

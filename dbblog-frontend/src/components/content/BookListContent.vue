@@ -47,7 +47,7 @@ import TagWall from '@/components/views/TagWall'
 import BrowseMore from '@/components/views/BrowseMore'
 import merge from 'lodash/merge'
 import {treeDataTranslate} from '@/utils'
-import {DefaultLimitSize, DefaultFilterList} from '@/common/js/const'
+import {DefaultFilterList} from '@/common/js/const'
 
 export default {
   data () {
