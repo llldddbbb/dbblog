@@ -4,6 +4,7 @@
       <iv-col :xs="24" :sm="24" :md="24" :lg="17">
         <section-title :mainTitle="'搜索结果'" :subTitle="this.$route.query.keywords"> </section-title>
         <article-list-cell v-for="article in articleList" :article="article" :key="article.id"></article-list-cell>
+        <div v-if="noResult">暂无相关文章</div>
       </iv-col>
       <iv-col :xs="0" :sm="0" :md="0" :lg="7">
         <div class="layout-right">
@@ -27,7 +28,8 @@ import SectionTitle from '@/components/views/SectionTitle/SectionTitle'
 export default {
   data () {
     return {
-      articleList: []
+      articleList: [],
+      noResult: false
     }
   },
   mixins: [mixin],
@@ -47,7 +49,7 @@ export default {
             this.articleList.map(article => {
               article.coverType = 2
             })
-          }
+          } else { this.noResult = true }
         }
       })
     }
