@@ -68,13 +68,6 @@
       label="浏览">
     </el-table-column>
     <el-table-column
-      prop="commentNum"
-      header-align="center"
-      align="center"
-      width="80"
-      label="评论">
-    </el-table-column>
-    <el-table-column
       prop="likeNum"
       header-align="center"
       align="center"

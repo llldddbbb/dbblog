@@ -1,5 +1,6 @@
 package cn.dblearn.blog.entity.book;
 
+import cn.dblearn.blog.common.base.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -18,16 +19,10 @@ import java.util.Date;
  * @since 2019-02-13
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
 @ApiModel(value="ReadBookSense对象", description="读后感")
-public class BookSense implements Serializable {
+public class BookSense extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
-    @ApiModelProperty(value = "主键")
-    private Integer id;
-
     @ApiModelProperty(value = "作者")
     private String author;
 
@@ -37,11 +32,6 @@ public class BookSense implements Serializable {
     @ApiModelProperty(value = "关联图书Id")
     private Integer bookId;
 
-    @ApiModelProperty(value = "创建时间")
-    private Date createTime;
-
-    @ApiModelProperty(value = "更新时间")
-    private Date updateTime;
 
 
 }

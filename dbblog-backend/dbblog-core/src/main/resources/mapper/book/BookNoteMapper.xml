@@ -41,7 +41,7 @@
                 and title like concat('%',#{params.title},'%')
             </if>
         </where>
-        order by create_time desc
+        order by update_time desc
     </select>
 
     <sql id="homeBookNoteColumn">
@@ -63,7 +63,7 @@
             order by top desc, recommend desc
         </if>
         <if test="params.latest !=null">
-            order by top desc, create_time desc
+            order by top desc, update_time desc
         </if>
         <if test="params.favorite !=null">
             order by top desc, like_num desc

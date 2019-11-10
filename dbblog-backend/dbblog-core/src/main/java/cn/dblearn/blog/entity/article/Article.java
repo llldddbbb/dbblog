@@ -1,8 +1,11 @@
 package cn.dblearn.blog.entity.article;
 
+import cn.dblearn.blog.common.base.BaseEntity;
 import cn.dblearn.blog.common.validator.group.AddGroup;
 import cn.dblearn.blog.common.validator.group.UpdateGroup;
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -28,14 +31,9 @@ import java.util.Date;
 @Data
 @ApiModel(value="BlogArticle对象", description="文章")
 @Document(indexName = "dbblog",type = "article")
-public class Article implements Serializable {
+public class Article extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
-    @ApiModelProperty(value = "主键")
-    @TableId(value = "id", type = IdType.AUTO)
-    @Id
-    private Integer id;
 
     @ApiModelProperty(value = "文章标题")
     @NotBlank(message="博文标题不能为空", groups = {AddGroup.class, UpdateGroup.class})
@@ -62,14 +60,6 @@ public class Article implements Serializable {
 
     @ApiModelProperty(value = "文章展示类别,0:普通，1：大图片，2：无图片")
     private Integer coverType;
-
-    @ApiModelProperty(value = "创建时间")
-    @Field(type = FieldType.Date, format = DateFormat.none)
-    private Date createTime;
-
-    @ApiModelProperty(value = "更新时间")
-    @Field(type = FieldType.Date, format = DateFormat.none)
-    private Date updateTime;
 
     @ApiModelProperty(value = "是否推荐文章")
     private Boolean recommend;

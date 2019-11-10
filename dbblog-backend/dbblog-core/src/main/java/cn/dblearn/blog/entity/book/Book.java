@@ -1,5 +1,6 @@
 package cn.dblearn.blog.entity.book;
 
+import cn.dblearn.blog.common.base.BaseEntity;
 import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -18,12 +19,9 @@ import java.util.Date;
  */
 @Data
 @ApiModel(value="ReadBook对象", description="图书表")
-public class Book implements Serializable {
+public class Book extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
-    @TableId
-    private Integer id;
 
     @ApiModelProperty(value = "标题")
     private String title;
@@ -67,15 +65,8 @@ public class Book implements Serializable {
     @ApiModelProperty(value = "是否发布")
     private Boolean publish;
 
-    @ApiModelProperty(value = "创建时间")
-    private Date createTime;
-
-    @ApiModelProperty(value = "更新时间")
-    private Date updateTime;
-
     @ApiModelProperty(value = "读书进度")
     private Integer progress;
-
 
     @ApiModelProperty(value = "是否正在阅读")
     private Boolean reading;
