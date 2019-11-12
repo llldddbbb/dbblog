@@ -7,6 +7,7 @@
     <el-form-item>
       <el-button @click="getDataList()">查询</el-button>
       <el-button type="danger" :disabled="dataListSelections.length <= 0" @click="deleteHandle()">批量删除</el-button>
+      <el-button type="warning"  @click="refreshCache()">刷新缓存</el-button>
     </el-form-item>
   </el-form>
   <el-table
@@ -256,6 +257,19 @@ export default {
         if (data && data.code === 200) {
           this.$message.success('更新成功')
           this.getDataList()
+        } else {
+          this.$message.error(data.msg)
+        }
+      })
+    },
+    // 刷新缓存
+    refreshCache () {
+      this.$http({
+        url: this.$http.adornUrl(`/admin/article/cache/refresh`),
+        method: 'delete'
+      }).then(({data}) => {
+        if (data && data.code === 200) {
+          this.$message.success('刷新成功')
         } else {
           this.$message.error(data.msg)
         }

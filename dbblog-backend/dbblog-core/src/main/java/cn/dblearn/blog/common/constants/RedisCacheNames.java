@@ -10,9 +10,7 @@ package cn.dblearn.blog.common.constants;
  */
 public class RedisCacheNames {
 
-
-
-    private final static String PROFIX = "DBBLOG:";
+    public final static String PROFIX = "DBBLOG:";
 
     /**
      * 文章缓存空间名称

@@ -13,12 +13,14 @@ import cn.dblearn.blog.manage.operation.service.RecommendService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.Date;
 import java.util.Map;
+import java.util.Set;
 
 
 /**
@@ -39,6 +41,9 @@ public class ArticleController {
 
     @Resource
     private RecommendService recommendService;
+
+    @Resource
+    private RedisTemplate<String,Object> redisTemplate;
 
     @GetMapping("/list")
     @RequiresPermissions("article:list")
@@ -93,6 +98,14 @@ public class ArticleController {
     public Result deleteBatch(@RequestBody Integer[] articleIds) {
         recommendService.deleteBatchByLinkId(articleIds, ModuleEnum.ARTICLE.getValue());
         articleService.deleteBatch(articleIds);
+        return Result.ok();
+    }
+
+    @DeleteMapping("/cache/refresh")
+    @RequiresPermissions("article:cache:refresh")
+    public Result flush() {
+        Set<String> keys = redisTemplate.keys("^"+RedisCacheNames.PROFIX+".*");
+        redisTemplate.delete(keys);
         return Result.ok();
     }
 

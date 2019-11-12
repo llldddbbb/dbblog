@@ -30,7 +30,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/admin/book/note")
-@CacheConfig(cacheNames ={RedisCacheNames.RECOMMEND,RedisCacheNames.TAG,RedisCacheNames.ARTICLE,RedisCacheNames.TIMELINE})
+@CacheConfig(cacheNames ={RedisCacheNames.RECOMMEND,RedisCacheNames.TAG,RedisCacheNames.BOOK,RedisCacheNames.BOOKNOTE,RedisCacheNames.TIMELINE})
 public class BookNoteController {
 
     @Resource

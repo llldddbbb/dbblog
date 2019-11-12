@@ -168,7 +168,8 @@ create table recommend
 
 create table sys_menu
 (
-  menu_id bigint null,
+  menu_id bigint auto_increment
+      primary key,
   parent_id bigint null,
   name tinytext null,
   url varchar(200) null,
@@ -182,7 +183,8 @@ create table sys_menu
 
 create table sys_param
 (
-  id int null,
+  id bigint auto_increment
+      primary key,
   par_key int null,
   par_value varchar(255) null,
   menu_url varchar(255) null,

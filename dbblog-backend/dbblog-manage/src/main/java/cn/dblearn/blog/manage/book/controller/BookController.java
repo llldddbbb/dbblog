@@ -27,7 +27,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/admin/book")
-@CacheConfig(cacheNames ={RedisCacheNames.RECOMMEND,RedisCacheNames.TAG,RedisCacheNames.ARTICLE,RedisCacheNames.TIMELINE})
+@CacheConfig(cacheNames ={RedisCacheNames.RECOMMEND,RedisCacheNames.TAG,RedisCacheNames.BOOK,RedisCacheNames.TIMELINE})
 public class BookController extends AbstractController {
     @Resource
     private BookService bookService;
