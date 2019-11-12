@@ -21,6 +21,7 @@ import javax.annotation.Resource;
 import java.util.Date;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 
 /**
@@ -104,7 +105,7 @@ public class ArticleController {
     @DeleteMapping("/cache/refresh")
     @RequiresPermissions("article:cache:refresh")
     public Result flush() {
-        Set<String> keys = redisTemplate.keys("^"+RedisCacheNames.PROFIX+".*");
+        Set<String> keys = redisTemplate.keys(RedisCacheNames.PROFIX+"*");
         redisTemplate.delete(keys);
         return Result.ok();
     }
