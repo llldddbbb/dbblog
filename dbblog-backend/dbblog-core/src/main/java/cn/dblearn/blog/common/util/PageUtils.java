@@ -18,6 +18,7 @@ package cn.dblearn.blog.common.util;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.util.List;
@@ -31,6 +32,7 @@ import java.util.List;
  * @description 分页工具类
  */
 @Data
+@NoArgsConstructor
 public class PageUtils implements Serializable {
 	private static final long serialVersionUID = 1L;
 	//总记录数
