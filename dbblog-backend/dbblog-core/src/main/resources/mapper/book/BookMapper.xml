@@ -68,7 +68,7 @@
             order by reading desc, recommend desc
         </if>
         <if test="params.latest !=null">
-            order by reading desc,update_time desc
+            order by reading desc,create_time desc
         </if>
         <if test="params.favorite !=null">
             order by reading desc,like_num desc

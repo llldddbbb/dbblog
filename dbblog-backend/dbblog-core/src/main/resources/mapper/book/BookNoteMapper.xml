@@ -34,8 +34,16 @@
         id, title, description, author, content, content_format, read_num, like_num, cover, book_id, chapter, create_time, update_time, recommend, category_id, publish, cover_type, top
     </sql>
 
+    <sql id="homeBookNoteColumn">
+        id,title,description,author,read_num,like_num,cover,create_time,book_id,chapter,cover_type,top
+    </sql>
+
+    <sql id="manageBookNoteColumn">
+       id,title,description,author,read_num,like_num,cover,create_time,top,publish,recommend,category_id
+    </sql>
+
     <select id="listBookNoteVo" resultType="cn.dblearn.blog.entity.book.vo.BookNoteVO">
-        select <include refid="Base_Column_List"/> from book_note
+        select <include refid="manageBookNoteColumn"/> from book_note
         <where>
             <if test="params.title!=null and params.title !=''">
                 and title like concat('%',#{params.title},'%')
@@ -43,10 +51,6 @@
         </where>
         order by update_time desc
     </select>
-
-    <sql id="homeBookNoteColumn">
-        id,title,description,author,read_num,like_num,cover,create_time,book_id,chapter,cover_type,top
-    </sql>
     
     <select id="queryPageCondition" resultMap="WithSubList">
         select <include refid="homeBookNoteColumn"/>, 2 as `type` from book_note
@@ -63,7 +67,7 @@
             order by top desc, recommend desc
         </if>
         <if test="params.latest !=null">
-            order by top desc, update_time desc
+            order by top desc, create_time desc
         </if>
         <if test="params.favorite !=null">
             order by top desc, like_num desc
