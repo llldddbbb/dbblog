@@ -57,7 +57,6 @@ public class BookSenseController extends AbstractController {
     @CacheEvict(allEntries = true)
     public Result update(@RequestBody BookSense bookSense) {
         ValidatorUtils.validateEntity(bookSense);
-        bookSense.setUpdateTime(new Date());
         bookSenseService.updateById(bookSense);
         return Result.ok();
     }

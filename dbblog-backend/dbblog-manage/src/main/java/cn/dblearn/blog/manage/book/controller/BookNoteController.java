@@ -67,7 +67,6 @@ public class BookNoteController {
     @CacheEvict(allEntries = true)
     public Result updateBookNote(@RequestBody BookNoteDTO bookNote){
         ValidatorUtils.validateEntity(bookNote);
-        bookNote.setUpdateTime(new Date());
         bookNoteService.updateBookNote(bookNote);
         return Result.ok();
     }

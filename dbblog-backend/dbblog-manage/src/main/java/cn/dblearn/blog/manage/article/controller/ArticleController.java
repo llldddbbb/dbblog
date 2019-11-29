@@ -76,7 +76,6 @@ public class ArticleController {
     @RefreshEsMqSender(sender = "dbblog-manage-updateArticle")
     public Result updateArticle(@RequestBody ArticleDTO article){
         ValidatorUtils.validateEntity(article);
-        article.setUpdateTime(new Date());
         articleService.updateArticle(article);
         return Result.ok();
     }
