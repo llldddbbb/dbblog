@@ -15,7 +15,7 @@
               <iv-icon type="document-text"></iv-icon>&nbsp;&nbsp;Chapter：{{bookNote.chapter | textLineBreak(70) }}
             </p>
             <div class="tags">
-              <iv-tag :color="index | mapTagColor" :key="tag.id" type="border" v-for ="(tag , index) in bookNote.tagList">{{tag.name}}</iv-tag>
+              <iv-tag :color="tag.id | mapTagColor" :key="tag.id" type="border" v-for ="(tag) in bookNote.tagList">{{tag.name}}</iv-tag>
             </div>
             <p class="desc">{{bookNote.description | filterHtml | textLineBreak(70) }}<a :href="'/bookNote/'+bookNote.id"> 查看更多
               <iv-icon type="arrow-right-b"></iv-icon>

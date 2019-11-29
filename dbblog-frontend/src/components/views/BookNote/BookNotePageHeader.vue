@@ -1,7 +1,7 @@
 <template>
   <div class="bookNote-page-header">
     <div class="tags">
-      <iv-tag :color="index | mapTagColor" v-for="(tag , index) in bookNote.tagList" :key="tag.id">{{tag.name}}</iv-tag>
+      <iv-tag :color="tag.id | mapTagColor" v-for="(tag) in bookNote.tagList" :key="tag.id">{{tag.name}}</iv-tag>
     </div>
     <p class="title">{{bookNote.title}}</p>
     <iv-row>

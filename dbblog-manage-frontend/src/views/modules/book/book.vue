@@ -316,7 +316,7 @@ export default {
         params: this.$http.adornParams()
       }).then(({data}) => {
         if (data && data.code === 200) {
-          this.bookSense = data.bookSense
+          this.bookSense = data.bookSense || {}
           this.bookSense.bookId = id
         }
       }).then(() => {

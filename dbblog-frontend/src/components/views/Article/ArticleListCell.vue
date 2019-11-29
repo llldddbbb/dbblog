@@ -9,7 +9,7 @@
               <span class="special" v-if="article.top>0" title="置顶">置顶</span>
             </h4>
             <div class="tags">
-              <iv-tag :color="index | mapTagColor" :key="tag.id" type="border" v-for ="(tag , index) in article.tagList">{{tag.name}}</iv-tag>
+              <iv-tag :color="tag.id | mapTagColor" :key="tag.id" type="border" v-for ="(tag) in article.tagList">{{tag.name}}</iv-tag>
             </div>
             <p class="desc">{{article.description | filterHtml | textLineBreak(70) }}<a :href="'/article/'+article.id"> 查看更多
               <iv-icon type="arrow-right-b"></iv-icon>

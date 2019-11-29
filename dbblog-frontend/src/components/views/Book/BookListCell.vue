@@ -9,7 +9,7 @@
               <span class="special" v-if="book.reading>0" title="正在阅读">正在阅读</span>
             </h4>
             <div class="tags">
-              <iv-tag :color="index | mapTagColor" :key="tag.id" type="border" v-for ="(tag , index) in book.tagList">{{tag.name}}</iv-tag>
+              <iv-tag :color="tag.id | mapTagColor" :key="tag.id" type="border" v-for ="(tag) in book.tagList">{{tag.name}}</iv-tag>
             </div>
             <p class="desc">{{book.description | filterHtml | textLineBreak(70) }}<a :href="'/book/'+book.id"> 查看更多
               <iv-icon type="arrow-right-b"></iv-icon>

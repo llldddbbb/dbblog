@@ -2,7 +2,7 @@
   <div class="tag-wall">
     <panel :title="'标签墙'">
       <div slot="content" class="content">
-        <iv-tag v-for="(tag , index) in tagList" type="dot" color="blue" :key="index" style="margin: 0 5px 5px 0;" class="dot-tag">{{ tag.name +' ['+ tag.linkNum + ']'}}
+        <iv-tag v-for="(tag, index) in tagList" type="dot" :color="index | mapTagColor" :key="index" style="margin: 0 5px 5px 0;" class="dot-tag">{{ tag.name +' ['+ tag.linkNum + ']'}}
         </iv-tag>
       </div>
     </panel>
@@ -11,7 +11,7 @@
 
 <script type="text/ecmascript-6">
 import Panel from '@/components/utils/Panel'
-
+import {mixin} from '@/utils/index'
 export default {
   data () {
     return {
@@ -21,6 +21,7 @@ export default {
   components: {
     'panel': Panel
   },
+  mixins: [mixin],
   created () {
     this.listTag()
   },

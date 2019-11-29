@@ -57,8 +57,8 @@ export default {
       categoryList: [],
       currentPage: 1,
       pageSize: 15,
-      categoryId: undefined,
-      selected_category: this.$route.params.id,
+      categoryId: this.$route.query.categoryId,
+      selected_category: this.$route.query.categoryId,
       menuBookParams: {
         latest: true
       },

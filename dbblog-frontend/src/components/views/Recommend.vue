@@ -6,7 +6,7 @@
           <a :href="'/' + topRecommend.urlType + '/' + topRecommend.linkId">
             <p class="title">{{topRecommend.title}}</p>
             <div class="tags">
-              <iv-tag  :color="index | mapTagColor" v-for="(tag,index) in topRecommend.tagList" :key="tag.id">{{tag.name}}</iv-tag>
+              <iv-tag  :color="tag.id | mapTagColor" v-for="(tag) in topRecommend.tagList" :key="tag.id">{{tag.name}}</iv-tag>
             </div>
             <p class="info">
               <span class="time">{{topRecommend.createTime | socialDate }}</span>

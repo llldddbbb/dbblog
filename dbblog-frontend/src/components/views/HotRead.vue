@@ -6,7 +6,7 @@
           <a :href="'/' + topHotRead.urlType + '/' + topHotRead.linkId">
             <p class="title">{{topHotRead.title}}</p>
             <div class="tags">
-              <iv-tag  :color="index | mapTagColor" v-for="(tag , index)  in topHotRead.tagList" :key="tag.id">{{tag.name}}</iv-tag>
+              <iv-tag  :color="tag.id | mapTagColor" v-for="(tag)  in topHotRead.tagList" :key="tag.id">{{tag.name}}</iv-tag>
             </div>
             <p class="info">
               <span class="time">{{topHotRead.createTime | socialDate }}</span>

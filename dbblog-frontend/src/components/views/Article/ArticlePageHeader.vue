@@ -1,7 +1,7 @@
 <template>
   <div class="article-page-header">
     <div class="tags">
-      <iv-tag :color="index | mapTagColor" v-for="(tag , index) in article.tagList" :key="tag.id">{{tag.name}}</iv-tag>
+      <iv-tag :color="tag.id | mapTagColor" v-for="(tag) in article.tagList" :key="tag.id">{{tag.name}}</iv-tag>
     </div>
     <p class="title">{{article.title}}</p>
     <iv-row>
@@ -44,9 +44,6 @@ export default {
         console.log(error)
       })
     }
-  },
-  mounted () {
-    // this.$loadScript('https://assets.changyan.sohu.com/upload/plugins/plugins.count.js', () => {})
   }
 }
 </script>

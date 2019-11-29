@@ -32,6 +32,7 @@
 
 <script type="text/ecmascript-6">
 import {mixin} from '@/utils'
+import merge from 'webpack-merge'
 export default {
   name: 'classify-menu',
   mixins: [mixin],
@@ -97,6 +98,10 @@ export default {
         activeNode.classList.remove('active')
       }
       event.target.classList.add('active')
+      // 更新url地址
+      this.$router.push({
+        query: merge(this.$route.query, {'categoryId': category.id})
+      })
     },
     setDefaultCategory (categoryId) {
       let recursiveCategorys = []

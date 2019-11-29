@@ -37,10 +37,10 @@ export default {
     return {
       articleList: [],
       categoryList: [],
-      selected_category: this.$route.params.id,
+      selected_category: this.$route.query.categoryId,
       currentPage: 1,
       pageSize: 15,
-      categoryId: this.$route.params.id,
+      categoryId: this.$route.query.categoryId,
       menuParams: {
         latest: true
       },
