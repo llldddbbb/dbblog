@@ -251,7 +251,7 @@ export default {
       })
     },
     mavonChangeHandle (context, render) {
-      this.article.contentFormat = marked(context)
+      this.article.contentFormat = marked(context, {breaks: true})
     }
   }
 }

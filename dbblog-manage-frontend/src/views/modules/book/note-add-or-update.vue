@@ -285,7 +285,7 @@ export default {
       })
     },
     mavonChangeHandle (value, render) {
-      this.bookNote.contentFormat = marked(value)
+      this.bookNote.contentFormat = marked(value, {breaks: true})
     }
   }
 }
