@@ -107,6 +107,7 @@ TocScrollSpy.prototype._getCurrentTitleElement = function (index) {
 }
 
 TocScrollSpy.prototype._updateTocStatus = function (currentTitleElement) {
+  if (!currentTitleElement) return
   let activeId = currentTitleElement.id
   let activeTocEl = this.tocElement.querySelector('.' + activeId)
   let activeANode = this.tocElement.querySelector('.active')
