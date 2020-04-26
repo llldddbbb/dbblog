@@ -3,15 +3,11 @@ package cn.dblearn.blog.search.config;
 import cn.dblearn.blog.common.constants.RabbitMqConstants;
 import cn.dblearn.blog.common.util.RabbitMqUtils;
 import com.rabbitmq.client.ConnectionFactory;
-import org.elasticsearch.client.ElasticsearchClient;
-import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
-import org.springframework.boot.autoconfigure.data.elasticsearch.ElasticsearchAutoConfiguration;
-import org.springframework.context.annotation.Conditional;
-import org.springframework.context.annotation.Configuration;
-
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
+import org.elasticsearch.client.ElasticsearchClient;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.context.annotation.Configuration;
 
 /**
  * InitialConfig
@@ -22,7 +18,7 @@ import javax.annotation.Resource;
  * @description
  */
 @Configuration
-@ConditionalOnBean(ElasticsearchClient.class)
+@ConditionalOnClass(ElasticsearchClient.class)
 public class InitialConfig {
 
     @Resource
