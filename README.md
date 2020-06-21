@@ -1,6 +1,5 @@
 > 欢迎加入QQ群讨论：764251186
 
-也有微信群，加我的微信吧：
 
 ![image.png](http://oss.dblearn.cn/dbblog/20200314/be0b7b34f536421690a41e4063ddecc5.png)
 
