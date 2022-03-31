@@ -38,7 +38,7 @@
         <commons.io.version>2.5</commons.io.version>
         <jasypt.version>2.1.0</jasypt.version>
         <qiniu.version>[7.2.0, 7.2.99]</qiniu.version>
-        <springboot.version>2.1.2.RELEASE</springboot.version>
+        <springboot.version>2.5.12</springboot.version>
         <lombok.version>1.18.4</lombok.version>
         <mysql.version>8.0.11</mysql.version>
     </properties>
