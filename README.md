@@ -28,8 +28,6 @@
 - jasypt 加密
 - 七牛云 图床
 
-## 站点演示
-[www.dblearn.cn](www.dblearn.cn)
 
 ## 模块分层
 ### 后端模块
